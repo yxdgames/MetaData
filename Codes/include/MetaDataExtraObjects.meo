@@ -1,0 +1,15 @@
+/******************************************************/
+/*  将所有.meo文件放进这里，以保证各元数据被正确生成 */
+/******************************************************/
+
+//Demo
+#ifdef __META_DATA_DEMO__
+#include "Demo.meo"
+#endif //__META_DATA_DEMO__
+
+//Serialization
+#include "..\..\Serialization\src\ISerial.meo"
+#include "..\..\Serialization\src\ITreeSerial.meo"
+#include "..\..\Serialization\src\TreeSerial.meo"
+
+//Others

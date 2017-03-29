@@ -1,0 +1,4 @@
+#include "..\include\TreeSerial.h"
+
+/*Define: MetaData of Class Type*/
+MD_CLASS_TYPE_DEF(CTreeSerial)

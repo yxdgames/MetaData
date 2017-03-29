@@ -1,0 +1,18 @@
+#include "..\include\InterfacedObject.h"
+
+/*Define: MetaData of Class Type*/
+MD_CLASS_TYPE_DEF(CInterfacedObject)
+
+/*Define: MetaData of constructor wrapper*/
+MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(0,CInterfacedObject)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_PROC_CHECK(0)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_NEW_OBJ(CInterfacedObject);
+MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_END()
+
+/*Define: MetaData of member function wrapper*/
+
+/*Define: MetaData of member variable wrapper*/
+
+/*Define: MetaData of static member function wrapper*/
+
+/*Define: MetaData of static member variable wrapper*/
