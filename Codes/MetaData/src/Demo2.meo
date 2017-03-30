@@ -1,4 +1,4 @@
-#include "..\include\Demo.h"
+#include "..\include\Demo2.h"
 
 #ifdef __META_DATA_DEMO__
 namespace NTest

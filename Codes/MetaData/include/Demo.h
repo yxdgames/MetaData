@@ -1,9 +1,6 @@
 #pragma once
 
 #include "..\include\MetaDataSupport.h"
-#include "..\include\MetaDataClassType.h"
-#include "..\include\TypeTraits.h"
-#include "..\include\SimpleString.h"
 
 //#define	__META_DATA_DEMO__
 
@@ -11,212 +8,764 @@
 ////////////////////////////////////////////////
 //                  Demo                      //
 ////////////////////////////////////////////////
-class CNone
+
+class CClass1
 {
 public:
-	void PrintSelf(void)
-	{
-		printf("ax:%d, bx:%f, str:%s\n", ax, bx, str.GetValue());
-	}
+	CClass1(void);
+	~CClass1(void);
+};
+
+class CClass1_Derived1 : public CClass1
+{
 public:
-	int ax;
-	double bx;
-	SimpleString str;
+	CClass1_Derived1(void);
+	~CClass1_Derived1(void);
+};
+
+class CClass1_Derived2 : public CClass1
+{
 public:
-	CNone(void)	: str("UTF-8 Testing...~!") {}
-	CNone(int a, double x):ax(a), bx(x)	{}
-	~CNone(void)	{}
+	CClass1_Derived2(void);
+	~CClass1_Derived2(void);
+};
+
+
+class CClass1_Descendant1 : public CClass1_Derived1
+{
 public:
-	double Memfunc1(int o, double u)
-	{
-		return o * u;
-	}
-	static float SMFunc1(long a, float b)
-	{
-		return b != 0 ? a / b : 0;
-	}
+	CClass1_Descendant1(void);
+	~CClass1_Descendant1(void);
+};
+
+class CClass1_Descendant2 : public CClass1_Derived2
+{
 public:
-	class CClsInCL1
+	CClass1_Descendant2(void);
+	~CClass1_Descendant2(void);
+};
+
+class CClass1_Descendant3 : public CClass1_Derived1, public CClass1_Derived2
+{
+public:
+	CClass1_Descendant3(void);
+	~CClass1_Descendant3(void);
+};
+
+class CClass1_Descendant4 : public CClass1_Descendant2
+{
+public:
+	CClass1_Descendant4(void);
+	~CClass1_Descendant4(void);
+};
+
+class CClass1_Descendant5 : public CClass1_Descendant3
+{
+public:
+	CClass1_Descendant5(void);
+	~CClass1_Descendant5(void);
+};
+
+class CClass2
+{
+public:
+	CClass2(void);
+	virtual ~CClass2(void);
+};
+
+class CClass2_Derived1 : public CClass2
+{
+public:
+	CClass2_Derived1(void);
+	virtual ~CClass2_Derived1(void);
+};
+
+class CClass2_Derived2 : public CClass2
+{
+public:
+	CClass2_Derived2(void);
+	virtual ~CClass2_Derived2(void);
+};
+
+class CClass2_Descendant1 : public CClass2_Derived1
+{
+public:
+	CClass2_Descendant1(void);
+	virtual ~CClass2_Descendant1(void);
+};
+
+class CClass2_Descendant2 : public CClass2_Derived2
+{
+public:
+	CClass2_Descendant2(void);
+	virtual ~CClass2_Descendant2(void);
+};
+
+class CClass2_Descendant3 : public CClass2_Derived1, public CClass2_Derived2
+{
+public:
+	CClass2_Descendant3(void);
+	virtual ~CClass2_Descendant3(void);
+};
+
+class CClass2_Descendant4 : public CClass2_Descendant2
+{
+public:
+	CClass2_Descendant4(void);
+	virtual ~CClass2_Descendant4(void);
+};
+
+class CClass2_Descendant5 : public CClass2_Descendant3
+{
+public:
+	CClass2_Descendant5(void);
+	virtual ~CClass2_Descendant5(void);
+};
+
+class CClass3
+{
+public:
+	CClass3(void);
+	~CClass3(void);
+public:
+	class CClass3_Inner1
 	{
 	public:
-		int XXX;
-		double u;
-		float z;
+		CClass3_Inner1(void);
+		~CClass3_Inner1(void);
+	};
+	class CClass3_Inner2
+	{
 	public:
-		class CLSInCL2
+		CClass3_Inner2(void);
+		virtual ~CClass3_Inner2(void);
+	};
+	class CClass3_Inner3
+	{
+	public:
+		CClass3_Inner3(void);
+		~CClass3_Inner3(void);
+	public:
+		class CClass3_Inner3_Inner1
 		{
 		public:
-			int XXX;
-			double u;
-			float z;
+			CClass3_Inner3_Inner1(void);
+			~CClass3_Inner3_Inner1(void);
+		};
+	};
+	class CClass3_Inner1_Derived1 : public CClass3_Inner1
+	{
+	public:
+		CClass3_Inner1_Derived1(void);
+		~CClass3_Inner1_Derived1(void);
+	};
+	class CClass3_Inner1_Derived2 : public CClass3_Inner1
+	{
+	public:
+		CClass3_Inner1_Derived2(void);
+		~CClass3_Inner1_Derived2(void);
+	};
+	class CClass3_Inner1_Descendant1 : public CClass3_Inner1_Derived1
+	{
+	public:
+		CClass3_Inner1_Descendant1(void);
+		~CClass3_Inner1_Descendant1(void);
+	};
+	class CClass3_Inner1_Descendant2 : public CClass3_Inner1_Derived2
+	{
+	public:
+		CClass3_Inner1_Descendant2(void);
+		~CClass3_Inner1_Descendant2(void);
+	};
+	class CClass3_Inner1_Descendant3 : public CClass3_Inner1_Derived1, public CClass3_Inner1_Derived2
+	{
+	public:
+		CClass3_Inner1_Descendant3(void);
+		~CClass3_Inner1_Descendant3(void);
+	};
+	class CClass3_Inner1_Descendant4 : public CClass3_Inner1_Descendant2
+	{
+	public:
+		CClass3_Inner1_Descendant4(void);
+		~CClass3_Inner1_Descendant4(void);
+	};
+	class CClass3_Inner1_Descendant5 : public CClass3_Inner1_Descendant3
+	{
+	public:
+		CClass3_Inner1_Descendant5(void);
+		~CClass3_Inner1_Descendant5(void);
+	};
+};
+
+namespace NameSpace1{
+	class NS1_CClass1
+	{
+	public:
+		NS1_CClass1(void);
+		~NS1_CClass1(void);
+	};
+
+	class NS1_CClass1_Derived1 : public NS1_CClass1
+	{
+	public:
+		NS1_CClass1_Derived1(void);
+		~NS1_CClass1_Derived1(void);
+	};
+
+	class NS1_CClass1_Derived2 : public NS1_CClass1
+	{
+	public:
+		NS1_CClass1_Derived2(void);
+		~NS1_CClass1_Derived2(void);
+	};
+
+
+	class NS1_CClass1_Descendant1 : public NS1_CClass1_Derived1
+	{
+	public:
+		NS1_CClass1_Descendant1(void);
+		~NS1_CClass1_Descendant1(void);
+	};
+
+	class NS1_CClass1_Descendant2 : public NS1_CClass1_Derived2
+	{
+	public:
+		NS1_CClass1_Descendant2(void);
+		~NS1_CClass1_Descendant2(void);
+	};
+
+	class NS1_CClass1_Descendant3 : public NS1_CClass1_Derived1, public NS1_CClass1_Derived2
+	{
+	public:
+		NS1_CClass1_Descendant3(void);
+		~NS1_CClass1_Descendant3(void);
+	};
+
+	class NS1_CClass1_Descendant4 : public NS1_CClass1_Descendant2
+	{
+	public:
+		NS1_CClass1_Descendant4(void);
+		~NS1_CClass1_Descendant4(void);
+	};
+
+	class NS1_CClass1_Descendant5 : public NS1_CClass1_Descendant3
+	{
+	public:
+		NS1_CClass1_Descendant5(void);
+		~NS1_CClass1_Descendant5(void);
+	};
+
+	class NS1_CClass2
+	{
+	public:
+		NS1_CClass2(void);
+		virtual ~NS1_CClass2(void);
+	};
+
+	class NS1_CClass2_Derived1 : public NS1_CClass2
+	{
+	public:
+		NS1_CClass2_Derived1(void);
+		virtual ~NS1_CClass2_Derived1(void);
+	};
+
+	class NS1_CClass2_Derived2 : public NS1_CClass2
+	{
+	public:
+		NS1_CClass2_Derived2(void);
+		virtual ~NS1_CClass2_Derived2(void);
+	};
+
+	class NS1_CClass2_Descendant1 : public NS1_CClass2_Derived1
+	{
+	public:
+		NS1_CClass2_Descendant1(void);
+		virtual ~NS1_CClass2_Descendant1(void);
+	};
+
+	class NS1_CClass2_Descendant2 : public NS1_CClass2_Derived2
+	{
+	public:
+		NS1_CClass2_Descendant2(void);
+		virtual ~NS1_CClass2_Descendant2(void);
+	};
+
+	class NS1_CClass2_Descendant3 : public NS1_CClass2_Derived1, public NS1_CClass2_Derived2
+	{
+	public:
+		NS1_CClass2_Descendant3(void);
+		virtual ~NS1_CClass2_Descendant3(void);
+	};
+
+	class NS1_CClass2_Descendant4 : public NS1_CClass2_Descendant2
+	{
+	public:
+		NS1_CClass2_Descendant4(void);
+		virtual ~NS1_CClass2_Descendant4(void);
+	};
+
+	class NS1_CClass2_Descendant5 : public NS1_CClass2_Descendant3
+	{
+	public:
+		NS1_CClass2_Descendant5(void);
+		virtual ~NS1_CClass2_Descendant5(void);
+	};
+
+	class NS1_CClass3
+	{
+	public:
+		NS1_CClass3(void);
+		~NS1_CClass3(void);
+	public:
+		class NS1_CClass3_Inner1
+		{
 		public:
-			class CClsInCL3
+			NS1_CClass3_Inner1(void);
+			~NS1_CClass3_Inner1(void);
+		};
+		class NS1_CClass3_Inner2
+		{
+		public:
+			NS1_CClass3_Inner2(void);
+			virtual ~NS1_CClass3_Inner2(void);
+		};
+		class NS1_CClass3_Inner3
+		{
+		public:
+			NS1_CClass3_Inner3(void);
+			~NS1_CClass3_Inner3(void);
+		public:
+			class NS1_CClass3_Inner3_Inner1
 			{
 			public:
-				CClsInCL3(void) : XXX(0)		{}
-				CClsInCL3(char c, CClsInCL1 obj) : XXX(obj.XXX)	{}
-				CClsInCL3(CClsInCL1 o, CClsInCL3 *obj) : XXX(obj ? obj->XXX : -98)	{}
-				~CClsInCL3(void)	{}
-			public:
-				void PrintSelfStr(void)		{ printf("obj - CClsInCL3::PrintSelfStr. XXX = %d\n", XXX); }
-			public:
-				int XXX;
-				double u;
-				float z;
-			MD_CLASS_TYPE_DECLARE_BEGIN(CClsInCL3)
-				MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(CClsInCL3, 0)
-				MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(CClsInCL3, 1)
-				MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(CClsInCL3, 2)
-			MD_CLASS_TYPE_DECLARE_DETAIL(CClsInCL3)
-				MD_CLASS_TYPE_CONSTRUCTOR_DEF(CClsInCL3, 0)
-				MD_CLASS_TYPE_CONSTRUCTOR_DEF(CClsInCL3, 1)
-					MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(c, *TypeTraits<char>::GetMetaDataType(), 0)
-					MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(obj, *TypeTraits<CClsInCL1>::GetMetaDataType(), 0)
-				MD_CLASS_TYPE_CONSTRUCTOR_DEF(CClsInCL3, 2)
-					MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(o, *TypeTraits<CClsInCL1>::GetMetaDataType(), 0)
-					MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(obj, *TypeTraits<CClsInCL3>::GetMetaDataType(), 1)
-			MD_CLASS_TYPE_DECLARE_END(CClsInCL3)
+				NS1_CClass3_Inner3_Inner1(void);
+				~NS1_CClass3_Inner3_Inner1(void);
 			};
-		MD_CLASS_TYPE_DECLARE_BEGIN(CLSInCL2)
-		MD_CLASS_TYPE_DECLARE_DETAIL(CLSInCL2)
-		MD_CLASS_TYPE_DECLARE_END(CLSInCL2)
 		};
-	MD_CLASS_TYPE_DECLARE_BEGIN(CClsInCL1)
-	MD_CLASS_TYPE_DECLARE_DETAIL(CClsInCL1)
-	MD_CLASS_TYPE_DECLARE_END(CClsInCL1)
+		class NS1_CClass3_Inner1_Derived1 : public NS1_CClass3_Inner1
+		{
+		public:
+			NS1_CClass3_Inner1_Derived1(void);
+			~NS1_CClass3_Inner1_Derived1(void);
+		};
+		class NS1_CClass3_Inner1_Derived2 : public NS1_CClass3_Inner1
+		{
+		public:
+			NS1_CClass3_Inner1_Derived2(void);
+			~NS1_CClass3_Inner1_Derived2(void);
+		};
+		class NS1_CClass3_Inner1_Descendant1 : public NS1_CClass3_Inner1_Derived1
+		{
+		public:
+			NS1_CClass3_Inner1_Descendant1(void);
+			~NS1_CClass3_Inner1_Descendant1(void);
+		};
+		class NS1_CClass3_Inner1_Descendant2 : public NS1_CClass3_Inner1_Derived2
+		{
+		public:
+			NS1_CClass3_Inner1_Descendant2(void);
+			~NS1_CClass3_Inner1_Descendant2(void);
+		};
+		class NS1_CClass3_Inner1_Descendant3 : public NS1_CClass3_Inner1_Derived1, public NS1_CClass3_Inner1_Derived2
+		{
+		public:
+			NS1_CClass3_Inner1_Descendant3(void);
+			~NS1_CClass3_Inner1_Descendant3(void);
+		};
+		class NS1_CClass3_Inner1_Descendant4 : public NS1_CClass3_Inner1_Descendant2
+		{
+		public:
+			NS1_CClass3_Inner1_Descendant4(void);
+			~NS1_CClass3_Inner1_Descendant4(void);
+		};
+		class NS1_CClass3_Inner1_Descendant5 : public NS1_CClass3_Inner1_Descendant3
+		{
+		public:
+			NS1_CClass3_Inner1_Descendant5(void);
+			~NS1_CClass3_Inner1_Descendant5(void);
+		};
 	};
-MD_CLASS_TYPE_DECLARE_BEGIN(CNone)
-   MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(CNone, 0)
-   MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(CNone, 1)
-   MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(CNone, Memfunc1, 0)
-   MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(CNone, SMFunc1, 0)
-MD_CLASS_TYPE_DECLARE_DETAIL(CNone)
-   MD_CLASS_TYPE_CONSTRUCTOR_DEF(CNone, 0)
-   MD_CLASS_TYPE_CONSTRUCTOR_DEF(CNone, 1)
-       MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(a, *TypeTraits<int>::GetMetaDataType(), 0)
-       MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(x, *TypeTraits<double>::GetMetaDataType(), 0)
-   MD_CLASS_TYPE_MEMBER_FUNC_DEF(CNone, Memfunc1, 0)
-       MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(o, *TypeTraits<int>::GetMetaDataType(), 0)
-       MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(u, *TypeTraits<double>::GetMetaDataType(), 0)
-       MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(*TypeTraits<double>::GetMetaDataType(), 0)
-   MD_CLASS_TYPE_MEMBER_VAR_DEF(CNone, ax, (*TypeTraits<int>::GetMetaDataType()), 0)
-   MD_CLASS_TYPE_MEMBER_VAR_DEF(CNone, bx, (*TypeTraits<double>::GetMetaDataType()), 0)
-   MD_CLASS_TYPE_MEMBER_VAR_DEF(CNone, str, (*TypeTraits<SimpleString>::GetMetaDataType()), 0)
-   MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(CNone, SMFunc1, 0)
-       MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(a, *TypeTraits<long>::GetMetaDataType(), 0)
-       MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(b, *TypeTraits<float>::GetMetaDataType(), 0)
-       MD_CLASS_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(*TypeTraits<float>::GetMetaDataType(), 0)
-MD_CLASS_TYPE_DECLARE_END(CNone)
-};
-
-class CNone_2
-{
-public:
-	CNone_2(void):u(13), d(8.3)	{}
-public:
-	void PrintSelf(void)
+	namespace NameSpasce1_Sub1
 	{
-		printf("a:%d, u:%d, d:%f\n", a, u, d);
-	}
-	double GetCalc(float a)	{ return u * d + a; }
-	int a;
-public:
-	int u;
-	double d;
-MD_CLASS_TYPE_DECLARE_BEGIN(CNone_2)
-MD_CLASS_TYPE_DECLARE_DETAIL(CNone_2)
-	MD_CLASS_TYPE_MEMBER_VAR_DEF(CNone_2, a, (*TypeTraits<int>::GetMetaDataType()), 0)
-	MD_CLASS_TYPE_MEMBER_VAR_DEF(CNone_2, u, (*TypeTraits<int>::GetMetaDataType()), 0)
-	MD_CLASS_TYPE_MEMBER_VAR_DEF(CNone_2, d, (*TypeTraits<double>::GetMetaDataType()), 0)
-MD_CLASS_TYPE_DECLARE_END(CNone_2)
-};
-
-MD_GLOBAL_FUNCTION_DECLARE(FuncDemo)
-double FuncDemo(double x, int y);
-
-namespace NTest
-{
-	class CClsInNS1 : public CNone, public CNone_2
-	{
-	public:
-		void PrintSelf(void)
+		class NS1_Sub1_CClass1
 		{
-			this->CNone::PrintSelf();
-			this->CNone_2::PrintSelf();
-			uab.PrintSelf();
-			printf("x:%f, b:%f, z:%d, a:%d\n", x, b, z, a);
-		}
-	public:
-		CNone uab;
-		double x;
-		float b;
-		long z;
-		int a;
-	public:
-		class CClsInCL2
-		{
-		private:
-			float cbd;
-			unsigned long xudb;
-			static double static_var;
-			CNone_2 func1(int a)
-			{
-				CNone_2 n_2;
-				n_2.a = a;
-				return n_2;
-			}
-			static double sfunc_1(int a, float b) { return a * b; }
-
-		MD_CLASS_TYPE_DECLARE_BEGIN(CClsInCL2)
-			MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(CClsInCL2, func1, 0)
-			MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(CClsInCL2, sfunc_1, 0)
-		MD_CLASS_TYPE_DECLARE_DETAIL(CClsInCL2)
-			MD_CLASS_TYPE_MEMBER_VAR_DEF(CClsInCL2, cbd, META_DATA_INNER_TYPE(float), 0)
-			MD_CLASS_TYPE_MEMBER_VAR_DEF(CClsInCL2, xudb, META_DATA_INNER_TYPE(unsigned long), 0)
-			MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(CClsInCL2, static_var, META_DATA_INNER_TYPE(double), 0)
-			MD_CLASS_TYPE_MEMBER_FUNC_DEF(CClsInCL2, func1, 0)
-				MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(this, *TypeTraits<CClsInCL2>::GetMetaDataType(), 1)
-				MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(a, *TypeTraits<int>::GetMetaDataType(), 0)
-				MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(*TypeTraits<CNone_2>::GetMetaDataType(), 0)
-			MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(CClsInCL2, sfunc_1, 0)
-				MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(a, *TypeTraits<int>::GetMetaDataType(), 0)
-				MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(b, *TypeTraits<float>::GetMetaDataType(), 0)
-				MD_CLASS_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(*TypeTraits<double>::GetMetaDataType(), 0)
-		MD_CLASS_TYPE_DECLARE_END(CClsInCL2)
+		public:
+			NS1_Sub1_CClass1(void);
+			~NS1_Sub1_CClass1(void);
 		};
-	MD_CLASS_TYPE_DECLARE_BEGIN(CClsInNS1)
-	MD_CLASS_TYPE_DECLARE_DETAIL(CClsInNS1)
-	   MD_CLASS_TYPE_BASE_CLASS_DEF(CClsInNS1, CNone)
-	   MD_CLASS_TYPE_BASE_CLASS_DEF(CClsInNS1, CNone_2)
-	   MD_CLASS_TYPE_MEMBER_VAR_DEF(CClsInNS1, uab, *TypeTraits<CNone>::GetMetaDataType(), 0)
-	   MD_CLASS_TYPE_MEMBER_VAR_DEF(CClsInNS1, x, *TypeTraits<double>::GetMetaDataType(), 0)
-	   MD_CLASS_TYPE_MEMBER_VAR_DEF(CClsInNS1, b, *TypeTraits<float>::GetMetaDataType(), 0)
-	   MD_CLASS_TYPE_MEMBER_VAR_DEF(CClsInNS1, z, *TypeTraits<long>::GetMetaDataType(), 0)
-	   MD_CLASS_TYPE_MEMBER_VAR_DEF(CClsInNS1, a, *TypeTraits<int>::GetMetaDataType(), 0)
-	MD_CLASS_TYPE_DECLARE_END(CClsInNS1)
-	};
 
-	namespace NTst2
-	{
-		class CClsInNS2
+		class NS1_Sub1_CClass1_Derived1 : public NS1_Sub1_CClass1
 		{
-		MD_CLASS_TYPE_DECLARE_BEGIN(CClsInNS2)
-		MD_CLASS_TYPE_DECLARE_DETAIL(CClsInNS2)
-		MD_CLASS_TYPE_DECLARE_END(CClsInNS2)
+		public:
+			NS1_Sub1_CClass1_Derived1(void);
+			~NS1_Sub1_CClass1_Derived1(void);
 		};
-		namespace NTst3
-		{
-			class CClsInNS3
-			{
-			MD_CLASS_TYPE_DECLARE_BEGIN(CClsInNS3)
-			MD_CLASS_TYPE_DECLARE_DETAIL(CClsInNS3)
-			MD_CLASS_TYPE_DECLARE_END(CClsInNS3)
-			}; 
-		}
-	}
-}
 
-MD_GLOBAL_FUNCTION_DECLARE(GetNone)
-extern NTest::CClsInNS1 GetNone(int ax, double bx);
+		class NS1_Sub1_CClass1_Derived2 : public NS1_Sub1_CClass1
+		{
+		public:
+			NS1_Sub1_CClass1_Derived2(void);
+			~NS1_Sub1_CClass1_Derived2(void);
+		};
+
+
+		class NS1_Sub1_CClass1_Descendant1 : public NS1_Sub1_CClass1_Derived1
+		{
+		public:
+			NS1_Sub1_CClass1_Descendant1(void);
+			~NS1_Sub1_CClass1_Descendant1(void);
+		};
+
+		class NS1_Sub1_CClass1_Descendant2 : public NS1_Sub1_CClass1_Derived2
+		{
+		public:
+			NS1_Sub1_CClass1_Descendant2(void);
+			~NS1_Sub1_CClass1_Descendant2(void);
+		};
+
+		class NS1_Sub1_CClass1_Descendant3 : public NS1_Sub1_CClass1_Derived1, public NS1_Sub1_CClass1_Derived2
+		{
+		public:
+			NS1_Sub1_CClass1_Descendant3(void);
+			~NS1_Sub1_CClass1_Descendant3(void);
+		};
+
+		class NS1_Sub1_CClass1_Descendant4 : public NS1_Sub1_CClass1_Descendant2
+		{
+		public:
+			NS1_Sub1_CClass1_Descendant4(void);
+			~NS1_Sub1_CClass1_Descendant4(void);
+		};
+
+		class NS1_Sub1_CClass1_Descendant5 : public NS1_Sub1_CClass1_Descendant3
+		{
+		public:
+			NS1_Sub1_CClass1_Descendant5(void);
+			~NS1_Sub1_CClass1_Descendant5(void);
+		};
+
+		class NS1_Sub1_CClass2
+		{
+		public:
+			NS1_Sub1_CClass2(void);
+			virtual ~NS1_Sub1_CClass2(void);
+		};
+
+		class NS1_Sub1_CClass2_Derived1 : public NS1_Sub1_CClass2
+		{
+		public:
+			NS1_Sub1_CClass2_Derived1(void);
+			virtual ~NS1_Sub1_CClass2_Derived1(void);
+		};
+
+		class NS1_Sub1_CClass2_Derived2 : public NS1_Sub1_CClass2
+		{
+		public:
+			NS1_Sub1_CClass2_Derived2(void);
+			virtual ~NS1_Sub1_CClass2_Derived2(void);
+		};
+
+		class NS1_Sub1_CClass2_Descendant1 : public NS1_Sub1_CClass2_Derived1
+		{
+		public:
+			NS1_Sub1_CClass2_Descendant1(void);
+			virtual ~NS1_Sub1_CClass2_Descendant1(void);
+		};
+
+		class NS1_Sub1_CClass2_Descendant2 : public NS1_Sub1_CClass2_Derived2
+		{
+		public:
+			NS1_Sub1_CClass2_Descendant2(void);
+			virtual ~NS1_Sub1_CClass2_Descendant2(void);
+		};
+
+		class NS1_Sub1_CClass2_Descendant3 : public NS1_Sub1_CClass2_Derived1, public NS1_Sub1_CClass2_Derived2
+		{
+		public:
+			NS1_Sub1_CClass2_Descendant3(void);
+			virtual ~NS1_Sub1_CClass2_Descendant3(void);
+		};
+
+		class NS1_Sub1_CClass2_Descendant4 : public NS1_Sub1_CClass2_Descendant2
+		{
+		public:
+			NS1_Sub1_CClass2_Descendant4(void);
+			virtual ~NS1_Sub1_CClass2_Descendant4(void);
+		};
+
+		class NS1_Sub1_CClass2_Descendant5 : public NS1_Sub1_CClass2_Descendant3
+		{
+		public:
+			NS1_Sub1_CClass2_Descendant5(void);
+			virtual ~NS1_Sub1_CClass2_Descendant5(void);
+		};
+
+		class NS1_Sub1_CClass3
+		{
+		public:
+			NS1_Sub1_CClass3(void);
+			~NS1_Sub1_CClass3(void);
+		public:
+			class NS1_Sub1_CClass3_Inner1
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1(void);
+				~NS1_Sub1_CClass3_Inner1(void);
+			};
+			class NS1_Sub1_CClass3_Inner2
+			{
+			public:
+				NS1_Sub1_CClass3_Inner2(void);
+				virtual ~NS1_Sub1_CClass3_Inner2(void);
+			};
+			class NS1_Sub1_CClass3_Inner3
+			{
+			public:
+				NS1_Sub1_CClass3_Inner3(void);
+				~NS1_Sub1_CClass3_Inner3(void);
+			public:
+				class NS1_Sub1_CClass3_Inner3_Inner1
+				{
+				public:
+					NS1_Sub1_CClass3_Inner3_Inner1(void);
+					~NS1_Sub1_CClass3_Inner3_Inner1(void);
+				};
+			};
+			class NS1_Sub1_CClass3_Inner1_Derived1 : public NS1_Sub1_CClass3_Inner1
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1_Derived1(void);
+				~NS1_Sub1_CClass3_Inner1_Derived1(void);
+			};
+			class NS1_Sub1_CClass3_Inner1_Derived2 : public NS1_Sub1_CClass3_Inner1
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1_Derived2(void);
+				~NS1_Sub1_CClass3_Inner1_Derived2(void);
+			};
+			class NS1_Sub1_CClass3_Inner1_Descendant1 : public NS1_Sub1_CClass3_Inner1_Derived1
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1_Descendant1(void);
+				~NS1_Sub1_CClass3_Inner1_Descendant1(void);
+			};
+			class NS1_Sub1_CClass3_Inner1_Descendant2 : public NS1_Sub1_CClass3_Inner1_Derived2
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1_Descendant2(void);
+				~NS1_Sub1_CClass3_Inner1_Descendant2(void);
+			};
+			class NS1_Sub1_CClass3_Inner1_Descendant3 : public NS1_Sub1_CClass3_Inner1_Derived1, public NS1_Sub1_CClass3_Inner1_Derived2
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1_Descendant3(void);
+				~NS1_Sub1_CClass3_Inner1_Descendant3(void);
+			};
+			class NS1_Sub1_CClass3_Inner1_Descendant4 : public NS1_Sub1_CClass3_Inner1_Descendant2
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1_Descendant4(void);
+				~NS1_Sub1_CClass3_Inner1_Descendant4(void);
+			};
+			class NS1_Sub1_CClass3_Inner1_Descendant5 : public NS1_Sub1_CClass3_Inner1_Descendant3
+			{
+			public:
+				NS1_Sub1_CClass3_Inner1_Descendant5(void);
+				~NS1_Sub1_CClass3_Inner1_Descendant5(void);
+			};
+		};
+
+		namespace NameSpasce1_Sub1_Sub1
+		{
+			class NS1_Sub1_Sub1_CClass1
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1(void);
+				~NS1_Sub1_Sub1_CClass1(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass1_Derived1 : public NS1_Sub1_Sub1_CClass1
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1_Derived1(void);
+				~NS1_Sub1_Sub1_CClass1_Derived1(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass1_Derived2 : public NS1_Sub1_Sub1_CClass1
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1_Derived2(void);
+				~NS1_Sub1_Sub1_CClass1_Derived2(void);
+			};
+
+
+			class NS1_Sub1_Sub1_CClass1_Descendant1 : public NS1_Sub1_Sub1_CClass1_Derived1
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1_Descendant1(void);
+				~NS1_Sub1_Sub1_CClass1_Descendant1(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass1_Descendant2 : public NS1_Sub1_Sub1_CClass1_Derived2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1_Descendant2(void);
+				~NS1_Sub1_Sub1_CClass1_Descendant2(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass1_Descendant3 : public NS1_Sub1_Sub1_CClass1_Derived1, public NS1_Sub1_Sub1_CClass1_Derived2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1_Descendant3(void);
+				~NS1_Sub1_Sub1_CClass1_Descendant3(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass1_Descendant4 : public NS1_Sub1_Sub1_CClass1_Descendant2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1_Descendant4(void);
+				~NS1_Sub1_Sub1_CClass1_Descendant4(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass1_Descendant5 : public NS1_Sub1_Sub1_CClass1_Descendant3
+			{
+			public:
+				NS1_Sub1_Sub1_CClass1_Descendant5(void);
+				~NS1_Sub1_Sub1_CClass1_Descendant5(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2(void);
+				virtual ~NS1_Sub1_Sub1_CClass2(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2_Derived1 : public NS1_Sub1_Sub1_CClass2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2_Derived1(void);
+				virtual ~NS1_Sub1_Sub1_CClass2_Derived1(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2_Derived2 : public NS1_Sub1_Sub1_CClass2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2_Derived2(void);
+				virtual ~NS1_Sub1_Sub1_CClass2_Derived2(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2_Descendant1 : public NS1_Sub1_Sub1_CClass2_Derived1
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2_Descendant1(void);
+				virtual ~NS1_Sub1_Sub1_CClass2_Descendant1(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2_Descendant2 : public NS1_Sub1_Sub1_CClass2_Derived2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2_Descendant2(void);
+				virtual ~NS1_Sub1_Sub1_CClass2_Descendant2(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2_Descendant3 : public NS1_Sub1_Sub1_CClass2_Derived1, public NS1_Sub1_Sub1_CClass2_Derived2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2_Descendant3(void);
+				virtual ~NS1_Sub1_Sub1_CClass2_Descendant3(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2_Descendant4 : public NS1_Sub1_Sub1_CClass2_Descendant2
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2_Descendant4(void);
+				virtual ~NS1_Sub1_Sub1_CClass2_Descendant4(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass2_Descendant5 : public NS1_Sub1_Sub1_CClass2_Descendant3
+			{
+			public:
+				NS1_Sub1_Sub1_CClass2_Descendant5(void);
+				virtual ~NS1_Sub1_Sub1_CClass2_Descendant5(void);
+			};
+
+			class NS1_Sub1_Sub1_CClass3
+			{
+			public:
+				NS1_Sub1_Sub1_CClass3(void);
+				~NS1_Sub1_Sub1_CClass3(void);
+			public:
+				class NS1_Sub1_Sub1_CClass3_Inner1
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner2
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner2(void);
+					virtual ~NS1_Sub1_Sub1_CClass3_Inner2(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner3
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner3(void);
+					~NS1_Sub1_Sub1_CClass3_Inner3(void);
+				public:
+					class NS1_Sub1_Sub1_CClass3_Inner3_Inner1
+					{
+					public:
+						NS1_Sub1_Sub1_CClass3_Inner3_Inner1(void);
+						~NS1_Sub1_Sub1_CClass3_Inner3_Inner1(void);
+					};
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner1_Derived1 : public NS1_Sub1_Sub1_CClass3_Inner1
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1_Derived1(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1_Derived1(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner1_Derived2 : public NS1_Sub1_Sub1_CClass3_Inner1
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1_Derived2(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1_Derived2(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant1 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived1
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1_Descendant1(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1_Descendant1(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant2 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived2
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1_Descendant2(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1_Descendant2(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant3 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived1, public NS1_Sub1_Sub1_CClass3_Inner1_Derived2
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1_Descendant3(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1_Descendant3(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant4 : public NS1_Sub1_Sub1_CClass3_Inner1_Descendant2
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1_Descendant4(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1_Descendant4(void);
+				};
+				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant5 : public NS1_Sub1_Sub1_CClass3_Inner1_Descendant3
+				{
+				public:
+					NS1_Sub1_Sub1_CClass3_Inner1_Descendant5(void);
+					~NS1_Sub1_Sub1_CClass3_Inner1_Descendant5(void);
+				};
+			};
+		} //NameSpasce1_Sub1_Sub1
+	} //NameSpasce1_Sub1
+} //NameSpasce1
 
 #endif //__META_DATA_DEMO__

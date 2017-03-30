@@ -57,9 +57,6 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -183,6 +180,15 @@
     <ClInclude Include="..\Codes\include\CharArray.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="test_items.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Demo2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -190,9 +196,6 @@
     </ClCompile>
     <ClCompile Include="MetaDataPrj.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\Demo.cpp">
-      <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp">
       <Filter>Codes\MetaData\src</Filter>
@@ -296,11 +299,17 @@
     <ClCompile Include="..\Codes\src\CharArray.cpp">
       <Filter>Codes\src</Filter>
     </ClCompile>
+    <ClCompile Include="test_items.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\Demo2.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\Demo.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\MetaData\src\Demo.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
     <None Include="..\Codes\MetaData\src\IClone.meo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
@@ -327,6 +336,9 @@
     </None>
     <None Include="..\Codes\Serialization\src\TreeSerial.meo">
       <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\Demo2.meo">
+      <Filter>Codes\MetaData\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -52,7 +52,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;CO_SYSTEM_EXTENDED_TYPE_META_DATA_DEF;__META_DATA_DEMO__;XML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;CO_SYSTEM_EXTENDED_TYPE_META_DATA_DEF;XML_STATIC;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -88,6 +88,7 @@
     <ClInclude Include="..\Codes\lib_h\expat.h" />
     <ClInclude Include="..\Codes\lib_h\expat_external.h" />
     <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
+    <ClInclude Include="..\Codes\MetaData\include\Demo2.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h" />
@@ -126,9 +127,11 @@
     <ClInclude Include="..\Codes\Serialization\include\XmlSerialStream.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="test_items.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Codes\MetaData\src\Demo.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\Demo2.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
@@ -168,10 +171,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="test_items.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\include\MetaDataExtraObjects.meo" />
-    <None Include="..\Codes\MetaData\src\Demo.meo" />
+    <None Include="..\Codes\MetaData\src\Demo2.meo" />
     <None Include="..\Codes\MetaData\src\IClone.meo" />
     <None Include="..\Codes\MetaData\src\IContainer.meo" />
     <None Include="..\Codes\MetaData\src\IInterface.meo" />

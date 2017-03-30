@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "..\Codes\MetaData\include\Demo.h"
+#include "..\Codes\MetaData\include\Demo2.h"
 //#include "..\Codes\MetaData\include\MetaData.h"
 //#include "..\Codes\MetaData\include\MetaDataSupport.h"
 //#include "..\Codes\MetaData\include\MetaDataObjects.h"
@@ -82,7 +82,7 @@ public:
 	}
 };
 
-#define D_SERIAL_TEST
+//#define D_SERIAL_TEST
 //#define D_XML_TEST
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -157,6 +157,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	{
 		printf("load error.\n");
 	}
+	delete Ser;
 	delete pSerial;
 #else
 	try
