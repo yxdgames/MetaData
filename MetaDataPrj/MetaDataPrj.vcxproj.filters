@@ -340,6 +340,9 @@
     <None Include="..\Codes\MetaData\src\Demo2.meo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
+    <None Include="..\Codes\MetaData\src\Demo.meo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\lib\Debug\expat_static.lib">

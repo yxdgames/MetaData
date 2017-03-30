@@ -167,7 +167,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			//tst(5, 11, 22.45, 123, 9.80, 8);
 
 			PrintMetaDataTree(&META_DATA_MODULE(), 0);
-
+#if 0
 			double x(10.5);
 			int y(3);
 			double ret;
@@ -231,6 +231,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			//CMetaDataType *pType(TypeTraits<void*>::GetMetaDataType());
 
 			//throw new ExceptionMetaData(-1, "“Ï≥£ª˙÷∆≤‚ ‘£°");
+#endif
 		}
 		catch(ExceptionMetaData*)
 		{

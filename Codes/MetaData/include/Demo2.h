@@ -5,9 +5,9 @@
 #include "..\include\TypeTraits.h"
 #include "..\include\SimpleString.h"
 
-//#define	__META_DATA_DEMO__
+//#define	__META_DATA_DEMO2__
 
-#ifdef __META_DATA_DEMO__
+#ifdef __META_DATA_DEMO2__
 ////////////////////////////////////////////////
 //                  Demo                      //
 ////////////////////////////////////////////////
@@ -219,4 +219,4 @@ namespace NTest
 MD_GLOBAL_FUNCTION_DECLARE(GetNone)
 extern NTest::CClsInNS1 GetNone(int ax, double bx);
 
-#endif //__META_DATA_DEMO__
+#endif //__META_DATA_DEMO2__

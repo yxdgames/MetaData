@@ -1,5 +1,6 @@
 #pragma once
 
+#include "..\include\MetaDataClassType.h"
 #include "..\include\MetaDataSupport.h"
 
 //#define	__META_DATA_DEMO__
@@ -14,6 +15,9 @@ class CClass1
 public:
 	CClass1(void);
 	~CClass1(void);
+MD_CLASS_TYPE_DECLARE_BEGIN(CClass1)
+MD_CLASS_TYPE_DECLARE_DETAIL(CClass1)
+MD_CLASS_TYPE_DECLARE_END(CClass1)
 };
 
 class CClass1_Derived1 : public CClass1

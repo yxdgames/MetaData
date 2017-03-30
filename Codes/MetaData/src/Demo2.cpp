@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\include\Demo2.h"
 
-#ifdef __META_DATA_DEMO__
+#ifdef __META_DATA_DEMO2__
 ////////////////////////////////////////////////
 //                  Demo                      //
 ////////////////////////////////////////////////
@@ -21,4 +21,4 @@ NTest::CClsInNS1 GetNone(int ax, double bx)
 	return ret;
 }
 
-#endif //__META_DATA_DEMO__
+#endif //__META_DATA_DEMO2__

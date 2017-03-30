@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\include\MetaDataFunction.h"
 
-#include "..\include\MetaDataObjects.h"
+#include "..\include\TypeTraits.h"
 #include "..\include\ExceptionMetaData.h"
 #include "..\..\include\ExceptionID.h"
 #include <stdarg.h>
@@ -13,7 +13,7 @@ static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 {	
 	if (!pMDType) return 0;
 
-	if (&_MD__InnerTypechar == pMDType)
+	if (TypeTraits<char>::GetMetaDataType() == pMDType)
 	{
 		if (pData && pBuff)
 		{
@@ -23,7 +23,7 @@ static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 		}
 		return sizeof(int);
 	}
-	else if (&_MD__InnerTypeshort == pMDType)
+	else if (TypeTraits<short>::GetMetaDataType() == pMDType)
 	{
 		if (pData && pBuff)
 		{
@@ -33,7 +33,7 @@ static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 		}
 		return sizeof(int);
 	}
-	else if (&_MD__InnerTypeunsignedchar == pMDType)
+	else if (TypeTraits<unsigned char>::GetMetaDataType() == pMDType)
 	{
 		if (pData && pBuff)
 		{
@@ -43,7 +43,7 @@ static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 		}
 		return sizeof(int);
 	}
-	else if (&_MD__InnerTypeunsignedshort == pMDType)
+	else if (TypeTraits<unsigned short>::GetMetaDataType() == pMDType)
 	{
 		if (pData && pBuff)
 		{
@@ -53,7 +53,7 @@ static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 		}
 		return sizeof(int);
 	}
-	else if (&_MD__InnerTypefloat == pMDType)
+	else if (TypeTraits<float>::GetMetaDataType() == pMDType)
 	{
 		if (pData && pBuff)
 		{

@@ -1,6 +1,6 @@
 #include "..\include\Demo2.h"
 
-#ifdef __META_DATA_DEMO__
+#ifdef __META_DATA_DEMO2__
 namespace NTest
 {
 	MD_NAME_SPACE_DEF(NTest)
@@ -127,4 +127,4 @@ MD_GLOBAL_FUNCTION_DEF_BEGIN(GetNone)
 	MD_GLOBAL_FUNCTION_DEF_RET_VAL = true;
 MD_GLOBAL_FUNCTION_DEF_END(GetNone)
 
-#endif //__META_DATA_DEMO__
+#endif //__META_DATA_DEMO2__

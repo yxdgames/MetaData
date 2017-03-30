@@ -175,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\include\MetaDataExtraObjects.meo" />
+    <None Include="..\Codes\MetaData\src\Demo.meo" />
     <None Include="..\Codes\MetaData\src\Demo2.meo" />
     <None Include="..\Codes\MetaData\src\IClone.meo" />
     <None Include="..\Codes\MetaData\src\IContainer.meo" />
