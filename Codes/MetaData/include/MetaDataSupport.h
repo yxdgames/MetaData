@@ -6,6 +6,8 @@
  * attention	有要生成元数据的语法对象的*.h文件，需要引用本头文件。
  */
 
+#include "TypeTraits.h"
+
 //compile option.
 #define CO_MD_CLASS_TYPE_EXTRA
 
@@ -29,103 +31,85 @@
 /**************************/
 /* Meta data of interface */
 /**************************/
-#define META_DATA_INTERFACE(name)						(*reinterpret_cast<CMetaDataInterface*>(TypeTraits<name>::GetMetaDataType()))
+#define META_DATA_INTERFACE(name)						META_DATA_CLASS_TYPE_BASE(name, CMetaDataInterface)
 
-#define MD_INTERFACE_DECLARE_BEGIN(name) \
-	public: \
-		virtual CMetaDataType *GetType(void)			{ return &_MD__Itf##name; } \
-		static CMetaDataInterface *GetMetaData(void)	{ return &_MD__Itf##name; } \
-		static CMetaDataInterface _MD__Itf##name; \
-		__MD_INTERFACE_MEMBER_EXTRA
-
-#define MD_INTERFACE_DECLARE_DETAIL(name) \
-	private: \
-		static class C_MD__Itf_DID##name \
-		{ \
-		public: \
-			C_MD__Itf_DID##name() \
-			{ \
-				CMetaDataFunction *pMDFunc;
+#define MD_INTERFACE_DECLARE_BEGIN(name)				MD_CLASS_TYPE_DECLARE_BEGIN_BASE(name, Itf, CMetaDataInterface)
+#define MD_INTERFACE_DECLARE_DETAIL(name)				MD_CLASS_TYPE_DECLARE_DETAIL_BASE(name, CMetaDataInterface)
 
 				/*--添加接口元数据信息--*/
-#define MD_INTERFACE_INTERFACE_DEF(intf_name, parent_intf_name) \
-	META_DATA_INTERFACE(intf_name).AddInterface(&META_DATA_INTERFACE(parent_intf_name), reinterpret_cast<unsigned int>(static_cast<parent_intf_name*>(reinterpret_cast<intf_name*>(sizeof(int)))) - sizeof(int));
+#define MD_INTERFACE_INTERFACE_DEF(parent_intf_name)	MD_CLASS_TYPE_INTERFACE_DEF(parent_intf_name)
 
 				/*--添加成员函数元数据信息--*/
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(intf_name, func_name, index) \
-	static bool _MD__CMF##intf_name##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
-#define MD_INTERFACE_MEMBER_FUNC_DEF(intf_name, func_name, index) \
-	static CMetaDataFunction _MD__MF##intf_name##func_name##index(#func_name, &META_DATA_INTERFACE(intf_name), intf_name::_MD__CMF##intf_name##func_name##index); \
-	META_DATA_INTERFACE(intf_name).AddMemberFunc(&_MD__MF##intf_name##func_name##index); \
-	pMDFunc = &_MD__MF##intf_name##func_name##index;
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)
+#define MD_INTERFACE_MEMBER_FUNC_DEF(func_name, index)					MD_CLASS_TYPE_MEMBER_FUNC_DEF(func_name, index)
 
 					//添加成员函数参数元数据信息
-#define MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level) \
-	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, &(type), (ptr_level)));
+#define MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)
 					//添加成员函数返回值元数据信息
-#define MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(type, ptr_level) \
-	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &(type), (ptr_level)));
+#define MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)			MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)
 
-#define MD_INTERFACE_DECLARE_END(name) \
-				pMDFunc = NULL; \
-			} \
-		} _MD__Itf_DIDO##name;
+#define MD_INTERFACE_DECLARE_END(name)									MD_CLASS_TYPE_DECLARE_END(name)
 
 /***************************/
 /* Meta data of class type */
 /***************************/
-#define META_DATA_CLASS_TYPE(name)							(*reinterpret_cast<CMetaDataClassType*>(TypeTraits<name>::GetMetaDataType()))
+#define META_DATA_CLASS_TYPE(name)							META_DATA_CLASS_TYPE_BASE(name, CMetaDataClassType)
+#define META_DATA_CLASS_TYPE_BASE(name, md_type)			(*reinterpret_cast<md_type*>(TypeTraits<name>::GetMetaDataType()))
 //嵌套用
 #define META_DATA_CLASS_TYPE_INNER(name, outer_name)		(outer_name::name::_MD__CT##name)
 
-#define MD_CLASS_TYPE_DECLARE_BEGIN(name) \
+#define MD_CLASS_TYPE_DECLARE_BEGIN(name)	MD_CLASS_TYPE_DECLARE_BEGIN_BASE(name, CT, CMetaDataClassType)
+#define MD_CLASS_TYPE_DECLARE_BEGIN_BASE(name, md_obj_pre_name, md_type) \
 	public: \
-		virtual CMetaDataType *GetType(void)			{ return &_MD__CT##name; } \
-		static CMetaDataClassType *GetMetaData(void)	{ return &_MD__CT##name; } \
-		static CMetaDataClassType _MD__CT##name; \
+		virtual CMetaDataType *GetType(void)			{ return &_MD__##md_obj_pre_name##name; } \
+		static md_type *GetMetaData(void)	{ return &_MD__##md_obj_pre_name##name; } \
+		static md_type _MD__##md_obj_pre_name##name; \
 		__MD_CLASS_TYPE_MEMBER_EXTRA
 
-#define MD_CLASS_TYPE_DECLARE_DETAIL(name) \
+#define MD_CLASS_TYPE_DECLARE_DETAIL(name)	MD_CLASS_TYPE_DECLARE_DETAIL_BASE(name, CMetaDataClassType)
+#define MD_CLASS_TYPE_DECLARE_DETAIL_BASE(name, md_type) \
 	private: \
 		static class C_MD__CT_DID##name \
 		{ \
 		public: \
 			C_MD__CT_DID##name() \
 			{ \
+				char *pClsName(#name); \
+				md_type &MDType(META_DATA_CLASS_TYPE_BASE(name, md_type)); \
+				name *pTemObj(reinterpret_cast<name*>(sizeof(int))); \
+				name *pTemObj2(reinterpret_cast<name*>(0)); \
 				CMetaDataFunction *pMDFunc;
 
 				/*--添加基类元数据信息--*/
-#define MD_CLASS_TYPE_BASE_CLASS_DEF(cls_name, base_class_name) \
-	META_DATA_CLASS_TYPE(cls_name).AddBaseType(&META_DATA_CLASS_TYPE(base_class_name), reinterpret_cast<unsigned int>(static_cast<base_class_name*>(reinterpret_cast<cls_name*>(sizeof(int)))) - sizeof(int));
-
-//#define MD_CLASS_TYPE_BASE_CLASS_1_DEF(cls_name, base_class_name, base_cls_outer_name) \
-//	META_DATA_CLASS_TYPE(cls_name).AddBaseType(&META_DATA_CLASS_TYPE_INNER(base_class_name, base_cls_outer_name), \
-//												reinterpret_cast<unsigned int>(static_cast<base_cls_outer_name::base_class_name*>(reinterpret_cast<cls_name*>(sizeof(int)))) - sizeof(int));
+#define MD_CLASS_TYPE_BASE_CLASS_DEF(base_class_name) \
+	MDType.AddBaseType(&META_DATA_CLASS_TYPE(base_class_name), reinterpret_cast<unsigned int>(static_cast<base_class_name*>(pTemObj)) - sizeof(int));
 
 				/*--添加接口元数据信息--*/
-#define MD_CLASS_TYPE_INTERFACE_DEF(cls_name, intf_name) \
-	META_DATA_CLASS_TYPE(cls_name).AddInterface(&META_DATA_INTERFACE(intf_name), reinterpret_cast<unsigned int>(static_cast<intf_name*>(reinterpret_cast<cls_name*>(sizeof(int)))) - sizeof(int));
+#define MD_CLASS_TYPE_INTERFACE_DEF(intf_name) \
+	MDType.AddInterface(&META_DATA_INTERFACE(intf_name), reinterpret_cast<unsigned int>(static_cast<intf_name*>(pTemObj)) - sizeof(int));
 
 				/*--添加构造函数元数据信息--*/
-#define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(cls_name, index) \
-	static bool _MD__CCR##cls_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
-#define MD_CLASS_TYPE_CONSTRUCTOR_DEF(cls_name, index) \
-	static CMetaDataFunction _MD__CR##cls_name##index(#cls_name, &META_DATA_CLASS_TYPE(cls_name), cls_name::_MD__CCR##cls_name##index); \
-	META_DATA_CLASS_TYPE(cls_name).AddConstructor(&_MD__CR##cls_name##index); \
-	pMDFunc = &_MD__CR##cls_name##index; \
-	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &META_DATA_CLASS_TYPE(cls_name), 1));
+#define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(index) \
+	private: \
+		static bool _MD__CLSCR##index(SMetaDataCalledFunctionDataPacket &DataPacket);
+#define MD_CLASS_TYPE_CONSTRUCTOR_DEF(index) \
+	static CMetaDataFunction _MD__CR##index(pClsName, &MDType, _MD__CLSCR##index); \
+	MDType.AddConstructor(&_MD__CR##index); \
+	pMDFunc = &_MD__CR##index; \
+	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &MDType, 1));
 
 					//添加构造函数参数元数据信息
 #define MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, ptr_level) \
 	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, &(type), (ptr_level)));
 
 				/*--添加成员函数元数据信息--*/
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls_name, func_name, index) \
-	static bool _MD__CMF##cls_name##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
-#define MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls_name, func_name, index) \
-	static CMetaDataFunction _MD__MF##cls_name##func_name##index(#func_name, &META_DATA_CLASS_TYPE(cls_name), cls_name::_MD__CMF##cls_name##func_name##index); \
-	META_DATA_CLASS_TYPE(cls_name).AddMemberFunc(&_MD__MF##cls_name##func_name##index); \
-	pMDFunc = &_MD__MF##cls_name##func_name##index;
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index) \
+	private: \
+		static bool _MD__CLSMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
+#define MD_CLASS_TYPE_MEMBER_FUNC_DEF(func_name, index) \
+	static CMetaDataFunction _MD__MF##func_name##index(#func_name, &MDType, _MD__CLSMF##func_name##index); \
+	MDType.AddMemberFunc(&_MD__MF##func_name##index); \
+	pMDFunc = &_MD__MF##func_name##index;
 
 					//添加成员函数参数元数据信息
 #define MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level) \
@@ -135,17 +119,18 @@
 	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &(type), (ptr_level)));
 
 				/*--添加成员变量元数据信息--*/
-#define MD_CLASS_TYPE_MEMBER_VAR_DEF(cls_name, var_name, var_type, ptr_level) \
-	static CMetaDataCustomTypeMemberVar _MD__CT_MV##cls_name##var_name(#var_name, &META_DATA_CLASS_TYPE(cls_name), &(var_type), (ptr_level), reinterpret_cast<unsigned int>(&(reinterpret_cast<cls_name*>(0)->var_name))); \
-	META_DATA_CLASS_TYPE(cls_name).AddMemberVar(&_MD__CT_MV##cls_name##var_name);
+#define MD_CLASS_TYPE_MEMBER_VAR_DEF(var_name, var_type, ptr_level) \
+	static CMetaDataCustomTypeMemberVar _MD__CT_MV##var_name(#var_name, &MDType, &(var_type), (ptr_level), reinterpret_cast<unsigned int>(&(pTemObj2->var_name))); \
+	MDType.AddMemberVar(&_MD__CT_MV##var_name);
 
 				/*--添加静态成员函数元数据信息--*/
-#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(cls_name, func_name, index) \
-	static bool _MD__CSMF##cls_name##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
-#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(cls_name, func_name, index) \
-	static CMetaDataFunction _MD__SMF##cls_name##func_name##index(#func_name, &META_DATA_CLASS_TYPE(cls_name), cls_name::_MD__CSMF##cls_name##func_name##index); \
-	META_DATA_CLASS_TYPE(cls_name).AddStaticMemberFunc(&_MD__SMF##cls_name##func_name##index); \
-	pMDFunc = &_MD__SMF##cls_name##func_name##index;
+#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index) \
+	private: \
+		static bool _MD__CLSSMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
+#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(func_name, index) \
+	static CMetaDataFunction _MD__SMF##func_name##index(#func_name, &MDType, _MD__CLSSMF##func_name##index); \
+	MDType.AddStaticMemberFunc(&_MD__SMF##func_name##index); \
+	pMDFunc = &_MD__SMF##func_name##index;
 
 					//添加静态成员函数参数元数据信息
 #define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level) \
@@ -155,9 +140,9 @@
 	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &(type), (ptr_level)));
 
 				/*--添加静态成员变量元数据信息--*/
-#define MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(cls_name, var_name, var_type, ptr_level) \
-	static CMetaDataVariable _MD__CT_SMV##cls_name##var_name(#var_name, &META_DATA_CLASS_TYPE(cls_name), &(var_type), (ptr_level), &cls_name::var_name); \
-	META_DATA_CLASS_TYPE(cls_name).AddStaticMemberVar(&_MD__CT_SMV##cls_name##var_name);
+#define MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, ptr_level) \
+	static CMetaDataVariable _MD__CT_SMV##var_name(#var_name, &MDType, &(var_type), (ptr_level), &var_name); \
+	MDType.AddStaticMemberVar(&_MD__CT_SMV##var_name);
 
 #define MD_CLASS_TYPE_DECLARE_END(name) \
 				pMDFunc = NULL; \
