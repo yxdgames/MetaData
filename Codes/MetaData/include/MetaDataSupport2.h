@@ -23,54 +23,74 @@
 #define MD_INNER_TYPE_DEF(name)						CMetaDataInnerType _MD__InnerType##name(#name, &_MD__Module, sizeof(name));
 #define MD_INNER_TYPE_2_DEF(name1, name2)			CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &_MD__Module, sizeof(name1 name2));
 
+/****************************/
+/* Meta data of custom type */
+/****************************/
+#define MD_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type) \
+	md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_MODULE(), sizeof(name)); \
+	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
+
+//成员函数封装
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name) \
+	bool cls_name::_MD__CTMMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
+	{ \
+		bool ret_val(true);
+
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)		{ if (DataPacket.ParamCount != (param_count) + 1) return false; }
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)				(*reinterpret_cast<type_name**>(DataPacket.pParam[0]))
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)	(*reinterpret_cast<type_name*>(DataPacket.pParam[(index) + 1]))
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)			(*reinterpret_cast<type_name*>(DataPacket.pReturn))
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL						(ret_val)
+
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END() \
+		return ret_val; \
+	}
+
 /**************************/
 /* Meta data of interface */
 /**************************/
-#define MD_INTERFACE_DEF(name)						MD_CLASS_TYPE_DEF_BASE(name, Itf, CMetaDataInterface)
+#define MD_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface)
 
 //成员函数封装
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, intf_name)		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, intf_name)
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, intf_name)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, intf_name)
 
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)				MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)						MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)				MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)						MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL								MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)				MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)						MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)				MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)						MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL								MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL
 
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_END()									MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_END()									MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
 
 /***************************/
 /* Meta data of class type */
 /***************************/
 //无嵌套
-#define MD_CLASS_TYPE_DEF(name)		MD_CLASS_TYPE_DEF_BASE(name, CT, CMetaDataClassType)
-#define MD_CLASS_TYPE_DEF_BASE(name, md_obj_pre_name, md_type) \
-	md_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_MODULE(), sizeof(name)); \
-	name::C_MD__CT_DID##name name::_MD__CT_DIDO##name;
+#define MD_CLASS_TYPE_DEF(name)		MD_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType)
 
 //一层嵌套用(类内部)
 #define MD_CLASS_TYPE_IN_CLS_1_DEF(name, outer_name) \
 	CMetaDataClassType outer_name::name::_MD__CT##name(#name, &META_DATA_CLASS_TYPE(outer_name), sizeof(name)); \
-	outer_name::name::C_MD__CT_DID##name outer_name::name::_MD__CT_DIDO##name;
+	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
 
 //一层以上嵌套用(类内部)
 #define MD_CLASS_TYPE_IN_CLS_2_DEF(name, outer_name1, outer_name2) \
 	CMetaDataClassType outer_name2::outer_name1::name::_MD__CT##name(#name, &META_DATA_CLASS_TYPE_INNER(outer_name1, outer_name2), sizeof(name)); \
-	outer_name2::outer_name1::name::C_MD__CT_DID##name outer_name2::outer_name1::name::_MD__CT_DIDO##name;
+	outer_name2::outer_name1::name::C_MD__CTM_DID##name outer_name2::outer_name1::name::_MD__CTM_DIDO##name;
 
 //一层嵌套用(命名空间内部)
 #define MD_CLASS_TYPE_IN_NS_1_DEF(name, outer_name) \
 	CMetaDataClassType outer_name::name::_MD__CT##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \
-	outer_name::name::C_MD__CT_DID##name outer_name::name::_MD__CT_DIDO##name;
+	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
 
 //一层以上嵌套用(命名空间类内部)
 #define MD_CLASS_TYPE_IN_NS_2_DEF(name, outer_name1, outer_name2) \
 	CMetaDataClassType outer_name2::outer_name1::name::_MD__CT##name(#name, &META_DATA_NAME_SPACE_INNER(outer_name1, outer_name2), sizeof(name)); \
-	outer_name2::outer_name1::name::C_MD__CT_DID##name outer_name2::outer_name1::name::_MD__CT_DIDO##name;
+	outer_name2::outer_name1::name::C_MD__CTM_DID##name outer_name2::outer_name1::name::_MD__CTM_DIDO##name;
 
 //构造函数封装
 #define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(index, cls_name) \
-	bool cls_name::_MD__CLSCR##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
+	bool cls_name::_MD__CTMCR##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
 	{ \
 		bool ret_val(true);
 
@@ -83,24 +103,19 @@
 	}
 
 //成员函数封装
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name) \
-	bool cls_name::_MD__CLSMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
-	{ \
-		bool ret_val(true);
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name)
 
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)		{ if (DataPacket.ParamCount != (param_count) + 1) return false; }
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)				(*reinterpret_cast<type_name**>(DataPacket.pParam[0]))
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)	(*reinterpret_cast<type_name*>(DataPacket.pParam[(index) + 1]))
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)				(*reinterpret_cast<type_name*>(DataPacket.pReturn))
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL						(ret_val)
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)				MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)						MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)			MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)						MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL								MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL
 
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_END() \
-		return ret_val; \
-	}
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()									MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
 
 //静态成员函数封装
 #define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name) \
-	bool cls_name::_MD__CLSSMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
+	bool cls_name::_MD__CTMSMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
 	{ \
 		bool ret_val(true);
 

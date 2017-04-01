@@ -106,6 +106,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataTypeIDAlloc.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
