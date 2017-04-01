@@ -1,7 +1,7 @@
 #pragma once
 /*
- * file			MetaDataSupportBase.h
- * brief		元数据声明基础宏定义
+ * file			MetaDataSupportCustomType.h
+ * brief		自定义类型元数据声明基础宏定义
  * note			None
  * attention	None
  */

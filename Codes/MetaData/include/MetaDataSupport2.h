@@ -137,7 +137,7 @@
 /* Meta data of function */
 /*************************/
 #define MD_GLOBAL_FUNCTION_DEF_BEGIN(name) \
-	bool _MD__CF##name(SMetaDataCalledFunctionDataPacket &DataPacket) \
+	bool _MD__FWRAPPER##name(SMetaDataCalledFunctionDataPacket &DataPacket) \
 	{ \
 		bool ret_val(true);
 

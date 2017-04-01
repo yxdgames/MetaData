@@ -189,7 +189,7 @@
     <ClInclude Include="..\Codes\MetaData\include\Demo.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportBase.h">
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
   </ItemGroup>

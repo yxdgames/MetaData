@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\include\MetaDataClassType.h"
 #include "..\include\MetaDataSupport.h"
 
 //#define	__META_DATA_DEMO__

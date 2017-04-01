@@ -6,8 +6,8 @@
  * attention	有要生成元数据的语法对象的*.h文件，需要引用本头文件。
  */
 
-#include "MetaDataSupportBase.h"
-#include "MetaDataType.h"
+#include "MetaDataInterface.h"
+#include "MetaDataClassType.h"
 #include "TypeTraits.h"
 
 //compile option.
@@ -30,6 +30,7 @@
 /***************************/
 #define META_DATA_INNER_TYPE(name)						(*reinterpret_cast<CMetaDataInnerType*>(TypeTraits<name>::GetMetaDataType()))
 
+#include "MetaDataSupportCustomType.h"
 /**************************/
 /* Meta data of interface */
 /**************************/
