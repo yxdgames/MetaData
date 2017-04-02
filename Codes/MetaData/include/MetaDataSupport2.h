@@ -15,7 +15,7 @@
 /* Meta data of name space */
 /***************************/
 #define MD_NAME_SPACE_DEF(name)						CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_MODULE());
-#define MD_NAME_SPACE_INNER_DEF(name, out_ns)		CMetaDataNameSpace _MD__NS##name(#name, &(out_ns));
+#define MD_NAME_SPACE_INNER_DEF(name, out_ns)		CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_NAME_SPACE(out_ns));
 
 /***************************/
 /* Meta data of inner type */
@@ -68,15 +68,10 @@
 //无嵌套
 #define MD_CLASS_TYPE_DEF(name)		MD_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType)
 
-//一层嵌套用(类内部)
-#define MD_CLASS_TYPE_IN_CLS_1_DEF(name, outer_name) \
+//嵌套用(类内部)
+#define MD_CLASS_TYPE_IN_CLS_DEF(name, outer_name) \
 	CMetaDataClassType outer_name::name::_MD__CT##name(#name, &META_DATA_CLASS_TYPE(outer_name), sizeof(name)); \
 	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
-
-//一层以上嵌套用(类内部)
-#define MD_CLASS_TYPE_IN_CLS_2_DEF(name, outer_name1, outer_name2) \
-	CMetaDataClassType outer_name2::outer_name1::name::_MD__CT##name(#name, &META_DATA_CLASS_TYPE_INNER(outer_name1, outer_name2), sizeof(name)); \
-	outer_name2::outer_name1::name::C_MD__CTM_DID##name outer_name2::outer_name1::name::_MD__CTM_DIDO##name;
 
 //一层嵌套用(命名空间内部)
 #define MD_CLASS_TYPE_IN_NS_1_DEF(name, outer_name) \
