@@ -10,8 +10,6 @@
 /* Meta data of custom type */
 /****************************/
 #define META_DATA_CUSTOM_TYPE(name, md_custom_type)			(*reinterpret_cast<md_custom_type*>(TypeTraits<name>::GetMetaDataType()))
-//Ç¶Ì×ÓÃ
-#define META_DATA_CUSTOM_TYPE_INNER(name, outer_name, md_obj_pre_name)		(outer_name::name::_MD__##md_obj_pre_name##name)
 
 #define MD_CUSTOM_TYPE_DECLARE_BEGIN(name, md_obj_pre_name, md_custom_type) \
 	public: \

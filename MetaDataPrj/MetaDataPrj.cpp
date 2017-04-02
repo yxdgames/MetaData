@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "..\Codes\MetaData\include\Demo2.h"
+#include "test_items.h"
 //#include "..\Codes\MetaData\include\MetaData.h"
 //#include "..\Codes\MetaData\include\MetaDataSupport.h"
 //#include "..\Codes\MetaData\include\MetaDataObjects.h"
@@ -12,41 +12,6 @@
 #include <stdarg.h>
 #include <iostream>
 #include <fstream>
-
-void PrintMetaDataTree(const CMetaData *pMD, int space_num)
-{
-	char FullNameBuffer[256];
-	if (space_num > 1)
-	{
-		printf("  ");
-		for (int i = 0; i < space_num - 1; ++i)
-		{
-			printf("| ");
-		}
-		printf("|-");
-	}
-	else if (space_num == 1)
-	{
-		printf("  |-");
-	}
-	else //if (space_num == 0)
-	{
-		printf("--");
-		printf("Module_None\n");
-	}
-	if (space_num > 0)
-	{
-		if (pMD->GetFullName(FullNameBuffer, 256))
-		{
-			printf("%s [%s]\n", FullNameBuffer, pMD->GetTypeCaption());
-		}
-		else printf("__None__\n");
-	}
-	for (unsigned int i = 0; i < pMD->GetChildrenCount(); ++i)
-	{
-		PrintMetaDataTree(pMD->GetChild(i), space_num + 1);
-	}
-}
 
 void tst(int num, ...)
 {
@@ -87,6 +52,8 @@ public:
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	test_item_print_metadata_tree();
+#if 0
 #ifdef D_SERIAL_TEST
 	NTest::CClsInNS1 cins, *pCINS(NULL);
 	cins.CNone::ax = -12;
@@ -166,7 +133,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		{
 			//tst(5, 11, 22.45, 123, 9.80, 8);
 
-			PrintMetaDataTree(&META_DATA_MODULE(), 0);
+			test_item_print_metadata_tree();
 #if 0
 			double x(10.5);
 			int y(3);
@@ -247,6 +214,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		else printf("MetaData Exception: ID[%d]\n", pE_MD->GetID());
 		delete pE_MD;
 	}
+#endif
 #endif
 	getchar();
 	return 0;

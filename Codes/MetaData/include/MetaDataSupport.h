@@ -6,6 +6,7 @@
  * attention	有要生成元数据的语法对象的*.h文件，需要引用本头文件。
  */
 
+#include "MetaDataNameSpace.h"
 #include "MetaDataInterface.h"
 #include "MetaDataClassType.h"
 #include "TypeTraits.h"
@@ -16,14 +17,16 @@
 /***********************/
 /* Meta data of module */
 /***********************/
-#define META_DATA_MODULE()								(::_MD__Module)
+#define META_DATA_MODULE()								(*(::_MD_MODULE_GetMetaData()))
 
 /***************************/
 /* Meta data of name space */
 /***************************/
-#define META_DATA_NAME_SPACE(name)						(name::_MD__NS##name)
-//嵌套用
-#define META_DATA_NAME_SPACE_INNER(name, outer_name)	(outer_name::name::_MD__NS##name)
+#define META_DATA_NAME_SPACE(name)						(*(name::_MD_NS__GetMetaData()))
+
+#define MD_NAME_SPACE_DECLARE(name) \
+	extern CMetaDataNameSpace _MD__NS##name; \
+	extern CMetaDataNameSpace *_MD_NS__GetMetaData(void);
 
 /***************************/
 /* Meta data of inner type */
@@ -57,8 +60,6 @@
 /* Meta data of class type */
 /***************************/
 #define META_DATA_CLASS_TYPE(name)							META_DATA_CUSTOM_TYPE(name, CMetaDataClassType)
-//嵌套用
-#define META_DATA_CLASS_TYPE_INNER(name, outer_name)		META_DATA_CUSTOM_TYPE_INNER(name, outer_name, CT)
 
 #define MD_CLASS_TYPE_DECLARE_BEGIN(name)					MD_CUSTOM_TYPE_DECLARE_BEGIN(name, CT, CMetaDataClassType)
 #define MD_CLASS_TYPE_DECLARE_DETAIL(name)					MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType)

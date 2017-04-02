@@ -5,7 +5,6 @@
 //Demo
 #ifdef __META_DATA_DEMO__
 #include "Demo.meo"
-//#include "Demo2.meo"
 #endif //__META_DATA_DEMO__
 
 //Serialization

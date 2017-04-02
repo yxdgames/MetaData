@@ -6,7 +6,6 @@
  * attention	None
  */
 
-#include "MetaDataType.h"
 #include "MetaDataObjects.h"
 
 struct __bool_true {};

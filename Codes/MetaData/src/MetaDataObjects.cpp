@@ -8,6 +8,11 @@
 ////////////////////////////////////////////////
 //模块元数据 -- 唯一
 CMetaDataModule _MD__Module("");
+CMetaDataModule *_MD_MODULE_GetMetaData(void)
+{
+	return &_MD__Module;
+}
+
 //内建类型元数据
 MD_INNER_TYPE_DEF(char)
 MD_INNER_TYPE_DEF(short)
@@ -20,7 +25,7 @@ MD_INNER_TYPE_2_DEF(unsigned, char)
 MD_INNER_TYPE_2_DEF(unsigned, short)
 MD_INNER_TYPE_2_DEF(unsigned, long)
 MD_INNER_TYPE_2_DEF(unsigned, int)
-CMetaDataInnerType _MD__InnerTypePtr("void*", &_MD__Module, sizeof(void*));
+CMetaDataInnerType _MD__InnerTypePtr("void*", _MD_MODULE_GetMetaData(), sizeof(void*));
 
 #ifdef CO_SYSTEM_EXTENDED_TYPE_META_DATA_DEF
 //系统扩展类型元数据

@@ -4,10 +4,9 @@
 #include "..\Codes\MetaData\include\Demo.h"
 //#include "..\Codes\Serialization\include\ISerializer.h"
 
-#if 0
 static void do_print_metadata_tree(const CMetaData *pMD, int space_num)
 {
-	char FullNameBuffer[256];
+	static char FullNameBuffer[256];
 	if (space_num > 1)
 	{
 		printf("  ");
@@ -36,13 +35,13 @@ static void do_print_metadata_tree(const CMetaData *pMD, int space_num)
 	}
 	for (unsigned int i = 0; i < pMD->GetChildrenCount(); ++i)
 	{
-		PrintMetaDataTree(pMD->GetChild(i), space_num + 1);
+		do_print_metadata_tree(pMD->GetChild(i), space_num + 1);
 	}
 }
-#endif
 
 void test_item_print_metadata_tree(void)
 {
+	do_print_metadata_tree(&META_DATA_MODULE(), 0);
 }
 
 void test_item_serial_bin(void)
