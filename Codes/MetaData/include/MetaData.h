@@ -33,6 +33,8 @@ public:
 	unsigned int GetChildrenCount(void) const				{ return (m_pChildren ? m_pChildren->size() : 0); }
 	const CMetaData *GetChild(unsigned int index) const		{ return (m_pChildren ? m_pChildren->at(index) : NULL); }
 private:
+	void RemoveSelfFromParent(void);
+private:
 	char					*m_pName;
 	CMetaData				*m_pParent;
 	std::vector<CMetaData*>	*m_pChildren;

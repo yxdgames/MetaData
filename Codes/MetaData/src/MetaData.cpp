@@ -33,6 +33,7 @@ CMetaData::CMetaData(char *pName, CMetaData *pParent, bool bChildren)
 
 CMetaData::~CMetaData(void)
 {
+	RemoveSelfFromParent();
 	if (m_pChildren)
 	{
 		delete m_pChildren;
@@ -113,4 +114,20 @@ bool CMetaData::GetFullName(char *pFullNameBuffer, unsigned int BufferSize) cons
 const char *CMetaData::GetTypeCaption(void) const
 {
 	return gMetaDataTypeCaption[this->GetTypeID()];
+}
+
+void CMetaData::RemoveSelfFromParent(void)
+{
+	std::vector<CMetaData*>::iterator itr;
+	if (m_pParent && m_pParent->m_pChildren)
+	{
+		for (itr = m_pParent->m_pChildren->begin(); itr != m_pParent->m_pChildren->end(); ++itr)
+		{
+			if ((*itr) == this)
+			{
+				m_pParent->m_pChildren->erase(itr);
+				break;
+			}
+		}
+	}
 }
