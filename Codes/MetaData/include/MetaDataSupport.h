@@ -11,9 +11,6 @@
 #include "MetaDataClassType.h"
 #include "TypeTraits.h"
 
-//compile option.
-#define CO_MD_CUSTOM_TYPE_EXTRA
-
 /***********************/
 /* Meta data of module */
 /***********************/
@@ -125,32 +122,3 @@
 
 #define MD_FUNCTION_RETURN_DEF(type, ptr_level, func) \
 	(func)->SetReturnInfo(new CMetaDataVarBase(NULL, (func), (type), (ptr_level));
-
-/*********************************************/
-/*       __MD_CUSTOM_TYPE_MEMBER_EXTRA       */
-/*********************************************/
-#ifdef CO_MD_CUSTOM_TYPE_EXTRA
-#define __MD_CUSTOM_TYPE_MEMBER_EXTRA \
-	public: \
-		template <typename T> \
-		bool IsTypeOf(void) \
-		{ \
-			CMetaDataType *thisType(this->GetType()); \
-			CMetaDataType *pType(TypeTraits<T>::GetMetaDataType()); \
-			return thisType->IsTypeOf(pType); \
-		} \
-		template <typename T> \
-		T *AsType(void) \
-		{ \
-			CMetaDataType *thisType(this->GetType()); \
-			CMetaDataType *pType(TypeTraits<T>::GetMetaDataType()); \
-			return reinterpret_cast<T*>(thisType->AsType(this->GetTrueSelf(), pType)); \
-		} \
-	private: \
-		virtual void *GetTrueSelf(void) \
-		{ \
-			return this; \
-		}
-#else
-#define __MD_CUSTOM_TYPE_MEMBER_EXTRA
-#endif //CO_MD_CUSTOM_TYPE_EXTRA

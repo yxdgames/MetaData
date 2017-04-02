@@ -6,6 +6,9 @@
  * attention	None
  */
 
+//compile option.
+#define CO_MD_CUSTOM_TYPE_EXTRA
+
 /****************************/
 /* Meta data of custom type */
 /****************************/
@@ -99,3 +102,28 @@
 				pMDFunc = NULL; \
 			} \
 		} _MD__CTM_DIDO##name;
+
+/*********************************************/
+/*       __MD_CUSTOM_TYPE_MEMBER_EXTRA       */
+/*********************************************/
+#ifdef CO_MD_CUSTOM_TYPE_EXTRA
+#define __MD_CUSTOM_TYPE_MEMBER_EXTRA \
+	public: \
+		template <typename T> \
+		bool IsTypeOf(void) \
+		{ \
+			return this->GetType()->IsTypeOf(TypeTraits<T>::GetMetaDataType()); \
+		} \
+		template <typename T> \
+		T *AsType(void) \
+		{ \
+			return reinterpret_cast<T*>(this->GetType()->AsType(this->GetTrueSelf(), TypeTraits<T>::GetMetaDataType())); \
+		} \
+	private: \
+		virtual void *GetTrueSelf(void) \
+		{ \
+			return this; \
+		}
+#else
+#define __MD_CUSTOM_TYPE_MEMBER_EXTRA
+#endif //CO_MD_CUSTOM_TYPE_EXTRA

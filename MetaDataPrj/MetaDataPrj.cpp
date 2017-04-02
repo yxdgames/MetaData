@@ -7,11 +7,10 @@
 //#include "..\Codes\MetaData\include\MetaDataSupport.h"
 //#include "..\Codes\MetaData\include\MetaDataObjects.h"
 //#include "..\Codes\MetaData\include\TypeTraits.h"
-#include "..\Codes\Serialization\include\ISerializer.h"
+//#include "..\Codes\Serialization\include\ISerializer.h"
 
 #include <stdarg.h>
 #include <iostream>
-#include <fstream>
 
 void tst(int num, ...)
 {
@@ -50,9 +49,59 @@ public:
 //#define D_SERIAL_TEST
 //#define D_XML_TEST
 
+#define D_COMMAND_HELP	{ \
+		std::cout<<" >>>>>>>>>>>>>>>>>>>test console<<<<<<<<<<<<<<<<<<<"<<std::endl \
+		<<" metadata_tree : print tree of meta data."<<std::endl \
+		<<" serial_bin : save tested object to binary file."<<std::endl \
+		<<" serial_xml : save tested object to xml file."<<std::endl \
+		<<" exit : exit application."<<std::endl<<std::endl; \
+	}
+#define D_INPUT_LOGO	(" >")
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	test_item_print_metadata_tree();
+	char input_string[128];
+
+	D_COMMAND_HELP
+	std::cout<<D_INPUT_LOGO;
+	while (true)
+	{
+		std::cin.getline(input_string, 128);
+		if (strcmp(input_string, "exit") == 0)
+		{
+			break;
+		}
+		else if (strcmp(input_string, "help") == 0)
+		{
+			std::cout<<std::endl;
+			D_COMMAND_HELP
+		}
+		else if (strcmp(input_string, "metadata_tree") == 0)
+		{
+			test_item_print_metadata_tree();
+		}
+		else if (strcmp(input_string, "serial_bin") == 0)
+		{
+			std::cout<<" input destination: ";
+			std::cin.getline(input_string, 128);
+			test_item_serial_bin(input_string);
+		}
+		else if (strcmp(input_string, "serial_xml") == 0)
+		{
+			std::cout<<" input destination: ";
+			std::cin.getline(input_string, 128);
+			test_item_serial_xml(input_string);
+		}
+		else
+		{
+			if (input_string[0] != '\0')
+			{
+				std::cout<<" error command!"<<std::endl;
+			}
+		}
+		std::cout<<D_INPUT_LOGO;
+	}
+	std::cout<<" Application has exit."<<std::endl;
 #if 0
 #ifdef D_SERIAL_TEST
 	NTest::CClsInNS1 cins, *pCINS(NULL);
@@ -216,7 +265,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 #endif
 #endif
-	getchar();
 	return 0;
 }
 

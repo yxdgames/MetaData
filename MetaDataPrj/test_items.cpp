@@ -44,10 +44,10 @@ void test_item_print_metadata_tree(void)
 	do_print_metadata_tree(&META_DATA_MODULE(), 0);
 }
 
-void test_item_serial_bin(void)
+void test_item_serial_bin(char *pFileName)
 {
 }
 
-void test_item_serial_xml(void)
+void test_item_serial_xml(char *pFileName)
 {
 }
