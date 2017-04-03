@@ -15,14 +15,14 @@
 /* Meta data of name space */
 /***************************/
 #define MD_NAME_SPACE_DEF(name) \
-	CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_MODULE()); \
-	CMetaDataNameSpace *_MD_NS__GetMetaData(void) \
+	static CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_MODULE()); \
+	CMetaDataNameSpace *_MD__NS__GetMetaData(void) \
 	{ \
 		return &_MD__NS##name; \
 	}
 #define MD_NAME_SPACE_INNER_DEF(name, out_ns) \
-	CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_NAME_SPACE(out_ns)); \
-	CMetaDataNameSpace *_MD_NS__GetMetaData(void) \
+	static CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_NAME_SPACE(out_ns)); \
+	CMetaDataNameSpace *_MD__NS__GetMetaData(void) \
 	{ \
 		return &_MD__NS##name; \
 	}
@@ -30,8 +30,8 @@
 /***************************/
 /* Meta data of inner type */
 /***************************/
-#define MD_INNER_TYPE_DEF(name)						CMetaDataInnerType _MD__InnerType##name(#name, &_MD__Module, sizeof(name));
-#define MD_INNER_TYPE_2_DEF(name1, name2)			CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &_MD__Module, sizeof(name1 name2));
+#define MD_INNER_TYPE_DEF(name)						CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_MODULE(), sizeof(name));
+#define MD_INNER_TYPE_2_DEF(name1, name2)			CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_MODULE(), sizeof(name1 name2));
 
 /****************************/
 /* Meta data of custom type */

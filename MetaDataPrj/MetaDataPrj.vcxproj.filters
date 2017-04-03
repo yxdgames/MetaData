@@ -328,14 +328,14 @@
     <None Include="..\Codes\Serialization\src\ITreeSerial.meo">
       <Filter>Codes\Serialization\src</Filter>
     </None>
-    <None Include="..\Codes\include\MetaDataExtraObjects.meo">
-      <Filter>Codes\include</Filter>
-    </None>
     <None Include="..\Codes\Serialization\src\TreeSerial.meo">
       <Filter>Codes\Serialization\src</Filter>
     </None>
     <None Include="..\Codes\MetaData\src\Demo.meo">
       <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\src\MetaDataExtraObjects.meo">
+      <Filter>Codes\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

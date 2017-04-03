@@ -14,16 +14,15 @@
 /***********************/
 /* Meta data of module */
 /***********************/
-#define META_DATA_MODULE()								(*(::_MD_MODULE_GetMetaData()))
+#define META_DATA_MODULE()								(*(::_MD__MODULE__GetMetaData()))
 
 /***************************/
 /* Meta data of name space */
 /***************************/
-#define META_DATA_NAME_SPACE(name)						(*(name::_MD_NS__GetMetaData()))
+#define META_DATA_NAME_SPACE(name)						(*(name::_MD__NS__GetMetaData()))
 
 #define MD_NAME_SPACE_DECLARE(name) \
-	extern CMetaDataNameSpace _MD__NS##name; \
-	extern CMetaDataNameSpace *_MD_NS__GetMetaData(void);
+	extern CMetaDataNameSpace *_MD__NS__GetMetaData(void);
 
 /***************************/
 /* Meta data of inner type */

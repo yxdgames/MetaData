@@ -52,7 +52,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;CO_SYSTEM_EXTENDED_TYPE_META_DATA_DEF;XML_STATIC;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;CO_META_DATA_EXTRA_SYSTEM_DEF;XML_STATIC;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -173,7 +173,6 @@
     <ClCompile Include="test_items.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\include\MetaDataExtraObjects.meo" />
     <None Include="..\Codes\MetaData\src\Demo.meo" />
     <None Include="..\Codes\MetaData\src\IClone.meo" />
     <None Include="..\Codes\MetaData\src\IContainer.meo" />
@@ -183,6 +182,7 @@
     <None Include="..\Codes\Serialization\src\ISerial.meo" />
     <None Include="..\Codes\Serialization\src\ITreeSerial.meo" />
     <None Include="..\Codes\Serialization\src\TreeSerial.meo" />
+    <None Include="..\Codes\src\MetaDataExtraObjects.meo" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\lib\Debug\expat_static.lib" />

@@ -18,6 +18,7 @@
 	public: \
 		virtual CMetaDataType *GetType(void)			{ return &_MD__##md_obj_pre_name##name; } \
 		static md_custom_type *GetMetaData(void)	{ return &_MD__##md_obj_pre_name##name; } \
+	private: \
 		static md_custom_type _MD__##md_obj_pre_name##name; \
 		__MD_CUSTOM_TYPE_MEMBER_EXTRA
 

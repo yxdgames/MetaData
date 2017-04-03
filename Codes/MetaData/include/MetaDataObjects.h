@@ -6,8 +6,7 @@
 ////////////////////////////////////////////////
 //             System Meta Data               //
 ////////////////////////////////////////////////
-extern CMetaDataModule _MD__Module;
-extern CMetaDataModule *_MD_MODULE_GetMetaData(void);
+extern CMetaDataModule *_MD__MODULE__GetMetaData(void);
 
 extern CMetaDataInnerType _MD__InnerTypechar;
 extern CMetaDataInnerType _MD__InnerTypeshort;
