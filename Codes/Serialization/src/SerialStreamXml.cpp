@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\XmlSerialStream.h"
+#include "..\include\SerialStreamXml.h"
 #include "..\include\ITreeSerial.h"
 #include "..\..\include\CharArray.h"
 #include "..\include\ExceptionSerialization.h"
@@ -178,19 +178,19 @@ void XMLCALL XmlElementEnd(void *userData, const XML_Char *name)
 	--pEntItem->level;
 }
 
-//CXmlSerialStream
-CXmlSerialStream::CXmlSerialStream(std::iostream *pStream, bool hold_stream)
+//CSerialStreamXml
+CSerialStreamXml::CSerialStreamXml(std::iostream *pStream, bool hold_stream)
 	:m_pStream(pStream), m_HoldStream(hold_stream)
 {
 }
 
 
-CXmlSerialStream::~CXmlSerialStream(void)
+CSerialStreamXml::~CSerialStreamXml(void)
 {
 	if (m_HoldStream && m_pStream) delete m_pStream;
 }
 
-bool CXmlSerialStream::Serialize(ISerial *pSerial)
+bool CSerialStreamXml::Serialize(ISerial *pSerial)
 {
 	if (!pSerial || !m_pStream) return false;
 
@@ -207,7 +207,7 @@ bool CXmlSerialStream::Serialize(ISerial *pSerial)
 	return DoSerialize(pEnt, buffer.char_array());
 }
 
-bool CXmlSerialStream::Unserialize(ISerial *pSerial)
+bool CSerialStreamXml::Unserialize(ISerial *pSerial)
 {
 	if (!pSerial || !m_pStream) return false;
 
@@ -251,7 +251,7 @@ bool CXmlSerialStream::Unserialize(ISerial *pSerial)
 	return true;
 }
 
-bool CXmlSerialStream::DoSerialize(ISerialEntity *pEnt, char *pBuff)
+bool CSerialStreamXml::DoSerialize(ISerialEntity *pEnt, char *pBuff)
 {
 	if (!pBuff || !pEnt->GetName()) return false;
 

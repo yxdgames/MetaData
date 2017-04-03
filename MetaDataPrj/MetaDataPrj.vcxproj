@@ -112,7 +112,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
     <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
-    <ClInclude Include="..\Codes\Serialization\include\BinSerialStream.h" />
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h" />
     <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionSerialization.h" />
     <ClInclude Include="..\Codes\Serialization\include\ISerial.h" />
@@ -124,7 +124,7 @@
     <ClInclude Include="..\Codes\Serialization\include\Serializer.h" />
     <ClInclude Include="..\Codes\Serialization\include\SVariant.h" />
     <ClInclude Include="..\Codes\Serialization\include\TreeSerial.h" />
-    <ClInclude Include="..\Codes\Serialization\include\XmlSerialStream.h" />
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="test_items.h" />
@@ -151,7 +151,7 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVarBase.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\BinSerialStream.cpp" />
+    <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp" />
@@ -162,7 +162,7 @@
     <ClCompile Include="..\Codes\Serialization\src\Serializer.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\SVariant.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\XmlSerialStream.cpp" />
+    <ClCompile Include="..\Codes\Serialization\src\SerialStreamXml.cpp" />
     <ClCompile Include="..\Codes\src\CharArray.cpp" />
     <ClCompile Include="..\Codes\src\ExceptionBase.cpp" />
     <ClCompile Include="MetaDataPrj.cpp" />

@@ -4,11 +4,11 @@
 #include "ISerialEntity.h"
 #include "..\include\EntityBinaryFileStructure.h"
 
-class CBinSerialStream : public ISerialStream
+class CSerialStreamBinary : public ISerialStream
 {
 public:
-	CBinSerialStream(std::iostream *pStream, bool hold_stream);
-	virtual ~CBinSerialStream(void);
+	CSerialStreamBinary(std::iostream *pStream, bool hold_stream);
+	virtual ~CSerialStreamBinary(void);
 public:
 	//
 public:

@@ -165,16 +165,10 @@
     <ClInclude Include="..\Codes\Serialization\include\TreeSerial.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\Serialization\include\BinSerialStream.h">
-      <Filter>Codes\Serialization\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\Serialization\include\ISerialStream.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Codes\Serialization\include\ISerializer.h">
-      <Filter>Codes\Serialization\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Codes\Serialization\include\XmlSerialStream.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Codes\include\CharArray.h">
@@ -188,6 +182,12 @@
     </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
       <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h">
+      <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,16 +284,10 @@
     <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\Serialization\src\BinSerialStream.cpp">
-      <Filter>Codes\Serialization\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\ISerialStream.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\ISerializer.cpp">
-      <Filter>Codes\Serialization\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Codes\Serialization\src\XmlSerialStream.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\src\CharArray.cpp">
@@ -304,6 +298,12 @@
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\Demo.cpp">
       <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SerialStreamXml.cpp">
+      <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

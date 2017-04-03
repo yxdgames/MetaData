@@ -3,11 +3,11 @@
 #include "ISerialStream.h"
 #include "ISerialEntity.h"
 
-class CXmlSerialStream : public ISerialStream
+class CSerialStreamXml : public ISerialStream
 {
 public:
-	CXmlSerialStream(std::iostream *pStream, bool hold_stream);
-	virtual ~CXmlSerialStream(void);
+	CSerialStreamXml(std::iostream *pStream, bool hold_stream);
+	virtual ~CSerialStreamXml(void);
 public:
 	//
 public:

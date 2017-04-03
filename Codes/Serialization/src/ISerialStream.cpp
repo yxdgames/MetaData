@@ -1,17 +1,17 @@
 #include "stdafx.h"
 #include "..\include\ISerialStream.h"
 
-#include "..\include\BinSerialStream.h"
-#include "..\include\XmlSerialStream.h"
+#include "..\include\SerialStreamBinary.h"
+#include "..\include\SerialStreamXml.h"
 
 ISerialStream *ISerialStream::CreateSerialStreamIntf(ESerialStreamIntfType IntfType, std::iostream *pStream, bool hold_stream)
 {
 	switch(IntfType)
 	{
 	case ssitBin:
-		return new CBinSerialStream(pStream, hold_stream);
+		return new CSerialStreamBinary(pStream, hold_stream);
 	case ssitXml:
-		return new CXmlSerialStream(pStream, hold_stream);
+		return new CSerialStreamXml(pStream, hold_stream);
 	default:
 		return NULL;
 	}

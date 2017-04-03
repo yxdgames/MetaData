@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\BinSerialStream.h"
+#include "..\include\SerialStreamBinary.h"
 #include "..\include\ITreeSerial.h"
 
 #define D_ENT_BIN_SERIALIZER_FILE_TAG	"OBBINSER\0"
@@ -9,8 +9,8 @@
 
 #define D_CLASS_MEMBER_VARIABLE_OFFSET(cls, mem_var)	(reinterpret_cast<unsigned int>(&(reinterpret_cast<cls*>(0)->mem_var)))
 
-//CBinSerialStream::SStringFilePositionList
-CBinSerialStream::SStringFilePositionList::SStringFilePositions *CBinSerialStream::SStringFilePositionList::FindItem(const char *pString, bool bNew)
+//CSerialStreamBinary::SStringFilePositionList
+CSerialStreamBinary::SStringFilePositionList::SStringFilePositions *CSerialStreamBinary::SStringFilePositionList::FindItem(const char *pString, bool bNew)
 {
 	SStringFilePositions *pStringFilePos(NULL);
 	for (unsigned long i = 0; i < this->info_vector.size(); ++i)
@@ -32,19 +32,19 @@ CBinSerialStream::SStringFilePositionList::SStringFilePositions *CBinSerialStrea
 	return pStringFilePos;
 }
 
-//CBinSerialStream
-CBinSerialStream::CBinSerialStream(std::iostream *pStream, bool hold_stream)
+//CSerialStreamBinary
+CSerialStreamBinary::CSerialStreamBinary(std::iostream *pStream, bool hold_stream)
 	:m_HoldStream(hold_stream), m_pStream(pStream), m_StreamPosition(0)
 {
 }
 
 
-CBinSerialStream::~CBinSerialStream(void)
+CSerialStreamBinary::~CSerialStreamBinary(void)
 {
 	if (m_HoldStream && m_pStream) delete m_pStream;
 }
 
-bool CBinSerialStream::Serialize(ISerial *pSerial)
+bool CSerialStreamBinary::Serialize(ISerial *pSerial)
 {
 	if (!m_pStream || !pSerial) return false;
 
@@ -99,7 +99,7 @@ bool CBinSerialStream::Serialize(ISerial *pSerial)
 	return true;
 }
 
-bool CBinSerialStream::Unserialize(ISerial *pSerial)
+bool CSerialStreamBinary::Unserialize(ISerial *pSerial)
 {
 	if (!m_pStream || !pSerial) return false;
 
@@ -136,7 +136,7 @@ bool CBinSerialStream::Unserialize(ISerial *pSerial)
 	return UnserializeEntity(pEnt, ent_size);
 }
 
-void CBinSerialStream::SerialInit(void)
+void CSerialStreamBinary::SerialInit(void)
 {
 	if (m_pStream)
 	{
@@ -146,7 +146,7 @@ void CBinSerialStream::SerialInit(void)
 	m_StringFilePositionList.info_vector.clear();
 }
 
-bool CBinSerialStream::SerializeEntity(ISerialEntity *pEnt, unsigned long &EntSize)
+bool CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt, unsigned long &EntSize)
 {
 	SFileEntityItem file_ent_item;
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT, 0 };
@@ -196,7 +196,7 @@ bool CBinSerialStream::SerializeEntity(ISerialEntity *pEnt, unsigned long &EntSi
 	return true;
 }
 
-bool CBinSerialStream::SerializeStringTable(void)
+bool CSerialStreamBinary::SerializeStringTable(void)
 {
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_STRING, 0 };
 	TypeBaseUnit atom_size_pos;
@@ -240,7 +240,7 @@ bool CBinSerialStream::SerializeStringTable(void)
 	return true;
 }
 
-void CBinSerialStream::UnserialInit(void)
+void CSerialStreamBinary::UnserialInit(void)
 {
 	if (m_pStream)
 	{
@@ -249,7 +249,7 @@ void CBinSerialStream::UnserialInit(void)
 	m_StreamPosition = 0;
 }
 
-bool CBinSerialStream::UnserializeEntity(ISerialEntity *pEnt, unsigned long &EntSize)
+bool CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, unsigned long &EntSize)
 {
 	SAtom atom;
 	TypeBaseUnit child_ent_size;
