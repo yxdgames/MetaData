@@ -5,7 +5,7 @@ MD_INTERFACE_DEF(IInterface)
 
 /*Define: MetaData of member function wrapper*/
 //Function "QueryInterface"
-MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(0, QueryInterface, IInterface)
+MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(IInterface, QueryInterface, 0)
 	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(2)
 	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(bool)
 	= MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_THIS(IInterface)->QueryInterface

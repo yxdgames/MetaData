@@ -41,7 +41,7 @@
 	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
 
 //成员函数封装
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name) \
+#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index) \
 	bool cls_name::_MD__CTMMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
 	{ \
 		bool ret_val(true);
@@ -62,7 +62,7 @@
 #define MD_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface)
 
 //成员函数封装
-#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, intf_name)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, intf_name)
+#define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)
 
 #define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)				MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)
 #define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)						MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)
@@ -89,7 +89,7 @@
 	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
 
 //构造函数封装
-#define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(index, cls_name) \
+#define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(cls_name, index) \
 	bool cls_name::_MD__CTMCR##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
 	{ \
 		bool ret_val(true);
@@ -103,7 +103,7 @@
 	}
 
 //成员函数封装
-#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name)
+#define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index)
 
 #define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)				MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)
 #define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)						MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(type_name)
@@ -114,7 +114,7 @@
 #define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()									MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
 
 //静态成员函数封装
-#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_BEGIN(index, func_name, cls_name) \
+#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index) \
 	bool cls_name::_MD__CTMSMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
 	{ \
 		bool ret_val(true);

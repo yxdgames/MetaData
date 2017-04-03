@@ -14,9 +14,62 @@ class CClass1
 public:
 	CClass1(void);
 	~CClass1(void);
-
+public:
+	int cls1_func1(int a, double d);
+	int cls1_func2(unsigned char c, double d);
+public:
+	virtual double cls1_vir_func1(float f, unsigned long l);
+public:
+	static void cls1_static_func1(void);
+	static float cls1_static_func1(int p_x, double p_d);
+public:
+	int mem_i;
+	char mem_char;
+	short mem_short;
+	double mem_d;
+	float mem_f;
+	unsigned int mem_u_i;
+	long mem_long;
+	long *p_mem_long;
+public:
+	static unsigned char static_mem_uc;
+	static unsigned long static_mem_ulong;
+	static bool static_mem_bool;
+	static bool *p_static_mem_bool;
 MD_CLASS_TYPE_DECLARE_BEGIN(CClass1)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(0)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_func1, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_func2, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_vir_func1, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(cls1_static_func1, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(cls1_static_func1, 1)
 MD_CLASS_TYPE_DECLARE_DETAIL(CClass1)
+	MD_CLASS_TYPE_CONSTRUCTOR_DEF(0)
+	MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls1_func1, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(a, int, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(d, double, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls1_func2, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(c, unsigned char, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(d, double, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls1_vir_func1, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(f, float, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(l, unsigned long, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(cls1_static_func1, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(cls1_static_func1, 1)
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(p_x, int, 0)
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(p_d, double, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_i, int, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_char, char, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_short, short, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_d, double, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_f, float, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_u_i, unsigned int, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_long, long, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(p_mem_long, long, 1)
+	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_uc, unsigned char, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_ulong, unsigned long, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_bool, bool, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(p_static_mem_bool, bool, 1)
 MD_CLASS_TYPE_DECLARE_END(CClass1)
 };
 
@@ -210,8 +263,8 @@ public:
 	class CClass3_Inner1
 	{
 	public:
-		CClass3_Inner1(void);
-		~CClass3_Inner1(void);
+		CClass3_Inner1(void) {}
+		~CClass3_Inner1(void) {}
 
 	MD_CLASS_TYPE_DECLARE_BEGIN(CClass3_Inner1)
 	MD_CLASS_TYPE_DECLARE_DETAIL(CClass3_Inner1)
@@ -272,12 +325,60 @@ public:
 	class CClass3_Inner1_Derived1 : public CClass3_Inner1
 	{
 	public:
-		CClass3_Inner1_Derived1(void);
-		~CClass3_Inner1_Derived1(void);
+		CClass3_Inner1_Derived1(void) {}
+		CClass3_Inner1_Derived1(int a)
+		{
+			mem_cls1.mem_i = 0;
+		}
+		~CClass3_Inner1_Derived1(void) {}
+	public:
+		int cls3_i1_d1_func1(double x);
+		void cls3_i1_d1_func1(int x);
+	public:
+		virtual double cls3_i1_d1_virtual_func1(double x);
+		virtual void cls3_i1_d1_virtual_func1(int x);
+	public:
+		static float cls3_i1_d1_static_func1(double x);
+		static float cls3_i1_d1_static_func1(int x);
+	public:
+		CClass1 mem_cls1;
+		short mem_s;
+	public:
+		static bool mem_bool;
 
 	MD_CLASS_TYPE_DECLARE_BEGIN(CClass3_Inner1_Derived1)
+		MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(0)
+		MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(1)
+		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls3_i1_d1_func1, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls3_i1_d1_func1, 1)
+		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls3_i1_d1_virtual_func1, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls3_i1_d1_virtual_func1, 1)
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(cls3_i1_d1_static_func1, 0)
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(cls3_i1_d1_static_func1, 1)
 	MD_CLASS_TYPE_DECLARE_DETAIL(CClass3_Inner1_Derived1)
 		MD_CLASS_TYPE_BASE_CLASS_DEF(CClass3_Inner1)
+		MD_CLASS_TYPE_CONSTRUCTOR_DEF(0)
+		MD_CLASS_TYPE_CONSTRUCTOR_DEF(1)
+			MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(a, int, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls3_i1_d1_func1, 0)
+			MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(x, double, 0)
+			MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(int, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls3_i1_d1_func1, 1)
+			MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(x, int, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls3_i1_d1_virtual_func1, 0)
+			MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(x, double, 0)
+			MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(double, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls3_i1_d1_virtual_func1, 1)
+			MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(x, int, 0)
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(cls3_i1_d1_static_func1, 0)
+			MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(x, double, 0)
+			MD_CLASS_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(float, 0)
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(cls3_i1_d1_static_func1, 1)
+			MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(x, int, 0)
+			MD_CLASS_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(float, 0)
+		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_cls1, CClass1, 0)
+		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_s, short, 0)
+		MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(mem_bool, bool, 0)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1_Derived1)
 	};
 	class CClass3_Inner1_Derived2 : public CClass3_Inner1

@@ -54,7 +54,7 @@
 
 					//添加构造函数参数元数据信息
 #define MD_CUSTOM_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, ptr_level) \
-	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, &(type), (ptr_level)));
+	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
 
 				/*--添加成员函数元数据信息--*/
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index) \
@@ -67,14 +67,14 @@
 
 					//添加成员函数参数元数据信息
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level) \
-	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, &(type), (ptr_level)));
+	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
 					//添加成员函数返回值元数据信息
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_RETURN_DEF(type, ptr_level) \
-	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &(type), (ptr_level)));
+	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
 
 				/*--添加成员变量元数据信息--*/
 #define MD_CUSTOM_TYPE_MEMBER_VAR_DEF(var_name, var_type, ptr_level) \
-	static CMetaDataCustomTypeMemberVar _MD__MV##var_name(#var_name, &MDType, &(var_type), (ptr_level), reinterpret_cast<unsigned int>(&(pTemObj2->var_name))); \
+	static CMetaDataCustomTypeMemberVar _MD__MV##var_name(#var_name, &MDType, TypeTraits<var_type>::GetMetaDataType(), (ptr_level), reinterpret_cast<unsigned int>(&(pTemObj2->var_name))); \
 	MDType.AddMemberVar(&_MD__MV##var_name);
 
 				/*--添加静态成员函数元数据信息--*/
@@ -88,14 +88,14 @@
 
 					//添加静态成员函数参数元数据信息
 #define MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level) \
-	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, &(type), (ptr_level)));
+	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
 					//添加静态成员函数返回值元数据信息
 #define MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(type, ptr_level) \
-	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &(type), (ptr_level)));
+	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
 
 				/*--添加静态成员变量元数据信息--*/
 #define MD_CUSTOM_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, ptr_level) \
-	static CMetaDataVariable _MD__SMV##var_name(#var_name, &MDType, &(var_type), (ptr_level), &var_name); \
+	static CMetaDataVariable _MD__SMV##var_name(#var_name, &MDType, TypeTraits<var_type>::GetMetaDataType(), (ptr_level), &var_name); \
 	MDType.AddStaticMemberVar(&_MD__SMV##var_name);
 
 #define MD_CUSTOM_TYPE_DECLARE_END(name) \
