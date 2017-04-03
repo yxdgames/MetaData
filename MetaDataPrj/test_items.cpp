@@ -46,78 +46,184 @@ void test_item_print_metadata_tree(void)
 	do_print_metadata_tree(&META_DATA_MODULE(), 0);
 }
 
-void test_item_serial_bin(char *pFileName)
+void test_item_serial_bin(char *pFileName, char flag)
 {
-	g_test_items_derived1.mem_s = 102;
-	g_test_items_derived1.mem_cls1.mem_i = 51;
-	g_test_items_derived1.mem_cls1.mem_char = 'W';
-	g_test_items_derived1.mem_cls1.mem_short = 351;
-	g_test_items_derived1.mem_cls1.mem_d = 294654.8108492;
-	g_test_items_derived1.mem_cls1.mem_f = 83921498.8395014f;
-	g_test_items_derived1.mem_cls1.mem_u_i = 5630;
-	g_test_items_derived1.mem_cls1.mem_long = 9023;
-	g_test_items_derived1.mem_cls1.p_mem_long = new long;
-	*g_test_items_derived1.mem_cls1.p_mem_long = 9284;
-	g_test_items_derived1.mem_string.SetValue("");
-	g_test_items_derived1.mem_char = 'U';
-	g_test_items_derived1.mem_float = -83231.84920832f;
-	g_test_items_derived1.mem_bool = true;
-	g_test_items_derived1.mem_cls2.mem_a = 10;
-	g_test_items_derived1.mem_cls2.mem_b = 84904;
-
+	if (flag)
+	{
+		g_test_items_derived1.mem_s = 105;
+		g_test_items_derived1.mem_cls1.mem_i = 51;
+		g_test_items_derived1.mem_cls1.mem_char = 11;
+		g_test_items_derived1.mem_cls1.mem_short = 351;
+		g_test_items_derived1.mem_cls1.mem_d = 3324654.112;
+		g_test_items_derived1.mem_cls1.mem_f = 391008.8014f;
+		g_test_items_derived1.mem_cls1.mem_u_i = 5630;
+		g_test_items_derived1.mem_cls1.mem_long = 9023;
+		g_test_items_derived1.mem_cls1.p_mem_long = new long;
+		*g_test_items_derived1.mem_cls1.p_mem_long = 9284;
+		g_test_items_derived1.mem_string.SetValue("abdlewov中文测试。中英文字符串!！");
+		g_test_items_derived1.mem_char = 22;
+		g_test_items_derived1.mem_float = -10908.20011f;
+		g_test_items_derived1.CClass3_Inner1::mem_bool = true;
+		g_test_items_derived1.mem_cls2.mem_a = 10;
+		g_test_items_derived1.mem_cls2.mem_b = 84904;
+	}
+	else
+	{
+		g_test_items_derived1.mem_s = 102;
+		g_test_items_derived1.mem_cls1.mem_i = 51;
+		g_test_items_derived1.mem_cls1.mem_char = 69;
+		g_test_items_derived1.mem_cls1.mem_short = 351;
+		g_test_items_derived1.mem_cls1.mem_d = 2964.80092;
+		g_test_items_derived1.mem_cls1.mem_f = 83198.83014f;
+		g_test_items_derived1.mem_cls1.mem_u_i = 563013;
+		g_test_items_derived1.mem_cls1.mem_long = 902633;
+		g_test_items_derived1.mem_cls1.p_mem_long = new long;
+		*g_test_items_derived1.mem_cls1.p_mem_long = 923384;
+		g_test_items_derived1.mem_string.SetValue("中文测试。中英文字符串!！abdlewov~");
+		g_test_items_derived1.mem_char = 89;
+		g_test_items_derived1.mem_float = -8331.84032f;
+		g_test_items_derived1.CClass3_Inner1::mem_bool = false;
+		g_test_items_derived1.mem_cls2.mem_a = 1880;
+		g_test_items_derived1.mem_cls2.mem_b = 5433904;
+	}
 	ISerializer *Ser(ISerializer::CreateSerializerIntf());
 	ISerial *pSerial(ISerial::CreateSerialIntf());
 	pSerial->SetStructInStream(sisBin);
 	Ser->SetSerial(pSerial);
 	if (!Ser->Serialize(&g_test_items_derived1, "cls3_inner1_derived1"))
 	{
-		printf("Ser->Serialize error.\n");
+		printf(" Ser->Serialize error.\n");
 		return;
 	}
 	if (pSerial->SaveToFile(pFileName))
 	{
-		printf("save seuccessful.\n");
+		printf(" save seuccessful.\n");
 	}
 	else
 	{
-		printf("save failure.\n");
+		printf(" save failure.\n");
 	}
+	delete Ser;
+	delete pSerial;
 }
 
-void test_item_serial_xml(char *pFileName)
+void test_item_unserial_bin(char *pFileName)
 {
-	g_test_items_derived1.mem_s = 102;
-	g_test_items_derived1.mem_cls1.mem_i = 51;
-	g_test_items_derived1.mem_cls1.mem_char = 'W';
-	g_test_items_derived1.mem_cls1.mem_short = 351;
-	g_test_items_derived1.mem_cls1.mem_d = 294654.8108492;
-	g_test_items_derived1.mem_cls1.mem_f = 83921498.8014f;
-	g_test_items_derived1.mem_cls1.mem_u_i = 5630;
-	g_test_items_derived1.mem_cls1.mem_long = 9023;
-	g_test_items_derived1.mem_cls1.p_mem_long = new long;
-	*g_test_items_derived1.mem_cls1.p_mem_long = 9284;
-	g_test_items_derived1.mem_string.SetValue("ssssssssssssssssssss");
-	g_test_items_derived1.mem_char = 'U';
-	g_test_items_derived1.mem_float = -10008.200011f;
-	g_test_items_derived1.CClass3_Inner1::mem_bool = true;
-	g_test_items_derived1.mem_cls2.mem_a = 10;
-	g_test_items_derived1.mem_cls2.mem_b = 84904;
+	ISerializer *Ser(ISerializer::CreateSerializerIntf());
+	ISerial *pSerial(ISerial::CreateSerialIntf());
+	pSerial->SetStructInStream(sisBin);
+	CClass3::CClass3_Inner1_Derived1 *pObj;
+	if (pSerial->LoadFromFile(pFileName))
+	{
+		printf("\n\n");
+		pSerial->DebugPrintSelf();
+		printf("\n\n");
+	}
+	else
+	{
+		printf(" load error.\n");
+		return;
+	}
+	pObj = &g_test_items_derived1;
+	Ser->SetSerial(pSerial);
+	if (Ser->Unserialize("cls3_inner1_derived1", &pObj))
+	{
+		printf(" load successful.\n");
+	}
+	else
+	{
+		printf(" load failure.\n");
+	}
+	delete Ser;
+	delete pSerial;
+}
 
+void test_item_serial_xml(char *pFileName, char flag)
+{
+	if (flag)
+	{
+		g_test_items_derived1.mem_s = 105;
+		g_test_items_derived1.mem_cls1.mem_i = 51;
+		g_test_items_derived1.mem_cls1.mem_char = 11;
+		g_test_items_derived1.mem_cls1.mem_short = 351;
+		g_test_items_derived1.mem_cls1.mem_d = 3324654.112;
+		g_test_items_derived1.mem_cls1.mem_f = 391008.8014f;
+		g_test_items_derived1.mem_cls1.mem_u_i = 5630;
+		g_test_items_derived1.mem_cls1.mem_long = 9023;
+		g_test_items_derived1.mem_cls1.p_mem_long = new long;
+		*g_test_items_derived1.mem_cls1.p_mem_long = 9284;
+		g_test_items_derived1.mem_string.SetValue("ssssssssssssssssssss");
+		g_test_items_derived1.mem_char = 22;
+		g_test_items_derived1.mem_float = -10908.20011f;
+		g_test_items_derived1.CClass3_Inner1::mem_bool = true;
+		g_test_items_derived1.mem_cls2.mem_a = 10;
+		g_test_items_derived1.mem_cls2.mem_b = 84904;
+	}
+	else
+	{
+		g_test_items_derived1.mem_s = 102;
+		g_test_items_derived1.mem_cls1.mem_i = 51;
+		g_test_items_derived1.mem_cls1.mem_char = 69;
+		g_test_items_derived1.mem_cls1.mem_short = 351;
+		g_test_items_derived1.mem_cls1.mem_d = 2964.80092;
+		g_test_items_derived1.mem_cls1.mem_f = 83198.83014f;
+		g_test_items_derived1.mem_cls1.mem_u_i = 563013;
+		g_test_items_derived1.mem_cls1.mem_long = 902633;
+		g_test_items_derived1.mem_cls1.p_mem_long = new long;
+		*g_test_items_derived1.mem_cls1.p_mem_long = 923384;
+		g_test_items_derived1.mem_string.SetValue("aaaaaaaaaaaaaaaa");
+		g_test_items_derived1.mem_char = 89;
+		g_test_items_derived1.mem_float = -8331.84032f;
+		g_test_items_derived1.CClass3_Inner1::mem_bool = false;
+		g_test_items_derived1.mem_cls2.mem_a = 1880;
+		g_test_items_derived1.mem_cls2.mem_b = 5433904;
+	}
 	ISerializer *Ser(ISerializer::CreateSerializerIntf());
 	ISerial *pSerial(ISerial::CreateSerialIntf());
 	pSerial->SetStructInStream(sisXml);
 	Ser->SetSerial(pSerial);
 	if (!Ser->Serialize(&g_test_items_derived1, "cls3_inner1_derived1"))
 	{
-		printf("Ser->Serialize error.\n");
+		printf(" Ser->Serialize error.\n");
 		return;
 	}
 	if (pSerial->SaveToFile(pFileName))
 	{
-		printf("save seuccessful.\n");
+		printf(" save seuccessful.\n");
 	}
 	else
 	{
-		printf("save failure.\n");
+		printf(" save failure.\n");
 	}
+}
+
+void test_item_unserial_xml(char *pFileName)
+{
+	ISerializer *Ser(ISerializer::CreateSerializerIntf());
+	ISerial *pSerial(ISerial::CreateSerialIntf());
+	pSerial->SetStructInStream(sisXml);
+	CClass3::CClass3_Inner1_Derived1 *pObj;
+	if (pSerial->LoadFromFile(pFileName))
+	{
+		printf("\n\n");
+		pSerial->DebugPrintSelf();
+		printf("\n\n");
+	}
+	else
+	{
+		printf(" load error.\n");
+		return;
+	}
+	pObj = &g_test_items_derived1;
+	Ser->SetSerial(pSerial);
+	if (Ser->Unserialize("cls3_inner1_derived1", &pObj))
+	{
+		printf(" load successful.\n");
+	}
+	else
+	{
+		printf(" load failure.\n");
+	}
+	delete Ser;
+	delete pSerial;
 }
