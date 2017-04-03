@@ -5,11 +5,13 @@
 
 //CClass1
 CClass1::CClass1(void)
+	: p_mem_long(NULL)
 {
 }
 
 CClass1::~CClass1(void)
 {
+	if (p_mem_long) delete p_mem_long;
 }
 
 int CClass1::cls1_func1(int a, double d)

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "..\include\MetaDataSupport.h"
+#include "SimpleString.h"
+#include "MetaDataSupport.h"
 
 //#define	__META_DATA_DEMO__
 
@@ -162,11 +163,16 @@ MD_CLASS_TYPE_DECLARE_END(CClass1_Descendant5)
 class CClass2
 {
 public:
-	CClass2(void);
-	virtual ~CClass2(void);
+	CClass2(void) {}
+	virtual ~CClass2(void) {}
+public:
+	int mem_a;
+	long mem_b;
 
 MD_CLASS_TYPE_DECLARE_BEGIN(CClass2)
 MD_CLASS_TYPE_DECLARE_DETAIL(CClass2)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_a, int, 0)
+	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_b, long, 0)
 MD_CLASS_TYPE_DECLARE_END(CClass2)
 };
 
@@ -265,9 +271,20 @@ public:
 	public:
 		CClass3_Inner1(void) {}
 		~CClass3_Inner1(void) {}
+	public:
+		SimpleString mem_string;
+		char mem_char;
+		float mem_float;
+		bool mem_bool;
+		CClass2 mem_cls2;
 
 	MD_CLASS_TYPE_DECLARE_BEGIN(CClass3_Inner1)
 	MD_CLASS_TYPE_DECLARE_DETAIL(CClass3_Inner1)
+		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_string, SimpleString, 0)
+		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_char, char, 0)
+		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_float, float, 0)
+		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_bool, bool, 0)
+		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_cls2, CClass2, 0)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1)
 	};
 	class CClass3_Inner2
