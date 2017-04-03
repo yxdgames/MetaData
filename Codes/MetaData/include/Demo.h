@@ -801,10 +801,10 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_DETAIL(NS1_CClass3)
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass3)
 	};
-	namespace NameSpasce1_Sub1
+	namespace NameSpace1_Sub1
 	{
-		//Declare NameSpasce1_Sub1
-		MD_NAME_SPACE_DECLARE(NameSpasce1_Sub1)
+		//Declare NameSpace1_Sub1
+		MD_NAME_SPACE_DECLARE(NameSpace1_Sub1)
 
 		class NS1_Sub1_CClass1
 		{
@@ -1138,11 +1138,48 @@ namespace NameSpace1{
 			class NS1_Sub1_Sub1_CClass1
 			{
 			public:
-				NS1_Sub1_Sub1_CClass1(void);
-				~NS1_Sub1_Sub1_CClass1(void);
+				NS1_Sub1_Sub1_CClass1(void) {}
+				NS1_Sub1_Sub1_CClass1(int i, float f) : mem_i(i), mem_f(f) {}
+				~NS1_Sub1_Sub1_CClass1(void) {}
+			public:
+				bool func1(float f, int i);
+			public:
+				virtual long vfunc1(int i);
+			public:
+				static bool sfunc1(bool b, short sh);
+			public:
+				int mem_i;
+				float mem_f;
+			public:
+				static long mem_long;
+				static double mem_double;
 
 			MD_CLASS_TYPE_DECLARE_BEGIN(NS1_Sub1_Sub1_CClass1)
+				MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(0)
+				MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(1)
+				MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func1, 0)
+				MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(vfunc1, 0)
+				MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(sfunc1, 0)
 			MD_CLASS_TYPE_DECLARE_DETAIL(NS1_Sub1_Sub1_CClass1)
+				MD_CLASS_TYPE_CONSTRUCTOR_DEF(0)
+				MD_CLASS_TYPE_CONSTRUCTOR_DEF(1)
+					MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(i, int, 0)
+					MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(f, float, 0)
+				MD_CLASS_TYPE_MEMBER_FUNC_DEF(func1, 0)
+					MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(f, float, 0)
+					MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(i, int, 0)
+					MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(bool, 0)
+				MD_CLASS_TYPE_MEMBER_FUNC_DEF(vfunc1, 0)
+					MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(i, int, 0)
+					MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(long, 0)
+				MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(sfunc1, 0)
+					MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(b, bool, 0)
+					MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(sh, short, 0)
+					MD_CLASS_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(bool, 0)
+				MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_i, int, 0)
+				MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_f, float, 0)
+				MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(mem_long, long, 0)
+				MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(mem_double, double, 0)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1)
 			};
 
@@ -1459,7 +1496,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3)
 			};
 		} //NameSpasce1_Sub1_Sub1
-	} //NameSpasce1_Sub1
+	} //NameSpace1_Sub1
 } //NameSpasce1
 
 #endif //__META_DATA_DEMO__

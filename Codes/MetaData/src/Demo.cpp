@@ -83,4 +83,26 @@ float CClass3::CClass3_Inner1_Derived1::cls3_i1_d1_static_func1(int x)
 
 bool CClass3::CClass3_Inner1_Derived1::mem_bool;
 
+//NS1_Sub1_Sub1_CClass1
+bool NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::func1(float f, int i)
+{
+	printf("p_f: %f, p_i: %d, this->mem_f: %f, result: %f\n", f, i, this->mem_f, f * i * this->mem_f);
+	return (f * i * this->mem_f) != 0;
+}
+
+long NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::vfunc1(int i)
+{
+	printf("p_i: %d, this->mem_f: %f, result: %f\n", i, this->mem_f, i * this->mem_f);
+	return (i * this->mem_f) != 0;
+}
+
+bool NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::sfunc1(bool b, short sh)
+{
+	printf("p_b: %d, p_sh: %d\n", b, sh);
+	return b;
+}
+
+long NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::mem_long;
+double NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::mem_double;
+
 #endif //__META_DATA_DEMO__

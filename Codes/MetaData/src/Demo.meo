@@ -123,7 +123,7 @@ MD_CLASS_TYPE_IN_CLS_DEF(CClass3_Inner3_Inner2, CClass3::CClass3_Inner3)
 //CClass3_Inner3_Inner2_Inner1
 MD_CLASS_TYPE_IN_CLS_DEF(CClass3_Inner3_Inner2_Inner1, CClass3::CClass3_Inner3::CClass3_Inner3_Inner2)
 
-//CClass3_Inner1_Derived1
+//CClass3::CClass3_Inner1_Derived1
 MD_CLASS_TYPE_IN_CLS_DEF(CClass3_Inner1_Derived1, CClass3)
 
 //constructor
@@ -210,6 +210,50 @@ MD_CLASS_TYPE_IN_CLS_DEF(CClass3_Inner1_Descendant4, CClass3)
 
 //CClass3_Inner1_Descendant5
 MD_CLASS_TYPE_IN_CLS_DEF(CClass3_Inner1_Descendant5, CClass3)
+
+//NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1
+MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1, 0)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_PROC_CHECK(0)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_NEW_OBJ(NS1_Sub1_Sub1_CClass1);
+MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_END()
+
+MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1, 1)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_PROC_CHECK(2)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_NEW_OBJ(NS1_Sub1_Sub1_CClass1)
+	(
+		MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_DP_PARAM(0, int),
+		MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_DP_PARAM(1, float)
+	);
+MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_END()
+
+MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1, func1, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(2)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(bool)
+	= MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(NS1_Sub1_Sub1_CClass1)->func1
+	(
+		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(0, float),
+		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(1, int)
+	);
+MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
+
+MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1, vfunc1, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(1)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(long)
+	= MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_THIS(NS1_Sub1_Sub1_CClass1)->vfunc1
+	(
+		MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(0, int)
+	);
+MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
+
+MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_BEGIN(NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1, sfunc1, 0)
+	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(2)
+	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_DP_RET(bool)
+	= sfunc1
+	(
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(0, bool),
+		MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(1, short)
+	);
+MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_END()
 
 namespace NameSpace1
 {
@@ -306,99 +350,99 @@ namespace NameSpace1
 	//NS1_CClass3_Inner1_Descendant5
 	MD_CLASS_TYPE_IN_CLS_DEF(NS1_CClass3_Inner1_Descendant5, NameSpace1::NS1_CClass3)
 
-namespace NameSpasce1_Sub1
+namespace NameSpace1_Sub1
 {
 	//metadata of namespace
-	MD_NAME_SPACE_INNER_DEF(NameSpasce1_Sub1, NameSpace1)
+	MD_NAME_SPACE_INNER_DEF(NameSpace1_Sub1, NameSpace1)
 
 	//NS1_Sub1_CClass1
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass1_Derived1
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Derived1, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Derived1, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass1_Derived2
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Derived2, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Derived2, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass1_Descendant1
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant1, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant1, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass1_Descendant2
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant2, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant2, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass1_Descendant3
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant3, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant3, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass1_Descendant4
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant4, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant4, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass1_Descendant5
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant5, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1_Descendant5, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2_Derived1
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Derived1, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Derived1, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2_Derived2
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Derived2, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Derived2, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2_Descendant1
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant1, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant1, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2_Descendant2
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant2, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant2, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2_Descendant3
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant3, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant3, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2_Descendant4
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant4, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant4, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass2_Descendant5
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant5, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass2_Descendant5, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass3
-	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass3, NameSpasce1_Sub1)
+	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass3, NameSpace1_Sub1)
 
 	//NS1_Sub1_CClass3_Inner1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner2
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner2, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner2, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner3
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner3, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner3, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner3_Inner1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner3_Inner1, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3::NS1_Sub1_CClass3_Inner3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner3_Inner1, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3::NS1_Sub1_CClass3_Inner3)
 
 	//NS1_Sub1_CClass3_Inner1_Derived1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Derived1, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Derived1, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner1_Derived2
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Derived2, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Derived2, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner1_Descendant1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant1, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant1, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner1_Descendant2
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant2, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant2, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner1_Descendant3
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant3, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant3, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner1_Descendant4
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant4, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant4, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 	//NS1_Sub1_CClass3_Inner1_Descendant5
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant5, NameSpace1::NameSpasce1_Sub1::NS1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant5, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
 namespace NameSpasce1_Sub1_Sub1
 {
 	//metadata of namespace
-	MD_NAME_SPACE_INNER_DEF(NameSpasce1_Sub1_Sub1, NameSpasce1_Sub1)
+	MD_NAME_SPACE_INNER_DEF(NameSpasce1_Sub1_Sub1, NameSpace1_Sub1)
 
 	//NS1_Sub1_Sub1_CClass1
 	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_Sub1_CClass1, NameSpasce1_Sub1_Sub1)
@@ -452,40 +496,40 @@ namespace NameSpasce1_Sub1_Sub1
 	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_Sub1_CClass3, NameSpasce1_Sub1_Sub1)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner2
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner2, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner2, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner3
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner3, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner3, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner3_Inner1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner3_Inner1, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3::NS1_Sub1_Sub1_CClass3_Inner3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner3_Inner1, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3::NS1_Sub1_Sub1_CClass3_Inner3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1_Derived1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Derived1, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Derived1, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1_Derived2
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Derived2, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Derived2, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1_Descendant1
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant1, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant1, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1_Descendant2
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant2, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant2, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1_Descendant3
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant3, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant3, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1_Descendant4
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant4, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant4, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 	//NS1_Sub1_Sub1_CClass3_Inner1_Descendant5
-	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant5, NameSpace1::NameSpasce1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
+	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant5, NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass3)
 
 } //NameSpasce1_Sub1_Sub1
-} //NameSpasce1_Sub1
+} //NameSpace1_Sub1
 } //NameSpace1
 
 #endif //__META_DATA_DEMO__
