@@ -5,7 +5,8 @@
 
 //CClass1
 CClass1::CClass1(void)
-	: p_mem_long(NULL)
+	: mem_i(8329), mem_char(18), mem_short(189), mem_d(951.243), mem_f(832.321f),
+	mem_u_i(9998), mem_long(-9532), p_mem_long(NULL)
 {
 }
 
@@ -22,8 +23,10 @@ int CClass1::cls1_func1(int a, double d)
 
 int CClass1::cls1_func2(unsigned char c, double d)
 {
+	int ret;
 	printf("p_c: %d, p_d: %f, this->mem_char: %d, result: %f\n", c, d, this->mem_char, (c * d / this->mem_char));
-	return static_cast<int>(c * d * this->mem_char);
+	ret = static_cast<int>(c * d * this->mem_char);
+	return ret;
 }
 
 double CClass1::cls1_vir_func1(float f, unsigned long l)

@@ -58,7 +58,7 @@ public:
 		<<" serial_xml 0 : save tested object to xml file."<<std::endl \
 		<<" serial_xml 1 : save tested object to xml file."<<std::endl \
 		<<" unserial_xml : save tested object to xml file."<<std::endl \
-		<<" fun_call : call function."<<std::endl \
+		<<" func_call : call function."<<std::endl \
 		<<" exit : exit application."<<std::endl<<std::endl; \
 	}
 #define D_INPUT_LOGO	(" >")
@@ -121,7 +121,7 @@ int _tmain(int argc, _TCHAR* argv[])
 			std::cin.getline(input_string, 128);
 			test_item_unserial_xml(input_string);
 		}
-		else if (strcmp(input_string, "fun_call") == 0)
+		else if (strcmp(input_string, "func_call") == 0)
 		{
 			test_item_metadata_function_call();
 		}

@@ -200,7 +200,6 @@ T *CMetaDataCustomType::CreateObject(void)
 	
 	std::vector<CMetaDataFunction*>::iterator itr;
 	
-
 	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
 	{
 		if ((*itr)->FuncParamsCheck(NULL))

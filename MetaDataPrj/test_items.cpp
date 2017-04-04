@@ -235,18 +235,45 @@ void test_item_metadata_function_call(void)
 	CMetaDataClassType *pClsType;
 	const CMetaDataFunction *pTmpFunc;
 	CMetaDataFunction *pFunc;
+	
 	pMD = META_DATA_MODULE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "::CClass1");
-	if (pMD)
-		pClsType = const_cast<CMetaDataClassType*>(reinterpret_cast<const CMetaDataClassType*>(pMD));
-	else return;
+	if (!pMD) return;
+	
+	pClsType = const_cast<CMetaDataClassType*>(reinterpret_cast<const CMetaDataClassType*>(pMD));
+	void *pObj(pClsType->NewObject());
+
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func1"));
 	if (pTmpFunc)
 	{
 		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
-		void *pObj(pClsType->NewObject());
 		int a = 100;
 		double d = 11.22;
-		pFunc->CallFuction(3, pObj, a, d);
+		int ret;
+		pFunc->CallFuction(3, pObj, a, d, &ret);
+		printf(" ret: %d\n", ret);
 	}
-	else return;
+
+	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func2"));
+	if (pTmpFunc)
+	{
+		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+		unsigned char c(134);
+		double d(13998.321);
+		int ret;
+		pFunc->CallFuction(3, pObj, c, d, &ret);
+		printf(" ret: %d\n", ret);
+	}
+
+	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_vir_func1"));
+	if (pTmpFunc)
+	{
+		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+		float f(83.892f);
+		unsigned long l(914);
+		double ret;
+		pFunc->CallFuction(3, pObj, f, l, &ret);
+		printf(" ret: %d\n", ret);
+	}
+
+	pClsType->DeleteObject(pObj);
 }
