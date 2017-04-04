@@ -31,6 +31,7 @@ public:
 	void AddBaseType(CMetaDataCustomType *pBaseType, unsigned int Offset);
 	void AddInterface(CMetaDataInterface *pIntf, unsigned int Offset);
 	void AddConstructor(CMetaDataFunction *pConstructorFunc);
+	void SetDestructor(CMetaDataFunction *pDestructor);
 	void AddMemberFunc(CMetaDataFunction *pMFunc);
 	void AddMemberVar(CMetaDataCustomTypeMemberVar *pMVar);
 	void AddStaticMemberFunc(CMetaDataFunction *pMFunc);
@@ -43,6 +44,7 @@ public:
 	virtual void *AsType(void *pObj, CMetaDataType *pType);
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf);
 	virtual void *NewObject(void);
+	virtual void DeleteObject(void *pObj);
 	
 	template<typename T>
 	T *CreateObject(CParamVector *pParamTypes, ...);
@@ -92,6 +94,10 @@ protected:
 		}
 		return m_pConstructorList;
 	}
+	CMetaDataFunction *GetDestructor(void)
+	{
+		return m_pDestructor;
+	}
 	std::vector<CMetaDataFunction*> *GetMemberFuncList(void)
 	{
 		if (!m_pMemberFuncList)
@@ -132,6 +138,7 @@ private:
 	std::vector<SMetaDataCustomTypeBaseType>		*m_pBaseTypeList;			//基类
 	std::vector<SMetaDataCustomTypeInterface>		*m_pInterfaceList;			//接口
 	std::vector<CMetaDataFunction*>					*m_pConstructorList;		//构造函数
+	CMetaDataFunction								*m_pDestructor;				//析构函数
 	std::vector<CMetaDataFunction*>					*m_pMemberFuncList;			//成员函数
 	std::vector<CMetaDataCustomTypeMemberVar*>		*m_pMemberVarList;			//成员变量
 	std::vector<CMetaDataFunction*>					*m_pStaticMemberFuncList;	//静态成员函数

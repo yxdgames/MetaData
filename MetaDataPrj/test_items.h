@@ -6,3 +6,5 @@ extern void test_item_serial_bin(char *pFileName, char flag);
 extern void test_item_unserial_bin(char *pFileName);
 extern void test_item_serial_xml(char *pFileName, char flag);
 extern void test_item_unserial_xml(char *pFileName);
+
+extern void test_item_metadata_function_call(void);

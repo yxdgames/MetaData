@@ -3,6 +3,7 @@
 
 #include "..\Codes\MetaData\include\Demo.h"
 #include "..\Codes\Serialization\include\ISerializer.h"
+#include "..\Codes\MetaData\include\MetaDataSupport.h"
 
 static CClass3::CClass3_Inner1_Derived1 g_test_items_derived1;
 
@@ -226,4 +227,21 @@ void test_item_unserial_xml(char *pFileName)
 	}
 	delete Ser;
 	delete pSerial;
+}
+
+void test_item_metadata_function_call(void)
+{
+	const CMetaData *pMD;
+	const CMetaDataClassType *pClsType;
+	const CMetaDataFunction *pFunc;
+	pMD = META_DATA_MODULE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "");
+	if (pMD)
+		pClsType = reinterpret_cast<const CMetaDataClassType*>(pMD);
+	else return;
+	pFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, ""));
+	if (pFunc)
+	{
+		//pFunc->CallFuction(0);
+	}
+	else return;
 }

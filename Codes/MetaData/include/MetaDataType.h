@@ -15,6 +15,7 @@ public:
 	virtual void *AsType(void *pObj, CMetaDataType *pType)							{ return (this == pType ? pObj : NULL); }
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf)	{ return false; }
 	virtual void *NewObject(void)													{ return NULL; }
+	virtual void DeleteObject(void *pObj)											{ /*do nothing.*/ }
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_TYPE; }

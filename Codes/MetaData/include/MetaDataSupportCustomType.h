@@ -57,6 +57,16 @@
 #define MD_CUSTOM_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, ptr_level) \
 	pMDFunc->AddParamInfo(new CMetaDataVarBase(#name, pMDFunc, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
 
+				/*--添加析构函数元数据信息--*/
+#define MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DECLARE() \
+	private: \
+		static bool _MD__CTMDSR(SMetaDataCalledFunctionDataPacket &DataPacket);
+#define MD_CUSTOM_TYPE_DESTRUCTOR_DEF() \
+	static CMetaDataFunction _MD__DSR(pClsName, &MDType, _MD__CTMDSR); \
+	MDType.SetDestructor(&_MD__DSR); \
+	pMDFunc = &_MD__DSR; \
+	pMDFunc->AddParamInfo(new CMetaDataVarBase("this", pMDFunc, &MDType, 1));
+
 				/*--添加成员函数元数据信息--*/
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index) \
 	private: \
@@ -64,7 +74,8 @@
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_DEF(func_name, index) \
 	static CMetaDataFunction _MD__MF##func_name##index(#func_name, &MDType, _MD__CTMMF##func_name##index); \
 	MDType.AddMemberFunc(&_MD__MF##func_name##index); \
-	pMDFunc = &_MD__MF##func_name##index;
+	pMDFunc = &_MD__MF##func_name##index; \
+	pMDFunc->AddParamInfo(new CMetaDataVarBase("this", pMDFunc, &MDType, 1));
 
 					//添加成员函数参数元数据信息
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level) \

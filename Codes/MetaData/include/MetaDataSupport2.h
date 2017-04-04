@@ -40,6 +40,15 @@
 	md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_MODULE(), sizeof(name)); \
 	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
 
+//析构函数封装
+#define MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name) \
+	bool cls_name::_MD__CTMDSR(SMetaDataCalledFunctionDataPacket &DataPacket) \
+	{ \
+		if (DataPacket.ParamCount != 1) return false; \
+		delete (*reinterpret_cast<cls_name**>(DataPacket.pParam[0])); \
+		return true; \
+	}
+
 //成员函数封装
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index) \
 	bool cls_name::_MD__CTMMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
@@ -60,6 +69,9 @@
 /* Meta data of interface */
 /**************************/
 #define MD_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface)
+
+//析构函数封装
+#define MD_INTERFACE_DESTRUCTOR_WRAPPER_DEF(intf_name)								MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name)
 
 //成员函数封装
 #define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)
@@ -101,6 +113,9 @@
 #define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_END() \
 		return ret_val; \
 	}
+
+//析构函数封装
+#define MD_CLASS_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name)								MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name)
 
 //成员函数封装
 #define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index)

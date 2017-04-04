@@ -42,6 +42,10 @@
 				/*--添加接口元数据信息--*/
 #define MD_INTERFACE_INTERFACE_DEF(parent_intf_name)	MD_CUSTOM_TYPE_INTERFACE_DEF(parent_intf_name)
 
+				/*--添加析构函数元数据信息--*/
+#define MD_INTERFACE_DESTRUCTOR_WRAPPER_DECLARE()						MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DECLARE()
+#define MD_INTERFACE_DESTRUCTOR_DEF()									MD_CUSTOM_TYPE_DESTRUCTOR_DEF()
+
 				/*--添加成员函数元数据信息--*/
 #define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)
 #define MD_INTERFACE_MEMBER_FUNC_DEF(func_name, index)					MD_CUSTOM_TYPE_MEMBER_FUNC_DEF(func_name, index)
@@ -73,6 +77,10 @@
 
 					//添加构造函数参数元数据信息
 #define MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, ptr_level)		MD_CUSTOM_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, ptr_level)
+
+				/*--添加析构函数元数据信息--*/
+#define MD_CLASS_TYPE_DESTRUCTOR_WRAPPER_DECLARE()			MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DECLARE()
+#define MD_CLASS_TYPE_DESTRUCTOR_DEF()						MD_CUSTOM_TYPE_DESTRUCTOR_DEF()
 
 				/*--添加成员函数元数据信息--*/
 #define MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)

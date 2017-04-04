@@ -7,7 +7,8 @@ CMetaDataCustomType::CMetaDataCustomType(char *pName, CMetaData *pParent, unsign
 										 bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar)
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
-	m_pBaseTypeList(NULL), m_pInterfaceList(NULL), m_pConstructorList(NULL), m_pMemberFuncList(NULL), m_pMemberVarList(NULL), m_pStaticMemberFuncList(NULL), m_pStaticMemberVarList(NULL)
+	m_pBaseTypeList(NULL), m_pInterfaceList(NULL), m_pConstructorList(NULL), m_pDestructor(NULL),
+	m_pMemberFuncList(NULL), m_pMemberVarList(NULL), m_pStaticMemberFuncList(NULL), m_pStaticMemberVarList(NULL)
 {
 }
 
@@ -82,6 +83,11 @@ void CMetaDataCustomType::AddConstructor(CMetaDataFunction *pConstructorFunc)
 	{
 		pConsList->push_back(pConstructorFunc);
 	}
+}
+
+void CMetaDataCustomType::SetDestructor(CMetaDataFunction *pDestructor)
+{
+	m_pDestructor = pDestructor;
 }
 
 void CMetaDataCustomType::AddMemberFunc(CMetaDataFunction *pMFunc)
@@ -248,4 +254,10 @@ void *CMetaDataCustomType::NewObject(void)
 		}
 	}
 	return pReturn;
+}
+
+void CMetaDataCustomType::DeleteObject(void *pObj)
+{
+	if (pObj && m_pDestructor)
+		m_pDestructor->CallFuction(1, pObj);
 }
