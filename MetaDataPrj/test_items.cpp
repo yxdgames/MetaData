@@ -232,16 +232,21 @@ void test_item_unserial_xml(char *pFileName)
 void test_item_metadata_function_call(void)
 {
 	const CMetaData *pMD;
-	const CMetaDataClassType *pClsType;
-	const CMetaDataFunction *pFunc;
-	pMD = META_DATA_MODULE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "");
+	CMetaDataClassType *pClsType;
+	const CMetaDataFunction *pTmpFunc;
+	CMetaDataFunction *pFunc;
+	pMD = META_DATA_MODULE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "::CClass1");
 	if (pMD)
-		pClsType = reinterpret_cast<const CMetaDataClassType*>(pMD);
+		pClsType = const_cast<CMetaDataClassType*>(reinterpret_cast<const CMetaDataClassType*>(pMD));
 	else return;
-	pFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, ""));
-	if (pFunc)
+	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func1"));
+	if (pTmpFunc)
 	{
-		//pFunc->CallFuction(0);
+		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+		void *pObj(pClsType->NewObject());
+		int a = 100;
+		double d = 11.22;
+		pFunc->CallFuction(3, pObj, a, d);
 	}
 	else return;
 }
