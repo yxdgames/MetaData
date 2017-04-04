@@ -15,14 +15,14 @@
 /* Meta data of name space */
 /***************************/
 #define MD_NAME_SPACE_DEF(name) \
-	static CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_MODULE()); \
-	CMetaDataNameSpace *_MD__NS__GetMetaData(void) \
+	CMetaDataNameSpace name::_MD__NS##name(#name, &META_DATA_MODULE()); \
+	CMetaDataNameSpace *name::_MD__NS__GetMetaData(void) \
 	{ \
 		return &_MD__NS##name; \
 	}
 #define MD_NAME_SPACE_INNER_DEF(name, out_ns) \
-	static CMetaDataNameSpace _MD__NS##name(#name, &META_DATA_NAME_SPACE(out_ns)); \
-	CMetaDataNameSpace *_MD__NS__GetMetaData(void) \
+	CMetaDataNameSpace out_ns::name::_MD__NS##name(#name, &META_DATA_NAME_SPACE(out_ns)); \
+	CMetaDataNameSpace *out_ns::name::_MD__NS__GetMetaData(void) \
 	{ \
 		return &_MD__NS##name; \
 	}

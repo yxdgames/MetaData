@@ -22,6 +22,7 @@
 #define META_DATA_NAME_SPACE(name)						(*(name::_MD__NS__GetMetaData()))
 
 #define MD_NAME_SPACE_DECLARE(name) \
+	extern CMetaDataNameSpace _MD__NS##name; \
 	extern CMetaDataNameSpace *_MD__NS__GetMetaData(void);
 
 /***************************/
