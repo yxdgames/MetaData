@@ -203,10 +203,10 @@ bool CMetaDataFunction::CallFuction(int param_count, ...)
 				}
 				catch(...)
 				{
-					delete pParamPtrBuffer;
+					delete [] pParamPtrBuffer;
 					throw;
 				}
-				delete pParamPtrBuffer;
+				delete [] pParamPtrBuffer;
 			}
 			else
 			{
@@ -230,10 +230,10 @@ bool CMetaDataFunction::CallFuction(int param_count, ...)
 	}
 	catch(...)
 	{
-		delete pNeedRelease;
+		delete [] pNeedRelease;
 		throw;
 	}
-	delete pNeedRelease;
+	delete [] pNeedRelease;
 
 	return ret;
 }
@@ -326,10 +326,10 @@ bool CMetaDataFunction::CallFuction(CParamVector *pParamTypes, va_list pParamLis
 			}
 			catch(...)
 			{
-				delete pParamPtrBuffer;
+				delete [] pParamPtrBuffer;
 				throw;
 			}
-			delete pParamPtrBuffer;
+			delete [] pParamPtrBuffer;
 		}
 		else
 		{
@@ -346,10 +346,10 @@ bool CMetaDataFunction::CallFuction(CParamVector *pParamTypes, va_list pParamLis
 	}
 	catch(...)
 	{
-		delete pNeedRelease;
+		delete [] pNeedRelease;
 		throw;
 	}
-	delete pNeedRelease;
+	delete [] pNeedRelease;
 
 	return ret;
 }

@@ -17,22 +17,23 @@ CClass1::~CClass1(void)
 
 int CClass1::cls1_func1(int a, double d)
 {
-	printf("p_a: %d, p_d: %f, this->mem_short: %d, result: %f\n", a, d, this->mem_short, (a * d * this->mem_short));
-	return static_cast<int>(a * d * this->mem_short);
+	int ret = static_cast<int>(a * d * this->mem_short);
+	printf("p_a: %d, p_d: %f, this->mem_short: %d, result: %d\n", a, d, this->mem_short, ret);
+	return ret;
 }
 
 int CClass1::cls1_func2(unsigned char c, double d)
 {
-	int ret;
-	printf("p_c: %d, p_d: %f, this->mem_char: %d, result: %f\n", c, d, this->mem_char, (c * d / this->mem_char));
-	ret = static_cast<int>(c * d * this->mem_char);
+	int ret = static_cast<int>(c * d * this->mem_char);
+	printf("p_c: %d, p_d: %f, this->mem_char: %d, result: %d\n", c, d, this->mem_char, ret);
 	return ret;
 }
 
 double CClass1::cls1_vir_func1(float f, unsigned long l)
 {
-	printf("p_f: %d, p_l: %f, this->mem_d: %d, result: %f\n", f, l, this->mem_d, (f + l - this->mem_d));
-	return static_cast<int>(f + l - this->mem_d);
+	double ret = static_cast<int>(f + l - this->mem_d);
+	printf("p_f: %f, p_l: %ld, this->mem_d: %f, result: %f\n", f, l, this->mem_d, ret);
+	return ret;
 }
 
 void CClass1::cls1_static_func1(void)
@@ -42,8 +43,9 @@ void CClass1::cls1_static_func1(void)
 
 float CClass1::cls1_static_func1(int p_x, double p_d)
 {
-	printf("p_x: %d, p_d: %f, result: %f\n", p_x, p_d, (p_x - p_d));
-	return static_cast<float>(p_x - p_d);
+	float ret = static_cast<float>(p_x - p_d);
+	printf("p_x: %d, p_d: %f, result: %f\n", p_x, p_d, ret);
+	return ret;
 }
 
 unsigned char CClass1::static_mem_uc;
@@ -54,8 +56,9 @@ bool *CClass1::p_static_mem_bool;
 //CClass3::CClass3_Inner1_Derived1
 int CClass3::CClass3_Inner1_Derived1::cls3_i1_d1_func1(double x)
 {
-	printf("p_x: %f, this->mem_s: %d, result: %f\n", x, this->mem_s, x - this->mem_s);
-	return static_cast<int>(x - this->mem_s);
+	int ret = static_cast<int>(x - this->mem_s);
+	printf("p_x: %f, this->mem_s: %d, result: %d\n", x, this->mem_s, ret);
+	return ret;
 }
 
 void CClass3::CClass3_Inner1_Derived1::cls3_i1_d1_func1(int x)

@@ -30,6 +30,7 @@
 			C_MD__CTM_DID##name() \
 			{ \
 				char *pClsName(#name); \
+				char *pDsrName("~"#name); \
 				md_custom_type &MDType(META_DATA_CUSTOM_TYPE(name, md_custom_type)); \
 				name *pTemObj(reinterpret_cast<name*>(sizeof(int))); \
 				name *pTemObj2(reinterpret_cast<name*>(0)); \
@@ -62,7 +63,7 @@
 	private: \
 		static bool _MD__CTMDSR(SMetaDataCalledFunctionDataPacket &DataPacket);
 #define MD_CUSTOM_TYPE_DESTRUCTOR_DEF() \
-	static CMetaDataFunction _MD__DSR(pClsName, &MDType, _MD__CTMDSR); \
+	static CMetaDataFunction _MD__DSR(pDsrName, &MDType, _MD__CTMDSR); \
 	MDType.SetDestructor(&_MD__DSR); \
 	pMDFunc = &_MD__DSR; \
 	pMDFunc->AddParamInfo(new CMetaDataVarBase("this", pMDFunc, &MDType, 1));

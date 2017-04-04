@@ -272,7 +272,14 @@ void test_item_metadata_function_call(void)
 		unsigned long l(914);
 		double ret;
 		pFunc->CallFuction(3, pObj, f, l, &ret);
-		printf(" ret: %d\n", ret);
+		printf(" ret: %f\n", ret);
+	}
+
+	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_static_func1"));
+	if (pTmpFunc)
+	{
+		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+		pFunc->CallFuction(0);
 	}
 
 	pClsType->DeleteObject(pObj);
