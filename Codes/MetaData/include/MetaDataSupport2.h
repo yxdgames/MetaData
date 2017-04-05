@@ -36,9 +36,15 @@
 /****************************/
 /* Meta data of custom type */
 /****************************/
+//无嵌套
 #define MD_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type) \
 	md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_MODULE(), sizeof(name)); \
 	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
+
+//嵌套用(命名空间内部)
+#define MD_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name) \
+	md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \
+	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
 
 //析构函数封装
 #define MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name) \
@@ -68,7 +74,11 @@
 /**************************/
 /* Meta data of interface */
 /**************************/
+//无嵌套
 #define MD_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface)
+
+//嵌套用(命名空间内部)
+#define MD_INTERFACE_IN_NS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, outer_name)
 
 //析构函数封装
 #define MD_INTERFACE_DESTRUCTOR_WRAPPER_DEF(intf_name)								MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name)
@@ -96,9 +106,7 @@
 	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
 
 //嵌套用(命名空间内部)
-#define MD_CLASS_TYPE_IN_NS_DEF(name, outer_name) \
-	CMetaDataClassType outer_name::name::_MD__CT##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \
-	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
+#define MD_CLASS_TYPE_IN_NS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_NS_DEF(name, CT, CMetaDataClassType, outer_name)
 
 //构造函数封装
 #define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(cls_name, index) \

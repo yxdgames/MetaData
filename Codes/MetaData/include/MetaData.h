@@ -24,6 +24,7 @@ public:
 public:
 	//method
 	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName) const;
+	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children) const;
 public:
 	//attribute
 	const char *GetName(void) const							{ return m_pName; }
@@ -34,6 +35,7 @@ public:
 	const CMetaData *GetChild(unsigned int index) const		{ return (m_pChildren ? m_pChildren->at(index) : NULL); }
 private:
 	void RemoveSelfFromParent(void);
+	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children, bool bClear) const;
 private:
 	char					*m_pName;
 	CMetaData				*m_pParent;

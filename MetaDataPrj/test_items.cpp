@@ -275,11 +275,29 @@ void test_item_metadata_function_call(void)
 		printf(" ret: %f\n", ret);
 	}
 
-	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_static_func1"));
-	if (pTmpFunc)
+	std::vector<CMetaData*> vec_metadata;
+	if (pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "CClass1::cls1_static_func1", vec_metadata))
 	{
-		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
-		pFunc->CallFuction(0);
+		for (unsigned int i = 0; i < vec_metadata.size(); ++i)
+		{
+			pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(vec_metadata[i]);
+			if (pTmpFunc)
+			{
+				pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+				if (pFunc->GetParamCount() > 0)
+				{
+					int p_x(99);
+					double p_d(89523.82319);
+					float ret;
+					pFunc->CallFuction(2, p_x, p_d, &ret);
+					printf(" ret: %f\n", ret);
+				}
+				else
+				{
+					pFunc->CallFuction(0);
+				}
+			}
+		}
 	}
 
 	pClsType->DeleteObject(pObj);

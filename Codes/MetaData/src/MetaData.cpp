@@ -51,13 +51,19 @@ const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char
 	{
 		if ((*itr)->GetFullName(FullNameBuffer, 256))
 		{
-			if ((*itr)->GetTypeID() == MetaDataTypeID && strcmp(FullNameBuffer, pFullName) == 0)
+			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullNameBuffer, pFullName) == 0
+				|| strcmp(FullNameBuffer + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
 				return (*itr);
 		}
 		pMD = (*itr)->FindChildMetaData(MetaDataTypeID, pFullName);
 		if (pMD) return pMD;
 	}
 	return NULL;
+}
+
+const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children) const
+{
+	return FindChildMetaData(MetaDataTypeID, pFullName, Children, true);
 }
 
 bool CMetaData::GetFullName(char *pFullNameBuffer, unsigned int BufferSize) const
@@ -130,4 +136,23 @@ void CMetaData::RemoveSelfFromParent(void)
 			}
 		}
 	}
+}
+
+const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children, bool bClear) const
+{
+	if (bClear) Children.clear();
+	if (!m_pChildren) return false;
+	static char FullNameBuffer[256];
+	std::vector<CMetaData*>::iterator itr;
+	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
+	{
+		if ((*itr)->GetFullName(FullNameBuffer, 256))
+		{
+			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullNameBuffer, pFullName) == 0
+				|| strcmp(FullNameBuffer + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
+				Children.push_back(*itr);
+		}
+		(void)(*itr)->FindChildMetaData(MetaDataTypeID, pFullName, Children, false);
+	}
+	return true;
 }

@@ -138,7 +138,8 @@ bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **
 
 	for (itr = pBaseTypeList->begin(); itr != pBaseTypeList->end(); ++itr)
 	{
-		if (itr->CustomType->GetFullName(FullNameBuffer, 256) && strcmp(FullNameBuffer, pBaseTypeName) == 0)
+		if (itr->CustomType->GetFullName(FullNameBuffer, 256) && (strcmp(FullNameBuffer, pBaseTypeName) == 0
+			|| strcmp(FullNameBuffer + 2, pBaseTypeName) == 0)) //+2是为了跳过"::"两个字符
 		{
 			*outObj = reinterpret_cast<void*>((unsigned int)pObj + itr->Offset);
 			return true;
