@@ -7,8 +7,9 @@
 static const char *gMetaDataTypeCaption[] = {
 	"None",
 	"MetaData",
+	"MagicUniverse",
+	"MagicUniversePreimage",
 	"NameSpace",
-	"Module",
 	"Type",
 	"InnerType",
 	"CustomType",
@@ -18,6 +19,7 @@ static const char *gMetaDataTypeCaption[] = {
 	"Var Base",
 	"Variable",
 	"Function",
+	"Module",
 };
 
 CMetaData::CMetaData(char *pName, CMetaData *pParent, bool bChildren)

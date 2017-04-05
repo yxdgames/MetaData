@@ -4,17 +4,20 @@
 
 /* 元数据类型ID，标识是哪种元数据。 */
 #define D_META_DATA_TYPE_ID_META_DATA				((unsigned char)(1))
-#define D_META_DATA_TYPE_ID_NAME_SPACE				((unsigned char)(2))
-#define D_META_DATA_TYPE_ID_MODULE					((unsigned char)(3))
-#define D_META_DATA_TYPE_ID_TYPE					((unsigned char)(4))
-#define D_META_DATA_TYPE_ID_INNER_TYPE				((unsigned char)(5))
-#define D_META_DATA_TYPE_ID_CUSTOM_TYPE				((unsigned char)(6))
-#define D_META_DATA_TYPE_ID_CUSTOM_TYPE_MEMBER_VAR	((unsigned char)(7))
-#define D_META_DATA_TYPE_ID_CLASS_TYPE				((unsigned char)(8))
-#define D_META_DATA_TYPE_ID_INTERFACE				((unsigned char)(9))
-#define D_META_DATA_TYPE_ID_VAR_BASE				((unsigned char)(10))
-#define D_META_DATA_TYPE_ID_VARIABLE				((unsigned char)(11))
-#define D_META_DATA_TYPE_ID_FUNCTION				((unsigned char)(12))
+#define D_META_DATA_TYPE_ID_MAGIC_UNIVERSE			((unsigned char)(2))
+#define D_META_DATA_TYPE_ID_MAGIC_UNIVERSE_PREIMAGE	((unsigned char)(3))
+#define D_META_DATA_TYPE_ID_NAME_SPACE				((unsigned char)(4))
+#define D_META_DATA_TYPE_ID_TYPE					((unsigned char)(5))
+#define D_META_DATA_TYPE_ID_INNER_TYPE				((unsigned char)(6))
+#define D_META_DATA_TYPE_ID_CUSTOM_TYPE				((unsigned char)(7))
+#define D_META_DATA_TYPE_ID_CUSTOM_TYPE_MEMBER_VAR	((unsigned char)(8))
+#define D_META_DATA_TYPE_ID_CLASS_TYPE				((unsigned char)(9))
+#define D_META_DATA_TYPE_ID_INTERFACE				((unsigned char)(10))
+#define D_META_DATA_TYPE_ID_VAR_BASE				((unsigned char)(11))
+#define D_META_DATA_TYPE_ID_VARIABLE				((unsigned char)(12))
+#define D_META_DATA_TYPE_ID_FUNCTION				((unsigned char)(13))
+
+#define D_META_DATA_TYPE_ID_MODULE					((unsigned char)(14))
 
 class CMetaData
 {

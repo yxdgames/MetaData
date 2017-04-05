@@ -100,6 +100,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataFunction.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataInnerType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataInterface.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataMagicUniversePreimage.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataModule.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataNameSpace.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataTypeIDAlloc.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataMagicUniverse.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
@@ -143,11 +145,13 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataFunction.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataInnerType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataInterface.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataMagicUniversePreimage.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataModule.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataNameSpace.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataObjects.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataTypeIDAlloc.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataMagicUniverse.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVarBase.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />

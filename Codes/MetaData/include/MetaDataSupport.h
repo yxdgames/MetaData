@@ -14,7 +14,7 @@
 /***********************/
 /* Meta data of module */
 /***********************/
-#define META_DATA_MODULE()								(*(::_MD__MODULE__GetMetaData()))
+#define META_DATA_MUPREIMAGE()								(*(::_MD__MUPREIMAGE__GetMetaData()))
 
 /***************************/
 /* Meta data of name space */

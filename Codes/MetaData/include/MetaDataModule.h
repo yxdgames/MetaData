@@ -1,11 +1,11 @@
 #pragma once
 
-#include "MetaDataNameSpace.h"
+#include "MetaData.h"
 
-class CMetaDataModule : public CMetaDataNameSpace
+class CMetaDataModule : public CMetaData
 {
 public:
-	CMetaDataModule(char *pName);
+	CMetaDataModule(char *pName, CMetaData *pParent);
 	virtual ~CMetaDataModule(void);
 public:
 	//attribute

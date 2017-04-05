@@ -1,12 +1,12 @@
 #pragma once
 
-#include "MetaDataModule.h"
+#include "MetaDataMagicUniversePreimage.h"
 #include "MetaDataInnerType.h"
 
 ////////////////////////////////////////////////
 //             System Meta Data               //
 ////////////////////////////////////////////////
-extern CMetaDataModule *_MD__MODULE__GetMetaData(void);
+extern CMetaDataMagicUniversePreimage *_MD__MUPREIMAGE__GetMetaData(void);
 
 extern CMetaDataInnerType _MD__InnerTypechar;
 extern CMetaDataInnerType _MD__InnerTypeshort;

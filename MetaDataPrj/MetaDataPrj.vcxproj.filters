@@ -189,6 +189,12 @@
     <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataMagicUniverse.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataMagicUniversePreimage.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -304,6 +310,12 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\SerialStreamXml.cpp">
       <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataMagicUniverse.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataMagicUniversePreimage.cpp">
+      <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
