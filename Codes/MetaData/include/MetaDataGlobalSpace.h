@@ -2,11 +2,11 @@
 
 #include "MetaData.h"
 
-class CMetaDataMagicUniverse : public CMetaData
+class CMetaDataGlobalSpace : public CMetaData
 {
 public:
-	CMetaDataMagicUniverse(void);
-	virtual ~CMetaDataMagicUniverse(void);
+	CMetaDataGlobalSpace(void);
+	virtual ~CMetaDataGlobalSpace(void);
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_MAGIC_UNIVERSE; }

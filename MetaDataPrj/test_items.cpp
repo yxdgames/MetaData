@@ -44,7 +44,7 @@ static void do_print_metadata_tree(const CMetaData *pMD, int space_num)
 
 void test_item_print_metadata_tree(void)
 {
-	do_print_metadata_tree(&META_DATA_MUPREIMAGE(), 0);
+	do_print_metadata_tree(&META_DATA_GLOBALSPACE(), 0);
 }
 
 void test_item_serial_bin(char *pFileName, char flag)
@@ -236,7 +236,7 @@ void test_item_metadata_function_call(void)
 	const CMetaDataFunction *pTmpFunc;
 	CMetaDataFunction *pFunc;
 	
-	pMD = META_DATA_MUPREIMAGE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "::CClass1");
+	pMD = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "::CClass1");
 	if (!pMD) return;
 	
 	pClsType = const_cast<CMetaDataClassType*>(reinterpret_cast<const CMetaDataClassType*>(pMD));

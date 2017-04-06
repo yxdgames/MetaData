@@ -7,7 +7,7 @@
 CMetaDataTypeIDAlloc::CMetaDataTypeIDAlloc(void)
 	:m_NextID(1)
 {
-	Init(&META_DATA_MUPREIMAGE());
+	Init(&META_DATA_GLOBALSPACE());
 }
 
 

@@ -90,9 +90,6 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataInterface.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataModule.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaDataNameSpace.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -189,10 +186,7 @@
     <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataMagicUniverse.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataMagicUniversePreimage.h">
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataGlobalSpace.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -234,9 +228,6 @@
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\MetaDataInterface.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataModule.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\MetaDataNameSpace.cpp">
@@ -311,10 +302,7 @@
     <ClCompile Include="..\Codes\Serialization\src\SerialStreamXml.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataMagicUniverse.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataMagicUniversePreimage.cpp">
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataGlobalSpace.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>
