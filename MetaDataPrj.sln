@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataPrj", "MetaDataPrj\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaDataTool", "MetaDataTool\MetaDataTool.csproj", "{D5BB767A-4AB8-42E9-B04A-1228F2CEB039}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataView", "MetaDataView\MetaDataView.vcxproj", "{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,16 @@ Global
 		{D5BB767A-4AB8-42E9-B04A-1228F2CEB039}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D5BB767A-4AB8-42E9-B04A-1228F2CEB039}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D5BB767A-4AB8-42E9-B04A-1228F2CEB039}.Release|Win32.ActiveCfg = Release|Any CPU
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Debug|Win32.Build.0 = Debug|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Release|Any CPU.ActiveCfg = Release|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Release|Win32.ActiveCfg = Release|Win32
+		{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
