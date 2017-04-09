@@ -2,7 +2,7 @@
 
 #include "MetaData.h"
 
-class CMetaDataNameSpace : public CMetaData
+class CLASS_DESCRIPT CMetaDataNameSpace : public CMetaData
 {
 public:
 	CMetaDataNameSpace(char *pName, CMetaData *pParent);

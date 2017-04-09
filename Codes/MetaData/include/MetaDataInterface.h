@@ -2,7 +2,7 @@
 
 #include "MetaDataCustomType.h"
 
-class CMetaDataInterface : public CMetaDataCustomType
+class CLASS_DESCRIPT CMetaDataInterface : public CMetaDataCustomType
 {
 public:
 	CMetaDataInterface(char *pName, CMetaData *pParent, unsigned int size);

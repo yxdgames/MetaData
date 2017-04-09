@@ -11,19 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B7AB7FDB-0397-46F6-BEEF-55DBF676FFB6}</ProjectGuid>
+    <ProjectGuid>{ADB82101-C1FF-45C5-B1DE-91CE47E983C0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>MetaDataPrj</RootNamespace>
+    <RootNamespace>MetaData</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -52,13 +52,12 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;CO_META_DATA_EXTRA_SYSTEM_DEF;XML_STATIC;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;_CRT_SECURE_NO_WARNINGS;CO_META_DATA_EXTRA_SYSTEM_DEF;__META_DATA_DEMO__;__METADATA_DLL_EXPORTS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\lib\Debug\expat_static.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -68,11 +67,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
@@ -82,12 +81,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Codes\include\CharArray.h" />
     <ClInclude Include="..\Codes\include\CommonDefine.h" />
     <ClInclude Include="..\Codes\include\ExceptionBase.h" />
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
-    <ClInclude Include="..\Codes\lib_h\expat.h" />
-    <ClInclude Include="..\Codes\lib_h\expat_external.h" />
     <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
@@ -105,30 +101,12 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataNameSpace.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport.h" />
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h" />
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataTypeIDAlloc.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
-    <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
-    <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h" />
-    <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h" />
-    <ClInclude Include="..\Codes\Serialization\include\ExceptionSerialization.h" />
-    <ClInclude Include="..\Codes\Serialization\include\ISerial.h" />
-    <ClInclude Include="..\Codes\Serialization\include\ISerialEntity.h" />
-    <ClInclude Include="..\Codes\Serialization\include\ISerializer.h" />
-    <ClInclude Include="..\Codes\Serialization\include\ISerialStream.h" />
-    <ClInclude Include="..\Codes\Serialization\include\ITreeSerial.h" />
-    <ClInclude Include="..\Codes\Serialization\include\SerialEntity.h" />
-    <ClInclude Include="..\Codes\Serialization\include\Serializer.h" />
-    <ClInclude Include="..\Codes\Serialization\include\SVariant.h" />
-    <ClInclude Include="..\Codes\Serialization\include\TreeSerial.h" />
-    <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="test_items.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Codes\MetaData\src\Demo.cpp" />
@@ -148,30 +126,23 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataNameSpace.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataObjects.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataType.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataTypeIDAlloc.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVarBase.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\ISerializer.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\ISerialStream.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\ITreeSerial.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\SerialEntity.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\Serializer.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\SVariant.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp" />
-    <ClCompile Include="..\Codes\Serialization\src\SerialStreamXml.cpp" />
-    <ClCompile Include="..\Codes\src\CharArray.cpp" />
     <ClCompile Include="..\Codes\src\ExceptionBase.cpp" />
-    <ClCompile Include="MetaDataPrj.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="MetaDataMain.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="test_items.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\MetaData\src\Demo.meo" />
@@ -179,14 +150,8 @@
     <None Include="..\Codes\MetaData\src\IContainer.meo" />
     <None Include="..\Codes\MetaData\src\IInterface.meo" />
     <None Include="..\Codes\MetaData\src\InterfacedObject.meo" />
+    <None Include="..\Codes\MetaData\src\MetaDataExtraObjects.meo" />
     <None Include="..\Codes\MetaData\src\SimpleString.meo" />
-    <None Include="..\Codes\Serialization\src\ISerial.meo" />
-    <None Include="..\Codes\Serialization\src\ITreeSerial.meo" />
-    <None Include="..\Codes\Serialization\src\TreeSerial.meo" />
-    <None Include="..\Codes\src\MetaDataExtraObjects.meo" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\lib\Debug\expat_static.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

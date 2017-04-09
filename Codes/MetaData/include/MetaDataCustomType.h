@@ -20,7 +20,7 @@ struct SMetaDataCustomTypeInterface
 	unsigned int Offset;
 };
 
-class CMetaDataCustomType : public CMetaDataType
+class CLASS_DESCRIPT CMetaDataCustomType : public CMetaDataType
 {
 public:
 	CMetaDataCustomType(char *pName, CMetaData *pParent, unsigned int size,

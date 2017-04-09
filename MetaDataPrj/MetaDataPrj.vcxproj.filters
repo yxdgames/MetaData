@@ -189,6 +189,9 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataGlobalSpace.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\include\CommonDefine.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

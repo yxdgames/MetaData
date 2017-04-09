@@ -2,7 +2,7 @@
 
 #include "MetaData.h"
 
-class CMetaDataGlobalSpace : public CMetaData
+class CLASS_DESCRIPT CMetaDataGlobalSpace : public CMetaData
 {
 public:
 	CMetaDataGlobalSpace(void);

@@ -4,7 +4,7 @@
 #include "MetaDataInterface.h"
 #include "TypeTraits.h"
 
-class IInterface
+class CLASS_DESCRIPT IInterface
 {
 public:
 	IInterface(void);

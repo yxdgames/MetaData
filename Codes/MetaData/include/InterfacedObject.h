@@ -3,7 +3,7 @@
 #include "IInterface.h"
 #include "MetaDataClassType.h"
 
-class CInterfacedObject : public IInterface
+class CLASS_DESCRIPT CInterfacedObject : public IInterface
 {
 public:
 	CInterfacedObject(void);

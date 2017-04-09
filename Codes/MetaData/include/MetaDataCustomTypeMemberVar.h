@@ -2,7 +2,7 @@
 
 #include "MetaDataVarBase.h"
 
-class CMetaDataCustomTypeMemberVar : public CMetaDataVarBase
+class CLASS_DESCRIPT CMetaDataCustomTypeMemberVar : public CMetaDataVarBase
 {
 public:
 	CMetaDataCustomTypeMemberVar(char *pName, CMetaData *pParent, CMetaDataType *pType, int PtrLevel, unsigned int Offset);

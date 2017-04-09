@@ -2,7 +2,7 @@
 
 #include "MetaDataType.h"
 
-class CMetaDataInnerType : public CMetaDataType
+class CLASS_DESCRIPT CMetaDataInnerType : public CMetaDataType
 {
 public:
 	CMetaDataInnerType(char *pName, CMetaData *pParent, unsigned int size);

@@ -2,7 +2,7 @@
 
 #include "MetaDataVarBase.h"
 
-class CMetaDataVariable : public CMetaDataVarBase
+class CLASS_DESCRIPT CMetaDataVariable : public CMetaDataVarBase
 {
 public:
 	CMetaDataVariable(char *pName, CMetaData *pParent, CMetaDataType *pType, int PtrLevel, void *pVar);

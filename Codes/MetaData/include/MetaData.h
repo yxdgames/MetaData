@@ -1,5 +1,7 @@
 #pragma once
 
+#include "..\..\include\CommonDefine.h"
+
 #include <vector>
 
 /* 元数据类型ID，标识是哪种元数据。 */
@@ -16,7 +18,7 @@
 #define D_META_DATA_TYPE_ID_VARIABLE				((unsigned char)(11))
 #define D_META_DATA_TYPE_ID_FUNCTION				((unsigned char)(12))
 
-class CMetaData
+class CLASS_DESCRIPT CMetaData
 {
 public:
 	CMetaData(char *pName, CMetaData *pParent, bool bChildren);

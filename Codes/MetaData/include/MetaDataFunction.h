@@ -31,7 +31,7 @@ struct SMetaDataCalledFunctionDataPacket
 
 typedef bool (*TpMDCalledFunction)(SMetaDataCalledFunctionDataPacket &DataPacket);
 
-class CMetaDataFunction : public CMetaData
+class CLASS_DESCRIPT CMetaDataFunction : public CMetaData
 {
 public:
 	CMetaDataFunction(char *pName, CMetaData *pParent, void *pFunction);

@@ -9,7 +9,7 @@
 #include <string>
 #endif //CO_SIMPLE_STRING_STL_STRING
 
-class SimpleString
+class CLASS_DESCRIPT SimpleString
 #ifdef CO_SIMPLE_STRING_STL_STRING
 	: private std::string
 #endif //CO_SIMPLE_STRING_STL_STRING

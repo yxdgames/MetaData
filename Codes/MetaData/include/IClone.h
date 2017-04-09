@@ -2,7 +2,7 @@
 
 #include "IInterface.h"
 
-class IClone : public IInterface
+class CLASS_DESCRIPT IClone : public IInterface
 {
 public:
 	IClone(void);

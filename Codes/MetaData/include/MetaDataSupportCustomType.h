@@ -24,7 +24,7 @@
 
 #define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type) \
 	private: \
-		static class C_MD__CTM_DID##name \
+		static class CLASS_DESCRIPT C_MD__CTM_DID##name \
 		{ \
 		public: \
 			C_MD__CTM_DID##name() \

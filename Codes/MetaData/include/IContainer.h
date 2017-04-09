@@ -2,7 +2,7 @@
 
 #include "IInterface.h"
 
-class IContainer : public IInterface
+class CLASS_DESCRIPT IContainer : public IInterface
 {
 public:
 	IContainer(void);

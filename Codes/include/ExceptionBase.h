@@ -1,6 +1,8 @@
 #pragma once
 
-class ExceptionBase
+#include "CommonDefine.h"
+
+class CLASS_DESCRIPT ExceptionBase
 {
 public:
 	ExceptionBase(int ID, const char *pCaption);

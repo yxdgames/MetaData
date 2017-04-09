@@ -2,7 +2,7 @@
 
 #include "..\..\include\ExceptionBase.h"
 
-class ExceptionMetaData : public ExceptionBase
+class CLASS_DESCRIPT ExceptionMetaData : public ExceptionBase
 {
 public:
 	ExceptionMetaData(int ID, const char *pCaption);

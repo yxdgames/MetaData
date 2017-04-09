@@ -53,12 +53,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;__METADATA_DLL_IMPORTS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies />
+      <AdditionalDependencies>..\lib\Debug\MetaData.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,6 +72,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Codes\include\CommonDefine.h" />
+    <ClInclude Include="..\Codes\include\ExceptionBase.h" />
+    <ClInclude Include="..\Codes\include\ExceptionID.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaData.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomType.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeMemberVar.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataFunction.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataGlobalSpace.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataInnerType.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataInterface.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataNameSpace.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="Codes\Forms\CfrmMain.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -96,6 +111,9 @@
     <EmbeddedResource Include="Codes\Forms\CfrmMain.resx">
       <DependentUpon>Codes\Forms\CfrmMain.h</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\lib\Debug\MetaData.exp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
