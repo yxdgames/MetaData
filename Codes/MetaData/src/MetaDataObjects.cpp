@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////
 //宇宙原像（根）元数据 -- 唯一
 static CMetaDataGlobalSpace _MD__GlobalSpace;
-CMetaDataGlobalSpace *_MD__GLOBALSPACE__GetMetaData(void)
+FUNC_DESCRIPT CMetaDataGlobalSpace * __stdcall _MD__GLOBALSPACE__GetMetaData(void)
 {
 	return &_MD__GlobalSpace;
 }
@@ -29,7 +29,7 @@ MD_INNER_TYPE_2_DEF(unsigned, char)
 MD_INNER_TYPE_2_DEF(unsigned, short)
 MD_INNER_TYPE_2_DEF(unsigned, long)
 MD_INNER_TYPE_2_DEF(unsigned, int)
-CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPACE(), sizeof(void*));
+VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPACE(), sizeof(void*));
 
 #ifdef CO_META_DATA_EXTRA_SYSTEM_DEF
 //系统扩展类型元数据

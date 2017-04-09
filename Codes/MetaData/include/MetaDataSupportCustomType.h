@@ -22,9 +22,9 @@
 		static md_custom_type _MD__##md_obj_pre_name##name; \
 		__MD_CUSTOM_TYPE_MEMBER_EXTRA
 
-#define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type) \
+#define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type, cls_descript) \
 	private: \
-		static class CLASS_DESCRIPT C_MD__CTM_DID##name \
+		static class cls_descript C_MD__CTM_DID##name \
 		{ \
 		public: \
 			C_MD__CTM_DID##name() \

@@ -1,0 +1,4 @@
+#include "Test.h"
+
+//CTest
+MD_CLASS_TYPE_DEF(CTest)

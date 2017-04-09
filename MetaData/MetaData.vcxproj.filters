@@ -114,6 +114,12 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -210,6 +216,9 @@
     </None>
     <None Include="..\Codes\MetaData\src\SimpleString.meo">
       <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\src\MetaDataExtraObjects.meo">
+      <Filter>Codes\src</Filter>
     </None>
   </ItemGroup>
 </Project>

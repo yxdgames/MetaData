@@ -34,6 +34,9 @@
     <Filter Include="Codes\include">
       <UniqueIdentifier>{cd69d1d9-adf1-4aab-9c85-d625acb3d9e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Codes\src">
+      <UniqueIdentifier>{42427d35-4d74-4b76-afe9-5568a5e97c7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -90,6 +93,15 @@
     <ClInclude Include="..\Codes\include\ExceptionID.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="Codes\CommonFunction.h">
+      <Filter>UICode</Filter>
+    </ClInclude>
+    <ClInclude Include="Codes\Test.h">
+      <Filter>UICode</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -101,6 +113,15 @@
     <ClCompile Include="Codes\Forms\CfrmMain.cpp">
       <Filter>UICode\Forms</Filter>
     </ClCompile>
+    <ClCompile Include="Codes\CommonFunction.cpp">
+      <Filter>UICode</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\src\MetaDataObjects.cpp">
+      <Filter>Codes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="Codes\Test.cpp">
+      <Filter>UICode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Codes\Forms\CfrmMain.resx">
@@ -110,6 +131,9 @@
   <ItemGroup>
     <None Include="..\lib\Debug\MetaData.exp">
       <Filter>libs</Filter>
+    </None>
+    <None Include="Codes\Test.meo">
+      <Filter>UICode</Filter>
     </None>
   </ItemGroup>
 </Project>

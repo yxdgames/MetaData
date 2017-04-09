@@ -1,9 +1,7 @@
 #pragma once
 
+#include "..\CommonFunction.h"
 #include "..\..\..\Codes\MetaData\include\MetaData.h"
-#include "..\..\..\Codes\MetaData\include\MetaDataGlobalSpace.h"
-
-__declspec(dllimport) CMetaDataGlobalSpace * __stdcall GetMetaDataGlobalSpace(void);
 
 namespace MetaDataView {
 
@@ -135,7 +133,7 @@ namespace MetaDataView {
 		}
 #pragma endregion
 	private: System::Void CfrmMain_Shown(System::Object^  sender, System::EventArgs^  e) {
-				 InitClassView(*GetMetaDataGlobalSpace());
+				 InitClassView(*MetaDataGlobalSpace());
 			 }
 };
 }

@@ -52,7 +52,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;_CRT_SECURE_NO_WARNINGS;CO_META_DATA_EXTRA_SYSTEM_DEF;__META_DATA_DEMO__;__METADATA_DLL_EXPORTS__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;_CRT_SECURE_NO_WARNINGS;CO_META_DATA_EXTRA_SYSTEM_DEF;CO_METADATA_KERNEL_DLL_EXPORTS;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -101,6 +101,8 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataNameSpace.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
@@ -152,6 +154,7 @@
     <None Include="..\Codes\MetaData\src\InterfacedObject.meo" />
     <None Include="..\Codes\MetaData\src\MetaDataExtraObjects.meo" />
     <None Include="..\Codes\MetaData\src\SimpleString.meo" />
+    <None Include="..\Codes\src\MetaDataExtraObjects.meo" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

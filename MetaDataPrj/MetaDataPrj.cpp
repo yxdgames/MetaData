@@ -3,11 +3,6 @@
 
 #include "stdafx.h"
 #include "test_items.h"
-//#include "..\Codes\MetaData\include\MetaData.h"
-//#include "..\Codes\MetaData\include\MetaDataSupport.h"
-//#include "..\Codes\MetaData\include\MetaDataObjects.h"
-//#include "..\Codes\MetaData\include\TypeTraits.h"
-//#include "..\Codes\Serialization\include\ISerializer.h"
 
 #include <stdarg.h>
 #include <iostream>

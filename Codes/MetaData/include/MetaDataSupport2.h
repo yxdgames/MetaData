@@ -30,8 +30,8 @@
 /***************************/
 /* Meta data of inner type */
 /***************************/
-#define MD_INNER_TYPE_DEF(name)						CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name));
-#define MD_INNER_TYPE_2_DEF(name1, name2)			CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_GLOBALSPACE(), sizeof(name1 name2));
+#define MD_INNER_TYPE_DEF(name)						VAR_DESCRIPT CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name));
+#define MD_INNER_TYPE_2_DEF(name1, name2)			VAR_DESCRIPT CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_GLOBALSPACE(), sizeof(name1 name2));
 
 /****************************/
 /* Meta data of custom type */
