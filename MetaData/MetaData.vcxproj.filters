@@ -131,6 +131,9 @@
     <ClCompile Include="..\Codes\src\ExceptionBase.cpp">
       <Filter>Codes\src</Filter>
     </ClCompile>
+    <ClCompile Include="MetaDataMain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\Demo.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
@@ -191,33 +194,27 @@
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
-    <ClCompile Include="MetaDataMain.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\MetaData\src\Demo.meo">
+    <None Include="..\Codes\MetaData\src\Demo.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
-    <None Include="..\Codes\MetaData\src\IClone.meo">
+    <None Include="..\Codes\MetaData\src\IClone.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
-    <None Include="..\Codes\MetaData\src\IContainer.meo">
+    <None Include="..\Codes\MetaData\src\IContainer.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
-    <None Include="..\Codes\MetaData\src\IInterface.meo">
+    <None Include="..\Codes\MetaData\src\IInterface.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
-    <None Include="..\Codes\MetaData\src\InterfacedObject.meo">
+    <None Include="..\Codes\MetaData\src\InterfacedObject.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
-    <None Include="..\Codes\MetaData\src\MetaDataExtraObjects.meo">
+    <None Include="..\Codes\MetaData\src\SimpleString.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
-    <None Include="..\Codes\MetaData\src\SimpleString.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\src\MetaDataExtraObjects.meo">
+    <None Include="..\Codes\src\ExtraMetaDataObjects.mdo">
       <Filter>Codes\src</Filter>
     </None>
   </ItemGroup>

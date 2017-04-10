@@ -1,0 +1,12 @@
+/******************************************************/
+/*  将所有.mdo文件放进这里，以保证各元数据被正确生成 */
+/******************************************************/
+
+#ifdef CO_SERIALIZATION_MODULE
+//Serialization
+#include "..\..\Serialization\src\ISerial.mdo"
+#include "..\..\Serialization\src\ITreeSerial.mdo"
+#include "..\..\Serialization\src\TreeSerial.mdo"
+#endif //CO_SERIALIZATION_MODULE
+
+//Others

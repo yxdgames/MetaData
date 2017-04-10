@@ -4,3 +4,4 @@
 IClone::IClone(void)
 {
 }
+

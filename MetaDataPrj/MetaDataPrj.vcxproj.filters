@@ -120,9 +120,6 @@
     <ClInclude Include="..\Codes\Serialization\include\ISerialEntity.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataTypeIDAlloc.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -254,9 +251,6 @@
     <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataTypeIDAlloc.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
@@ -310,35 +304,35 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\MetaData\src\IClone.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\MetaData\src\IInterface.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\MetaData\src\InterfacedObject.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\MetaData\src\IContainer.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\MetaData\src\SimpleString.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\Serialization\src\ISerial.meo">
-      <Filter>Codes\Serialization\src</Filter>
-    </None>
-    <None Include="..\Codes\Serialization\src\ITreeSerial.meo">
-      <Filter>Codes\Serialization\src</Filter>
-    </None>
-    <None Include="..\Codes\Serialization\src\TreeSerial.meo">
-      <Filter>Codes\Serialization\src</Filter>
-    </None>
-    <None Include="..\Codes\MetaData\src\Demo.meo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\src\MetaDataExtraObjects.meo">
+    <None Include="..\Codes\src\ExtraMetaDataObjects.mdo">
       <Filter>Codes\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\Demo.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IClone.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IContainer.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IInterface.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\InterfacedObject.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\SimpleString.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ISerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ITreeSerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\TreeSerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

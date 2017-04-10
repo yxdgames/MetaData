@@ -52,7 +52,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;_CRT_SECURE_NO_WARNINGS;CO_META_DATA_EXTRA_SYSTEM_DEF;CO_METADATA_KERNEL_DLL_EXPORTS;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;_CRT_SECURE_NO_WARNINGS;CO_METADATA_KERNEL_DLL_EXPORTS;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -147,14 +147,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\MetaData\src\Demo.meo" />
-    <None Include="..\Codes\MetaData\src\IClone.meo" />
-    <None Include="..\Codes\MetaData\src\IContainer.meo" />
-    <None Include="..\Codes\MetaData\src\IInterface.meo" />
-    <None Include="..\Codes\MetaData\src\InterfacedObject.meo" />
-    <None Include="..\Codes\MetaData\src\MetaDataExtraObjects.meo" />
-    <None Include="..\Codes\MetaData\src\SimpleString.meo" />
-    <None Include="..\Codes\src\MetaDataExtraObjects.meo" />
+    <None Include="..\Codes\MetaData\src\Demo.mdo" />
+    <None Include="..\Codes\MetaData\src\IClone.mdo" />
+    <None Include="..\Codes\MetaData\src\IContainer.mdo" />
+    <None Include="..\Codes\MetaData\src\IInterface.mdo" />
+    <None Include="..\Codes\MetaData\src\InterfacedObject.mdo" />
+    <None Include="..\Codes\MetaData\src\SimpleString.mdo" />
+    <None Include="..\Codes\src\ExtraMetaDataObjects.mdo" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

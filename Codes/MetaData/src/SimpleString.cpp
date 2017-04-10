@@ -2,7 +2,6 @@
 #include "..\include\SimpleString.h"
 #include <string>
 
-
 SimpleString::SimpleString(void)
 #ifndef CO_SIMPLE_STRING_STL_STRING
 	: m_pString(NULL)
@@ -67,3 +66,4 @@ void SimpleString::FreeString(void)
 	}
 }
 #endif //CO_SIMPLE_STRING_STL_STRING
+

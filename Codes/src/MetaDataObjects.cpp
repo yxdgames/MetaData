@@ -5,4 +5,4 @@
 ////////////////////////////////////////////////
 //             Extra Meta Data                //
 ////////////////////////////////////////////////
-#include "..\..\MetaDataView\Codes\Test.meo"
+#include "..\..\MetaDataView\Codes\Test.mdo"

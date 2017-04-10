@@ -6,9 +6,9 @@
 ////////////////////////////////////////////////
 //             System Meta Data               //
 ////////////////////////////////////////////////
-//宇宙原像（根）元数据 -- 唯一
+//全局空间元数据 -- 唯一
 static CMetaDataGlobalSpace _MD__GlobalSpace;
-FUNC_DESCRIPT CMetaDataGlobalSpace * __stdcall _MD__GLOBALSPACE__GetMetaData(void)
+FUNC_DESCRIPT CMetaDataGlobalSpace * _MD__GLOBALSPACE__GetMetaData(void)
 {
 	return &_MD__GlobalSpace;
 }
@@ -31,16 +31,19 @@ MD_INNER_TYPE_2_DEF(unsigned, long)
 MD_INNER_TYPE_2_DEF(unsigned, int)
 VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPACE(), sizeof(void*));
 
-#ifdef CO_META_DATA_EXTRA_SYSTEM_DEF
-//系统扩展类型元数据
-#include "IInterface.meo"
-#include "IClone.meo"
-#include "IContainer.meo"
-#include "InterfacedObject.meo"
-#include "SimpleString.meo"
-#endif //CO_META_DATA_EXTRA_SYSTEM_DEF
+//系统扩充类型元数据
+#include "IInterface.mdo"
+#include "IClone.mdo"
+#include "IContainer.mdo"
+#include "InterfacedObject.mdo"
+#include "SimpleString.mdo"
 
 ////////////////////////////////////////////////
 //             Extra Meta Data                //
 ////////////////////////////////////////////////
-#include "..\..\src\MetaDataExtraObjects.meo"
+//Demo
+#ifdef __META_DATA_DEMO__
+#include "Demo.mdo"
+#endif //__META_DATA_DEMO__
+
+#include "..\..\src\ExtraMetaDataObjects.mdo"
