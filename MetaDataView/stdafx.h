@@ -11,6 +11,9 @@
 #include <tchar.h>
 
 
+#include <windows.h>
+
+#include <vcclr.h>
 
 // TODO: 在此处引用程序需要的其他头文件
 #include "..\Codes\MetaData\include\MetaDataObjects.h"
