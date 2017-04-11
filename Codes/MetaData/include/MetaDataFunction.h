@@ -50,6 +50,7 @@ public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_FUNCTION; }
 	bool ReturnIsVoid(void) const				{ return m_pReturnInfo == NULL; }
+	CMetaDataVarBase *GetReturnInfo(void)		{ return m_pReturnInfo; }
 	int GetParamCount(void) const				{ return m_pParamTable ? m_pParamTable->size() : 0; }
 	CMetaDataVarBase *GetParam(int index)		{ return m_pParamTable ? m_pParamTable->at(index) : NULL; }
 private:

@@ -135,5 +135,6 @@
     <None Include="Codes\Test.mdo">
       <Filter>UICode</Filter>
     </None>
+    <None Include="licenses.licx" />
   </ItemGroup>
 </Project>

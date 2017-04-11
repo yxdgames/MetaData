@@ -107,7 +107,29 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v14.1">
+      <HintPath>DevExpress.Data.v14.1</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core">
+      <HintPath>DevExpress.Printing.v14.1.Core</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v14.1">
+      <HintPath>DevExpress.Utils.v14.1</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v14.1">
+      <HintPath>DevExpress.XtraEditors.v14.1</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v14.1">
+      <HintPath>D:\DotNetFrame\DevExpress 14.1\Components\Bin\Framework\DevExpress.XtraGrid.v14.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v14.1">
+      <HintPath>DevExpress.XtraLayout.v14.1</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v14.1">
+      <HintPath>DevExpress.XtraPrinting.v14.1</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -121,6 +143,7 @@
   <ItemGroup>
     <None Include="..\lib\Debug\MetaData.exp" />
     <None Include="Codes\Test.mdo" />
+    <None Include="licenses.licx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
