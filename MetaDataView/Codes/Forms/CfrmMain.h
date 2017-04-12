@@ -427,6 +427,7 @@ namespace MetaDataView {
 			 }
 private: System::Void tsmiViewMetaData_Click(System::Object^  sender, System::EventArgs^  e) {
 			 System::Windows::Forms::OpenFileDialog dlgOpen;
+			 dlgOpen.Filter = "动态库(*.dll)|*.dll|全部文件(*.*)|*.*";
 			 if (dlgOpen.ShowDialog() == System::Windows::Forms::DialogResult::OK)
 			 {
 				 HMODULE hModule = LoadModuleHandle(dlgOpen.FileName);
@@ -439,7 +440,9 @@ private: System::Void tsmiViewMetaData_Click(System::Object^  sender, System::Ev
 					 {
 						InitClassView(*reinterpret_cast<CMetaData*>(pFunc()));
 					 }
+					 else throw gcnew Exception("无法解析元数据！");
 				 }
+				 else throw gcnew Exception("载入DLL失败！");
 			 }
 		 }
 private: System::Void tsmiViewMDKernel_Click(System::Object^  sender, System::EventArgs^  e) {
