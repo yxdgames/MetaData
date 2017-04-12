@@ -14,29 +14,20 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Codes">
-      <UniqueIdentifier>{3f482890-13ba-4bb0-a40f-863fbbd8c449}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UICode">
-      <UniqueIdentifier>{67a39564-c864-46c2-a39d-bb7cd5a05788}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UICode\Forms">
-      <UniqueIdentifier>{33ee0c89-e842-4a77-b0b2-b13200d35c9d}</UniqueIdentifier>
+      <UniqueIdentifier>{af06ef20-96d3-476c-9f21-1374a14241ce}</UniqueIdentifier>
     </Filter>
     <Filter Include="Codes\MetaData">
-      <UniqueIdentifier>{496e3b07-4ab3-4c24-9bc1-e129fcd46fe3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Codes\MetaData\include">
-      <UniqueIdentifier>{fd5c1c38-9ee7-42fb-a555-b7512112004d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="libs">
-      <UniqueIdentifier>{deed4200-7e71-4781-869e-64e9766d931f}</UniqueIdentifier>
+      <UniqueIdentifier>{7b20edda-1b0c-4180-aa7f-04afb6d4eb17}</UniqueIdentifier>
     </Filter>
     <Filter Include="Codes\include">
-      <UniqueIdentifier>{cd69d1d9-adf1-4aab-9c85-d625acb3d9e9}</UniqueIdentifier>
+      <UniqueIdentifier>{2fff92f2-375e-4e60-b1b8-4be0869f06d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Codes\src">
-      <UniqueIdentifier>{42427d35-4d74-4b76-afe9-5568a5e97c7b}</UniqueIdentifier>
+    <Filter Include="Codes\MetaData\include">
+      <UniqueIdentifier>{166fe5fd-cc01-4280-9a8a-a33d1d905984}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -45,8 +36,17 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Codes\Forms\CfrmMain.h">
-      <Filter>UICode\Forms</Filter>
+    <ClInclude Include="..\Codes\include\CommonDefine.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\ExceptionBase.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\ExceptionID.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaData.h">
       <Filter>Codes\MetaData\include</Filter>
@@ -75,6 +75,9 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataNameSpace.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -84,25 +87,19 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\include\CommonDefine.h">
-      <Filter>Codes\include</Filter>
+    <ClInclude Include="CdllCls1.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\include\ExceptionBase.h">
-      <Filter>Codes\include</Filter>
+    <ClInclude Include="CdllCls2.h">
+      <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\include\ExceptionID.h">
-      <Filter>Codes\include</Filter>
-    </ClInclude>
-    <ClInclude Include="Codes\CommonFunction.h">
-      <Filter>UICode</Filter>
-    </ClInclude>
-    <ClInclude Include="Codes\Test.h">
-      <Filter>UICode</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h">
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h">
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,34 +107,22 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="MetaDataTestDll.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Codes\Forms\CfrmMain.cpp">
-      <Filter>UICode\Forms</Filter>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Codes\CommonFunction.cpp">
-      <Filter>UICode</Filter>
+    <ClCompile Include="CdllCls1.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\src\MetaDataObjects.cpp">
-      <Filter>Codes\src</Filter>
-    </ClCompile>
-    <ClCompile Include="Codes\Test.cpp">
-      <Filter>UICode</Filter>
+    <ClCompile Include="CdllCls2.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Codes\Forms\CfrmMain.resx">
-      <Filter>资源文件</Filter>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\lib\Debug\MetaData.exp">
-      <Filter>libs</Filter>
+    <None Include="Source.def">
+      <Filter>源文件</Filter>
     </None>
-    <None Include="Codes\Test.mdo">
-      <Filter>UICode</Filter>
-    </None>
-    <None Include="licenses.licx" />
   </ItemGroup>
 </Project>

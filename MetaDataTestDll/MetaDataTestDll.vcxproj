@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{ADB82101-C1FF-45C5-B1DE-91CE47E983C0}</ProjectGuid>
+    <ProjectGuid>{6A2522B5-9D33-43FE-8EF3-E0AD37C8FE66}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>MetaData</RootNamespace>
+    <RootNamespace>MetaDataTestDll</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -45,20 +45,20 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\Bin\Release\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;_CRT_SECURE_NO_WARNINGS;CO_METADATA_KERNEL_DLL_EXPORTS;__META_DATA_DEMO__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;METADATATESTDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>Source.def</ModuleDefinitionFile>
+      <AdditionalDependencies>..\lib\Debug\MetaData.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImportLibrary>..\lib\Debug\$(TargetName).lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
@@ -69,7 +69,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;METADATA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;METADATATESTDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -87,12 +87,7 @@
     <ClInclude Include="..\Codes\include\CommonDefine.h" />
     <ClInclude Include="..\Codes\include\ExceptionBase.h" />
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
-    <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
-    <ClInclude Include="..\Codes\MetaData\include\IContainer.h" />
-    <ClInclude Include="..\Codes\MetaData\include\IInterface.h" />
-    <ClInclude Include="..\Codes\MetaData\include\InterfacedObject.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomType.h" />
@@ -109,32 +104,14 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
-    <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
+    <ClInclude Include="CdllCls1.h" />
+    <ClInclude Include="CdllCls2.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Codes\MetaData\src\Demo.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\InterfacedObject.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaData.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataClassType.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomType.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeMemberVar.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataFunction.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataGlobalSpace.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataInnerType.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataInterface.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataNameSpace.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataObjects.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataType.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataVarBase.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
-    <ClCompile Include="..\Codes\src\ExceptionBase.cpp" />
+    <ClCompile Include="CdllCls1.cpp" />
+    <ClCompile Include="CdllCls2.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -143,20 +120,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="MetaDataMain.cpp" />
+    <ClCompile Include="MetaDataTestDll.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\MetaData\src\Demo.mdo" />
-    <None Include="..\Codes\MetaData\src\IClone.mdo" />
-    <None Include="..\Codes\MetaData\src\IContainer.mdo" />
-    <None Include="..\Codes\MetaData\src\IInterface.mdo" />
-    <None Include="..\Codes\MetaData\src\InterfacedObject.mdo" />
-    <None Include="..\Codes\MetaData\src\SimpleString.mdo" />
-    <None Include="..\Codes\src\ExtraMetaDataObjects.mdo" />
     <None Include="Source.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

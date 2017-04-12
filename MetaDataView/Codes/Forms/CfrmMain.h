@@ -147,14 +147,28 @@ namespace MetaDataView {
 								else str = "static ";
 								if (pMDFunc->ReturnIsVoid())
 									str += "void ";
-								else str += gcnew String(pMDFunc->GetReturnInfo()->GetMDType()->GetName()) + " ";
+								else
+								{
+									str += gcnew String(pMDFunc->GetReturnInfo()->GetMDType()->GetName()) + " ";
+									for (idx = 0; idx < pMDFunc->GetReturnInfo()->GetPtrLevel(); ++idx)
+									{
+										str += "*";
+									}
+								}
 							}
 						}
 						else
 						{
 							if (pMDFunc->ReturnIsVoid())
 								str = "void ";
-							else str = gcnew String(pMDFunc->GetReturnInfo()->GetMDType()->GetName()) + " ";
+							else
+							{
+								str = gcnew String(pMDFunc->GetReturnInfo()->GetMDType()->GetName()) + " ";
+								for (idx = 0; idx < pMDFunc->GetReturnInfo()->GetPtrLevel(); ++idx)
+								{
+									str += "*";
+								}
+							}
 						}
 						str += gcnew String(pMDFunc->GetName()) + "(";
 						str1 = "";
@@ -340,6 +354,7 @@ namespace MetaDataView {
 			this->grdvDetail->Columns->AddRange(gcnew cli::array< DevExpress::XtraGrid::Columns::GridColumn^  >(1) {this->gridColumn1});
 			this->grdvDetail->GridControl = this->grdcDetail;
 			this->grdvDetail->Name = L"grdvDetail";
+			this->grdvDetail->OptionsBehavior->ReadOnly = true;
 			this->grdvDetail->OptionsView->ShowGroupPanel = false;
 			// 
 			// gridColumn1
@@ -347,6 +362,7 @@ namespace MetaDataView {
 			this->gridColumn1->Caption = L"³ÉÔ±";
 			this->gridColumn1->FieldName = L"member";
 			this->gridColumn1->Name = L"gridColumn1";
+			this->gridColumn1->OptionsColumn->AllowEdit = false;
 			this->gridColumn1->Visible = true;
 			this->gridColumn1->VisibleIndex = 0;
 			// 

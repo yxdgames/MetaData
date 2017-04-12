@@ -9,6 +9,7 @@
 //平台相关
 #define MD_FUNC_VA_INTSIZEOF(n)   ( ((n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )
 
+//变参函数里的参数size.
 static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 {	
 	if (!pMDType) return 0;

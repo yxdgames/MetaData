@@ -1,0 +1,19 @@
+#pragma once
+
+#include "..\Codes\MetaData\include\MetaDataSupport.h"
+
+class CdllCls2
+{
+public:
+	CdllCls2(void);
+	~CdllCls2(void);
+
+MD_CLASS_TYPE_DECLARE_BEGIN(CdllCls2)
+	MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(0)
+	MD_CLASS_TYPE_DESTRUCTOR_WRAPPER_DECLARE()
+MD_CLASS_TYPE_DECLARE_DETAIL(CdllCls2)
+	MD_CLASS_TYPE_CONSTRUCTOR_DEF(0)
+	MD_CLASS_TYPE_DESTRUCTOR_DEF()
+MD_CLASS_TYPE_DECLARE_END(CdllCls2)
+};
+

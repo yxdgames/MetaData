@@ -85,10 +85,23 @@ class CClass1_Derived1 : public CClass1
 public:
 	CClass1_Derived1(void);
 	~CClass1_Derived1(void);
+public:
+	int *cls1_der1_func1(unsigned char c, double d) { return NULL; }
+	int ***cls1_der1_func2(unsigned char c, double d) { return NULL; };
 
 MD_CLASS_TYPE_DECLARE_BEGIN(CClass1_Derived1)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_der1_func1, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_der1_func2, 0)
 MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1_Derived1)
 	MD_CLASS_TYPE_BASE_CLASS_DEF(CClass1)
+	MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls1_der1_func1, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(c, unsigned char, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(d, double, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(int, 1)
+	MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls1_der1_func2, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(c, unsigned char, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(d, double, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(int, 3)
 MD_CLASS_TYPE_DECLARE_END(CClass1_Derived1)
 };
 
