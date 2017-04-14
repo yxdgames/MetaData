@@ -40,6 +40,7 @@ public:
 	//bool OutputMemberVar(char *pVarName, void *pOutputAddr);
 	bool QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj);
 
+	//override
 	virtual bool IsTypeOf(CMetaDataType *pType);
 	virtual void *AsType(void *pObj, CMetaDataType *pType);
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf);
