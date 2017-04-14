@@ -8,13 +8,13 @@
 class CMetaDataInterface;
 class CMetaDataCustomType;
 
-struct SMetaDataCustomTypeBaseType
+struct STRUCT_DESCRIPT SMetaDataCustomTypeBaseType
 {
 	CMetaDataCustomType *CustomType;
 	unsigned int Offset;
 };
 
-struct SMetaDataCustomTypeInterface
+struct STRUCT_DESCRIPT SMetaDataCustomTypeInterface
 {
 	CMetaDataInterface *Intf;
 	unsigned int Offset;

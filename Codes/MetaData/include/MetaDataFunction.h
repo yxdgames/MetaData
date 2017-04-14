@@ -8,7 +8,7 @@
 		(param_vector).push_back(new CMetaDataVarBase(NULL, NULL, TypeTraits<type_name>::GetMetaDataType(), (ptr_level))); \
 	}
 
-class CParamVector : public std::vector<CMetaDataVarBase*>
+class CLASS_DESCRIPT CParamVector : public std::vector<CMetaDataVarBase*>
 {
 public:
 	CParamVector(void)	{}
@@ -22,7 +22,7 @@ public:
 	}
 };
 
-struct SMetaDataCalledFunctionDataPacket
+struct STRUCT_DESCRIPT SMetaDataCalledFunctionDataPacket
 {
 	int ParamCount;
 	void **pParam;
