@@ -20,7 +20,7 @@ public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_TYPE; }
 	unsigned int GetSize(void) const			{ return m_Size; }
-public:
+private:
 	unsigned int			m_Size;
 };
 

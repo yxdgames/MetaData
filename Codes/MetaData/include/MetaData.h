@@ -36,6 +36,7 @@ public:
 	unsigned int GetChildrenCount(void) const				{ return (m_pChildren ? m_pChildren->size() : 0); }
 	const CMetaData *GetChild(unsigned int index) const		{ return (m_pChildren ? m_pChildren->at(index) : NULL); }
 private:
+	void InsertSelfToParent(void);
 	void RemoveSelfFromParent(void);
 	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children, bool bClear) const;
 private:

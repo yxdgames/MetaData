@@ -23,11 +23,7 @@ static const char *gMetaDataTypeCaption[] = {
 CMetaData::CMetaData(char *pName, CMetaData *pParent, bool bChildren)
 	:m_pName(pName), m_pParent(pParent), m_pChildren(bChildren ? (new std::vector<CMetaData*>) : NULL)
 {
-	if (m_pParent && m_pParent->m_pChildren)
-	{
-		m_pParent->m_pChildren->push_back(this);
-	}
-	else m_pParent = NULL;
+	InsertSelfToParent();
 }
 
 
@@ -122,11 +118,20 @@ const char *CMetaData::GetTypeCaption(void) const
 	return gMetaDataTypeCaption[this->GetTypeID()];
 }
 
-void CMetaData::RemoveSelfFromParent(void)
+void CMetaData::InsertSelfToParent(void)
 {
-	std::vector<CMetaData*>::iterator itr;
 	if (m_pParent && m_pParent->m_pChildren)
 	{
+		m_pParent->m_pChildren->push_back(this);
+	}
+	else m_pParent = NULL;
+}
+
+void CMetaData::RemoveSelfFromParent(void)
+{
+	if (m_pParent && m_pParent->m_pChildren)
+	{
+		std::vector<CMetaData*>::iterator itr;
 		for (itr = m_pParent->m_pChildren->begin(); itr != m_pParent->m_pChildren->end(); ++itr)
 		{
 			if ((*itr) == this)
