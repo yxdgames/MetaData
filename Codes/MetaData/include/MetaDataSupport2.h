@@ -172,4 +172,4 @@
 #define MD_GLOBAL_FUNCTION_DEF_END(name) \
 		return ret_val; \
 	} \
-	CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), _MD__CF##name);
+	CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), _MD__FWRAPPER##name);

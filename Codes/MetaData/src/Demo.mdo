@@ -562,4 +562,15 @@ namespace NameSpasce1_Sub1_Sub1
 } //NameSpace1_Sub1
 } //NameSpace1
 
+MD_GLOBAL_VARIABLE_DEF(global_A, META_DATA_GLOBALSPACE(), *TypeTraits<int>::GetMetaDataType(), 0)
+
+MD_GLOBAL_FUNCTION_DEF_BEGIN(global_func)
+	MD_GLOBAL_FUNCTION_DEF_PROC_CHECK(1)
+	MD_GLOBAL_FUNCTION_DEF_DP_RET(int)
+	= global_func
+	(
+		MD_GLOBAL_FUNCTION_DEF_DP_PARAM(0, int)
+	);
+MD_GLOBAL_FUNCTION_DEF_END(global_func)
+
 #endif //__META_DATA_DEMO__

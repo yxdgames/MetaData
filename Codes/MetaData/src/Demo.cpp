@@ -120,4 +120,11 @@ bool NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::
 long NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::mem_long;
 double NameSpace1::NameSpace1_Sub1::NameSpasce1_Sub1_Sub1::NS1_Sub1_Sub1_CClass1::mem_double;
 
+int global_A;
+
+int global_func(int a)
+{
+	return -11;
+}
+
 #endif //__META_DATA_DEMO__

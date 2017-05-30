@@ -14,6 +14,9 @@ namespace MetaDataView {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace DevExpress::XtraGrid::Views::Grid;
+
+	using DevExpress::XtraGrid::Views::Grid::ViewInfo::GridGroupRowInfo;
 
 	/// <summary>
 	/// CfrmMain 摘要
@@ -82,7 +85,7 @@ namespace MetaDataView {
 			{
 				dtDetail->Tables[0]->Clear();
 				if (!pMD) return;
-				String ^str, ^str1;
+				String ^str, ^str1, ^str_filter1;
 				CMetaData *pChild;
 				CMetaDataVariable *pMDVar;
 				CMetaDataCustomTypeMemberVar *pMDMVar;
@@ -107,6 +110,8 @@ namespace MetaDataView {
 								str1 += "*";
 							}
 							pRow[dtDetail->Tables[0]->Columns["member"]] += str1 + gcnew String(pMDVar->GetName());
+
+							pRow[dtDetail->Tables[0]->Columns["filter1"]] = "静态成员变量";
 						}
 						else
 						{
@@ -117,6 +122,7 @@ namespace MetaDataView {
 								str1 += "*";
 							}
 							pRow[dtDetail->Tables[0]->Columns["member"]] += str1 + gcnew String(pMDVar->GetName());
+							pRow[dtDetail->Tables[0]->Columns["filter1"]] = "变量";
 						}
 						dtDetail->Tables[0]->Rows->Add(pRow);
 						break;
@@ -130,21 +136,35 @@ namespace MetaDataView {
 							str1 += "*";
 						}
 						pRow[dtDetail->Tables[0]->Columns["member"]] += str1 + gcnew String(pMDMVar->GetName());
+						pRow[dtDetail->Tables[0]->Columns["filter1"]] = "成员变量";
 						dtDetail->Tables[0]->Rows->Add(pRow);
 						break;
 					case D_META_DATA_TYPE_ID_FUNCTION:
 						pMDFunc = reinterpret_cast<CMetaDataFunction *>(pChild);
 						if ((pMD->GetTypeID() == D_META_DATA_TYPE_ID_CLASS_TYPE || pMD->GetTypeID() == D_META_DATA_TYPE_ID_INTERFACE))
 						{
-							if ((strcmp(pMD->GetName(), pMDFunc->GetName()) == 0 || strcmp(pMD->GetName(), pMDFunc->GetName() + 1) == 0))
+							if (strcmp(pMD->GetName(), pMDFunc->GetName()) == 0)
 							{
 								str = "";
+								str_filter1 = "构造函数";
+							}
+							else if (pMDFunc->GetName()[0] == '~' && strcmp(pMD->GetName(), pMDFunc->GetName() + 1) == 0)
+							{
+								str = "";
+								str_filter1 = "析构函数";
 							}
 							else
 							{
 								if (pMDFunc->GetParamCount() > 0 && strcmp(pMDFunc->GetParam(0)->GetName(), "this") == 0)
+								{
 									str = "";
-								else str = "static ";
+									str_filter1 = "成员函数";
+								}
+								else
+								{
+									str = "static ";
+									str_filter1 = "静态成员函数";
+								}
 								if (pMDFunc->ReturnIsVoid())
 									str += "void ";
 								else
@@ -169,6 +189,7 @@ namespace MetaDataView {
 									str += "*";
 								}
 							}
+							str_filter1 = "函数";
 						}
 						str += gcnew String(pMDFunc->GetName()) + "(";
 						str1 = "";
@@ -195,6 +216,7 @@ namespace MetaDataView {
 						str += ")";
 						pRow = dtDetail->Tables[0]->NewRow();
 						pRow[dtDetail->Tables[0]->Columns["member"]] = str;
+						pRow[dtDetail->Tables[0]->Columns["filter1"]] = str_filter1;
 						dtDetail->Tables[0]->Rows->Add(pRow);
 						break;
 					default:
@@ -233,6 +255,8 @@ namespace MetaDataView {
 
 
 	private: DevExpress::XtraGrid::Columns::GridColumn^  gridColumn1;
+private: System::Data::DataColumn^  dataColumn2;
+private: DevExpress::XtraGrid::Columns::GridColumn^  gridColumn2;
 
 
 
@@ -281,8 +305,10 @@ namespace MetaDataView {
 			this->dtDetail = (gcnew System::Data::DataSet());
 			this->dataTable1 = (gcnew System::Data::DataTable());
 			this->dataColumn1 = (gcnew System::Data::DataColumn());
+			this->dataColumn2 = (gcnew System::Data::DataColumn());
 			this->grdvDetail = (gcnew DevExpress::XtraGrid::Views::Grid::GridView());
 			this->gridColumn1 = (gcnew DevExpress::XtraGrid::Columns::GridColumn());
+			this->gridColumn2 = (gcnew DevExpress::XtraGrid::Columns::GridColumn());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->tsmiFile = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tsmiViewMetaData = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -341,7 +367,7 @@ namespace MetaDataView {
 			// 
 			// dataTable1
 			// 
-			this->dataTable1->Columns->AddRange(gcnew cli::array< System::Data::DataColumn^  >(1) {this->dataColumn1});
+			this->dataTable1->Columns->AddRange(gcnew cli::array< System::Data::DataColumn^  >(2) {this->dataColumn1, this->dataColumn2});
 			this->dataTable1->TableName = L"tbDetail";
 			// 
 			// dataColumn1
@@ -349,13 +375,23 @@ namespace MetaDataView {
 			this->dataColumn1->Caption = L"成员";
 			this->dataColumn1->ColumnName = L"member";
 			// 
+			// dataColumn2
+			// 
+			this->dataColumn2->Caption = L"过滤1";
+			this->dataColumn2->ColumnName = L"filter1";
+			// 
 			// grdvDetail
 			// 
-			this->grdvDetail->Columns->AddRange(gcnew cli::array< DevExpress::XtraGrid::Columns::GridColumn^  >(1) {this->gridColumn1});
+			this->grdvDetail->Columns->AddRange(gcnew cli::array< DevExpress::XtraGrid::Columns::GridColumn^  >(2) {this->gridColumn1, 
+				this->gridColumn2});
 			this->grdvDetail->GridControl = this->grdcDetail;
+			this->grdvDetail->GroupCount = 1;
 			this->grdvDetail->Name = L"grdvDetail";
 			this->grdvDetail->OptionsBehavior->ReadOnly = true;
 			this->grdvDetail->OptionsView->ShowGroupPanel = false;
+			this->grdvDetail->SortInfo->AddRange(gcnew cli::array< DevExpress::XtraGrid::Columns::GridColumnSortInfo^  >(1) {(gcnew DevExpress::XtraGrid::Columns::GridColumnSortInfo(this->gridColumn2, 
+				DevExpress::Data::ColumnSortOrder::Ascending))});
+			this->grdvDetail->CustomDrawGroupRow += gcnew DevExpress::XtraGrid::Views::Base::RowObjectCustomDrawEventHandler(this, &CfrmMain::grdvDetail_CustomDrawGroupRow);
 			// 
 			// gridColumn1
 			// 
@@ -365,6 +401,15 @@ namespace MetaDataView {
 			this->gridColumn1->OptionsColumn->AllowEdit = false;
 			this->gridColumn1->Visible = true;
 			this->gridColumn1->VisibleIndex = 0;
+			// 
+			// gridColumn2
+			// 
+			this->gridColumn2->Caption = L"过滤1";
+			this->gridColumn2->FieldName = L"filter1";
+			this->gridColumn2->Name = L"gridColumn2";
+			this->gridColumn2->OptionsColumn->AllowEdit = false;
+			this->gridColumn2->Visible = true;
+			this->gridColumn2->VisibleIndex = 1;
 			// 
 			// menuStrip1
 			// 
@@ -452,6 +497,17 @@ private: System::Void tvClass_AfterSelect(System::Object^  sender, System::Windo
 			 IntPtr pointer = static_cast<IntPtr>(e->Node->Tag);
 			 CMetaData *pMD = reinterpret_cast<CMetaData*>((static_cast<void*>(pointer)));
 			 InitDetailView(pMD);
+			 grdvDetail->ExpandAllGroups();
+		 }
+private: System::Void grdvDetail_CustomDrawGroupRow(System::Object^  sender, DevExpress::XtraGrid::Views::Base::RowObjectCustomDrawEventArgs^  e) {
+			 GridGroupRowInfo ^Info(static_cast<GridGroupRowInfo^>(e->Info));
+			 GridView ^grdView(static_cast<GridView^>(sender));
+			 if (grdView && Info)
+			 {
+				 int row = grdView->GetDataRowHandleByGroupRowHandle(e->RowHandle);
+				 Info->GroupText = grdView->GetRowCellValue(row, "filter1")->ToString();
+			 }
+			 
 		 }
 };
 }

@@ -1539,4 +1539,10 @@ namespace NameSpace1{
 	} //NameSpace1_Sub1
 } //NameSpasce1
 
+extern int global_A;
+MD_GLOBAL_VARIABLE_DECLARE(global_A)
+
+extern int global_func(int a);
+MD_GLOBAL_FUNCTION_DECLARE(global_func)
+
 #endif //__META_DATA_DEMO__
