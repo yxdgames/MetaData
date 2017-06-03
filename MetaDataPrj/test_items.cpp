@@ -271,6 +271,14 @@ void test_item_metadata_function_call(void)
 		float f(83.892f);
 		unsigned long l(914);
 		double ret;
+
+		CParamVector param_vector;
+		param_vector.push_back(new CMetaDataVarBase("this", NULL, TypeTraits<CClass1>::GetMetaDataType(), 1));
+		param_vector.push_back(new CMetaDataVarBase("f", NULL, TypeTraits<float>::GetMetaDataType(), 0));
+		param_vector.push_back(new CMetaDataVarBase("l", NULL, TypeTraits<unsigned long>::GetMetaDataType(), 0));
+		pFunc->CallFuction(&param_vector, pObj, f, l, &ret);
+		printf(" ret: %f\n", ret);
+
 		pFunc->CallFuction(3, pObj, f, l, &ret);
 		printf(" ret: %f\n", ret);
 	}

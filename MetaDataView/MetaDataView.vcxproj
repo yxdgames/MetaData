@@ -142,7 +142,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\lib\Debug\MetaData.exp" />
     <None Include="Codes\Test.mdo" />
     <None Include="licenses.licx" />
   </ItemGroup>

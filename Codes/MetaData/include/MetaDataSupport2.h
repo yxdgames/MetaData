@@ -154,12 +154,24 @@
 /*************************/
 /* Meta data of variable */
 /*************************/
-#define MD_GLOBAL_VARIABLE_DEF(name, parent, type, ptr_level)		CMetaDataVariable _MD__V##name(#name, &(parent), &(type), (ptr_level), &(name));
+#define MD_GLOBAL_VARIABLE_DEF(name, parent, type, ptr_level)		CMetaDataVariable _MD__V##name(#name, &(parent), TypeTraits<type>::GetMetaDataType(), (ptr_level), &(name));
 
 /*************************/
 /* Meta data of function */
 /*************************/
 #define MD_GLOBAL_FUNCTION_DEF_BEGIN(name) \
+	class _MD__CLS_FOR_GFUN_##name \
+	{ \
+	private: \
+		_MD__CLS_FOR_GFUN_##name(void) \
+		{ \
+			CMetaDataFunction *pMDFunction(&_MD__F##name);
+
+#define MD_GLOBAL_FUNCTION_DEF_DETAIL(name) \
+		} \
+	private: \
+		static _MD__CLS_FOR_GFUN_##name m_SingleInstance; \
+	}; \
 	bool _MD__FWRAPPER##name(SMetaDataCalledFunctionDataPacket &DataPacket) \
 	{ \
 		bool ret_val(true);
@@ -172,4 +184,14 @@
 #define MD_GLOBAL_FUNCTION_DEF_END(name) \
 		return ret_val; \
 	} \
-	CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), _MD__FWRAPPER##name);
+	CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), _MD__FWRAPPER##name); \
+	_MD__CLS_FOR_GFUN_##name _MD__CLS_FOR_GFUN_##name::m_SingleInstance;
+
+/*********************************************/
+/* Meta data of function parameters & return */
+/*********************************************/
+#define MD_GLOBAL_FUNCTION_PARAM_DEF(name, type, ptr_level) \
+	pMDFunction->AddParamInfo(new CMetaDataVarBase(#name, pMDFunction, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
+
+#define MD_GLOBAL_FUNCTION_RETURN_DEF(type, ptr_level) \
+	pMDFunction->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunction, TypeTraits<type>::GetMetaDataType(), (ptr_level)));

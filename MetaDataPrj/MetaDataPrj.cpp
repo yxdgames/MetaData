@@ -41,9 +41,6 @@ public:
 	}
 };
 
-//#define D_SERIAL_TEST
-//#define D_XML_TEST
-
 #define D_COMMAND_HELP	{ \
 		std::cout<<" >>>>>>>>>>>>>>>>>>>test console<<<<<<<<<<<<<<<<<<<"<<std::endl \
 		<<" metadata_tree : print tree of meta data."<<std::endl \

@@ -376,7 +376,9 @@ bool CMetaDataFunction::CallFuction(CParamVector *pParamTypes, ...)
 			{
 				for (itr = m_pParamTable->begin(); itr != m_pParamTable->end(); ++itr)
 				{
-					size = SizeInVarParamFunc((*itr)->GetMDType(), NULL, NULL);
+					if ((*itr)->GetPtrLevel() <= 0)
+						size = SizeInVarParamFunc((*itr)->GetMDType(), NULL, NULL);
+					else size = sizeof(void*);
 					Ret_Offset += size;
 				}
 			}

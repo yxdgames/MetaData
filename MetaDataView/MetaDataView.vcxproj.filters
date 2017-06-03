@@ -132,9 +132,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\lib\Debug\MetaData.exp">
-      <Filter>libs</Filter>
-    </None>
     <None Include="Codes\Test.mdo">
       <Filter>UICode</Filter>
     </None>

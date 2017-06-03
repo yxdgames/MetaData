@@ -123,12 +123,3 @@
 #define META_DATA_GLOBAL_FUNCTION(name)				(_MD__F##name)
 
 #define MD_GLOBAL_FUNCTION_DECLARE(name)			extern CMetaDataFunction _MD__F##name;
-
-/*********************************************/
-/* Meta data of function parameters & return */
-/*********************************************/
-#define MD_FUNCTION_PARAM_DEF(name, type, ptr_level, func) \
-	(func)->AddParamInfo(new CMetaDataVarBase(#name, (func), (type), (ptr_level));
-
-#define MD_FUNCTION_RETURN_DEF(type, ptr_level, func) \
-	(func)->SetReturnInfo(new CMetaDataVarBase(NULL, (func), (type), (ptr_level));
