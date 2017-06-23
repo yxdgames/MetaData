@@ -279,7 +279,7 @@ bool CSerialStreamXml::DoSerialize(ISerialEntity *pEnt, char *pBuff)
 			sprintf(pBuff, "<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%f\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._d);
 			break;
 		case vtLONGLONG:
-			sprintf(pBuff, "<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%ld\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
+			sprintf(pBuff, "<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%lld\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
 			break;
 		case vtSTR_PTR:
 			str_len = strlen(pEnt->GetValue().value._pstr);
@@ -351,7 +351,7 @@ bool CSerialStreamXml::DoSerialize(ISerialEntity *pEnt, char *pBuff)
 			sprintf(pBuff, "<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%f\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._d);
 			break;
 		case vtLONGLONG:
-			sprintf(pBuff, "<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%ld\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
+			sprintf(pBuff, "<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%lld\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
 			break;
 		case vtSTR_PTR:
 			str_len = strlen(pEnt->GetValue().value._pstr);

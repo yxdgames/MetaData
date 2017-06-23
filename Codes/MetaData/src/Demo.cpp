@@ -79,7 +79,7 @@ double CClass3::CClass3_Inner1_Derived1::cls3_i1_d1_virtual_func1(double x)
 
 void CClass3::CClass3_Inner1_Derived1::cls3_i1_d1_virtual_func1(int x)
 {
-	printf("x(%d) / this->mem_s(%d), result: %f\n", x, this->mem_s, x / this->mem_s);
+	printf("x(%d) / this->mem_s(%d), result: %d\n", x, this->mem_s, x / this->mem_s);
 }
 
 float CClass3::CClass3_Inner1_Derived1::cls3_i1_d1_static_func1(double x)

@@ -8,18 +8,29 @@
 		(param_vector).push_back(new CMetaDataVarBase(NULL, NULL, TypeTraits<type_name>::GetMetaDataType(), (ptr_level))); \
 	}
 
-class CLASS_DESCRIPT CParamVector : public std::vector<CMetaDataVarBase*>
+class CLASS_DESCRIPT CParamVector
 {
 public:
-	CParamVector(void)	{}
+	typedef std::vector<CMetaDataVarBase*>::iterator iterator;
+public:
+	CParamVector(void) : m_pMDVarBaseVector(new std::vector<CMetaDataVarBase*>) {}
 	~CParamVector(void)
 	{
-		vector<CMetaDataVarBase*>::iterator itr;
-		for (itr = this->begin(); itr != this->end(); ++itr)
+		std::vector<CMetaDataVarBase*>::iterator itr;
+		for (itr = this->m_pMDVarBaseVector->begin(); itr != this->m_pMDVarBaseVector->end(); ++itr)
 		{
 			delete (*itr);
 		}
+		delete m_pMDVarBaseVector;
 	}
+public:
+	size_t size(void) { return m_pMDVarBaseVector->size(); }
+	CMetaDataVarBase* at(size_t index) { return m_pMDVarBaseVector->at(index); }
+	void push_back(CMetaDataVarBase *value) { m_pMDVarBaseVector->push_back(value); }
+	std::vector<CMetaDataVarBase*>::iterator begin(void) { return m_pMDVarBaseVector->begin(); }
+	std::vector<CMetaDataVarBase*>::iterator end(void) { return m_pMDVarBaseVector->end(); }
+private:
+	std::vector<CMetaDataVarBase*> *m_pMDVarBaseVector;
 };
 
 struct STRUCT_DESCRIPT SMetaDataCalledFunctionDataPacket
