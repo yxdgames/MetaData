@@ -20,6 +20,8 @@ struct STRUCT_DESCRIPT SMetaDataCustomTypeInterface
 	unsigned int Offset;
 };
 
+typedef void *(*TpfunAsTypeEx)(void *pObj, CMetaDataType *pType);
+
 class CLASS_DESCRIPT CMetaDataCustomType : public CMetaDataType
 {
 public:
@@ -70,6 +72,9 @@ public:
 	CMetaDataFunction *GetStaticMemberFunc(unsigned int index)		{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->at(index) : NULL); }
 	unsigned int GetStaticMemberVarCount(void)						{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->size() : 0); }
 	CMetaDataVariable *GetStaticMemberVar(unsigned int index)		{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->at(index) : NULL); }
+public:
+	//attribute
+	void SetAsTypeExFunPtr(TpfunAsTypeEx value) { m_AsTypeExFunPtr = value; }
 protected:
 	std::vector<SMetaDataCustomTypeBaseType> *GetBaseTypeList(void)
 	{
@@ -144,6 +149,8 @@ private:
 	std::vector<CMetaDataCustomTypeMemberVar*>		*m_pMemberVarList;			//成员变量
 	std::vector<CMetaDataFunction*>					*m_pStaticMemberFuncList;	//静态成员函数
 	std::vector<CMetaDataVariable*>					*m_pStaticMemberVarList;	//静态成员变量
+private:
+	TpfunAsTypeEx									m_AsTypeExFunPtr;
 };
 
 #include "ExceptionMetaData.h"

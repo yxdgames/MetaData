@@ -8,7 +8,8 @@ CMetaDataCustomType::CMetaDataCustomType(char *pName, CMetaData *pParent, unsign
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
 	m_pBaseTypeList(NULL), m_pInterfaceList(NULL), m_pConstructorList(NULL), m_pDestructor(NULL),
-	m_pMemberFuncList(NULL), m_pMemberVarList(NULL), m_pStaticMemberFuncList(NULL), m_pStaticMemberVarList(NULL)
+	m_pMemberFuncList(NULL), m_pMemberVarList(NULL), m_pStaticMemberFuncList(NULL), m_pStaticMemberVarList(NULL),
+	m_AsTypeExFunPtr(NULL)
 {
 }
 
@@ -201,6 +202,11 @@ void *CMetaDataCustomType::AsType(void *pObj, CMetaDataType *pType)
 			if (intf_itr->Intf == pType)
 				return reinterpret_cast<void*>((unsigned int)pObj + intf_itr->Offset);
 		}
+	}
+
+	if (m_AsTypeExFunPtr)
+	{
+		return m_AsTypeExFunPtr(pObj, pType);
 	}
 
 	return NULL;

@@ -111,6 +111,10 @@
 	static CMetaDataVariable _MD__SMV##var_name(#var_name, &MDType, TypeTraits<var_type>::GetMetaDataType(), (ptr_level), &var_name); \
 	MDType.AddStaticMemberVar(&_MD__SMV##var_name);
 
+				/*--Ìí¼ÓAsTypeExº¯ÊýÖ¸Õë--*/
+#define MD_CUSTOM_TYPE_AS_TYPE_EX_DEF(pfun_as_type_ex) \
+	MDType.SetAsTypeExFunPtr(pfun_as_type_ex);
+
 #define MD_CUSTOM_TYPE_DECLARE_END(name) \
 				pMDFunc = NULL; \
 			} \
@@ -132,7 +136,7 @@
 		{ \
 			return reinterpret_cast<T*>(this->GetType()->AsType(this->GetTrueSelf(), TypeTraits<T>::GetMetaDataType())); \
 		} \
-	private: \
+	protected: \
 		virtual void *GetTrueSelf(void) \
 		{ \
 			return this; \

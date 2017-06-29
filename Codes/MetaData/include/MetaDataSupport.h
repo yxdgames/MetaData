@@ -108,6 +108,9 @@
 				/*--添加静态成员变量元数据信息--*/
 #define MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, ptr_level)	MD_CUSTOM_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, ptr_level)
 
+				/*--添加AsTypeEx函数指针--*/
+#define MD_CLASS_TYPE_AS_TYPE_EX_DEF(pfun_as_type_ex)						MD_CUSTOM_TYPE_AS_TYPE_EX_DEF(pfun_as_type_ex)
+
 #define MD_CLASS_TYPE_DECLARE_END(name)										MD_CUSTOM_TYPE_DECLARE_END(name)
 
 /*************************/
