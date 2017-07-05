@@ -65,5 +65,33 @@ void SimpleString::FreeString(void)
 		m_pString = NULL;
 	}
 }
+int SimpleString::Position(char * pString, int StrLen, char c, bool bLeftToRight)
+{
+	if (!pString || !StrLen) return -1;
+	char *pS, *pE;
+	int diff_move;
+	if (bLeftToRight)
+	{
+		pS = pString;
+		pE = pString + StrLen - 1;
+		diff_move = 1;
+	}
+	else
+	{
+		pS = pString + StrLen - 1;
+		pE = pString;
+		diff_move = -1;
+	}
+	while (pS != pE)
+	{
+		if (*pS == c)
+		{
+			return (pS - pString);
+		}
+		pS += diff_move;
+	}
+
+	return -1;
+}
 #endif //CO_SIMPLE_STRING_STL_STRING
 

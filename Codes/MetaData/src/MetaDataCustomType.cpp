@@ -149,6 +149,70 @@ bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **
 	return false;
 }
 
+bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ...)
+{
+	if (!m_pMemberFuncList) return false;
+
+	bool ret;
+	CMetaDataFunction *pFunc(NULL);
+	va_list pList;
+	
+	for (size_t i = 0; i < m_pMemberFuncList->size(); ++i)
+	{
+		if (strcmp(m_pMemberFuncList->at(i)->GetName(), pFunName) == 0)
+		{
+			pFunc = m_pMemberFuncList->at(i);
+			break;
+		}
+	}
+	if (!pFunc) return false;
+
+	va_start(pList, param_count);
+	try
+	{
+		ret = pFunc->CallFuction(param_count, pList);
+	}
+	catch (...)
+	{
+		va_end(pList);
+		throw;
+	}
+	va_end(pList);
+	return ret;
+}
+
+bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_count, ...)
+{
+	if (!m_pStaticMemberFuncList) return false;
+
+	bool ret;
+	CMetaDataFunction *pFunc(NULL);
+	va_list pList;
+
+	for (size_t i = 0; i < m_pStaticMemberFuncList->size(); ++i)
+	{
+		if (strcmp(m_pStaticMemberFuncList->at(i)->GetName(), pFunName) == 0)
+		{
+			pFunc = m_pStaticMemberFuncList->at(i);
+			break;
+		}
+	}
+	if (!pFunc) return false;
+
+	va_start(pList, param_count);
+	try
+	{
+		ret = pFunc->CallFuction(param_count, pList);
+	}
+	catch (...)
+	{
+		va_end(pList);
+		throw;
+	}
+	va_end(pList);
+	return ret;
+}
+
 bool CMetaDataCustomType::IsTypeOf(CMetaDataType *pType)
 {
 	if (this == pType) return true;

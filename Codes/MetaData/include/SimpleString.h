@@ -29,6 +29,9 @@ private:
 	char	*m_pString;
 #endif //CO_SIMPLE_STRING_STL_STRING
 
+public:
+	static int Position(char *pString, int StrLen, char c, bool bLeftToRight);
+
 MD_CLASS_TYPE_DECLARE_BEGIN(SimpleString)
 MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(SimpleString)
 MD_CLASS_TYPE_DECLARE_END(SimpleString)

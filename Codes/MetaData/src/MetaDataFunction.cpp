@@ -140,13 +140,12 @@ bool CMetaDataFunction::CallFuction(int param_count, void **pParam, void *pRetur
 	return pFunc(Packet);
 }
 
-bool CMetaDataFunction::CallFuction(int param_count, ...)
+bool CMetaDataFunction::CallFuction(int param_count, va_list pParamList)
 {
 	if (!m_pFunction || (!m_pParamTable && param_count != 0) || (m_pParamTable && param_count != m_pParamTable->size())) return false;
-	
+
 	bool ret;
 
-	va_list pList;
 	unsigned int param_addr;
 	bool *pNeedRelease;
 
@@ -158,61 +157,33 @@ bool CMetaDataFunction::CallFuction(int param_count, ...)
 	SMetaDataCalledFunctionDataPacket Packet;
 	TpMDCalledFunction pFunc(reinterpret_cast<TpMDCalledFunction>(m_pFunction));
 
-	pNeedRelease = new bool [param_count];
+	pNeedRelease = new bool[param_count];
 	try
 	{
-		va_start(pList, param_count);
-		try
+		param_addr = reinterpret_cast<unsigned int>(pParamList);
+		if (m_pParamTable)
 		{
-			param_addr = reinterpret_cast<unsigned int>(pList);
-			if (m_pParamTable)
+			pParamPtrBuffer = new void*[param_count];
+			try
 			{
-				pParamPtrBuffer = new void* [param_count];
-				try
+				memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
+				index = 0;
+				for (itr = m_pParamTable->begin(); itr != m_pParamTable->end(); ++itr)
 				{
-					memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
-					index = 0;
-					for (itr = m_pParamTable->begin(); itr != m_pParamTable->end(); ++itr)
+					if ((*itr)->GetPtrLevel() <= 0)
+						type_size = SizeInVarParamFunc((*itr)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
+					else type_size = sizeof(void*);
+					pNeedRelease[index] = pParamPtrBuffer[index] != NULL;
+					if (!pNeedRelease[index])
 					{
-						if ((*itr)->GetPtrLevel() <= 0)
-							type_size = SizeInVarParamFunc((*itr)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
-						else type_size = sizeof(void*);
-						pNeedRelease[index] = pParamPtrBuffer[index] != NULL;
-						if (!pNeedRelease[index])
-						{
-							pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
-						}
-						++index;
-						param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
+						pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
 					}
-
-					Packet.ParamCount = param_count;
-					Packet.pParam = pParamPtrBuffer;
-					if (m_pReturnInfo)
-					{
-						Packet.pReturn = *reinterpret_cast<void**>(param_addr);
-					}
-					else Packet.pReturn = NULL;
-
-					ret = pFunc(Packet);
-
-					for (index = 0; index < param_count; ++index)
-					{
-						if (pNeedRelease[index])
-							delete pParamPtrBuffer[index];
-					}
+					++index;
+					param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
 				}
-				catch(...)
-				{
-					delete [] pParamPtrBuffer;
-					throw;
-				}
-				delete [] pParamPtrBuffer;
-			}
-			else
-			{
-				Packet.ParamCount = 0;
-				Packet.pParam = NULL;
+
+				Packet.ParamCount = param_count;
+				Packet.pParam = pParamPtrBuffer;
 				if (m_pReturnInfo)
 				{
 					Packet.pReturn = *reinterpret_cast<void**>(param_addr);
@@ -220,22 +191,58 @@ bool CMetaDataFunction::CallFuction(int param_count, ...)
 				else Packet.pReturn = NULL;
 
 				ret = pFunc(Packet);
+
+				for (index = 0; index < param_count; ++index)
+				{
+					if (pNeedRelease[index])
+						delete pParamPtrBuffer[index];
+				}
 			}
+			catch (...)
+			{
+				delete[] pParamPtrBuffer;
+				throw;
+			}
+			delete[] pParamPtrBuffer;
 		}
-		catch(...)
+		else
 		{
-			va_end(pList);
-			throw;
+			Packet.ParamCount = 0;
+			Packet.pParam = NULL;
+			if (m_pReturnInfo)
+			{
+				Packet.pReturn = *reinterpret_cast<void**>(param_addr);
+			}
+			else Packet.pReturn = NULL;
+
+			ret = pFunc(Packet);
 		}
-		va_end(pList);
 	}
-	catch(...)
+	catch (...)
 	{
-		delete [] pNeedRelease;
+		delete[] pNeedRelease;
 		throw;
 	}
-	delete [] pNeedRelease;
+	delete[] pNeedRelease;
 
+	return ret;
+}
+
+bool CMetaDataFunction::CallFuction(int param_count, ...)
+{
+	bool ret;
+	va_list pList;
+	va_start(pList, param_count);
+	try
+	{
+		ret = CallFuction(param_count, pList);
+	}
+	catch (...)
+	{
+		va_end(pList);
+		throw;
+	}
+	va_end(pList);
 	return ret;
 }
 

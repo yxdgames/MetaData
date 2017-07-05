@@ -54,6 +54,7 @@ public:
 
 	bool FuncParamsCheck(CParamVector *pParamTypes);
 	bool CallFuction(int param_count, void **pParam, void *pReturn);
+	bool CallFuction(int param_count, va_list pParamList);
 	bool __cdecl CallFuction(int param_count, ...);
 	bool CallFuction(CParamVector *pParamTypes, va_list pParamList, void *pReturn);
 	bool __cdecl CallFuction(CParamVector *pParamTypes, ...);
