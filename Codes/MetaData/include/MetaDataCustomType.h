@@ -41,6 +41,8 @@ public:
 
 	//bool OutputMemberVar(char *pVarName, void *pOutputAddr);
 	bool QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj);
+	bool __cdecl CallMemberFuction(char *pFunName, int param_count, ...);
+	bool __cdecl CallStaticMemberFuction(char *pFunName, int param_count, ...);
 
 	//override
 	virtual bool IsTypeOf(CMetaDataType *pType);

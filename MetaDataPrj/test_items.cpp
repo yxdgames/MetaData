@@ -262,6 +262,10 @@ void test_item_metadata_function_call(void)
 		int ret;
 		pFunc->CallFuction(3, pObj, c, d, &ret);
 		printf(" ret: %d\n", ret);
+
+		printf("ClassType call\n");
+		pClsType->CallMemberFuction("cls1_func2", 3, pObj, c, d, &ret);
+		printf("ClassType call ret: %d\n", ret);
 	}
 
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_vir_func1"));
