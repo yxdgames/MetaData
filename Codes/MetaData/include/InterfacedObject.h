@@ -13,7 +13,7 @@ public:
 	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf);
 protected:
 	template<typename T>
-	bool DoQueryInterface(T *pObj, char *pIntfName, IInterface **outIntf)
+	static bool DoQueryInterface(T *pObj, char *pIntfName, IInterface **outIntf)
 	{
 		CMetaDataClassType *pMDClassType(pObj->GetMetaData());
 		if (pMDClassType)
@@ -39,7 +39,7 @@ public: \
 	} \
 private: \
 	template<typename T> \
-	bool __DoQueryInterface(T *pObj, char *pIntfName, IInterface **outIntf) \
+	static bool __DoQueryInterface(T *pObj, char *pIntfName, IInterface **outIntf) \
 	{ \
 		CMetaDataClassType *pMDClassType(pObj->GetMetaData()); \
 		if (pMDClassType) \
