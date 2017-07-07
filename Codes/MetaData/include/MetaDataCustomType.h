@@ -139,6 +139,9 @@ protected:
 		return m_pStaticMemberVarList;
 	}
 private:
+	void *DoCreateObject(CParamVector *pParamTypes, va_list pList);
+	void *DoCreateObject(void);
+private:
 	bool											m_EnableBaseType;			//是否允许有基类
 	bool											m_Sealed;					//是否允许被继承
 	bool											m_EnableStaticMemberFunc;	//是否允许有静态成员函数
@@ -163,69 +166,24 @@ private:
 template<typename T>
 T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...)
 {
-	void *pReturn(NULL);
-
-	if (!m_pConstructorList) return reinterpret_cast<T*>(pReturn);
-	
-	std::vector<CMetaDataFunction*>::iterator itr;
-	va_list pList;
-	
-
-	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
+	T *pReturn;
+	va_start(pList, pParamTypes);
+	try
 	{
-		if ((*itr)->FuncParamsCheck(pParamTypes))
-		{
-			va_start(pList, pParamTypes);
-			try
-			{
-				if (!(*itr)->ReturnIsVoid())
-				{
-					if (!(*itr)->CallFuction(pParamTypes, pList, &pReturn))
-					{
-						throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
-					}
-				}
-				else
-				{
-					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！");
-				}
-			}
-			catch(...)
-			{
-				va_end(pList);
-				throw;
-			}
-			va_end(pList);
-		}
+		pReturn = reinterpret_cast<T*>(DoCreateObject(pParamTypes, pList));
 	}
-	return reinterpret_cast<T*>(pReturn);
+	catch(...)
+	{
+		va_end(pList);
+		throw;
+	}
+	va_end(pList);
+
+	return pReturn;
 }
 
 template<typename T>
-T *CMetaDataCustomType::CreateObject(void)
+inline T *CMetaDataCustomType::CreateObject(void)
 {
-	void *pReturn(NULL);
-
-	if (!m_pConstructorList) return reinterpret_cast<T*>(pReturn);
-	
-	std::vector<CMetaDataFunction*>::iterator itr;
-	
-	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
-	{
-		if ((*itr)->FuncParamsCheck(NULL))
-		{
-			if (!(*itr)->ReturnIsVoid())
-			{
-				if (!(*itr)->CallFuction(NULL, NULL, &pReturn))
-				{
-					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
-				}
-			}
-			else
-			{
-				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！！");
-			}
-		}
-	}
-	return reinterpret_cast<T*>(pReturn);
+	return reinterpret_cast<T*>(DoCreateObject());
 }

@@ -170,7 +170,7 @@ bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ..
 	va_start(pList, param_count);
 	try
 	{
-		ret = pFunc->CallFuction(param_count, pList);
+		ret = pFunc->CallFunction(param_count, pList);
 	}
 	catch (...)
 	{
@@ -202,7 +202,7 @@ bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_cou
 	va_start(pList, param_count);
 	try
 	{
-		ret = pFunc->CallFuction(param_count, pList);
+		ret = pFunc->CallFunction(param_count, pList);
 	}
 	catch (...)
 	{
@@ -305,7 +305,6 @@ void *CMetaDataCustomType::NewObject(void)
 	if (!m_pConstructorList) return pReturn;
 	
 	std::vector<CMetaDataFunction*>::iterator itr;
-	
 
 	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
 	{
@@ -313,7 +312,7 @@ void *CMetaDataCustomType::NewObject(void)
 		{
 			if (!(*itr)->ReturnIsVoid())
 			{
-				if (!(*itr)->CallFuction(NULL, NULL, &pReturn))
+				if (!(*itr)->CallFunction(NULL, NULL, &pReturn))
 				{
 					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
 				}
@@ -322,6 +321,7 @@ void *CMetaDataCustomType::NewObject(void)
 			{
 				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！！");
 			}
+			break;
 		}
 	}
 	return pReturn;
@@ -330,5 +330,63 @@ void *CMetaDataCustomType::NewObject(void)
 void CMetaDataCustomType::DeleteObject(void *pObj)
 {
 	if (pObj && m_pDestructor)
-		m_pDestructor->CallFuction(1, pObj);
+		m_pDestructor->CallFunction(1, pObj);
+}
+
+void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pList)
+{
+	void *pReturn(NULL);
+
+	if (!m_pConstructorList || !pList) return pReturn;
+	
+	std::vector<CMetaDataFunction*>::iterator itr;
+	
+	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
+	{
+		if ((*itr)->FuncParamsCheck(pParamTypes))
+		{
+			if (!(*itr)->ReturnIsVoid())
+			{
+				if (!(*itr)->CallFunction(pParamTypes, pList, &pReturn))
+				{
+					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
+				}
+			}
+			else
+			{
+				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！");
+			}
+			break;
+		}
+	}
+	return pReturn;
+}
+
+void *CMetaDataCustomType::DoCreateObject(void)
+{
+	void *pReturn(NULL);
+
+	if (!m_pConstructorList) return pReturn;
+	
+	std::vector<CMetaDataFunction*>::iterator itr;
+	
+	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
+	{
+		if ((*itr)->FuncParamsCheck(NULL))
+		{
+			if (!(*itr)->ReturnIsVoid())
+			{
+				if (!(*itr)->CallFunction(0, NULL, &pReturn))
+				{
+					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
+				}
+			}
+			else
+			{
+				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！！");
+			}
+			break;
+		}
+	}
+	return pReturn;
 }

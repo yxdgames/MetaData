@@ -240,7 +240,7 @@ void test_item_metadata_function_call(void)
 	if (!pMD) return;
 	
 	pClsType = const_cast<CMetaDataClassType*>(reinterpret_cast<const CMetaDataClassType*>(pMD));
-	void *pObj(pClsType->NewObject());
+	void *pObj(pClsType->CreateObject<CClass1>());
 
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func1"));
 	if (pTmpFunc)
@@ -249,7 +249,7 @@ void test_item_metadata_function_call(void)
 		int a = 100;
 		double d = 11.22;
 		int ret;
-		pFunc->CallFuction(3, pObj, a, d, &ret);
+		pFunc->CallFunction(3, pObj, a, d, &ret);
 		printf(" ret: %d\n", ret);
 	}
 
@@ -260,7 +260,7 @@ void test_item_metadata_function_call(void)
 		unsigned char c(134);
 		double d(13998.321);
 		int ret;
-		pFunc->CallFuction(3, pObj, c, d, &ret);
+		pFunc->CallFunction(3, pObj, c, d, &ret);
 		printf(" ret: %d\n", ret);
 
 		printf("ClassType call\n");
@@ -280,10 +280,10 @@ void test_item_metadata_function_call(void)
 		param_vector.push_back(new CMetaDataVarBase("this", NULL, TypeTraits<CClass1>::GetMetaDataType(), 1));
 		param_vector.push_back(new CMetaDataVarBase("f", NULL, TypeTraits<float>::GetMetaDataType(), 0));
 		param_vector.push_back(new CMetaDataVarBase("l", NULL, TypeTraits<unsigned long>::GetMetaDataType(), 0));
-		pFunc->CallFuction(&param_vector, pObj, f, l, &ret);
+		pFunc->CallFunction(&param_vector, pObj, f, l, &ret);
 		printf(" ret: %f\n", ret);
 
-		pFunc->CallFuction(3, pObj, f, l, &ret);
+		pFunc->CallFunction(3, pObj, f, l, &ret);
 		printf(" ret: %f\n", ret);
 	}
 
@@ -301,12 +301,12 @@ void test_item_metadata_function_call(void)
 					int p_x(99);
 					double p_d(89523.82319);
 					float ret;
-					pFunc->CallFuction(2, p_x, p_d, &ret);
+					pFunc->CallFunction(2, p_x, p_d, &ret);
 					printf(" ret: %f\n", ret);
 				}
 				else
 				{
-					pFunc->CallFuction(0);
+					pFunc->CallFunction(0);
 				}
 			}
 		}

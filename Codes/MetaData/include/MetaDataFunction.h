@@ -53,11 +53,11 @@ public:
 	void SetReturnInfo(CMetaDataVarBase *pRet);
 
 	bool FuncParamsCheck(CParamVector *pParamTypes);
-	bool CallFuction(int param_count, void **pParam, void *pReturn);
-	bool CallFuction(int param_count, va_list pParamList);
-	bool __cdecl CallFuction(int param_count, ...);
-	bool CallFuction(CParamVector *pParamTypes, va_list pParamList, void *pReturn);
-	bool __cdecl CallFuction(CParamVector *pParamTypes, ...);
+	bool CallFunction(int param_count, void **pParam, void *pReturn);
+	bool CallFunction(int param_count, va_list pParamList);
+	bool __cdecl CallFunction(int param_count, ...);
+	bool CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn);
+	bool __cdecl CallFunction(CParamVector *pParamTypes, ...);
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_FUNCTION; }

@@ -132,7 +132,7 @@ bool CMetaDataFunction::FuncParamsCheck(CParamVector *pParamTypes)
 	return itr_func == m_pParamTable->end() && itr_in == pParamTypes->end();
 }
 
-bool CMetaDataFunction::CallFuction(int param_count, void **pParam, void *pReturn)
+bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pReturn)
 {
 	if (!m_pFunction) return false;
 	SMetaDataCalledFunctionDataPacket Packet = { param_count, pParam, pReturn };
@@ -140,7 +140,7 @@ bool CMetaDataFunction::CallFuction(int param_count, void **pParam, void *pRetur
 	return pFunc(Packet);
 }
 
-bool CMetaDataFunction::CallFuction(int param_count, va_list pParamList)
+bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList)
 {
 	if (!m_pFunction || (!m_pParamTable && param_count != 0) || (m_pParamTable && param_count != m_pParamTable->size())) return false;
 
@@ -228,14 +228,14 @@ bool CMetaDataFunction::CallFuction(int param_count, va_list pParamList)
 	return ret;
 }
 
-bool CMetaDataFunction::CallFuction(int param_count, ...)
+bool CMetaDataFunction::CallFunction(int param_count, ...)
 {
 	bool ret;
 	va_list pList;
 	va_start(pList, param_count);
 	try
 	{
-		ret = CallFuction(param_count, pList);
+		ret = CallFunction(param_count, pList);
 	}
 	catch (...)
 	{
@@ -246,7 +246,7 @@ bool CMetaDataFunction::CallFuction(int param_count, ...)
 	return ret;
 }
 
-bool CMetaDataFunction::CallFuction(CParamVector *pParamTypes, va_list pParamList, void *pReturn)
+bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn)
 {
 	if (!m_pFunction || (!m_pParamTable && (pParamTypes) && pParamTypes->size()!= 0)
 		|| (m_pParamTable && pParamTypes && m_pParamTable->size() != pParamTypes->size())
@@ -362,7 +362,7 @@ bool CMetaDataFunction::CallFuction(CParamVector *pParamTypes, va_list pParamLis
 	return ret;
 }
 
-bool CMetaDataFunction::CallFuction(CParamVector *pParamTypes, ...)
+bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...)
 {
 	bool ret;
 	va_list pList;
@@ -396,7 +396,7 @@ bool CMetaDataFunction::CallFuction(CParamVector *pParamTypes, ...)
 			pReturn = NULL;
 		}
 
-		ret = CallFuction(pParamTypes, pList, pReturn);
+		ret = CallFunction(pParamTypes, pList, pReturn);
 	}
 	catch(...)
 	{
