@@ -120,6 +120,9 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

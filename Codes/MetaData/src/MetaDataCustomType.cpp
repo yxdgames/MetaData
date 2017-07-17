@@ -246,26 +246,27 @@ void *CMetaDataCustomType::AsType(void *pObj, CMetaDataType *pType)
 {
 	if (this == pType) return pObj;
 
-	std::vector<SMetaDataCustomTypeBaseType> *pBaseTypeList(m_pBaseTypeList);
-	if (pBaseTypeList)
+	unsigned int total_offset(0);
+	size_t i;
+
+	std::vector<SMetaDataCustomTypeBaseType*> BaseList;
+	if (FindBaseType(pType, BaseList))
 	{
-		std::vector<SMetaDataCustomTypeBaseType>::iterator base_type_itr;
-		for (base_type_itr = pBaseTypeList->begin(); base_type_itr != pBaseTypeList->end(); ++base_type_itr)
+		for (i = 0; i < BaseList.size(); ++i)
 		{
-			if (base_type_itr->CustomType == pType)
-				return reinterpret_cast<void*>((unsigned int)pObj + base_type_itr->Offset);
+			total_offset += BaseList[i]->Offset;
 		}
+		return reinterpret_cast<void*>((unsigned int)pObj + total_offset);
 	}
 
-	std::vector<SMetaDataCustomTypeInterface> *pIntfList(m_pInterfaceList);
-	if (pIntfList)
+	std::vector<SMetaDataCustomTypeInterface*> IntfList;
+	if (FindInterface(pType, IntfList))
 	{
-		std::vector<SMetaDataCustomTypeInterface>::iterator intf_itr;
-		for (intf_itr = pIntfList->begin(); intf_itr != pIntfList->end(); ++intf_itr)
+		for (i = 0; i < IntfList.size(); ++i)
 		{
-			if (intf_itr->Intf == pType)
-				return reinterpret_cast<void*>((unsigned int)pObj + intf_itr->Offset);
+			total_offset += IntfList[i]->Offset;
 		}
+		return reinterpret_cast<void*>((unsigned int)pObj + total_offset);
 	}
 
 	if (m_AsTypeExFunPtr)
@@ -300,37 +301,69 @@ bool CMetaDataCustomType::QueryInterface(void *pObj, char *pIntfName, IInterface
 
 void *CMetaDataCustomType::NewObject(void)
 {
-	void *pReturn(NULL);
-
-	if (!m_pConstructorList) return pReturn;
-	
-	std::vector<CMetaDataFunction*>::iterator itr;
-
-	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
-	{
-		if ((*itr)->FuncParamsCheck(NULL))
-		{
-			if (!(*itr)->ReturnIsVoid())
-			{
-				if (!(*itr)->CallFunction(NULL, NULL, &pReturn))
-				{
-					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
-				}
-			}
-			else
-			{
-				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！！");
-			}
-			break;
-		}
-	}
-	return pReturn;
+	return DoCreateObject();
 }
 
 void CMetaDataCustomType::DeleteObject(void *pObj)
 {
 	if (pObj && m_pDestructor)
 		m_pDestructor->CallFunction(1, pObj);
+}
+
+bool CMetaDataCustomType::FindBaseType(CMetaDataType * pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList)
+{
+	if (!pType) return false;
+
+	if (m_pBaseTypeList)
+	{
+		std::vector<SMetaDataCustomTypeBaseType>::iterator base_type_itr;
+		for (base_type_itr = m_pBaseTypeList->begin(); base_type_itr != m_pBaseTypeList->end(); ++base_type_itr)
+		{
+			BaseList.push_back(&(*base_type_itr));
+			if (base_type_itr->CustomType == pType)
+			{
+				return true;
+			}
+			else
+			{
+				if (base_type_itr->CustomType->FindBaseType(pType, BaseList))
+				{
+					return true;
+				}
+			}
+			BaseList.pop_back();
+		}
+	}
+
+	return false;
+}
+
+bool CMetaDataCustomType::FindInterface(CMetaDataType * pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList)
+{
+	if (!pIntf) return false;
+
+	if (m_pInterfaceList)
+	{
+		std::vector<SMetaDataCustomTypeInterface>::iterator intf_itr;
+		for (intf_itr = m_pInterfaceList->begin(); intf_itr != m_pInterfaceList->end(); ++intf_itr)
+		{
+			IntfList.push_back(&(*intf_itr));
+			if (intf_itr->Intf == pIntf)
+			{
+				return true;
+			}
+			else
+			{
+				if (intf_itr->Intf->FindInterface(pIntf, IntfList))
+				{
+					return true;
+				}
+			}
+			IntfList.pop_back();
+		}
+	}
+
+	return false;
 }
 
 void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pList)
@@ -376,7 +409,7 @@ void *CMetaDataCustomType::DoCreateObject(void)
 		{
 			if (!(*itr)->ReturnIsVoid())
 			{
-				if (!(*itr)->CallFunction(0, NULL, &pReturn))
+				if (!(*itr)->CallFunction(0, reinterpret_cast<void**>(NULL), &pReturn))
 				{
 					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
 				}

@@ -139,6 +139,8 @@ protected:
 		return m_pStaticMemberVarList;
 	}
 private:
+	bool FindBaseType(CMetaDataType *pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList);
+	bool FindInterface(CMetaDataType *pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList);
 	void *DoCreateObject(CParamVector *pParamTypes, va_list pList);
 	void *DoCreateObject(void);
 private:
@@ -166,11 +168,21 @@ private:
 template<typename T>
 T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...)
 {
-	T *pReturn;
+	void *pReturn;
+	void *pObj;
 	va_start(pList, pParamTypes);
 	try
 	{
-		pReturn = reinterpret_cast<T*>(DoCreateObject(pParamTypes, pList));
+		pObj = DoCreateObject(pParamTypes, pList);
+		if (pObj)
+		{
+			pReturn = this->AsType(pObj, TypeTraits<T>::GetMetaDataType());
+			if (!pReturn)
+			{
+				this->DeleteObject(pObj);
+			}
+		}
+		else pReturn = NULL;
 	}
 	catch(...)
 	{
@@ -179,11 +191,23 @@ T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...)
 	}
 	va_end(pList);
 
-	return pReturn;
+	return reinterpret_cast<T*>(pReturn);
 }
 
 template<typename T>
 inline T *CMetaDataCustomType::CreateObject(void)
 {
-	return reinterpret_cast<T*>(DoCreateObject());
+	void *pReturn;
+	void *pObj(DoCreateObject());
+	if (pObj)
+	{
+		pReturn = this->AsType(pObj, TypeTraits<T>::GetMetaDataType());
+		if (!pReturn)
+		{
+			this->DeleteObject(pObj);
+		}
+	}
+	else pReturn = NULL;
+
+	return reinterpret_cast<T*>(pReturn);
 }
