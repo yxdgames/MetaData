@@ -110,6 +110,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
+    <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
