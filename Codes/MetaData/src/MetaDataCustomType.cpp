@@ -217,26 +217,16 @@ bool CMetaDataCustomType::IsTypeOf(CMetaDataType *pType)
 {
 	if (this == pType) return true;
 
-	std::vector<SMetaDataCustomTypeBaseType> *pBaseTypeList(m_pBaseTypeList);
-	if (pBaseTypeList)
+	std::vector<SMetaDataCustomTypeBaseType*> BaseList;
+	if (FindBaseType(pType, BaseList))
 	{
-		std::vector<SMetaDataCustomTypeBaseType>::iterator base_type_itr;
-		for (base_type_itr = pBaseTypeList->begin(); base_type_itr != pBaseTypeList->end(); ++base_type_itr)
-		{
-			if (base_type_itr->CustomType == pType)
-				return true;
-		}
+		return true;
 	}
 
-	std::vector<SMetaDataCustomTypeInterface> *pIntfList(m_pInterfaceList);
-	if (pIntfList)
+	std::vector<SMetaDataCustomTypeInterface*> IntfList;
+	if (FindInterface(pType, IntfList))
 	{
-		std::vector<SMetaDataCustomTypeInterface>::iterator intf_itr;
-		for (intf_itr = pIntfList->begin(); intf_itr != pIntfList->end(); ++intf_itr)
-		{
-			if (intf_itr->Intf == pType)
-				return true;
-		}
+		return true;
 	}
 
 	return false;
@@ -306,8 +296,12 @@ void *CMetaDataCustomType::NewObject(void)
 
 void CMetaDataCustomType::DeleteObject(void *pObj)
 {
-	if (pObj && m_pDestructor)
-		m_pDestructor->CallFunction(1, pObj);
+	if (pObj)
+	{
+		if (m_pDestructor)
+			m_pDestructor->CallFunction(1, pObj);
+		else throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "析构函数元数据不存在！");
+	}
 }
 
 bool CMetaDataCustomType::FindBaseType(CMetaDataType * pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList)
