@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\include\MetaDataCustomType.h"
 #include "..\include\MetaDataInterface.h"
-#include "..\..\include\ExceptionID.h"
+#include "..\include\ExceptionIDMetaData.h"
 
 CMetaDataCustomType::CMetaDataCustomType(char *pName, CMetaData *pParent, unsigned int size,
 										 bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar)
@@ -300,7 +300,7 @@ void CMetaDataCustomType::DeleteObject(void *pObj)
 	{
 		if (m_pDestructor)
 			m_pDestructor->CallFunction(1, pObj);
-		else throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "析构函数元数据不存在！");
+		else throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "析构函数元数据不存在！");
 	}
 }
 
@@ -376,12 +376,12 @@ void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pLi
 			{
 				if (!(*itr)->CallFunction(pParamTypes, pList, &pReturn))
 				{
-					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
+					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "构造函数调用失败！");
 				}
 			}
 			else
 			{
-				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！");
+				throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数无返回值！");
 			}
 			break;
 		}
@@ -405,12 +405,12 @@ void *CMetaDataCustomType::DoCreateObject(void)
 			{
 				if (!(*itr)->CallFunction(0, reinterpret_cast<void**>(NULL), &pReturn))
 				{
-					throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "构造函数调用失败！");
+					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "构造函数调用失败！");
 				}
 			}
 			else
 			{
-				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：构造函数无返回值！！");
+				throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数无返回值！！");
 			}
 			break;
 		}

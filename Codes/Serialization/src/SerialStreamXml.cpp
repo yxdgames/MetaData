@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "..\include\SerialStreamXml.h"
 #include "..\include\ITreeSerial.h"
-#include "..\..\include\CharArray.h"
 #include "..\include\ExceptionSerialization.h"
+#include "..\include\ExceptionIDSerialization.h"
+#include "..\..\include\CharArray.h"
 #include "..\..\lib_h\expat.h"
 
 #define D_SERIAL_ENTITY_XML_ELE_ATTR_TYPE_NAME		"type_name"
@@ -237,7 +238,7 @@ bool CSerialStreamXml::Unserialize(ISerial *pSerial)
 			len = m_pStream->gcount();
 			done = len < BUFSIZ;
 			if (XML_Parse(xml_parser, buffer.char_array(), (int)len, done) == XML_STATUS_ERROR) {
-				throw new ExceptionSerialization(D_E_ID_ERR_SERIAL, "Xml分析出错！");
+				throw new ExceptionSerialization(D_E_ID_SERIAL_ERROR, "Xml分析出错！");
 			}
 		} while (!done);
 	}

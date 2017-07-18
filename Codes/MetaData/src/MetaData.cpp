@@ -2,7 +2,7 @@
 #include "..\include\MetaData.h"
 
 #include "..\include\ExceptionMetaData.h"
-#include "..\..\include\ExceptionID.h"
+#include "..\include\ExceptionIDMetaData.h"
 
 static const char *gMetaDataTypeCaption[] = {
 	"None",
@@ -79,7 +79,7 @@ bool CMetaData::GetFullName(char *pFullNameBuffer, unsigned int BufferSize) cons
 
 	pName = this->GetName();
 	
-	if (!pName) throw new ExceptionMetaData(D_E_ID_ERR_MD, "元数据未命名！");
+	if (!pName) throw new ExceptionMetaData(D_E_ID_MD_ERROR, "元数据未命名！");
 
 	cur_len = strlen(pName);
 	total_size = cur_len * sizeof(char);

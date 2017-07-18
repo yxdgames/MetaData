@@ -189,6 +189,12 @@
     <ClInclude Include="..\Codes\include\CommonDefine.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

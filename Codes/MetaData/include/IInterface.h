@@ -1,8 +1,6 @@
 #pragma once
 
 #include "MetaDataSupport.h"
-#include "MetaDataInterface.h"
-#include "TypeTraits.h"
 
 class CLASS_DESCRIPT IInterface
 {

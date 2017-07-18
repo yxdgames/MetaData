@@ -98,6 +98,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeMemberVar.h" />
+    <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataFunction.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataGlobalSpace.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataInnerType.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
     <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
+    <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h" />
     <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h" />
     <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionSerialization.h" />

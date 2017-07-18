@@ -3,7 +3,7 @@
 
 #include "..\include\TypeTraits.h"
 #include "..\include\ExceptionMetaData.h"
-#include "..\..\include\ExceptionID.h"
+#include "..\include\ExceptionIDMetaData.h"
 #include <stdarg.h>
 
 //平台相关
@@ -281,7 +281,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 		{
 			if (param_addr == 0)
 			{
-				throw new ExceptionMetaData(D_E_ID_ERR_MD_CALL_META_DATA_OF_FUNC, "错误：调用参数表缺失！");
+				throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：调用参数表缺失！");
 			}
 			pParamPtrBuffer = new void* [arr_size];
 			try
