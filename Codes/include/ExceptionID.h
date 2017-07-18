@@ -9,3 +9,12 @@
 //Serialization
 #define D_E_ID_SERIALIZATION_BEGIN					(-101)
 #define D_E_ID_SERIALIZATION_END					(-200)
+
+
+
+
+
+
+//Custom
+#define D_E_ID_CUSTOM_BEGIN							(-10000)
+#define D_E_ID_CUSTOM_END							(-50000)
