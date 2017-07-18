@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataPrj", "MetaDataPrj\MetaDataPrj.vcxproj", "{B7AB7FDB-0397-46F6-BEEF-55DBF676FFB6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataView", "MetaDataView\MetaDataView.vcxproj", "{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ADB82101-C1FF-45C5-B1DE-91CE47E983C0} = {ADB82101-C1FF-45C5-B1DE-91CE47E983C0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaData", "MetaData\MetaData.vcxproj", "{ADB82101-C1FF-45C5-B1DE-91CE47E983C0}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MetaDataTestDll", "MetaDataTestDll\MetaDataTestDll.vcxproj", "{6A2522B5-9D33-43FE-8EF3-E0AD37C8FE66}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ADB82101-C1FF-45C5-B1DE-91CE47E983C0} = {ADB82101-C1FF-45C5-B1DE-91CE47E983C0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
