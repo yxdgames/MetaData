@@ -250,7 +250,7 @@ void test_item_metadata_function_call(void)
 		double d = 11.22;
 		int ret;
 		pFunc->CallFunction(3, pObj, a, d, &ret);
-		printf(" ret: %d\n", ret);
+		printf(" ret: %d\n\n", ret);
 	}
 
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func2"));
@@ -265,7 +265,7 @@ void test_item_metadata_function_call(void)
 
 		printf("ClassType call\n");
 		pClsType->CallMemberFuction("cls1_func2", 3, pObj, c, d, &ret);
-		printf("ClassType call ret: %d\n", ret);
+		printf("ClassType call ret: %d\n\n", ret);
 	}
 
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_vir_func1"));
@@ -284,7 +284,7 @@ void test_item_metadata_function_call(void)
 		printf(" ret: %f\n", ret);
 
 		pFunc->CallFunction(3, pObj, f, l, &ret);
-		printf(" ret: %f\n", ret);
+		printf(" ret: %f\n\n", ret);
 	}
 
 	std::vector<CMetaData*> vec_metadata;
@@ -302,7 +302,7 @@ void test_item_metadata_function_call(void)
 					double p_d(89523.82319);
 					float ret;
 					pFunc->CallFunction(2, p_x, p_d, &ret);
-					printf(" ret: %f\n", ret);
+					printf(" ret: %f\n\n", ret);
 				}
 				else
 				{
