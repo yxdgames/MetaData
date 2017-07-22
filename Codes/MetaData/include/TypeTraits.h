@@ -41,6 +41,20 @@ private:
 };
 
 template <>
+class TypeTraits<wchar_t>
+{
+public:
+	//method
+	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypewchar_t; }
+	static CMetaDataType *GetMetaDataType(char *pObj)	{ return pObj ? &_MD__InnerTypewchar_t : NULL; }
+public:
+	//type traits
+private:
+	TypeTraits(void)	{}
+	~TypeTraits(void)	{}
+};
+
+template <>
 class TypeTraits<short>
 {
 public:

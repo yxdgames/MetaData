@@ -19,6 +19,7 @@ FUNC_DESCRIPT CMetaDataGlobalSpace * _MD__GLOBALSPACE__GetMetaData(void)
 
 //内建类型元数据
 MD_INNER_TYPE_DEF(char)
+MD_INNER_TYPE_DEF(wchar_t)
 MD_INNER_TYPE_DEF(short)
 MD_INNER_TYPE_DEF(long)
 MD_INNER_TYPE_DEF(int)

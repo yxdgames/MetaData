@@ -9,6 +9,7 @@
 extern FUNC_DESCRIPT CMetaDataGlobalSpace * _MD__GLOBALSPACE__GetMetaData(void);
 
 extern VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypechar;
+extern VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypewchar_t;
 extern VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypeshort;
 extern VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypelong;
 extern VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypeint;
