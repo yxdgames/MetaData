@@ -126,15 +126,23 @@
 #ifdef CO_MD_CUSTOM_TYPE_EXTRA
 #define __MD_CUSTOM_TYPE_MEMBER_EXTRA \
 	public: \
+		bool IsTypeOf(CMetaDataType *pType) \
+		{ \
+			return this->GetType()->IsTypeOf(pType); \
+		} \
 		template <typename T> \
 		bool IsTypeOf(void) \
 		{ \
-			return this->GetType()->IsTypeOf(TypeTraits<T>::GetMetaDataType()); \
+			return this->IsTypeOf(TypeTraits<T>::GetMetaDataType()); \
+		} \
+		void *AsType(CMetaDataType *pType) \
+		{ \
+			return this->GetType()->AsType(this->GetTrueSelf(), pType); \
 		} \
 		template <typename T> \
 		T *AsType(void) \
 		{ \
-			return reinterpret_cast<T*>(this->GetType()->AsType(this->GetTrueSelf(), TypeTraits<T>::GetMetaDataType())); \
+			return reinterpret_cast<T*>(this->AsType(TypeTraits<T>::GetMetaDataType())); \
 		} \
 	protected: \
 		virtual void *GetTrueSelf(void) \
