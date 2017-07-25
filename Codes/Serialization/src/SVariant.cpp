@@ -58,7 +58,7 @@ void SVariant::SetValue(const char *pStr)
 			value._pstr = new char [strlen(pStr) + 1];
 			strcpy(value._pstr, pStr);
 		}
-		else value._pstr = NULL;
+		else value._pstr = nullptr;
 	}
 	else
 	{
@@ -91,7 +91,7 @@ SVariant &SVariant::operator=(SVariant &src)
 		}
 		else
 		{
-			value._pstr = NULL;
+			value._pstr = nullptr;
 		}
 	}
 	return *this;
@@ -138,6 +138,6 @@ void SVariant::FreeStr(void)
 	if (type == vtSTR_PTR && value._pstr && release_string)
 	{
 		delete [] value._pstr;
-		value._pstr = NULL;
+		value._pstr = nullptr;
 	}
 }

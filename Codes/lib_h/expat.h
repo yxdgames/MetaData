@@ -115,17 +115,17 @@ enum XML_Content_Quant {
 };
 
 /* If type == XML_CTYPE_EMPTY or XML_CTYPE_ANY, then quant will be
-   XML_CQUANT_NONE, and the other fields will be zero or NULL.
+   XML_CQUANT_NONE, and the other fields will be zero or nullptr.
    If type == XML_CTYPE_MIXED, then quant will be NONE or REP and
    numchildren will contain number of elements that may be mixed in
    and children point to an array of XML_Content cells that will be
    all of XML_CTYPE_NAME type with no quantification.
 
    If type == XML_CTYPE_NAME, then the name points to the name, and
-   the numchildren field will be zero and children will be NULL. The
+   the numchildren field will be zero and children will be nullptr. The
    quant fields indicates any quantifiers placed on the name.
 
-   CHOICE and SEQ will have name NULL, the number of children in
+   CHOICE and SEQ will have name nullptr, the number of children in
    numchildren and children will point, recursively, to an array
    of XML_Content cells.
 
@@ -158,10 +158,10 @@ XML_SetElementDeclHandler(XML_Parser parser,
 /* The Attlist declaration handler is called for *each* attribute. So
    a single Attlist declaration with multiple attributes declared will
    generate multiple calls to this handler. The "default" parameter
-   may be NULL in the case of the "#IMPLIED" or "#REQUIRED"
+   may be nullptr in the case of the "#IMPLIED" or "#REQUIRED"
    keyword. The "isrequired" parameter will be true and the default
-   value will be NULL in the case of "#REQUIRED". If "isrequired" is
-   true and default is non-NULL, then this is a "#FIXED" default.
+   value will be nullptr in the case of "#REQUIRED". If "isrequired" is
+   true and default is non-nullptr, then this is a "#FIXED" default.
 */
 typedef void (XMLCALL *XML_AttlistDeclHandler) (
                                     void            *userData,
@@ -177,8 +177,8 @@ XML_SetAttlistDeclHandler(XML_Parser parser,
 
 /* The XML declaration handler is called for *both* XML declarations
    and text declarations. The way to distinguish is that the version
-   parameter will be NULL for text declarations. The encoding
-   parameter may be NULL for XML declarations. The standalone
+   parameter will be nullptr for text declarations. The encoding
+   parameter may be nullptr for XML declarations. The standalone
    parameter will be -1, 0, or 1 indicating respectively that there
    was no standalone parameter in the declaration, that it was given
    as no, or that it was given as yes.
@@ -200,7 +200,7 @@ typedef struct {
 } XML_Memory_Handling_Suite;
 
 /* Constructs a new parser; encoding is the encoding specified by the
-   external protocol or NULL if there is none specified.
+   external protocol or nullptr if there is none specified.
 */
 XMLPARSEAPI(XML_Parser)
 XML_ParserCreate(const XML_Char *encoding);
@@ -221,8 +221,8 @@ XML_ParserCreateNS(const XML_Char *encoding, XML_Char namespaceSeparator);
 
 
 /* Constructs a new parser using the memory management suite referred to
-   by memsuite. If memsuite is NULL, then use the standard library memory
-   suite. If namespaceSeparator is non-NULL it creates a parser with
+   by memsuite. If memsuite is nullptr, then use the standard library memory
+   suite. If namespaceSeparator is non-nullptr it creates a parser with
    namespace processing as described above. The character pointed at
    will serve as the namespace separator.
 
@@ -313,15 +313,15 @@ typedef void (XMLCALL *XML_EndDoctypeDeclHandler)(void *userData);
    otherwise.
 
    For internal entities (<!ENTITY foo "bar">), value will
-   be non-NULL and systemId, publicID, and notationName will be NULL.
+   be non-nullptr and systemId, publicID, and notationName will be nullptr.
    The value string is NOT nul-terminated; the length is provided in
    the value_length argument. Since it is legal to have zero-length
    values, do not use this argument to test for internal entities.
 
-   For external entities, value will be NULL and systemId will be
-   non-NULL. The publicId argument will be NULL unless a public
+   For external entities, value will be nullptr and systemId will be
+   non-nullptr. The publicId argument will be nullptr unless a public
    identifier was provided. The notationName argument will have a
-   non-NULL value only for unparsed entity declarations.
+   non-nullptr value only for unparsed entity declarations.
 
    Note that is_parameter_entity can't be changed to XML_Bool, since
    that would break binary compatibility.
@@ -348,7 +348,7 @@ XML_SetEntityDeclHandler(XML_Parser parser,
    This is called for a declaration of an unparsed (NDATA) entity.
    The base argument is whatever was set by XML_SetBase. The
    entityName, systemId and notationName arguments will never be
-   NULL. The other arguments may be.
+   nullptr. The other arguments may be.
 */
 typedef void (XMLCALL *XML_UnparsedEntityDeclHandler) (
                                     void *userData,
@@ -360,7 +360,7 @@ typedef void (XMLCALL *XML_UnparsedEntityDeclHandler) (
 
 /* This is called for a declaration of notation.  The base argument is
    whatever was set by XML_SetBase. The notationName will never be
-   NULL.  The other arguments can be.
+   nullptr.  The other arguments can be.
 */
 typedef void (XMLCALL *XML_NotationDeclHandler) (
                                     void *userData,
@@ -373,7 +373,7 @@ typedef void (XMLCALL *XML_NotationDeclHandler) (
    each namespace declaration. The call to the start and end element
    handlers occur between the calls to the start and end namespace
    declaration handlers. For an xmlns attribute, prefix will be
-   NULL.  For an xmlns="" attribute, uri will be NULL.
+   nullptr.  For an xmlns="" attribute, uri will be nullptr.
 */
 typedef void (XMLCALL *XML_StartNamespaceDeclHandler) (
                                     void *userData,
@@ -404,14 +404,14 @@ typedef int (XMLCALL *XML_NotStandaloneHandler) (void *userData);
    reference; it can be passed as the parser argument to
    XML_ExternalEntityParserCreate.  The systemId argument is the
    system identifier as specified in the entity declaration; it will
-   not be NULL.
+   not be nullptr.
 
    The base argument is the system identifier that should be used as
    the base for resolving systemId if systemId was relative; this is
-   set by XML_SetBase; it may be NULL.
+   set by XML_SetBase; it may be nullptr.
 
    The publicId argument is the public identifier as specified in the
-   entity declaration, or NULL if none was specified; the whitespace
+   entity declaration, or nullptr if none was specified; the whitespace
    in the public identifier will have been normalized as required by
    the XML spec.
 
@@ -419,7 +419,7 @@ typedef int (XMLCALL *XML_NotStandaloneHandler) (void *userData);
    expected by the context argument to XML_ExternalEntityParserCreate;
    context is valid only until the handler returns, so if the
    referenced entity is to be parsed later, it must be copied.
-   context is NULL only when the entity is a parameter entity.
+   context is nullptr only when the entity is a parameter entity.
 
    The handler should return XML_STATUS_ERROR if processing should not
    continue because of a fatal error in the handling of the external
@@ -474,11 +474,11 @@ typedef void (XMLCALL *XML_SkippedEntityHandler) (
    convert function must return the Unicode scalar value represented
    by this byte sequence or -1 if the byte sequence is malformed.
 
-   The convert function may be NULL if the encoding is a single-byte
+   The convert function may be nullptr if the encoding is a single-byte
    encoding, that is if map[b] >= -1 for all bytes b.
 
    When the parser is finished with the encoding, then if release is
-   not NULL, it will call release passing it the data member; once
+   not nullptr, it will call release passing it the data member; once
    release has been called, the convert function will not be called
    again.
 
@@ -625,7 +625,7 @@ XMLPARSEAPI(void)
 XML_SetExternalEntityRefHandler(XML_Parser parser,
                                 XML_ExternalEntityRefHandler handler);
 
-/* If a non-NULL value for arg is specified here, then it will be
+/* If a non-nullptr value for arg is specified here, then it will be
    passed as the first argument to the external entity ref handler
    instead of the parser object.
 */
@@ -670,7 +670,7 @@ XML_SetReturnNSTriplet(XML_Parser parser, int do_nst);
 XMLPARSEAPI(void)
 XML_SetUserData(XML_Parser parser, void *userData);
 
-/* Returns the last value set by XML_SetUserData or NULL. */
+/* Returns the last value set by XML_SetUserData or nullptr. */
 #define XML_GetUserData(parser) (*(void **)(parser))
 
 /* This is equivalent to supplying an encoding argument to
@@ -692,8 +692,8 @@ XML_UseParserAsHandlerArg(XML_Parser parser);
 /* If useDTD == XML_TRUE is passed to this function, then the parser
    will assume that there is an external subset, even if none is
    specified in the document. In such a case the parser will call the
-   externalEntityRefHandler with a value of NULL for the systemId
-   argument (the publicId and context arguments will be NULL as well).
+   externalEntityRefHandler with a value of nullptr for the systemId
+   argument (the publicId and context arguments will be nullptr as well).
    Note: For the purpose of checking WFC: Entity Declared, passing
      useDTD == XML_TRUE will make the parser behave as if the document
      had a DTD with an external subset.
@@ -855,7 +855,7 @@ XML_GetParsingStatus(XML_Parser parser, XML_ParsingStatus *status);
 /* Creates an XML_Parser object that can parse an external general
    entity; context is a '\0'-terminated string specifying the parse
    context; encoding is a '\0'-terminated string giving the name of
-   the externally specified encoding, or NULL if there is no
+   the externally specified encoding, or nullptr if there is no
    externally specified encoding.  The context string consists of a
    sequence of tokens separated by formfeeds (\f); a token consisting
    of a name specifies that the general entity of the name is open; a
@@ -865,7 +865,7 @@ XML_GetParsingStatus(XML_Parser parser, XML_ParsingStatus *status);
    an ExternalEntityRefHandler so longer as the parser has not yet
    been freed.  The new parser is completely independent and may
    safely be used in a separate thread.  The handlers and userData are
-   initialized from the parser argument.  Returns NULL if out of memory.
+   initialized from the parser argument.  Returns nullptr if out of memory.
    Otherwise returns a new XML_Parser object.
 */
 XMLPARSEAPI(XML_Parser)
@@ -951,7 +951,7 @@ XML_GetCurrentByteCount(XML_Parser parser);
    the integer pointed to by offset to the offset within this buffer
    of the current parse position, and sets the integer pointed to by size
    to the size of this buffer (the number of input bytes). Otherwise
-   returns a NULL pointer. Also returns a NULL pointer if a parse isn't
+   returns a nullptr pointer. Also returns a nullptr pointer if a parse isn't
    active.
 
    NOTE: The character pointer returned should not be used outside

@@ -86,8 +86,8 @@ public:
 	CClass1_Derived1(void);
 	~CClass1_Derived1(void);
 public:
-	int *cls1_der1_func1(unsigned char c, double d) { return NULL; }
-	int ***cls1_der1_func2(unsigned char c, double d) { return NULL; };
+	int *cls1_der1_func1(unsigned char c, double d) { return nullptr; }
+	int ***cls1_der1_func2(unsigned char c, double d) { return nullptr; };
 
 MD_CLASS_TYPE_DECLARE_BEGIN(CClass1_Derived1)
 	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_der1_func1, 0)

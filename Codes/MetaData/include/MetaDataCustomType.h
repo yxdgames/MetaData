@@ -59,21 +59,21 @@ public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const						{ return D_META_DATA_TYPE_ID_CUSTOM_TYPE; }
 	unsigned int GetBaseTypeCount(void)								{ return (m_pBaseTypeList ? m_pBaseTypeList->size() : 0); }
-	CMetaDataCustomType *GetBaseType(unsigned int index)			{ return (m_pBaseTypeList ? m_pBaseTypeList->at(index).CustomType : NULL); }
+	CMetaDataCustomType *GetBaseType(unsigned int index)			{ return (m_pBaseTypeList ? m_pBaseTypeList->at(index).CustomType : nullptr); }
 	unsigned int GetBaseTypeOffset(unsigned int index)				{ return (m_pBaseTypeList ? m_pBaseTypeList->at(index).Offset : 0); }
 	unsigned int GetInterfaceCount(void)							{ return (m_pInterfaceList ? m_pInterfaceList->size() : 0); }
-	CMetaDataInterface *GetInterface(unsigned int index)			{ return (m_pInterfaceList ? m_pInterfaceList->at(index).Intf : NULL); }
+	CMetaDataInterface *GetInterface(unsigned int index)			{ return (m_pInterfaceList ? m_pInterfaceList->at(index).Intf : nullptr); }
 	unsigned int GetInterfaceOffset(unsigned int index)				{ return (m_pInterfaceList ? m_pInterfaceList->at(index).Offset : 0); }
 	unsigned int GetConstructorCount(void)							{ return (m_pConstructorList ? m_pConstructorList->size() : 0); }
-	CMetaDataFunction *GetConstructor(unsigned int index)			{ return (m_pConstructorList ? m_pConstructorList->at(index) : NULL); }
+	CMetaDataFunction *GetConstructor(unsigned int index)			{ return (m_pConstructorList ? m_pConstructorList->at(index) : nullptr); }
 	unsigned int GetMemberFuncCount(void)							{ return (m_pMemberFuncList ? m_pMemberFuncList->size() : 0); }
-	CMetaDataFunction *GetMemberFunc(unsigned int index)			{ return (m_pMemberFuncList ? m_pMemberFuncList->at(index) : NULL); }
+	CMetaDataFunction *GetMemberFunc(unsigned int index)			{ return (m_pMemberFuncList ? m_pMemberFuncList->at(index) : nullptr); }
 	unsigned int GetMemberVarCount(void)							{ return (m_pMemberVarList ? m_pMemberVarList->size() : 0); }
-	CMetaDataCustomTypeMemberVar *GetMemberVar(unsigned int index)	{ return (m_pMemberVarList ? m_pMemberVarList->at(index) : NULL); }
+	CMetaDataCustomTypeMemberVar *GetMemberVar(unsigned int index)	{ return (m_pMemberVarList ? m_pMemberVarList->at(index) : nullptr); }
 	unsigned int GetStaticMemberFuncCount(void)						{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->size() : 0); }
-	CMetaDataFunction *GetStaticMemberFunc(unsigned int index)		{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->at(index) : NULL); }
+	CMetaDataFunction *GetStaticMemberFunc(unsigned int index)		{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->at(index) : nullptr); }
 	unsigned int GetStaticMemberVarCount(void)						{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->size() : 0); }
-	CMetaDataVariable *GetStaticMemberVar(unsigned int index)		{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->at(index) : NULL); }
+	CMetaDataVariable *GetStaticMemberVar(unsigned int index)		{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->at(index) : nullptr); }
 public:
 	//attribute
 	void SetAsTypeExFunPtr(TpfunAsTypeEx value) { m_AsTypeExFunPtr = value; }
@@ -182,7 +182,7 @@ T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...)
 				this->DeleteObject(pObj);
 			}
 		}
-		else pReturn = NULL;
+		else pReturn = nullptr;
 	}
 	catch(...)
 	{
@@ -207,7 +207,7 @@ inline T *CMetaDataCustomType::CreateObject(void)
 			this->DeleteObject(pObj);
 		}
 	}
-	else pReturn = NULL;
+	else pReturn = nullptr;
 
 	return reinterpret_cast<T*>(pReturn);
 }

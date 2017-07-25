@@ -11,7 +11,7 @@
 
 //CSerializer
 CSerializer::CSerializer(void)
-	:m_pTreeSerial(NULL)
+	:m_pTreeSerial(nullptr)
 {
 }
 
@@ -30,12 +30,12 @@ void CSerializer::SetSerial(ISerial *pSerial)
 		}
 		else
 		{
-			m_pTreeSerial = NULL;
+			m_pTreeSerial = nullptr;
 		}
 	}
 	else
 	{
-		m_pTreeSerial = NULL;
+		m_pTreeSerial = nullptr;
 	}
 }
 
@@ -493,7 +493,7 @@ bool CSerializer::UnserializeInnerType(ISerialEntity *pSEntity, CMetaDataInnerTy
 
 void *CSerializer::NewObject(CMetaDataType *pType)
 {
-	if (!pType) return NULL;
+	if (!pType) return nullptr;
 
 	void *pO(pType->NewObject());
 

@@ -5,7 +5,7 @@
 
 ISerialEntity *ISerialEntity::CreateSerialEntityIntf(void)
 {
-	return new CSerialEntity(NULL);
+	return new CSerialEntity(nullptr);
 }
 
 ISerialEntity::ISerialEntity(void)

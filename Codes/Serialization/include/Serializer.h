@@ -11,7 +11,7 @@ public:
 public:
 	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf)
 	{
-		return NULL;
+		return nullptr;
 	}
 	//ISerializer
 	//method

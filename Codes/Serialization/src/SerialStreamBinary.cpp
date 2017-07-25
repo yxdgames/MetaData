@@ -12,7 +12,7 @@
 //CSerialStreamBinary::SStringFilePositionList
 CSerialStreamBinary::SStringFilePositionList::SStringFilePositions *CSerialStreamBinary::SStringFilePositionList::FindItem(const char *pString, bool bNew)
 {
-	SStringFilePositions *pStringFilePos(NULL);
+	SStringFilePositions *pStringFilePos(nullptr);
 	for (unsigned long i = 0; i < this->info_vector.size(); ++i)
 	{
 		if ((pString && info_vector.at(i).str && strcmp(info_vector.at(i).str, pString) == 0)

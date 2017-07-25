@@ -13,7 +13,7 @@ ISerialStream *ISerialStream::CreateSerialStreamIntf(ESerialStreamIntfType IntfT
 	case ssitXml:
 		return new CSerialStreamXml(pStream, hold_stream);
 	default:
-		return NULL;
+		return nullptr;
 	}
 }
 

@@ -34,7 +34,7 @@ public:
 	virtual unsigned char GetTypeID(void) const				{ return D_META_DATA_TYPE_ID_META_DATA; }
 	const char *GetTypeCaption(void) const;
 	unsigned int GetChildrenCount(void) const				{ return (m_pChildren ? m_pChildren->size() : 0); }
-	const CMetaData *GetChild(unsigned int index) const		{ return (m_pChildren ? m_pChildren->at(index) : NULL); }
+	const CMetaData *GetChild(unsigned int index) const		{ return (m_pChildren ? m_pChildren->at(index) : nullptr); }
 private:
 	void InsertSelfToParent(void);
 	void RemoveSelfFromParent(void);

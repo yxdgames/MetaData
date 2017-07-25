@@ -66,7 +66,7 @@ static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 	}
 	else
 	{
-		if (pBuff) *pBuff = NULL;
+		if (pBuff) *pBuff = nullptr;
 		return pMDType->GetSize();
 	}
 }
@@ -122,7 +122,7 @@ static void SizeInVarParamFuncFree(CMetaDataType *pMDType, void **pBuff)
 }
 
 CMetaDataFunction::CMetaDataFunction(char *pName, CMetaData *pParent, void *pFunction)
-	:CMetaData(pName, pParent, true), m_pFunction(pFunction), m_pParamTable(NULL), m_pReturnInfo(NULL)
+	:CMetaData(pName, pParent, true), m_pFunction(pFunction), m_pParamTable(nullptr), m_pReturnInfo(nullptr)
 {
 }
 
@@ -132,12 +132,12 @@ CMetaDataFunction::~CMetaDataFunction(void)
 	if (m_pParamTable)
 	{
 		delete m_pParamTable;
-		m_pParamTable = NULL;
+		m_pParamTable = nullptr;
 	}
 	if (m_pReturnInfo)
 	{
 		delete m_pReturnInfo;
-		m_pReturnInfo = NULL;
+		m_pReturnInfo = nullptr;
 	}
 }
 
@@ -222,7 +222,7 @@ bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList)
 					if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
 						type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
 					else type_size = sizeof(void*);
-					pNeedRelease[index] = pParamPtrBuffer[index] != NULL;
+					pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
 					if (!pNeedRelease[index])
 					{
 						pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
@@ -236,7 +236,7 @@ bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList)
 				{
 					Packet.pReturn = *reinterpret_cast<void**>(param_addr);
 				}
-				else Packet.pReturn = NULL;
+				else Packet.pReturn = nullptr;
 
 				ret = pFunc(Packet);
 
@@ -256,12 +256,12 @@ bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList)
 		else
 		{
 			Packet.ParamCount = 0;
-			Packet.pParam = NULL;
+			Packet.pParam = nullptr;
 			if (m_pReturnInfo)
 			{
 				Packet.pReturn = *reinterpret_cast<void**>(param_addr);
 			}
-			else Packet.pReturn = NULL;
+			else Packet.pReturn = nullptr;
 
 			ret = pFunc(Packet);
 		}
@@ -342,7 +342,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 						if (m_pParamTable->at(index_func)->GetPtrLevel() <= 0)
 							type_size = SizeInVarParamFunc(m_pParamTable->at(index_func)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
 						else type_size = sizeof(void*);
-						pNeedRelease[index] = pParamPtrBuffer[index] != NULL;
+						pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
 						if (!pNeedRelease[index])
 						{
 							pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
@@ -365,7 +365,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 					{
 						Packet.pReturn = pReturn;
 					}
-					else Packet.pReturn = NULL;
+					else Packet.pReturn = nullptr;
 
 					ret = pFunc(Packet);
 				}
@@ -387,12 +387,12 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 		else
 		{
 			Packet.ParamCount = 0;
-			Packet.pParam = NULL;
+			Packet.pParam = nullptr;
 			if (m_pReturnInfo)
 			{
 				Packet.pReturn = pReturn;
 			}
-			else Packet.pReturn = NULL;
+			else Packet.pReturn = nullptr;
 
 			ret = pFunc(Packet);
 		}
@@ -429,7 +429,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...)
 				for (itr = m_pParamTable->begin(); itr != m_pParamTable->end(); ++itr)
 				{
 					if ((*itr)->GetPtrLevel() <= 0)
-						size = SizeInVarParamFunc((*itr)->GetMDType(), NULL, NULL);
+						size = SizeInVarParamFunc((*itr)->GetMDType(), nullptr, nullptr);
 					else size = sizeof(void*);
 					Ret_Offset += size;
 				}
@@ -438,7 +438,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...)
 		}
 		else
 		{
-			pReturn = NULL;
+			pReturn = nullptr;
 		}
 
 		ret = CallFunction(pParamTypes, pList, pReturn);

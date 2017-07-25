@@ -5,7 +5,7 @@
 
 #define D_PARAM_VECTOR_ADD_ELE(param_vector, type_name, ptr_level) \
 	{ \
-		(param_vector).push_back(new CMetaDataVarBase(NULL, NULL, TypeTraits<type_name>::GetMetaDataType(), (ptr_level))); \
+		(param_vector).push_back(new CMetaDataVarBase(nullptr, nullptr, TypeTraits<type_name>::GetMetaDataType(), (ptr_level))); \
 	}
 
 class CLASS_DESCRIPT CParamVector
@@ -61,10 +61,10 @@ public:
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_FUNCTION; }
-	bool ReturnIsVoid(void) const				{ return m_pReturnInfo == NULL; }
+	bool ReturnIsVoid(void) const				{ return m_pReturnInfo == nullptr; }
 	CMetaDataVarBase *GetReturnInfo(void)		{ return m_pReturnInfo; }
 	int GetParamCount(void) const				{ return m_pParamTable ? m_pParamTable->size() : 0; }
-	CMetaDataVarBase *GetParam(int index)		{ return m_pParamTable ? m_pParamTable->at(index) : NULL; }
+	CMetaDataVarBase *GetParam(int index)		{ return m_pParamTable ? m_pParamTable->at(index) : nullptr; }
 private:
 	CParamVector *GetParamTable(void)
 	{

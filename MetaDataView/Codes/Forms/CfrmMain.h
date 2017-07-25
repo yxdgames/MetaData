@@ -24,7 +24,7 @@ namespace MetaDataView {
 	public ref class CfrmMain : public System::Windows::Forms::Form
 	{
 	public:
-		CfrmMain(void) : m_hCurModule(NULL)
+		CfrmMain(void) : m_hCurModule(nullptr)
 		{
 			InitializeComponent();
 			//
@@ -241,7 +241,7 @@ namespace MetaDataView {
 			if (m_hCurModule)
 			{
 				::FreeLibrary(m_hCurModule);
-				m_hCurModule = NULL;
+				m_hCurModule = nullptr;
 			}
 		}
 	private: DevExpress::XtraGrid::GridControl^  grdcDetail;

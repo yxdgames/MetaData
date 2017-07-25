@@ -7,9 +7,9 @@ CMetaDataCustomType::CMetaDataCustomType(char *pName, CMetaData *pParent, unsign
 										 bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar)
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
-	m_pBaseTypeList(NULL), m_pInterfaceList(NULL), m_pConstructorList(NULL), m_pDestructor(NULL),
-	m_pMemberFuncList(NULL), m_pMemberVarList(NULL), m_pStaticMemberFuncList(NULL), m_pStaticMemberVarList(NULL),
-	m_AsTypeExFunPtr(NULL)
+	m_pBaseTypeList(nullptr), m_pInterfaceList(nullptr), m_pConstructorList(nullptr), m_pDestructor(nullptr),
+	m_pMemberFuncList(nullptr), m_pMemberVarList(nullptr), m_pStaticMemberFuncList(nullptr), m_pStaticMemberVarList(nullptr),
+	m_AsTypeExFunPtr(nullptr)
 {
 }
 
@@ -19,37 +19,37 @@ CMetaDataCustomType::~CMetaDataCustomType(void)
 	if (m_pBaseTypeList)
 	{
 		delete m_pBaseTypeList;
-		m_pBaseTypeList = NULL;
+		m_pBaseTypeList = nullptr;
 	}
 	if (m_pInterfaceList)
 	{
 		delete m_pInterfaceList;
-		m_pInterfaceList = NULL;
+		m_pInterfaceList = nullptr;
 	}
 	if (m_pConstructorList)
 	{
 		delete m_pConstructorList;
-		m_pConstructorList = NULL;
+		m_pConstructorList = nullptr;
 	}
 	if (m_pMemberFuncList)
 	{
 		delete m_pMemberFuncList;
-		m_pMemberFuncList = NULL;
+		m_pMemberFuncList = nullptr;
 	}
 	if (m_pMemberVarList)
 	{
 		delete m_pMemberVarList;
-		m_pMemberVarList = NULL;
+		m_pMemberVarList = nullptr;
 	}
 	if (m_pStaticMemberFuncList)
 	{
 		delete m_pStaticMemberFuncList;
-		m_pStaticMemberFuncList = NULL;
+		m_pStaticMemberFuncList = nullptr;
 	}
 	if (m_pStaticMemberVarList)
 	{
 		delete m_pStaticMemberVarList;
-		m_pStaticMemberVarList = NULL;
+		m_pStaticMemberVarList = nullptr;
 	}
 }
 
@@ -154,7 +154,7 @@ bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ..
 	if (!m_pMemberFuncList) return false;
 
 	bool ret;
-	CMetaDataFunction *pFunc(NULL);
+	CMetaDataFunction *pFunc(nullptr);
 	va_list pList;
 	
 	for (size_t i = 0; i < m_pMemberFuncList->size(); ++i)
@@ -186,7 +186,7 @@ bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_cou
 	if (!m_pStaticMemberFuncList) return false;
 
 	bool ret;
-	CMetaDataFunction *pFunc(NULL);
+	CMetaDataFunction *pFunc(nullptr);
 	va_list pList;
 
 	for (size_t i = 0; i < m_pStaticMemberFuncList->size(); ++i)
@@ -264,7 +264,7 @@ void *CMetaDataCustomType::AsType(void *pObj, CMetaDataType *pType)
 		return m_AsTypeExFunPtr(pObj, pType);
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 bool CMetaDataCustomType::QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf)
@@ -362,7 +362,7 @@ bool CMetaDataCustomType::FindInterface(CMetaDataType * pIntf, std::vector<SMeta
 
 void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pList)
 {
-	void *pReturn(NULL);
+	void *pReturn(nullptr);
 
 	if (!m_pConstructorList || !pList) return pReturn;
 	
@@ -391,7 +391,7 @@ void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pLi
 
 void *CMetaDataCustomType::DoCreateObject(void)
 {
-	void *pReturn(NULL);
+	void *pReturn(nullptr);
 
 	if (!m_pConstructorList) return pReturn;
 	
@@ -399,11 +399,11 @@ void *CMetaDataCustomType::DoCreateObject(void)
 	
 	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
 	{
-		if ((*itr)->FuncParamsCheck(NULL))
+		if ((*itr)->FuncParamsCheck(nullptr))
 		{
 			if (!(*itr)->ReturnIsVoid())
 			{
-				if (!(*itr)->CallFunction(0, reinterpret_cast<void**>(NULL), &pReturn))
+				if (!(*itr)->CallFunction(0, reinterpret_cast<void**>(nullptr), &pReturn))
 				{
 					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "构造函数调用失败！");
 				}

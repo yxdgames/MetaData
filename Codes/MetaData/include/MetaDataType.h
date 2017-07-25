@@ -12,9 +12,9 @@ public:
 public:
 	//method
 	virtual bool IsTypeOf(CMetaDataType *pType)										{ return this == pType; }
-	virtual void *AsType(void *pObj, CMetaDataType *pType)							{ return (this == pType ? pObj : NULL); }
+	virtual void *AsType(void *pObj, CMetaDataType *pType)							{ return (this == pType ? pObj : nullptr); }
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf)	{ return false; }
-	virtual void *NewObject(void)													{ return NULL; }
+	virtual void *NewObject(void)													{ return nullptr; }
 	virtual void DeleteObject(void *pObj)											{ /*do nothing.*/ }
 public:
 	//attribute

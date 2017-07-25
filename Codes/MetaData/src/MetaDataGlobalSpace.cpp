@@ -3,7 +3,7 @@
 
 
 CMetaDataGlobalSpace::CMetaDataGlobalSpace(void)
-	:CMetaData("", NULL, true)
+	:CMetaData("", nullptr, true)
 {
 }
 

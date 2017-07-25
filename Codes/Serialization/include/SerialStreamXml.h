@@ -11,7 +11,7 @@ public:
 public:
 	//
 public:
-	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf)	{ return NULL; }
+	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf)	{ return nullptr; }
 	//ISerialStream
 	//method
 	virtual bool Serialize(ISerial *pSerial);

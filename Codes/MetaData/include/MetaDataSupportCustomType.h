@@ -116,7 +116,7 @@
 	MDType.SetAsTypeExFunPtr(pfun_as_type_ex);
 
 #define MD_CUSTOM_TYPE_DECLARE_END(name) \
-				pMDFunc = NULL; \
+				pMDFunc = nullptr; \
 			} \
 		} _MD__CTM_DIDO##name;
 

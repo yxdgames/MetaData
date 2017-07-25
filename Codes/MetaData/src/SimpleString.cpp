@@ -4,7 +4,7 @@
 
 SimpleString::SimpleString(void)
 #ifndef CO_SIMPLE_STRING_STL_STRING
-	: m_pString(NULL)
+	: m_pString(nullptr)
 #endif //CO_SIMPLE_STRING_STL_STRING
 {
 }
@@ -13,7 +13,7 @@ SimpleString::SimpleString(char *pStr)
 #ifdef CO_SIMPLE_STRING_STL_STRING
 	: std::string(pStr)
 #else
-	: m_pString(NULL)
+	: m_pString(nullptr)
 #endif //CO_SIMPLE_STRING_STL_STRING
 {
 #ifdef CO_SIMPLE_STRING_STL_STRING
@@ -62,7 +62,7 @@ void SimpleString::FreeString(void)
 	if (m_pString)
 	{
 		delete [] m_pString;
-		m_pString = NULL;
+		m_pString = nullptr;
 	}
 }
 int SimpleString::Position(char * pString, int StrLen, char c, bool bLeftToRight)

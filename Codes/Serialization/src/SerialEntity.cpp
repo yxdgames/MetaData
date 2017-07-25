@@ -2,7 +2,7 @@
 #include "..\include\SerialEntity.h"
 
 CSerialEntity::CSerialEntity(CSerialEntity *pParent)
-	:m_pName(NULL), m_pTypeName(NULL), m_Tag(0), m_pParent(pParent)
+	:m_pName(nullptr), m_pTypeName(nullptr), m_Tag(0), m_pParent(pParent)
 {
 	if (m_pParent) m_pParent->m_Children.push_back(this);
 }
@@ -52,7 +52,7 @@ void CSerialEntity::ClearChildren(void)
 
 ISerialEntity *CSerialEntity::FindChild(const char *pName, unsigned int EntTypeId, unsigned int Tag)
 {
-	return NULL;
+	return nullptr;
 }
 
 ISerialEntity *CSerialEntity::FindChild(const char *pName, char *EntTypeName, unsigned int Tag)
@@ -66,7 +66,7 @@ ISerialEntity *CSerialEntity::FindChild(const char *pName, char *EntTypeName, un
 			return *itr;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 //attribute
@@ -169,7 +169,7 @@ void CSerialEntity::FreeNameString(void)
 	if (m_pName)
 	{
 		delete [] m_pName;
-		m_pName = NULL;
+		m_pName = nullptr;
 	}
 }
 
@@ -178,7 +178,7 @@ void CSerialEntity::FreeTypeNameString(void)
 	if (m_pTypeName)
 	{
 		delete [] m_pTypeName;
-		m_pTypeName = NULL;
+		m_pTypeName = nullptr;
 	}
 }
 

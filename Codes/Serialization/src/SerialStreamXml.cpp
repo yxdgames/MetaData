@@ -47,7 +47,7 @@ static void ParseSpecialChar(const char *pStr, SSpecialCharInfo **pSpecialCharIn
 	*pCount = 0;
 	while(pStr[i])
 	{
-		pEscapeStr = NULL;
+		pEscapeStr = nullptr;
 		Char = pStr[i];
 		switch(Char)
 		{
@@ -101,7 +101,7 @@ void XMLCALL XmlElementStart(void *userData, const XML_Char *name, const XML_Cha
 	ISerialEntity *pEnt;
 	EVarType var_type;
 	bool bValueSet(false);
-	const char *pValue(NULL);
+	const char *pValue(nullptr);
 	unsigned int ValueStrLen(0);
 	bool attr_comp[4] = { false, false, false, false };
 	
@@ -149,10 +149,10 @@ void XMLCALL XmlElementStart(void *userData, const XML_Char *name, const XML_Cha
 				pEnt->SetValue(atoi(pValue));
 				break;
 			case vtFLOAT:
-				pEnt->SetValue(static_cast<long double>(strtod(pValue, NULL)));
+				pEnt->SetValue(static_cast<long double>(strtod(pValue, nullptr)));
 				break;
 			case vtLONGLONG:
-				pEnt->SetValue(_strtoi64(pValue, NULL, 10));
+				pEnt->SetValue(_strtoi64(pValue, nullptr, 10));
 				break;
 			case vtSTR_PTR:
 				pEnt->SetValue(pValue);
@@ -226,7 +226,7 @@ bool CSerialStreamXml::Unserialize(ISerial *pSerial)
 
 	EntItemXml.level = 0;
 	EntItemXml.pEnt->ClearChildren();
-	xml_parser = XML_ParserCreate(NULL);
+	xml_parser = XML_ParserCreate(nullptr);
 	try
 	{
 		XML_SetUserData(xml_parser, &EntItemXml);
@@ -264,7 +264,7 @@ bool CSerialStreamXml::DoSerialize(ISerialEntity *pEnt, char *pBuff)
 	unsigned int i;
 	unsigned int pre_index;
 	unsigned int cpy_size;
-	char *pLocalBuffer(NULL), *pChildBuffer(pBuff);
+	char *pLocalBuffer(nullptr), *pChildBuffer(pBuff);
 
 	if (pEnt->GetChildrenCount() > 0)
 	{
