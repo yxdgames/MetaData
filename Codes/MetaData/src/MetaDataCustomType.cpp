@@ -403,7 +403,7 @@ void *CMetaDataCustomType::DoCreateObject(void)
 		{
 			if (!(*itr)->ReturnIsVoid())
 			{
-				if (!(*itr)->CallFunction(0, reinterpret_cast<void**>(nullptr), &pReturn))
+				if (!(*itr)->CallFunction(0, static_cast<void**>(nullptr), &pReturn))
 				{
 					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "构造函数调用失败！");
 				}
