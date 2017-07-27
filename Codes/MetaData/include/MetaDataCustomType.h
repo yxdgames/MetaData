@@ -20,7 +20,7 @@ struct STRUCT_DESCRIPT SMetaDataCustomTypeInterface
 	unsigned int Offset;
 };
 
-typedef void *(*TpfunAsTypeEx)(void *pObj, CMetaDataType *pType);
+typedef void *(*TpfunAsTypeEx)(void *pObj, const CMetaDataType *pType);
 
 class CLASS_DESCRIPT CMetaDataCustomType : public CMetaDataType
 {
@@ -45,8 +45,8 @@ public:
 	bool __cdecl CallStaticMemberFuction(char *pFunName, int param_count, ...);
 
 	//override
-	virtual bool IsTypeOf(CMetaDataType *pType);
-	virtual void *AsType(void *pObj, CMetaDataType *pType);
+	virtual bool IsTypeOf(const CMetaDataType *pType);
+	virtual void *AsType(void *pObj, const CMetaDataType *pType);
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf);
 	virtual void *NewObject(void);
 	virtual void DeleteObject(void *pObj);
@@ -139,8 +139,8 @@ protected:
 		return m_pStaticMemberVarList;
 	}
 private:
-	bool FindBaseType(CMetaDataType *pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList);
-	bool FindInterface(CMetaDataType *pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList);
+	bool FindBaseType(const CMetaDataType *pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList);
+	bool FindInterface(const CMetaDataType *pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList);
 	void *DoCreateObject(CParamVector *pParamTypes, va_list pList);
 	void *DoCreateObject(void);
 private:

@@ -11,8 +11,8 @@ public:
 	virtual ~CMetaDataType(void);
 public:
 	//method
-	virtual bool IsTypeOf(CMetaDataType *pType)										{ return this == pType; }
-	virtual void *AsType(void *pObj, CMetaDataType *pType)							{ return (this == pType ? pObj : nullptr); }
+	virtual bool IsTypeOf(const CMetaDataType *pType)								{ return this == pType; }
+	virtual void *AsType(void *pObj, const CMetaDataType *pType)					{ return (this == pType ? pObj : nullptr); }
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf)	{ return false; }
 	virtual void *NewObject(void)													{ return nullptr; }
 	virtual void DeleteObject(void *pObj)											{ /*do nothing.*/ }

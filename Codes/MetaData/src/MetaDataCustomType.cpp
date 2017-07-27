@@ -213,7 +213,7 @@ bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_cou
 	return ret;
 }
 
-bool CMetaDataCustomType::IsTypeOf(CMetaDataType *pType)
+bool CMetaDataCustomType::IsTypeOf(const CMetaDataType *pType)
 {
 	if (this == pType) return true;
 
@@ -232,7 +232,7 @@ bool CMetaDataCustomType::IsTypeOf(CMetaDataType *pType)
 	return false;
 }
 
-void *CMetaDataCustomType::AsType(void *pObj, CMetaDataType *pType)
+void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType)
 {
 	if (this == pType) return pObj;
 
@@ -304,7 +304,7 @@ void CMetaDataCustomType::DeleteObject(void *pObj)
 	}
 }
 
-bool CMetaDataCustomType::FindBaseType(CMetaDataType * pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList)
+bool CMetaDataCustomType::FindBaseType(const CMetaDataType * pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList)
 {
 	if (!pType) return false;
 
@@ -332,7 +332,7 @@ bool CMetaDataCustomType::FindBaseType(CMetaDataType * pType, std::vector<SMetaD
 	return false;
 }
 
-bool CMetaDataCustomType::FindInterface(CMetaDataType * pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList)
+bool CMetaDataCustomType::FindInterface(const CMetaDataType * pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList)
 {
 	if (!pIntf) return false;
 
