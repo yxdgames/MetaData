@@ -36,6 +36,7 @@
 /* Meta data of interface */
 /**************************/
 #define META_DATA_INTERFACE(name)						META_DATA_CUSTOM_TYPE(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE)
+#define META_DATA_INTERFACE_NO_ASSERT(name)				META_DATA_CUSTOM_TYPE_NO_ASSERT(name, CMetaDataInterface)
 
 #define MD_INTERFACE_DECLARE_BEGIN(name)				MD_CUSTOM_TYPE_DECLARE_BEGIN(name, Itf, CMetaDataInterface)
 #define MD_INTERFACE_DECLARE_DETAIL(name)				MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT_FOR_MD_SUPPORT)
@@ -63,6 +64,7 @@
 /* Meta data of class type */
 /***************************/
 #define META_DATA_CLASS_TYPE(name)							META_DATA_CUSTOM_TYPE(name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE)
+#define META_DATA_CLASS_TYPE_NO_ASSERT(name)				META_DATA_CUSTOM_TYPE_NO_ASSERT(name, CMetaDataClassType)
 
 #define MD_CLASS_TYPE_DECLARE_BEGIN(name)					MD_CUSTOM_TYPE_DECLARE_BEGIN(name, CT, CMetaDataClassType)
 #define MD_CLASS_TYPE_DECLARE_DETAIL(name)					MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, CLASS_DESCRIPT_FOR_MD_SUPPORT)

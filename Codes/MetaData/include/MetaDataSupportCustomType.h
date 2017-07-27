@@ -14,6 +14,8 @@
 /****************************/
 #define META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id) \
 	(*reinterpret_cast<md_custom_type*>(AssertMetaData(TypeTraits<name>::GetMetaDataType(), md_custom_type_id)))
+#define META_DATA_CUSTOM_TYPE_NO_ASSERT(name, md_custom_type) \
+	(*reinterpret_cast<md_custom_type*>(TypeTraits<name>::GetMetaDataType()))
 
 #define MD_CUSTOM_TYPE_DECLARE_BEGIN(name, md_obj_pre_name, md_custom_type) \
 	public: \
