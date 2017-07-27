@@ -41,8 +41,8 @@ private: \
 	template<typename T> \
 	static bool __DoQueryInterface(T *pObj, char *pIntfName, IInterface **outIntf) \
 	{ \
-		CMetaDataClassType *pMDClassType(pObj->GetMetaData()); \
-		if (pMDClassType) \
-			return pMDClassType->QueryInterface(pObj, pIntfName, outIntf); \
+		CMetaDataType *pMDType(pObj->GetType()); \
+		if (pMDType) \
+			return pMDType->QueryInterface(pObj, pIntfName, outIntf); \
 		return false; \
 	}
