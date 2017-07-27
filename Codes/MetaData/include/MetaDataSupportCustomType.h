@@ -126,7 +126,7 @@
 #ifdef CO_MD_CUSTOM_TYPE_EXTRA
 #define __MD_CUSTOM_TYPE_MEMBER_EXTRA \
 	public: \
-		bool IsTypeOf(CMetaDataType *pType) \
+		bool IsTypeOf(const CMetaDataType *pType) \
 		{ \
 			return this->GetType()->IsTypeOf(pType); \
 		} \
@@ -135,7 +135,7 @@
 		{ \
 			return this->IsTypeOf(TypeTraits<T>::GetMetaDataType()); \
 		} \
-		void *AsType(CMetaDataType *pType) \
+		void *AsType(const CMetaDataType *pType) \
 		{ \
 			return this->GetType()->AsType(this->GetTrueSelf(), pType); \
 		} \
