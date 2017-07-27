@@ -36,7 +36,6 @@ VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPAC
 #include "IInterface.mdo"
 #include "IClone.mdo"
 #include "IContainer.mdo"
-#include "InterfacedObject.mdo"
 #include "SimpleString.mdo"
 
 ////////////////////////////////////////////////

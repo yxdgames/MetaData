@@ -28,17 +28,18 @@
 /***************************/
 /* Meta data of inner type */
 /***************************/
-#define META_DATA_INNER_TYPE(name)						(*reinterpret_cast<CMetaDataInnerType*>(TypeTraits<name>::GetMetaDataType()))
+#define META_DATA_INNER_TYPE(name) \
+	(*reinterpret_cast<CMetaDataInnerType*>(AssertMetaData(TypeTraits<name>::GetMetaDataType(), D_META_DATA_TYPE_ID_INNER_TYPE)))
 
 #include "MetaDataSupportCustomType.h"
 /**************************/
 /* Meta data of interface */
 /**************************/
-#define META_DATA_INTERFACE(name)						META_DATA_CUSTOM_TYPE(name, CMetaDataInterface)
+#define META_DATA_INTERFACE(name)						META_DATA_CUSTOM_TYPE(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE)
 
 #define MD_INTERFACE_DECLARE_BEGIN(name)				MD_CUSTOM_TYPE_DECLARE_BEGIN(name, Itf, CMetaDataInterface)
-#define MD_INTERFACE_DECLARE_DETAIL(name)				MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, CLASS_DESCRIPT_FOR_MD_SUPPORT)
-#define MD_INTERFACE_DECLARE_DETAIL_KERNEL(name)		MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, CLASS_DESCRIPT)
+#define MD_INTERFACE_DECLARE_DETAIL(name)				MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT_FOR_MD_SUPPORT)
+#define MD_INTERFACE_DECLARE_DETAIL_KERNEL(name)		MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT)
 
 				/*--添加接口元数据信息--*/
 #define MD_INTERFACE_INTERFACE_DEF(parent_intf_name)	MD_CUSTOM_TYPE_INTERFACE_DEF(parent_intf_name)
@@ -61,11 +62,11 @@
 /***************************/
 /* Meta data of class type */
 /***************************/
-#define META_DATA_CLASS_TYPE(name)							META_DATA_CUSTOM_TYPE(name, CMetaDataClassType)
+#define META_DATA_CLASS_TYPE(name)							META_DATA_CUSTOM_TYPE(name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE)
 
 #define MD_CLASS_TYPE_DECLARE_BEGIN(name)					MD_CUSTOM_TYPE_DECLARE_BEGIN(name, CT, CMetaDataClassType)
-#define MD_CLASS_TYPE_DECLARE_DETAIL(name)					MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType, CLASS_DESCRIPT_FOR_MD_SUPPORT)
-#define MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(name)			MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType, CLASS_DESCRIPT)
+#define MD_CLASS_TYPE_DECLARE_DETAIL(name)					MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, CLASS_DESCRIPT_FOR_MD_SUPPORT)
+#define MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(name)			MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, CLASS_DESCRIPT)
 
 				/*--添加基类元数据信息--*/
 #define MD_CLASS_TYPE_BASE_CLASS_DEF(base_class_name)		MD_CUSTOM_TYPE_BASE_CLASS_DEF(base_class_name)

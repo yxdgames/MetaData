@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -94,7 +94,7 @@
     <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h" />
     <ClInclude Include="..\Codes\MetaData\include\IInterface.h" />
-    <ClInclude Include="..\Codes\MetaData\include\InterfacedObject.h" />
+    <ClInclude Include="..\Codes\MetaData\include\IInterfaceDefaultImp.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomType.h" />
@@ -122,7 +122,6 @@
     <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\InterfacedObject.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataClassType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomType.cpp" />
@@ -157,7 +156,6 @@
     <None Include="..\Codes\MetaData\src\IClone.mdo" />
     <None Include="..\Codes\MetaData\src\IContainer.mdo" />
     <None Include="..\Codes\MetaData\src\IInterface.mdo" />
-    <None Include="..\Codes\MetaData\src\InterfacedObject.mdo" />
     <None Include="..\Codes\MetaData\src\SimpleString.mdo" />
     <None Include="..\Codes\src\ExtraMetaDataObjects.mdo" />
     <None Include="Source.def" />

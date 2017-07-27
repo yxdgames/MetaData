@@ -1,18 +1,16 @@
 #pragma once
 
 #include "ITreeSerial.h"
-#include "..\..\MetaData\include\InterfacedObject.h"
+#include "..\..\MetaData\include\IInterfaceDefaultImp.h"
 
-class CTreeSerial : public CInterfacedObject, public ITreeSerial
+class CTreeSerial : public ITreeSerial
 {
 public:
 	CTreeSerial(void);
 	virtual ~CTreeSerial(void);
 public:
-	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf)
-	{
-		return CInterfacedObject::DoQueryInterface(this, pIntfName, outIntf);
-	}
+	//IInterface
+	D_IMPLEMENT_IINTERFACE_MEMBER
 	//ISerial
 	//method
 	virtual bool SaveToStream(std::iostream &stream);

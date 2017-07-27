@@ -161,3 +161,10 @@ const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFul
 	}
 	return true;
 }
+
+CMetaData *AssertMetaData(CMetaData *pMetaData, unsigned char TypeID)
+{
+	if (pMetaData && pMetaData->GetTypeID() == TypeID)
+		return pMetaData;
+	else throw ExceptionMetaData(D_E_ID_MD_ERROR, "元数据的TypeID与指定的TypeID不符！");
+}

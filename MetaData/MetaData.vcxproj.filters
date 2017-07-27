@@ -63,9 +63,6 @@
     <ClInclude Include="..\Codes\MetaData\include\IInterface.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\InterfacedObject.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -126,6 +123,9 @@
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IInterfaceDefaultImp.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -153,9 +153,6 @@
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\InterfacedObject.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\MetaData.cpp">
@@ -212,9 +209,6 @@
       <Filter>Codes\MetaData\src</Filter>
     </None>
     <None Include="..\Codes\MetaData\src\IInterface.mdo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
-    <None Include="..\Codes\MetaData\src\InterfacedObject.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
     <None Include="..\Codes\MetaData\src\SimpleString.mdo">

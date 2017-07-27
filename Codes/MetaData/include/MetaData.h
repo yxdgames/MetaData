@@ -44,3 +44,5 @@ private:
 	CMetaData				*m_pParent;
 	std::vector<CMetaData*>	*m_pChildren;
 };
+
+extern FUNC_DESCRIPT CMetaData *AssertMetaData(CMetaData *pMetaData, unsigned char TypeID);

@@ -12,7 +12,8 @@
 /****************************/
 /* Meta data of custom type */
 /****************************/
-#define META_DATA_CUSTOM_TYPE(name, md_custom_type)			(*reinterpret_cast<md_custom_type*>(TypeTraits<name>::GetMetaDataType()))
+#define META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id) \
+	(*reinterpret_cast<md_custom_type*>(AssertMetaData(TypeTraits<name>::GetMetaDataType(), md_custom_type_id)))
 
 #define MD_CUSTOM_TYPE_DECLARE_BEGIN(name, md_obj_pre_name, md_custom_type) \
 	public: \
@@ -22,7 +23,7 @@
 		static md_custom_type _MD__##md_obj_pre_name##name; \
 		__MD_CUSTOM_TYPE_MEMBER_EXTRA
 
-#define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type, cls_descript) \
+#define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type, md_custom_type_id, cls_descript) \
 	private: \
 		static class cls_descript C_MD__CTM_DID##name \
 		{ \
@@ -31,18 +32,18 @@
 			{ \
 				char *pClsName(#name); \
 				char *pDsrName("~"#name); \
-				md_custom_type &MDType(META_DATA_CUSTOM_TYPE(name, md_custom_type)); \
+				md_custom_type &MDType(META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id)); \
 				name *pTemObj(reinterpret_cast<name*>(sizeof(int))); \
 				name *pTemObj2(reinterpret_cast<name*>(0)); \
 				CMetaDataFunction *pMDFunc;
 
 				/*--添加基类元数据信息--*/
 #define MD_CUSTOM_TYPE_BASE_CLASS_DEF(base_class_name) \
-	MDType.AddBaseType(&META_DATA_CUSTOM_TYPE(base_class_name, CMetaDataClassType), reinterpret_cast<unsigned int>(static_cast<base_class_name*>(pTemObj)) - sizeof(int));
+	MDType.AddBaseType(&META_DATA_CUSTOM_TYPE(base_class_name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE), reinterpret_cast<unsigned int>(static_cast<base_class_name*>(pTemObj)) - sizeof(int));
 
 				/*--添加接口元数据信息--*/
 #define MD_CUSTOM_TYPE_INTERFACE_DEF(intf_name) \
-	MDType.AddInterface(&META_DATA_CUSTOM_TYPE(intf_name, CMetaDataInterface), reinterpret_cast<unsigned int>(static_cast<intf_name*>(pTemObj)) - sizeof(int));
+	MDType.AddInterface(&META_DATA_CUSTOM_TYPE(intf_name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE), reinterpret_cast<unsigned int>(static_cast<intf_name*>(pTemObj)) - sizeof(int));
 
 				/*--添加构造函数元数据信息--*/
 #define MD_CUSTOM_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(index) \
