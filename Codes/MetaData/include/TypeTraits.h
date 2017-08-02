@@ -16,8 +16,8 @@ class TypeTraits
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)		{ return T::GetMetaData(); }
-	static CMetaDataType *GetMetaDataType(T *pObj)	{ return pObj ? pObj->GetType() : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)		{ return T::GetMetaData(); }
+	static const CMetaDataType *GetMetaDataType(T *pObj)	{ return pObj ? pObj->GetType() : nullptr; }
 public:
 	//type traits
 private:
@@ -31,8 +31,8 @@ class TypeTraits<char>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypechar; }
-	static CMetaDataType *GetMetaDataType(char *pObj)	{ return pObj ? &_MD__InnerTypechar : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypechar; }
+	static const CMetaDataType *GetMetaDataType(char *pObj)	{ return pObj ? &_MD__InnerTypechar : nullptr; }
 public:
 	//type traits
 private:
@@ -45,8 +45,8 @@ class TypeTraits<wchar_t>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypewchar_t; }
-	static CMetaDataType *GetMetaDataType(char *pObj)	{ return pObj ? &_MD__InnerTypewchar_t : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypewchar_t; }
+	static const CMetaDataType *GetMetaDataType(char *pObj)	{ return pObj ? &_MD__InnerTypewchar_t : nullptr; }
 public:
 	//type traits
 private:
@@ -59,8 +59,8 @@ class TypeTraits<short>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypeshort; }
-	static CMetaDataType *GetMetaDataType(short *pObj)	{ return pObj ? &_MD__InnerTypeshort : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypeshort; }
+	static const CMetaDataType *GetMetaDataType(short *pObj)	{ return pObj ? &_MD__InnerTypeshort : nullptr; }
 public:
 	//type traits
 private:
@@ -73,8 +73,8 @@ class TypeTraits<long>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypelong; }
-	static CMetaDataType *GetMetaDataType(long *pObj)	{ return pObj ? &_MD__InnerTypelong : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypelong; }
+	static const CMetaDataType *GetMetaDataType(long *pObj)	{ return pObj ? &_MD__InnerTypelong : nullptr; }
 public:
 	//type traits
 private:
@@ -87,8 +87,8 @@ class TypeTraits<int>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypeint; }
-	static CMetaDataType *GetMetaDataType(int *pObj)	{ return pObj ? &_MD__InnerTypeint : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypeint; }
+	static const CMetaDataType *GetMetaDataType(int *pObj)	{ return pObj ? &_MD__InnerTypeint : nullptr; }
 public:
 	//type traits
 private:
@@ -101,8 +101,8 @@ class TypeTraits<float>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypefloat; }
-	static CMetaDataType *GetMetaDataType(float *pObj)	{ return pObj ? &_MD__InnerTypefloat : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypefloat; }
+	static const CMetaDataType *GetMetaDataType(float *pObj)	{ return pObj ? &_MD__InnerTypefloat : nullptr; }
 public:
 	//type traits
 private:
@@ -115,8 +115,8 @@ class TypeTraits<double>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypedouble; }
-	static CMetaDataType *GetMetaDataType(double *pObj)	{ return pObj ? &_MD__InnerTypedouble : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypedouble; }
+	static const CMetaDataType *GetMetaDataType(double *pObj)	{ return pObj ? &_MD__InnerTypedouble : nullptr; }
 public:
 	//type traits
 private:
@@ -129,8 +129,8 @@ class TypeTraits<unsigned char>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedchar; }
-	static CMetaDataType *GetMetaDataType(unsigned char *pObj)	{ return pObj ? &_MD__InnerTypeunsignedchar : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedchar; }
+	static const CMetaDataType *GetMetaDataType(unsigned char *pObj)	{ return pObj ? &_MD__InnerTypeunsignedchar : nullptr; }
 public:
 	//type traits
 private:
@@ -143,8 +143,8 @@ class TypeTraits<unsigned short>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedshort; }
-	static CMetaDataType *GetMetaDataType(unsigned short *pObj)	{ return pObj ? &_MD__InnerTypeunsignedshort : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedshort; }
+	static const CMetaDataType *GetMetaDataType(unsigned short *pObj)	{ return pObj ? &_MD__InnerTypeunsignedshort : nullptr; }
 public:
 	//type traits
 private:
@@ -157,8 +157,8 @@ class TypeTraits<unsigned long>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedlong; }
-	static CMetaDataType *GetMetaDataType(unsigned long *pObj)	{ return pObj ? &_MD__InnerTypeunsignedlong : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedlong; }
+	static const CMetaDataType *GetMetaDataType(unsigned long *pObj)	{ return pObj ? &_MD__InnerTypeunsignedlong : nullptr; }
 public:
 	//type traits
 private:
@@ -171,8 +171,8 @@ class TypeTraits<unsigned int>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedint; }
-	static CMetaDataType *GetMetaDataType(unsigned int *pObj)	{ return pObj ? &_MD__InnerTypeunsignedint : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)					{ return &_MD__InnerTypeunsignedint; }
+	static const CMetaDataType *GetMetaDataType(unsigned int *pObj)	{ return pObj ? &_MD__InnerTypeunsignedint : nullptr; }
 public:
 	//type traits
 private:
@@ -185,8 +185,8 @@ class TypeTraits<bool>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypebool; }
-	static CMetaDataType *GetMetaDataType(bool *pObj)	{ return pObj ? &_MD__InnerTypebool : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypebool; }
+	static const CMetaDataType *GetMetaDataType(bool *pObj)	{ return pObj ? &_MD__InnerTypebool : nullptr; }
 public:
 	//type traits
 private:
@@ -199,8 +199,8 @@ class TypeTraits<void*>
 {
 public:
 	//method
-	static CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypePtr; }
-	static CMetaDataType *GetMetaDataType(void **pObj)	{ return pObj ? &_MD__InnerTypePtr : nullptr; }
+	static const CMetaDataType *GetMetaDataType(void)			{ return &_MD__InnerTypePtr; }
+	static const CMetaDataType *GetMetaDataType(void **pObj)	{ return pObj ? &_MD__InnerTypePtr : nullptr; }
 public:
 	//type traits
 private:

@@ -5,7 +5,7 @@
 class CLASS_DESCRIPT CMetaDataInnerType : public CMetaDataType
 {
 public:
-	CMetaDataInnerType(char *pName, CMetaData *pParent, unsigned int size);
+	CMetaDataInnerType(const char *pName, const CMetaData *pParent, unsigned int size);
 	virtual ~CMetaDataInnerType(void);
 public:
 	//attribute

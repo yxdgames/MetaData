@@ -3,7 +3,7 @@
 #include "..\include\MetaDataInterface.h"
 #include "..\include\ExceptionIDMetaData.h"
 
-CMetaDataCustomType::CMetaDataCustomType(char *pName, CMetaData *pParent, unsigned int size,
+CMetaDataCustomType::CMetaDataCustomType(const char *pName, const CMetaData *pParent, unsigned int size,
 										 bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar)
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
@@ -53,7 +53,7 @@ CMetaDataCustomType::~CMetaDataCustomType(void)
 	}
 }
 
-void CMetaDataCustomType::AddBaseType(CMetaDataCustomType *pBaseType, unsigned int Offset)
+void CMetaDataCustomType::AddBaseType(const CMetaDataCustomType *pBaseType, unsigned int Offset)
 {
 	std::vector<SMetaDataCustomTypeBaseType> *pBaseTypeList(GetBaseTypeList());
 	if (pBaseTypeList)
@@ -65,7 +65,7 @@ void CMetaDataCustomType::AddBaseType(CMetaDataCustomType *pBaseType, unsigned i
 	}
 }
 
-void CMetaDataCustomType::AddInterface(CMetaDataInterface *pIntf, unsigned int Offset)
+void CMetaDataCustomType::AddInterface(const CMetaDataInterface *pIntf, unsigned int Offset)
 {
 	std::vector<SMetaDataCustomTypeInterface> *pIntfList(GetInterfaceList());
 	if (pIntfList)
@@ -77,61 +77,61 @@ void CMetaDataCustomType::AddInterface(CMetaDataInterface *pIntf, unsigned int O
 	}
 }
 
-void CMetaDataCustomType::AddConstructor(CMetaDataFunction *pConstructorFunc)
+void CMetaDataCustomType::AddConstructor(const CMetaDataFunction *pConstructorFunc)
 {
-	std::vector<CMetaDataFunction*> *pConsList(GetConstructorList());
+	std::vector<const CMetaDataFunction*> *pConsList(GetConstructorList());
 	if (pConsList)
 	{
 		pConsList->push_back(pConstructorFunc);
 	}
 }
 
-void CMetaDataCustomType::SetDestructor(CMetaDataFunction *pDestructor)
+void CMetaDataCustomType::SetDestructor(const CMetaDataFunction *pDestructor)
 {
 	m_pDestructor = pDestructor;
 }
 
-void CMetaDataCustomType::AddMemberFunc(CMetaDataFunction *pMFunc)
+void CMetaDataCustomType::AddMemberFunc(const CMetaDataFunction *pMFunc)
 {
-	std::vector<CMetaDataFunction*> *pMFuncList(GetMemberFuncList());
+	std::vector<const CMetaDataFunction*> *pMFuncList(GetMemberFuncList());
 	if (pMFuncList)
 	{
 		pMFuncList->push_back(pMFunc);
 	}
 }
 
-void CMetaDataCustomType::AddMemberVar(CMetaDataCustomTypeMemberVar *pMVar)
+void CMetaDataCustomType::AddMemberVar(const CMetaDataCustomTypeMemberVar *pMVar)
 {
-	std::vector<CMetaDataCustomTypeMemberVar*> *pMVarList(GetMemberVarList());
+	std::vector<const CMetaDataCustomTypeMemberVar*> *pMVarList(GetMemberVarList());
 	if (pMVarList)
 	{
 		pMVarList->push_back(pMVar);
 	}
 }
 
-void CMetaDataCustomType::AddStaticMemberFunc(CMetaDataFunction *pMFunc)
+void CMetaDataCustomType::AddStaticMemberFunc(const CMetaDataFunction *pMFunc)
 {
-	std::vector<CMetaDataFunction*> *pMFuncList(GetStaticMemberFuncList());
+	std::vector<const CMetaDataFunction*> *pMFuncList(GetStaticMemberFuncList());
 	if (pMFuncList)
 	{
 		pMFuncList->push_back(pMFunc);
 	}
 }
 
-void CMetaDataCustomType::AddStaticMemberVar(CMetaDataVariable *pMVar)
+void CMetaDataCustomType::AddStaticMemberVar(const CMetaDataVariable *pMVar)
 {
-	std::vector<CMetaDataVariable*> *pMVarList(GetStaticMemberVarList());
+	std::vector<const CMetaDataVariable*> *pMVarList(GetStaticMemberVarList());
 	if (pMVarList)
 	{
 		pMVarList->push_back(pMVar);
 	}
 }
 
-bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj)
+bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj) const
 {
 	if (!pObj || !pBaseTypeName || !outObj) return false;
 
-	std::vector<SMetaDataCustomTypeBaseType> *pBaseTypeList(GetBaseTypeList());
+	std::vector<SMetaDataCustomTypeBaseType> *pBaseTypeList(m_pBaseTypeList);
 	std::vector<SMetaDataCustomTypeBaseType>::iterator itr;
 	char FullNameBuffer[256];
 	
@@ -149,12 +149,12 @@ bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **
 	return false;
 }
 
-bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ...)
+bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ...) const
 {
 	if (!m_pMemberFuncList) return false;
 
 	bool ret;
-	CMetaDataFunction *pFunc(nullptr);
+	const CMetaDataFunction *pFunc(nullptr);
 	va_list pList;
 	
 	for (size_t i = 0; i < m_pMemberFuncList->size(); ++i)
@@ -181,12 +181,12 @@ bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ..
 	return ret;
 }
 
-bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_count, ...)
+bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_count, ...) const
 {
 	if (!m_pStaticMemberFuncList) return false;
 
 	bool ret;
-	CMetaDataFunction *pFunc(nullptr);
+	const CMetaDataFunction *pFunc(nullptr);
 	va_list pList;
 
 	for (size_t i = 0; i < m_pStaticMemberFuncList->size(); ++i)
@@ -271,7 +271,7 @@ bool CMetaDataCustomType::QueryInterface(void *pObj, char *pIntfName, IInterface
 {
 	if (!pObj || !pIntfName || !outIntf) return false;
 
-	std::vector<SMetaDataCustomTypeInterface> *pIntfList(const_cast<CMetaDataCustomType*>(this)->GetInterfaceList());
+	std::vector<SMetaDataCustomTypeInterface> *pIntfList(m_pInterfaceList);
 	std::vector<SMetaDataCustomTypeInterface>::iterator itr;
 	char FullNameBuffer[256];
 	
@@ -366,7 +366,7 @@ void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pLi
 
 	if (!m_pConstructorList || !pList) return pReturn;
 	
-	std::vector<CMetaDataFunction*>::iterator itr;
+	std::vector<const CMetaDataFunction*>::iterator itr;
 	
 	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
 	{
@@ -395,7 +395,7 @@ void *CMetaDataCustomType::DoCreateObject(void) const
 
 	if (!m_pConstructorList) return pReturn;
 	
-	std::vector<CMetaDataFunction*>::iterator itr;
+	std::vector<const CMetaDataFunction*>::iterator itr;
 	
 	for (itr = m_pConstructorList->begin(); itr != m_pConstructorList->end(); ++itr)
 	{

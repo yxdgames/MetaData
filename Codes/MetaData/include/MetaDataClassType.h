@@ -5,7 +5,7 @@
 class CLASS_DESCRIPT CMetaDataClassType : public CMetaDataCustomType
 {
 public:
-	CMetaDataClassType(char *pName, CMetaData *pParent, unsigned int size);
+	CMetaDataClassType(const char *pName, const CMetaData *pParent, unsigned int size);
 	virtual ~CMetaDataClassType(void);
 public:
 	//attribute

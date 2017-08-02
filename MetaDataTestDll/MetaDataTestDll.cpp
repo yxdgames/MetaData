@@ -5,7 +5,7 @@
 
 #include "..\Codes\MetaData\include\MetaDataObjects.h"
 
-extern "C" void * __stdcall GetMetaDataGlobalSpace(void)
+extern "C" const void * __stdcall GetMetaDataGlobalSpace(void)
 {
 	return _MD__GLOBALSPACE__GetMetaData();
 }

@@ -2,7 +2,7 @@
 #include "..\include\MetaDataClassType.h"
 
 
-CMetaDataClassType::CMetaDataClassType(char *pName, CMetaData *pParent, unsigned int size)
+CMetaDataClassType::CMetaDataClassType(const char *pName, const CMetaData *pParent, unsigned int size)
 	:CMetaDataCustomType(pName, pParent, size, true, false, true, true)
 {
 }

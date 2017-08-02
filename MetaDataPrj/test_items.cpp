@@ -232,14 +232,14 @@ void test_item_unserial_xml(char *pFileName)
 void test_item_metadata_function_call(void)
 {
 	const CMetaData *pMD;
-	CMetaDataClassType *pClsType;
+	const CMetaDataClassType *pClsType;
 	const CMetaDataFunction *pTmpFunc;
 	CMetaDataFunction *pFunc;
 	
 	pMD = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "::CClass1");
 	if (!pMD) return;
 	
-	pClsType = const_cast<CMetaDataClassType*>(reinterpret_cast<const CMetaDataClassType*>(pMD));
+	pClsType = reinterpret_cast<const CMetaDataClassType*>(pMD);
 	void *pObj(pClsType->CreateObject<CClass1>());
 
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func1"));
@@ -287,7 +287,7 @@ void test_item_metadata_function_call(void)
 		printf(" ret: %f\n\n", ret);
 	}
 
-	std::vector<CMetaData*> vec_metadata;
+	std::vector<const CMetaData*> vec_metadata;
 	if (pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "CClass1::cls1_static_func1", vec_metadata))
 	{
 		for (unsigned int i = 0; i < vec_metadata.size(); ++i)

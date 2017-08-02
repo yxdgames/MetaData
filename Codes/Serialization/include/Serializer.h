@@ -21,17 +21,17 @@ public:
 protected:
 	//ISerializer
 	//method
-	virtual bool DoSerialize(CMetaDataType *pType, void *pObj, const char *pName);
-	virtual bool DoUnserialize(CMetaDataType *pType, void *pObj, const char *pName);
+	virtual bool DoSerialize(const CMetaDataType *pType, void *pObj, const char *pName);
+	virtual bool DoUnserialize(const CMetaDataType *pType, void *pObj, const char *pName);
 private:
-	bool SerializeCustomTypeWrapper(CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity, unsigned int EntTag);
-	bool SerializeCustomType(CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity, unsigned int EntTag);
-	bool SerializeInnerType(CMetaDataInnerType *pType, void *pObj, ISerialEntity *pSEntity);
-	bool UnserializeCustomTypeWrapper(ISerialEntity *pSEntity, CMetaDataCustomType *pType, void *pObj, unsigned int EntTag);
-	bool UnserializeCustomType(ISerialEntity *pSEntity, CMetaDataCustomType *pType, void *pObj, unsigned int EntTag);
-	bool UnserializeInnerType(ISerialEntity *pSEntity, CMetaDataInnerType *pType, void *pObj);
+	bool SerializeCustomTypeWrapper(const CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity, unsigned int EntTag);
+	bool SerializeCustomType(const CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity, unsigned int EntTag);
+	bool SerializeInnerType(const CMetaDataInnerType *pType, void *pObj, ISerialEntity *pSEntity);
+	bool UnserializeCustomTypeWrapper(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj, unsigned int EntTag);
+	bool UnserializeCustomType(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj, unsigned int EntTag);
+	bool UnserializeInnerType(ISerialEntity *pSEntity, const CMetaDataInnerType *pType, void *pObj);
 	
-	void *NewObject(CMetaDataType *pType);
+	void *NewObject(const CMetaDataType *pType);
 private:
 	ITreeSerial				*m_pTreeSerial;
 };

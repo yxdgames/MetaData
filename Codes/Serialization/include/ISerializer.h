@@ -29,8 +29,8 @@ public:
 	virtual void SetSerial(ISerial *pSerial) = 0;
 protected:
 	//method
-	virtual bool DoSerialize(CMetaDataType *pType, void *pObj, const char *pName) = 0;
-	virtual bool DoUnserialize(CMetaDataType *pType, void *pObj, const char *pName) = 0;
+	virtual bool DoSerialize(const CMetaDataType *pType, void *pObj, const char *pName) = 0;
+	virtual bool DoUnserialize(const CMetaDataType *pType, void *pObj, const char *pName) = 0;
 
 public:
 	static ISerializer *CreateSerializerIntf(void);

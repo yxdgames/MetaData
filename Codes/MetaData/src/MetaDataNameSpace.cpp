@@ -2,7 +2,7 @@
 #include "..\include\MetaDataNameSpace.h"
 
 
-CMetaDataNameSpace::CMetaDataNameSpace(char *pName, CMetaData *pParent)
+CMetaDataNameSpace::CMetaDataNameSpace(const char *pName, const CMetaData *pParent)
 	:CMetaData(pName, pParent, true)
 {
 }

@@ -15,14 +15,14 @@
 /* Meta data of name space */
 /***************************/
 #define MD_NAME_SPACE_DEF(name) \
-	CMetaDataNameSpace name::_MD__NS##name(#name, &META_DATA_GLOBALSPACE()); \
-	CMetaDataNameSpace *name::_MD__NS__GetMetaData(void) \
+	const CMetaDataNameSpace name::_MD__NS##name(#name, &META_DATA_GLOBALSPACE()); \
+	const CMetaDataNameSpace *name::_MD__NS__GetMetaData(void) \
 	{ \
 		return &_MD__NS##name; \
 	}
 #define MD_NAME_SPACE_INNER_DEF(name, out_ns) \
-	CMetaDataNameSpace out_ns::name::_MD__NS##name(#name, &META_DATA_NAME_SPACE(out_ns)); \
-	CMetaDataNameSpace *out_ns::name::_MD__NS__GetMetaData(void) \
+	const CMetaDataNameSpace out_ns::name::_MD__NS##name(#name, &META_DATA_NAME_SPACE(out_ns)); \
+	const CMetaDataNameSpace *out_ns::name::_MD__NS__GetMetaData(void) \
 	{ \
 		return &_MD__NS##name; \
 	}
@@ -30,20 +30,20 @@
 /***************************/
 /* Meta data of inner type */
 /***************************/
-#define MD_INNER_TYPE_DEF(name)						VAR_DESCRIPT CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name));
-#define MD_INNER_TYPE_2_DEF(name1, name2)			VAR_DESCRIPT CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_GLOBALSPACE(), sizeof(name1 name2));
+#define MD_INNER_TYPE_DEF(name)						VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name));
+#define MD_INNER_TYPE_2_DEF(name1, name2)			VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_GLOBALSPACE(), sizeof(name1 name2));
 
 /****************************/
 /* Meta data of custom type */
 /****************************/
 //无嵌套
 #define MD_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type) \
-	md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name)); \
+	const md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name)); \
 	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
 
 //嵌套用(命名空间内部)
 #define MD_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name) \
-	md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \
+	const md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \
 	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
 
 //析构函数封装
@@ -102,7 +102,7 @@
 
 //嵌套用(类内部)
 #define MD_CLASS_TYPE_IN_CLS_DEF(name, outer_name) \
-	CMetaDataClassType outer_name::name::_MD__CT##name(#name, &META_DATA_CLASS_TYPE(outer_name), sizeof(name)); \
+	const CMetaDataClassType outer_name::name::_MD__CT##name(#name, &META_DATA_CLASS_TYPE(outer_name), sizeof(name)); \
 	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
 
 //嵌套用(命名空间内部)
@@ -154,7 +154,7 @@
 /*************************/
 /* Meta data of variable */
 /*************************/
-#define MD_GLOBAL_VARIABLE_DEF(name, parent, type, ptr_level)		CMetaDataVariable _MD__V##name(#name, &(parent), TypeTraits<type>::GetMetaDataType(), (ptr_level), &(name));
+#define MD_GLOBAL_VARIABLE_DEF(name, parent, type, ptr_level)		const CMetaDataVariable _MD__V##name(#name, &(parent), TypeTraits<type>::GetMetaDataType(), (ptr_level), &(name));
 
 /*************************/
 /* Meta data of function */
@@ -165,7 +165,7 @@
 	private: \
 		_MD__CLS_FOR_GFUN_##name(void) \
 		{ \
-			CMetaDataFunction *pMDFunction(&_MD__F##name);
+			CMetaDataFunction *pMDFunction(const_cast<CMetaDataFunction*>(&_MD__F##name));
 
 #define MD_GLOBAL_FUNCTION_DEF_DETAIL(name) \
 		} \
@@ -184,7 +184,7 @@
 #define MD_GLOBAL_FUNCTION_DEF_END(name) \
 		return ret_val; \
 	} \
-	CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), _MD__FWRAPPER##name); \
+	const CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), _MD__FWRAPPER##name); \
 	_MD__CLS_FOR_GFUN_##name _MD__CLS_FOR_GFUN_##name::m_SingleInstance;
 
 /*********************************************/

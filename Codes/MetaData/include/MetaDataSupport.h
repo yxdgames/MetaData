@@ -22,14 +22,14 @@
 #define META_DATA_NAME_SPACE(name)						(*(name::_MD__NS__GetMetaData()))
 
 #define MD_NAME_SPACE_DECLARE(name) \
-	extern CMetaDataNameSpace _MD__NS##name; \
-	extern CMetaDataNameSpace *_MD__NS__GetMetaData(void);
+	extern const CMetaDataNameSpace _MD__NS##name; \
+	extern const CMetaDataNameSpace *_MD__NS__GetMetaData(void);
 
 /***************************/
 /* Meta data of inner type */
 /***************************/
 #define META_DATA_INNER_TYPE(name) \
-	(*reinterpret_cast<CMetaDataInnerType*>(AssertMetaData(TypeTraits<name>::GetMetaDataType(), D_META_DATA_TYPE_ID_INNER_TYPE)))
+	(*reinterpret_cast<const CMetaDataInnerType*>(AssertMetaData(TypeTraits<name>::GetMetaDataType(), D_META_DATA_TYPE_ID_INNER_TYPE)))
 
 #include "MetaDataSupportCustomType.h"
 /**************************/
@@ -121,11 +121,11 @@
 /*************************/
 #define META_DATA_GLOBAL_VARIABLE(name)				(_MD__V##name)
 
-#define MD_GLOBAL_VARIABLE_DECLARE(name)			extern CMetaDataVariable _MD__V##name;
+#define MD_GLOBAL_VARIABLE_DECLARE(name)			extern const CMetaDataVariable _MD__V##name;
 
 /*************************/
 /* Meta data of function */
 /*************************/
 #define META_DATA_GLOBAL_FUNCTION(name)				(_MD__F##name)
 
-#define MD_GLOBAL_FUNCTION_DECLARE(name)			extern CMetaDataFunction _MD__F##name;
+#define MD_GLOBAL_FUNCTION_DECLARE(name)			extern const CMetaDataFunction _MD__F##name;

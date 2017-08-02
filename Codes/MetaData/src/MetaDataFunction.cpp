@@ -10,7 +10,7 @@
 #define MD_FUNC_VA_INTSIZEOF(n)   ( ((n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )
 
 //变参函数里的参数size.
-static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
+static int SizeInVarParamFunc(const CMetaDataType *pMDType, void *pData, void **pBuff)
 {	
 	if (!pMDType) return 0;
 
@@ -71,7 +71,7 @@ static int SizeInVarParamFunc(CMetaDataType *pMDType, void *pData, void **pBuff)
 	}
 }
 
-static void SizeInVarParamFuncFree(CMetaDataType *pMDType, void **pBuff)
+static void SizeInVarParamFuncFree(const CMetaDataType *pMDType, void **pBuff)
 {
 	if (!pMDType) return;
 
@@ -121,7 +121,7 @@ static void SizeInVarParamFuncFree(CMetaDataType *pMDType, void **pBuff)
 	}
 }
 
-CMetaDataFunction::CMetaDataFunction(char *pName, CMetaData *pParent, void *pFunction)
+CMetaDataFunction::CMetaDataFunction(const char *pName, const CMetaData *pParent, void *pFunction)
 	:CMetaData(pName, pParent, true), m_pFunction(pFunction), m_pParamTable(nullptr), m_pReturnInfo(nullptr)
 {
 }
@@ -141,7 +141,7 @@ CMetaDataFunction::~CMetaDataFunction(void)
 	}
 }
 
-void CMetaDataFunction::AddParamInfo(CMetaDataVarBase *pParam)
+void CMetaDataFunction::AddParamInfo(const CMetaDataVarBase *pParam)
 {
 	if (pParam && pParam->GetMDType())
 	{
@@ -150,14 +150,14 @@ void CMetaDataFunction::AddParamInfo(CMetaDataVarBase *pParam)
 	}
 }
 
-void CMetaDataFunction::SetReturnInfo(CMetaDataVarBase *pRet)
+void CMetaDataFunction::SetReturnInfo(const CMetaDataVarBase *pRet)
 {
 	if (m_pReturnInfo)
 		delete m_pReturnInfo;
 	m_pReturnInfo = pRet;
 }
 
-bool CMetaDataFunction::FuncParamsCheck(CParamVector *pParamTypes)
+bool CMetaDataFunction::FuncParamsCheck(CParamVector *pParamTypes) const
 {
 	if (!m_pParamTable)
 	{
@@ -182,7 +182,7 @@ bool CMetaDataFunction::FuncParamsCheck(CParamVector *pParamTypes)
 	return itr_func == m_pParamTable->end() && itr_in == pParamTypes->end();
 }
 
-bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pReturn)
+bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pReturn) const
 {
 	if (!m_pFunction) return false;
 	SMetaDataCalledFunctionDataPacket Packet = { param_count, pParam, pReturn };
@@ -190,7 +190,7 @@ bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pRetu
 	return pFunc(Packet);
 }
 
-bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList)
+bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList) const
 {
 	if (!m_pFunction || (!m_pParamTable && param_count != 0) || (m_pParamTable && param_count != m_pParamTable->size())) return false;
 
@@ -276,7 +276,7 @@ bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList)
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(int param_count, ...)
+bool CMetaDataFunction::CallFunction(int param_count, ...) const
 {
 	bool ret;
 	va_list pList;
@@ -294,7 +294,7 @@ bool CMetaDataFunction::CallFunction(int param_count, ...)
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn)
+bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn) const
 {
 	if (!m_pFunction || (!m_pParamTable && (pParamTypes) && pParamTypes->size()!= 0)
 		|| (m_pParamTable && pParamTypes && m_pParamTable->size() != pParamTypes->size())
@@ -407,7 +407,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...)
+bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
 {
 	bool ret;
 	va_list pList;

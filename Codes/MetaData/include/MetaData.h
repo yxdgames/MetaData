@@ -21,12 +21,12 @@
 class CLASS_DESCRIPT CMetaData
 {
 public:
-	CMetaData(char *pName, CMetaData *pParent, bool bChildren);
+	CMetaData(const char *pName, const CMetaData *pParent, bool bChildren);
 	virtual ~CMetaData(void);
 public:
 	//method
 	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName) const;
-	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children) const;
+	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const;
 public:
 	//attribute
 	const char *GetName(void) const							{ return m_pName; }
@@ -38,11 +38,11 @@ public:
 private:
 	void InsertSelfToParent(void);
 	void RemoveSelfFromParent(void);
-	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children, bool bClear) const;
+	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children, bool bClear) const;
 private:
-	char					*m_pName;
-	CMetaData				*m_pParent;
-	std::vector<CMetaData*>	*m_pChildren;
+	const char						*m_pName;
+	const CMetaData					*m_pParent;
+	std::vector<const CMetaData*>	*m_pChildren;
 };
 
-extern FUNC_DESCRIPT CMetaData *AssertMetaData(CMetaData *pMetaData, unsigned char TypeID);
+extern FUNC_DESCRIPT const CMetaData *AssertMetaData(const CMetaData *pMetaData, unsigned char TypeID);

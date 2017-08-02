@@ -20,8 +20,8 @@ static const char *gMetaDataTypeCaption[] = {
 	"Function",
 };
 
-CMetaData::CMetaData(char *pName, CMetaData *pParent, bool bChildren)
-	:m_pName(pName), m_pParent(pParent), m_pChildren(bChildren ? (new std::vector<CMetaData*>) : nullptr)
+CMetaData::CMetaData(const char *pName, const CMetaData *pParent, bool bChildren)
+	:m_pName(pName), m_pParent(pParent), m_pChildren(bChildren ? (new std::vector<const CMetaData*>) : nullptr)
 {
 	InsertSelfToParent();
 }
@@ -42,7 +42,7 @@ const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char
 	if (!m_pChildren) return nullptr;
 	static char FullNameBuffer[256];
 	const CMetaData *pMD;
-	std::vector<CMetaData*>::iterator itr;
+	std::vector<const CMetaData*>::iterator itr;
 	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
 		if ((*itr)->GetFullName(FullNameBuffer, 256))
@@ -57,7 +57,7 @@ const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char
 	return nullptr;
 }
 
-const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children) const
+const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const
 {
 	return FindChildMetaData(MetaDataTypeID, pFullName, Children, true);
 }
@@ -72,7 +72,7 @@ bool CMetaData::GetFullName(char *pFullNameBuffer, unsigned int BufferSize) cons
 	unsigned int Char_BufferSize(BufferSize - 1 * sizeof(char));
 	char *pReBuffer((char*)((unsigned int)pFullNameBuffer + Char_BufferSize));
 
-	CMetaData *pParent(m_pParent);
+	const CMetaData *pParent(m_pParent);
 	const char *pName;
 	unsigned int total_size;
 	unsigned int cur_len;
@@ -131,7 +131,7 @@ void CMetaData::RemoveSelfFromParent(void)
 {
 	if (m_pParent && m_pParent->m_pChildren)
 	{
-		std::vector<CMetaData*>::iterator itr;
+		std::vector<const CMetaData*>::iterator itr;
 		for (itr = m_pParent->m_pChildren->begin(); itr != m_pParent->m_pChildren->end(); ++itr)
 		{
 			if ((*itr) == this)
@@ -143,12 +143,12 @@ void CMetaData::RemoveSelfFromParent(void)
 	}
 }
 
-const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<CMetaData*> &Children, bool bClear) const
+const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children, bool bClear) const
 {
 	if (bClear) Children.clear();
 	if (!m_pChildren) return false;
 	static char FullNameBuffer[256];
-	std::vector<CMetaData*>::iterator itr;
+	std::vector<const CMetaData*>::iterator itr;
 	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
 		if ((*itr)->GetFullName(FullNameBuffer, 256))
@@ -162,7 +162,7 @@ const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFul
 	return true;
 }
 
-CMetaData *AssertMetaData(CMetaData *pMetaData, unsigned char TypeID)
+const CMetaData *AssertMetaData(const CMetaData *pMetaData, unsigned char TypeID)
 {
 	if (pMetaData && pMetaData->GetTypeID() == TypeID)
 		return pMetaData;

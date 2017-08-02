@@ -16,7 +16,7 @@ public:
 	virtual unsigned int Count(void) = 0;
 	virtual void *GetItem(unsigned int index) = 0;
 public:
-	virtual CMetaDataType *GetItemType(void) = 0;
+	virtual const CMetaDataType *GetItemType(void) = 0;
 
 /*Meta Data Definition*/
 MD_INTERFACE_DECLARE_BEGIN(IContainer)

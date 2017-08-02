@@ -7,8 +7,8 @@
 //             System Meta Data               //
 ////////////////////////////////////////////////
 //全局空间元数据 -- 唯一
-static CMetaDataGlobalSpace _MD__GlobalSpace;
-FUNC_DESCRIPT CMetaDataGlobalSpace * _MD__GLOBALSPACE__GetMetaData(void)
+static const CMetaDataGlobalSpace _MD__GlobalSpace;
+FUNC_DESCRIPT const CMetaDataGlobalSpace * _MD__GLOBALSPACE__GetMetaData(void)
 {
 	return &_MD__GlobalSpace;
 }
@@ -30,7 +30,7 @@ MD_INNER_TYPE_2_DEF(unsigned, char)
 MD_INNER_TYPE_2_DEF(unsigned, short)
 MD_INNER_TYPE_2_DEF(unsigned, long)
 MD_INNER_TYPE_2_DEF(unsigned, int)
-VAR_DESCRIPT CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPACE(), sizeof(void*));
+VAR_DESCRIPT const CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPACE(), sizeof(void*));
 
 //系统扩充类型元数据
 #include "IInterface.mdo"

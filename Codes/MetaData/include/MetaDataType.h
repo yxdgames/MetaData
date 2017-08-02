@@ -7,7 +7,7 @@ class IInterface;
 class CLASS_DESCRIPT CMetaDataType : public CMetaData
 {
 public:
-	CMetaDataType(char *pName, CMetaData *pParent, bool bChildren, unsigned int size);
+	CMetaDataType(const char *pName, const CMetaData *pParent, bool bChildren, unsigned int size);
 	virtual ~CMetaDataType(void);
 public:
 	//method

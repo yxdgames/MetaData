@@ -3,7 +3,7 @@
 #include "..\include\IClone.h"
 
 
-CMetaDataVariable::CMetaDataVariable(char *pName, CMetaData *pParent, CMetaDataType *pType, int PtrLevel, void *pVar)
+CMetaDataVariable::CMetaDataVariable(const char *pName, const CMetaData *pParent, const CMetaDataType *pType, int PtrLevel, void *pVar)
 	:CMetaDataVarBase(pName, pParent, pType, PtrLevel), m_pVar(pVar)
 {
 }
@@ -13,7 +13,7 @@ CMetaDataVariable::~CMetaDataVariable(void)
 {
 }
 
-void CMetaDataVariable::Output(void *pOutputAddr)
+void CMetaDataVariable::Output(void *pOutputAddr) const
 {
 	if (!pOutputAddr || !m_pVar || !GetMDType())
 	{

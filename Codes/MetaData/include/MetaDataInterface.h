@@ -5,7 +5,7 @@
 class CLASS_DESCRIPT CMetaDataInterface : public CMetaDataCustomType
 {
 public:
-	CMetaDataInterface(char *pName, CMetaData *pParent, unsigned int size);
+	CMetaDataInterface(const char *pName, const CMetaData *pParent, unsigned int size);
 	virtual ~CMetaDataInterface(void);
 public:
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_INTERFACE; }

@@ -13,16 +13,16 @@
 /* Meta data of custom type */
 /****************************/
 #define META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id) \
-	(*reinterpret_cast<md_custom_type*>(AssertMetaData(TypeTraits<name>::GetMetaDataType(), md_custom_type_id)))
+	(*reinterpret_cast<const md_custom_type*>(AssertMetaData(TypeTraits<name>::GetMetaDataType(), md_custom_type_id)))
 #define META_DATA_CUSTOM_TYPE_NO_ASSERT(name, md_custom_type) \
-	(*reinterpret_cast<md_custom_type*>(TypeTraits<name>::GetMetaDataType()))
+	(*reinterpret_cast<const md_custom_type*>(TypeTraits<name>::GetMetaDataType()))
 
 #define MD_CUSTOM_TYPE_DECLARE_BEGIN(name, md_obj_pre_name, md_custom_type) \
 	public: \
-		virtual CMetaDataType *GetType(void)			{ return &_MD__##md_obj_pre_name##name; } \
-		static md_custom_type *GetMetaData(void)	{ return &_MD__##md_obj_pre_name##name; } \
+		virtual const CMetaDataType *GetType(void)			{ return &_MD__##md_obj_pre_name##name; } \
+		static const md_custom_type *GetMetaData(void)		{ return &_MD__##md_obj_pre_name##name; } \
 	private: \
-		static md_custom_type _MD__##md_obj_pre_name##name; \
+		static const md_custom_type _MD__##md_obj_pre_name##name; \
 		__MD_CUSTOM_TYPE_MEMBER_EXTRA
 
 #define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type, md_custom_type_id, cls_descript) \
@@ -34,7 +34,7 @@
 			{ \
 				char *pClsName(#name); \
 				char *pDsrName("~"#name); \
-				md_custom_type &MDType(META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id)); \
+				md_custom_type &MDType(*const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
 				name *pTemObj(reinterpret_cast<name*>(sizeof(int))); \
 				name *pTemObj2(reinterpret_cast<name*>(0)); \
 				CMetaDataFunction *pMDFunc;

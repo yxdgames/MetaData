@@ -5,7 +5,7 @@
 class CLASS_DESCRIPT CMetaDataNameSpace : public CMetaData
 {
 public:
-	CMetaDataNameSpace(char *pName, CMetaData *pParent);
+	CMetaDataNameSpace(const char *pName, const CMetaData *pParent);
 	virtual ~CMetaDataNameSpace(void);
 public:
 	//attribute
