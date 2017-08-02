@@ -25,7 +25,7 @@ CSerialStreamBinary::SStringFilePositionList::SStringFilePositions *CSerialStrea
 	if (!pStringFilePos && bNew)
 	{
 		SStringFilePositions value;
-		value.str = const_cast<char*>(pString);
+		value.str = pString;
 		info_vector.push_back(value);
 		pStringFilePos = &info_vector.back();
 	}

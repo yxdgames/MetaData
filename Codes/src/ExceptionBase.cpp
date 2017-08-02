@@ -3,7 +3,7 @@
 
 
 ExceptionBase::ExceptionBase(int ID, const char *pCaption)
-	: m_ID(ID), m_pCaption(const_cast<char*>(pCaption))
+	: m_ID(ID), m_pCaption(pCaption)
 {
 }
 

@@ -26,7 +26,7 @@ public:
 public:
 	//method
 	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName) const;
-	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const;
+	bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const;
 public:
 	//attribute
 	const char *GetName(void) const							{ return m_pName; }

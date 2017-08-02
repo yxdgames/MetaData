@@ -26,7 +26,7 @@ private:
 	public:
 		struct SStringFilePositions
 		{
-			char *str;
+			const char *str;
 			std::vector<TypeBaseUnit> positions;
 		};
 	public:

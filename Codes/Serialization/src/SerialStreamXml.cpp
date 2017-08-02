@@ -119,7 +119,7 @@ void XMLCALL XmlElementStart(void *userData, const XML_Char *name, const XML_Cha
 	{
 		if (strcmp(atts[i], D_SERIAL_ENTITY_XML_ELE_ATTR_TYPE_NAME) == 0)
 		{
-			pEnt->SetEntTypeName(const_cast<char*>(atts[i + 1]));
+			pEnt->SetEntTypeName(atts[i + 1]);
 			attr_comp[0] = true;
 		}
 		else if (strcmp(atts[i], D_SERIAL_ENTITY_XML_ELE_ATTR_VALUE_TYPE) == 0)

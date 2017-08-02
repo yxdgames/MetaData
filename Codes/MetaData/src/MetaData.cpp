@@ -57,7 +57,7 @@ const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char
 	return nullptr;
 }
 
-const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const
+bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const
 {
 	return FindChildMetaData(MetaDataTypeID, pFullName, Children, true);
 }

@@ -157,7 +157,7 @@ private:
 	std::vector<const CMetaDataFunction*>				*m_pStaticMemberFuncList;	//静态成员函数
 	std::vector<const CMetaDataVariable*>				*m_pStaticMemberVarList;	//静态成员变量
 private:
-	TpfunAsTypeEx									m_AsTypeExFunPtr;
+	TpfunAsTypeEx										m_AsTypeExFunPtr;
 };
 
 #include "ExceptionMetaData.h"

@@ -20,7 +20,7 @@ public:
 	virtual void SetName(const char *pName) = 0;
 	virtual const char *GetName(void) = 0;
 
-	virtual void SetEntTypeName(char *pName) = 0;
+	virtual void SetEntTypeName(const char *pName) = 0;
 	virtual const char *GetEntTypeName(void) = 0;
 
 	virtual void SetTag(unsigned int Tag) = 0;

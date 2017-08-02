@@ -13,6 +13,6 @@ public:
 	const char *GetCaption(void) const		{ return m_pCaption; }
 private:
 	int		m_ID;
-	char	*m_pCaption;
+	const char	*m_pCaption;
 };
 

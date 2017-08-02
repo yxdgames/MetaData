@@ -29,7 +29,7 @@ public:
 	virtual void SetEntTypeId(unsigned int iId);
 	virtual unsigned int GetEntTypeId(void);
 
-	virtual void SetEntTypeName(char *pName);
+	virtual void SetEntTypeName(const char *pName);
 	virtual const char *GetEntTypeName(void);
 
 	virtual void SetTag(unsigned int Tag);

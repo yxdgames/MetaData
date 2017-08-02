@@ -94,7 +94,7 @@ unsigned int CSerialEntity::GetEntTypeId(void)
 	return 0;
 }
 
-void CSerialEntity::SetEntTypeName(char *pName)
+void CSerialEntity::SetEntTypeName(const char *pName)
 {
 	FreeTypeNameString();
 	if (pName)

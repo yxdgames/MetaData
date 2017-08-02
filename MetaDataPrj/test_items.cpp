@@ -234,7 +234,7 @@ void test_item_metadata_function_call(void)
 	const CMetaData *pMD;
 	const CMetaDataClassType *pClsType;
 	const CMetaDataFunction *pTmpFunc;
-	CMetaDataFunction *pFunc;
+	const CMetaDataFunction *pFunc;
 	
 	pMD = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, "::CClass1");
 	if (!pMD) return;
@@ -245,7 +245,7 @@ void test_item_metadata_function_call(void)
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func1"));
 	if (pTmpFunc)
 	{
-		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+		pFunc = pTmpFunc;
 		int a = 100;
 		double d = 11.22;
 		int ret;
@@ -256,7 +256,7 @@ void test_item_metadata_function_call(void)
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_func2"));
 	if (pTmpFunc)
 	{
-		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+		pFunc = pTmpFunc;
 		unsigned char c(134);
 		double d(13998.321);
 		int ret;
@@ -271,7 +271,7 @@ void test_item_metadata_function_call(void)
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_vir_func1"));
 	if (pTmpFunc)
 	{
-		pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+		pFunc = pTmpFunc;
 		float f(83.892f);
 		unsigned long l(914);
 		double ret;
@@ -295,7 +295,7 @@ void test_item_metadata_function_call(void)
 			pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(vec_metadata[i]);
 			if (pTmpFunc)
 			{
-				pFunc = const_cast<CMetaDataFunction *>(pTmpFunc);
+				pFunc = pTmpFunc;
 				if (pFunc->GetParamCount() > 0)
 				{
 					int p_x(99);

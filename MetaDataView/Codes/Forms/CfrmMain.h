@@ -33,7 +33,7 @@ namespace MetaDataView {
 		}
 
 	private:
-		void InitClassView(CMetaData &md)
+		void InitClassView(const CMetaData &md)
 		{
 			tvClass->BeginUpdate();
 			try
@@ -52,18 +52,18 @@ namespace MetaDataView {
 				tvClass->EndUpdate();
 			}
 		}
-		void DoInitClassView(CMetaData &md, String ^name, TreeNodeCollection ^Nodes)
+		void DoInitClassView(const CMetaData &md, String ^name, TreeNodeCollection ^Nodes)
 		{
 			if (!Nodes) return;
-			CMetaData *pMD;
+			const CMetaData *pMD;
 			TreeNode ^tree_node;
 			if (name)
 				tree_node = Nodes->Add(name);
 			else tree_node = Nodes->Add(gcnew String(md.GetName()));
-			tree_node->Tag = gcnew IntPtr(reinterpret_cast<void*>(&md));
+			tree_node->Tag = gcnew IntPtr(reinterpret_cast<void*>(const_cast<CMetaData*>(&md)));
 			for (unsigned int i = 0; i < md.GetChildrenCount(); ++i)
 			{
-				pMD = const_cast<CMetaData*>(md.GetChild(i));
+				pMD = md.GetChild(i);
 				switch (pMD->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_GLOBAL_SPACE:
@@ -86,19 +86,19 @@ namespace MetaDataView {
 				dtDetail->Tables[0]->Clear();
 				if (!pMD) return;
 				String ^str, ^str1, ^str_filter1;
-				CMetaData *pChild;
-				CMetaDataVariable *pMDVar;
-				CMetaDataCustomTypeMemberVar *pMDMVar;
-				CMetaDataFunction *pMDFunc;
+				const CMetaData *pChild;
+				const CMetaDataVariable *pMDVar;
+				const CMetaDataCustomTypeMemberVar *pMDMVar;
+				const CMetaDataFunction *pMDFunc;
 				int index, idx;
 				DataRow ^pRow;
 				for (unsigned int i = 0; i < pMD->GetChildrenCount(); ++i)
 				{
-					pChild = const_cast<CMetaData*>(pMD->GetChild(i));
+					pChild = pMD->GetChild(i);
 					switch(pChild->GetTypeID())
 					{
 					case D_META_DATA_TYPE_ID_VARIABLE:
-						pMDVar = reinterpret_cast<CMetaDataVariable *>(pChild);
+						pMDVar = reinterpret_cast<const CMetaDataVariable *>(pChild);
 						pRow = dtDetail->Tables[0]->NewRow();
 						if (pMD->GetTypeID() == D_META_DATA_TYPE_ID_CLASS_TYPE
 							|| pMD->GetTypeID() == D_META_DATA_TYPE_ID_INTERFACE)
@@ -127,7 +127,7 @@ namespace MetaDataView {
 						dtDetail->Tables[0]->Rows->Add(pRow);
 						break;
 					case D_META_DATA_TYPE_ID_CUSTOM_TYPE_MEMBER_VAR:
-						pMDMVar = reinterpret_cast<CMetaDataCustomTypeMemberVar *>(pChild);
+						pMDMVar = reinterpret_cast<const CMetaDataCustomTypeMemberVar *>(pChild);
 						pRow = dtDetail->Tables[0]->NewRow();
 						pRow[dtDetail->Tables[0]->Columns["member"]] = gcnew String(pMDMVar->GetMDType()->GetName()) + " ";
 						str1 = "";
@@ -140,7 +140,7 @@ namespace MetaDataView {
 						dtDetail->Tables[0]->Rows->Add(pRow);
 						break;
 					case D_META_DATA_TYPE_ID_FUNCTION:
-						pMDFunc = reinterpret_cast<CMetaDataFunction *>(pChild);
+						pMDFunc = reinterpret_cast<const CMetaDataFunction *>(pChild);
 						if ((pMD->GetTypeID() == D_META_DATA_TYPE_ID_CLASS_TYPE || pMD->GetTypeID() == D_META_DATA_TYPE_ID_INTERFACE))
 						{
 							if (strcmp(pMD->GetName(), pMDFunc->GetName()) == 0)
@@ -478,12 +478,12 @@ private: System::Void tsmiViewMetaData_Click(System::Object^  sender, System::Ev
 				 HMODULE hModule = LoadModuleHandle(dlgOpen.FileName);
 				 if (hModule)
 				 {
-					 typedef void *(__stdcall *TpFunc)(void);
+					 typedef const void *(__stdcall *TpFunc)(void);
 					 TpFunc pFunc;
 					 pFunc = reinterpret_cast<TpFunc>(::GetProcAddress(hModule, "GetMetaDataGlobalSpace"));
 					 if (pFunc)
 					 {
-						InitClassView(*reinterpret_cast<CMetaData*>(pFunc()));
+						InitClassView(*reinterpret_cast<const CMetaData*>(pFunc()));
 					 }
 					 else throw gcnew Exception("无法解析元数据！");
 				 }
