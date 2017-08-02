@@ -45,16 +45,16 @@ public:
 	bool __cdecl CallStaticMemberFuction(char *pFunName, int param_count, ...);
 
 	//override
-	virtual bool IsTypeOf(const CMetaDataType *pType);
-	virtual void *AsType(void *pObj, const CMetaDataType *pType);
-	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf);
-	virtual void *NewObject(void);
-	virtual void DeleteObject(void *pObj);
+	virtual bool IsTypeOf(const CMetaDataType *pType) const;
+	virtual void *AsType(void *pObj, const CMetaDataType *pType) const;
+	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf) const;
+	virtual void *NewObject(void) const;
+	virtual void DeleteObject(void *pObj) const;
 	
 	template<typename T>
-	T *CreateObject(CParamVector *pParamTypes, ...);
+	T *CreateObject(CParamVector *pParamTypes, ...) const;
 	template<typename T>
-	T *CreateObject(void);
+	T *CreateObject(void) const;
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const						{ return D_META_DATA_TYPE_ID_CUSTOM_TYPE; }
@@ -139,10 +139,10 @@ protected:
 		return m_pStaticMemberVarList;
 	}
 private:
-	bool FindBaseType(const CMetaDataType *pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList);
-	bool FindInterface(const CMetaDataType *pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList);
-	void *DoCreateObject(CParamVector *pParamTypes, va_list pList);
-	void *DoCreateObject(void);
+	bool FindBaseType(const CMetaDataType *pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList) const;
+	bool FindInterface(const CMetaDataType *pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList) const;
+	void *DoCreateObject(CParamVector *pParamTypes, va_list pList) const;
+	void *DoCreateObject(void) const;
 private:
 	bool											m_EnableBaseType;			//是否允许有基类
 	bool											m_Sealed;					//是否允许被继承
@@ -166,10 +166,11 @@ private:
 
 //Template
 template<typename T>
-T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...)
+T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...) const
 {
 	void *pReturn;
 	void *pObj;
+	va_list pList;
 	va_start(pList, pParamTypes);
 	try
 	{
@@ -195,7 +196,7 @@ T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...)
 }
 
 template<typename T>
-inline T *CMetaDataCustomType::CreateObject(void)
+inline T *CMetaDataCustomType::CreateObject(void) const
 {
 	void *pReturn;
 	void *pObj(DoCreateObject());

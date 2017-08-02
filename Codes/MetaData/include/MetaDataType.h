@@ -11,11 +11,11 @@ public:
 	virtual ~CMetaDataType(void);
 public:
 	//method
-	virtual bool IsTypeOf(const CMetaDataType *pType)								{ return this == pType; }
-	virtual void *AsType(void *pObj, const CMetaDataType *pType)					{ return (this == pType ? pObj : nullptr); }
-	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf)	{ return false; }
-	virtual void *NewObject(void)													{ return nullptr; }
-	virtual void DeleteObject(void *pObj)											{ /*do nothing.*/ }
+	virtual bool IsTypeOf(const CMetaDataType *pType) const									{ return this == pType; }
+	virtual void *AsType(void *pObj, const CMetaDataType *pType) const						{ return (this == pType ? pObj : nullptr); }
+	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf) const	{ return false; }
+	virtual void *NewObject(void) const														{ return nullptr; }
+	virtual void DeleteObject(void *pObj) const												{ /*do nothing.*/ }
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_TYPE; }
