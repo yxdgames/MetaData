@@ -364,7 +364,8 @@ void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pLi
 {
 	void *pReturn(nullptr);
 
-	if (!m_pConstructorList || !pList) return pReturn;
+	if (!m_pConstructorList || m_pConstructorList->size() == 0)
+		throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "未定义构造函数元数据！");
 	
 	std::vector<const CMetaDataFunction*>::iterator itr;
 	
@@ -393,7 +394,8 @@ void *CMetaDataCustomType::DoCreateObject(void) const
 {
 	void *pReturn(nullptr);
 
-	if (!m_pConstructorList) return pReturn;
+	if (!m_pConstructorList || m_pConstructorList->size() == 0)
+		throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "未定义构造函数元数据！");
 	
 	std::vector<const CMetaDataFunction*>::iterator itr;
 	
