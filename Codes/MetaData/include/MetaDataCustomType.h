@@ -142,7 +142,6 @@ private:
 	bool FindBaseType(const CMetaDataType *pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList) const;
 	bool FindInterface(const CMetaDataType *pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList) const;
 	void *DoCreateObject(CParamVector *pParamTypes, va_list pList) const;
-	void *DoCreateObject(void) const;
 private:
 	bool												m_EnableBaseType;			//是否允许有基类
 	bool												m_Sealed;					//是否允许被继承
@@ -199,7 +198,7 @@ template<typename T>
 inline T *CMetaDataCustomType::CreateObject(void) const
 {
 	void *pReturn;
-	void *pObj(DoCreateObject());
+	void *pObj(DoCreateObject(nullptr, nullptr));
 	if (pObj)
 	{
 		pReturn = this->AsType(pObj, TypeTraits<T>::GetMetaDataType());

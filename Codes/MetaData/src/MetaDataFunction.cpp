@@ -190,85 +190,9 @@ bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pRetu
 	return pFunc(Packet);
 }
 
-bool CMetaDataFunction::CallFunction(const unsigned int param_count, va_list pParamList) const
+bool CMetaDataFunction::CallFunction(const unsigned int param_count, va_list pParamList, void *pReturn) const
 {
-	if (!m_pFunction || (!m_pParamTable && param_count != 0) || (m_pParamTable && param_count != m_pParamTable->size())) return false;
-
-	bool ret;
-
-	unsigned int param_addr;
-
-	bool *pNeedRelease(nullptr);
-	void **pParamPtrBuffer(nullptr);
-
-	size_t index;
-	int type_size;
-
-	SMetaDataCalledFunctionDataPacket Packet;
-	TpMDCalledFunction pFunc(reinterpret_cast<TpMDCalledFunction>(m_pFunction));
-
-	param_addr = reinterpret_cast<unsigned int>(pParamList);
-	if (param_count)
-	{
-		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
-		pNeedRelease = new bool[param_count];
-		pParamPtrBuffer = new void*[param_count];
-	}
-	try
-	{
-		if (pParamPtrBuffer)
-			memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
-		for (index = 0; index < param_count; ++index)
-		{
-			if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
-				type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
-			else type_size = sizeof(void*);
-			pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
-			if (!pNeedRelease[index])
-			{
-				pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
-			}
-			param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
-		}
-
-		try
-		{
-			Packet.ParamCount = param_count;
-			Packet.pParam = pParamPtrBuffer;
-			if (m_pReturnInfo)
-			{
-				if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
-				Packet.pReturn = *reinterpret_cast<void**>(param_addr);
-			}
-			else Packet.pReturn = nullptr;
-
-			ret = pFunc(Packet);
-		}
-		catch (...)
-		{
-			for (index = 0; index < param_count; ++index)
-			{
-				if (pNeedRelease[index])
-					SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
-			}
-			throw;
-		}
-		for (index = 0; index < param_count; ++index)
-		{
-			if (pNeedRelease[index])
-				SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
-		}
-	}
-	catch (...)
-	{
-		if (pParamPtrBuffer) delete[] pParamPtrBuffer;
-		if (pNeedRelease) delete[] pNeedRelease;
-		throw;
-	}
-	if (pParamPtrBuffer) delete[] pParamPtrBuffer;
-	if (pNeedRelease) delete[] pNeedRelease;
-	
-	return ret;
+	return CallFunction(param_count, nullptr, pParamList, pReturn);
 }
 
 bool CMetaDataFunction::CallFunction(const unsigned int param_count, ...) const
@@ -278,7 +202,7 @@ bool CMetaDataFunction::CallFunction(const unsigned int param_count, ...) const
 	va_start(pList, param_count);
 	try
 	{
-		ret = CallFunction(param_count, pList);
+		ret = CallFunction(param_count, pList, nullptr);
 	}
 	catch (...)
 	{
@@ -289,19 +213,46 @@ bool CMetaDataFunction::CallFunction(const unsigned int param_count, ...) const
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList) const
+bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn) const
 {
-	if (!m_pFunction || (!m_pParamTable && (pParamTypes) && pParamTypes->size() != 0)
-		|| (m_pParamTable && pParamTypes && m_pParamTable->size() != pParamTypes->size())
-		|| (m_pParamTable && !pParamTypes && m_pParamTable->size() != 0)) return false;
+	if (pParamTypes)
+		return CallFunction(pParamTypes->size(), pParamTypes, pParamList, pReturn);
+	else return CallFunction(0, pParamTypes, pParamList, pReturn);
+}
+
+bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
+{
+	bool ret;
+	va_list pList;
+	va_start(pList, pParamTypes);
+	try
+	{
+		ret = CallFunction(pParamTypes, pList, nullptr);
+	}
+	catch(...)
+	{
+		va_end(pList);
+		throw;
+	}
+	va_end(pList);
+
+	return ret;
+}
+
+bool CMetaDataFunction::CallFunction(const unsigned int param_count, CParamVector *pParamTypes,
+									 va_list pParamList, void *pReturn) const
+{
+	if (!m_pFunction
+		|| (!m_pParamTable && param_count != 0)
+		|| (m_pParamTable && param_count != m_pParamTable->size())) return false;
+	if (pParamTypes && param_count != pParamTypes->size()) return false;
 
 	bool ret;
 
-	const unsigned int param_count(m_pParamTable ? m_pParamTable->size() : 0);
 	unsigned int param_addr;
 
 	bool *pNeedRelease(nullptr);
-	void **pParamPtrBuffer(nullptr);
+	void **pParamPtrBuffer = nullptr;
 
 	size_t index;
 	int type_size;
@@ -323,24 +274,24 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 			memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
 		for (index = 0; index < param_count; ++index)
 		{
-			if (pParamTypes->at(index)->GetMDType() == m_pParamTable->at(index)->GetMDType()
-				&& pParamTypes->at(index)->GetPtrLevel() == m_pParamTable->at(index)->GetPtrLevel())
+			if (pParamTypes)
 			{
-				if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
-					type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
-				else type_size = sizeof(void*);
-				pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
-				if (!pNeedRelease[index])
+				if (pParamTypes->at(index)->GetMDType() != m_pParamTable->at(index)->GetMDType()
+					|| pParamTypes->at(index)->GetPtrLevel() != m_pParamTable->at(index)->GetPtrLevel())
 				{
-					pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
+					bParamsOK = false;
+					break;
 				}
-				param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
 			}
-			else
+			if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
+				type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
+			else type_size = sizeof(void*);
+			pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
+			if (!pNeedRelease[index])
 			{
-				bParamsOK = false;
-				break;
+				pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
 			}
+			param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
 		}
 
 		try
@@ -351,8 +302,15 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 				Packet.pParam = pParamPtrBuffer;
 				if (m_pReturnInfo)
 				{
-					if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
-					Packet.pReturn = *reinterpret_cast<void**>(param_addr);
+					if (pReturn)
+					{
+						Packet.pReturn = pReturn;
+					}
+					else
+					{
+						if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
+						Packet.pReturn = *reinterpret_cast<void**>(param_addr);
+					}
 				}
 				else Packet.pReturn = nullptr;
 
@@ -383,25 +341,6 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamLi
 	}
 	if (pParamPtrBuffer) delete [] pParamPtrBuffer;
 	if (pNeedRelease) delete[] pNeedRelease;
-
-	return ret;
-}
-
-bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
-{
-	bool ret;
-	va_list pList;
-	va_start(pList, pParamTypes);
-	try
-	{
-		ret = CallFunction(pParamTypes, pList);
-	}
-	catch(...)
-	{
-		va_end(pList);
-		throw;
-	}
-	va_end(pList);
 
 	return ret;
 }
