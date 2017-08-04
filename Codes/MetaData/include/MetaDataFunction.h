@@ -54,9 +54,9 @@ public:
 
 	bool FuncParamsCheck(CParamVector *pParamTypes) const;
 	bool CallFunction(int param_count, void **pParam, void *pReturn) const;
-	bool CallFunction(int param_count, va_list pParamList) const;
-	bool __cdecl CallFunction(int param_count, ...) const;
-	bool CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn) const;
+	bool CallFunction(const unsigned int param_count, va_list pParamList) const;
+	bool __cdecl CallFunction(const unsigned int param_count, ...) const;
+	bool CallFunction(CParamVector *pParamTypes, va_list pParamList) const;
 	bool __cdecl CallFunction(CParamVector *pParamTypes, ...) const;
 public:
 	//attribute

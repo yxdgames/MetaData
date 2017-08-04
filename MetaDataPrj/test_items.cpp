@@ -306,7 +306,7 @@ void test_item_metadata_function_call(void)
 				}
 				else
 				{
-					pFunc->CallFunction(0);
+					pFunc->CallFunction(static_cast<const unsigned int>(0));
 				}
 			}
 		}

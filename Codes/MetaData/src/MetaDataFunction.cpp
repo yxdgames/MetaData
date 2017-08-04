@@ -190,7 +190,7 @@ bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pRetu
 	return pFunc(Packet);
 }
 
-bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList) const
+bool CMetaDataFunction::CallFunction(const unsigned int param_count, va_list pParamList) const
 {
 	if (!m_pFunction || (!m_pParamTable && param_count != 0) || (m_pParamTable && param_count != m_pParamTable->size())) return false;
 
@@ -198,8 +198,8 @@ bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList) const
 
 	unsigned int param_addr;
 
-	bool *pNeedRelease;
-	void **pParamPtrBuffer;
+	bool *pNeedRelease(nullptr);
+	void **pParamPtrBuffer(nullptr);
 
 	size_t index;
 	int type_size;
@@ -207,76 +207,71 @@ bool CMetaDataFunction::CallFunction(int param_count, va_list pParamList) const
 	SMetaDataCalledFunctionDataPacket Packet;
 	TpMDCalledFunction pFunc(reinterpret_cast<TpMDCalledFunction>(m_pFunction));
 
-	pNeedRelease = new bool[param_count];
+	param_addr = reinterpret_cast<unsigned int>(pParamList);
+	if (param_count)
+	{
+		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：参数表缺失！");
+		pNeedRelease = new bool[param_count];
+		pParamPtrBuffer = new void*[param_count];
+	}
 	try
 	{
-		param_addr = reinterpret_cast<unsigned int>(pParamList);
-		if (m_pParamTable)
+		if (pParamPtrBuffer)
+			memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
+		for (index = 0; index < param_count; ++index)
 		{
-			pParamPtrBuffer = new void*[param_count];
-			try
+			if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
+				type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
+			else type_size = sizeof(void*);
+			pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
+			if (!pNeedRelease[index])
 			{
-				memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
-				for (index = 0; index < m_pParamTable->size(); ++index)
-				{
-					if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
-						type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
-					else type_size = sizeof(void*);
-					pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
-					if (!pNeedRelease[index])
-					{
-						pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
-					}
-					param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
-				}
-
-				Packet.ParamCount = param_count;
-				Packet.pParam = pParamPtrBuffer;
-				if (m_pReturnInfo)
-				{
-					Packet.pReturn = *reinterpret_cast<void**>(param_addr);
-				}
-				else Packet.pReturn = nullptr;
-
-				ret = pFunc(Packet);
-
-				for (index = 0; index < m_pParamTable->size(); ++index)
-				{
-					if (pNeedRelease[index])
-						SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
-				}
+				pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
 			}
-			catch (...)
-			{
-				delete[] pParamPtrBuffer;
-				throw;
-			}
-			delete[] pParamPtrBuffer;
+			param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
 		}
-		else
+
+		try
 		{
-			Packet.ParamCount = 0;
-			Packet.pParam = nullptr;
+			Packet.ParamCount = param_count;
+			Packet.pParam = pParamPtrBuffer;
 			if (m_pReturnInfo)
 			{
+				if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：参数表缺失！");
 				Packet.pReturn = *reinterpret_cast<void**>(param_addr);
 			}
 			else Packet.pReturn = nullptr;
 
 			ret = pFunc(Packet);
 		}
+		catch (...)
+		{
+			for (index = 0; index < param_count; ++index)
+			{
+				if (pNeedRelease[index])
+					SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
+			}
+			throw;
+		}
+		for (index = 0; index < param_count; ++index)
+		{
+			if (pNeedRelease[index])
+				SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
+		}
 	}
 	catch (...)
 	{
-		delete[] pNeedRelease;
+		if (pParamPtrBuffer) delete[] pParamPtrBuffer;
+		if (pNeedRelease) delete[] pNeedRelease;
 		throw;
 	}
-	delete[] pNeedRelease;
-
+	if (pParamPtrBuffer) delete[] pParamPtrBuffer;
+	if (pNeedRelease) delete[] pNeedRelease;
+	
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(int param_count, ...) const
+bool CMetaDataFunction::CallFunction(const unsigned int param_count, ...) const
 {
 	bool ret;
 	va_list pList;
@@ -294,115 +289,100 @@ bool CMetaDataFunction::CallFunction(int param_count, ...) const
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn) const
+bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList) const
 {
-	if (!m_pFunction || (!m_pParamTable && (pParamTypes) && pParamTypes->size()!= 0)
+	if (!m_pFunction || (!m_pParamTable && (pParamTypes) && pParamTypes->size() != 0)
 		|| (m_pParamTable && pParamTypes && m_pParamTable->size() != pParamTypes->size())
 		|| (m_pParamTable && !pParamTypes && m_pParamTable->size() != 0)) return false;
 
 	bool ret;
 
+	const unsigned int param_count(m_pParamTable ? m_pParamTable->size() : 0);
 	unsigned int param_addr;
 
-	int arr_size;
-	bool *pNeedRelease;
-	void **pParamPtrBuffer;
+	bool *pNeedRelease(nullptr);
+	void **pParamPtrBuffer(nullptr);
 
 	size_t index;
-	size_t index_func;
 	int type_size;
 	bool bParamsOK(true);
 
 	SMetaDataCalledFunctionDataPacket Packet;
 	TpMDCalledFunction pFunc(reinterpret_cast<TpMDCalledFunction>(m_pFunction));
 
-	if (m_pParamTable)
-		arr_size = m_pParamTable->size();
-	else arr_size = 0;
-
-	pNeedRelease = new bool [arr_size];
+	param_addr = reinterpret_cast<unsigned int>(pParamList);
+	if (param_count)
+	{
+		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：参数表缺失！");
+		pNeedRelease = new bool[param_count];
+		pParamPtrBuffer = new void*[param_count];
+	}
 	try
 	{
-		param_addr = reinterpret_cast<unsigned int>(pParamList);
-		if (arr_size > 0)
+		if (pParamPtrBuffer)
+			memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
+		for (index = 0; index < param_count; ++index)
 		{
-			if (param_addr == 0)
+			if (pParamTypes->at(index)->GetMDType() == m_pParamTable->at(index)->GetMDType()
+				&& pParamTypes->at(index)->GetPtrLevel() == m_pParamTable->at(index)->GetPtrLevel())
 			{
-				throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：调用参数表缺失！");
+				if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
+					type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
+				else type_size = sizeof(void*);
+				pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
+				if (!pNeedRelease[index])
+				{
+					pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
+				}
+				param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
 			}
-			pParamPtrBuffer = new void* [arr_size];
-			try
+			else
 			{
-				memset(pParamPtrBuffer, 0x00, sizeof(void*) * arr_size);
-				for (index = 0, index_func = 0; index < pParamTypes->size() && index_func < m_pParamTable->size(); ++index, ++index_func)
-				{
-					if (pParamTypes->at(index)->GetMDType() == m_pParamTable->at(index_func)->GetMDType()
-						&& pParamTypes->at(index)->GetPtrLevel() == m_pParamTable->at(index_func)->GetPtrLevel())
-					{
-						if (m_pParamTable->at(index_func)->GetPtrLevel() <= 0)
-							type_size = SizeInVarParamFunc(m_pParamTable->at(index_func)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
-						else type_size = sizeof(void*);
-						pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
-						if (!pNeedRelease[index])
-						{
-							pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
-						}
-						param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
-					}
-					else
-					{
-						bParamsOK = false;
-						break;
-					}
-				}
-				if (bParamsOK) bParamsOK = (index_func == m_pParamTable->size() && index == pParamTypes->size());
-
-				if (bParamsOK)
-				{
-					Packet.ParamCount = arr_size;
-					Packet.pParam = pParamPtrBuffer;
-					if (m_pReturnInfo)
-					{
-						Packet.pReturn = pReturn;
-					}
-					else Packet.pReturn = nullptr;
-
-					ret = pFunc(Packet);
-				}
-				else ret = false;
-
-				for (index_func = 0; index_func < m_pParamTable->size(); ++index_func)
-				{
-					if (pNeedRelease[index_func])
-						SizeInVarParamFuncFree(m_pParamTable->at(index_func)->GetMDType(), pParamPtrBuffer + index_func);
-				}
+				bParamsOK = false;
+				break;
 			}
-			catch(...)
-			{
-				delete [] pParamPtrBuffer;
-				throw;
-			}
-			delete [] pParamPtrBuffer;
 		}
-		else
-		{
-			Packet.ParamCount = 0;
-			Packet.pParam = nullptr;
-			if (m_pReturnInfo)
-			{
-				Packet.pReturn = pReturn;
-			}
-			else Packet.pReturn = nullptr;
 
-			ret = pFunc(Packet);
+		try
+		{
+			if (bParamsOK)
+			{
+				Packet.ParamCount = param_count;
+				Packet.pParam = pParamPtrBuffer;
+				if (m_pReturnInfo)
+				{
+					if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：参数表缺失！");
+					Packet.pReturn = *reinterpret_cast<void**>(param_addr);
+				}
+				else Packet.pReturn = nullptr;
+
+				ret = pFunc(Packet);
+			}
+			else ret = false;
+		}
+		catch (...)
+		{
+			for (index = 0; index < param_count; ++index)
+			{
+				if (pNeedRelease[index])
+					SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
+			}
+			throw;
+		}
+		for (index = 0; index < param_count; ++index)
+		{
+			if (pNeedRelease[index])
+				SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
 		}
 	}
 	catch(...)
 	{
-		delete [] pNeedRelease;
+		if (pParamPtrBuffer) delete [] pParamPtrBuffer;
+		if (pNeedRelease) delete[] pNeedRelease;
 		throw;
 	}
-	delete [] pNeedRelease;
+	if (pParamPtrBuffer) delete [] pParamPtrBuffer;
+	if (pNeedRelease) delete[] pNeedRelease;
 
 	return ret;
 }
@@ -411,37 +391,10 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
 {
 	bool ret;
 	va_list pList;
-	unsigned int param_addr;
-	int size;
-	unsigned int Ret_Offset;
-	void *pReturn;
-	CParamVector::iterator itr;
-
 	va_start(pList, pParamTypes);
 	try
 	{
-		if (m_pReturnInfo)
-		{
-			param_addr = reinterpret_cast<unsigned int>(pList);
-			Ret_Offset = 0;
-			if (m_pParamTable)
-			{
-				for (itr = m_pParamTable->begin(); itr != m_pParamTable->end(); ++itr)
-				{
-					if ((*itr)->GetPtrLevel() <= 0)
-						size = SizeInVarParamFunc((*itr)->GetMDType(), nullptr, nullptr);
-					else size = sizeof(void*);
-					Ret_Offset += size;
-				}
-			}
-			pReturn = *reinterpret_cast<void**>(param_addr + Ret_Offset);
-		}
-		else
-		{
-			pReturn = nullptr;
-		}
-
-		ret = CallFunction(pParamTypes, pList, pReturn);
+		ret = CallFunction(pParamTypes, pList);
 	}
 	catch(...)
 	{
