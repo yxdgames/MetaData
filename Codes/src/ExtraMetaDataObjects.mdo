@@ -4,9 +4,9 @@
 
 #ifdef CO_SERIALIZATION_MODULE
 //Serialization
-#include "..\..\Serialization\src\ISerial.mdo"
-#include "..\..\Serialization\src\ITreeSerial.mdo"
-#include "..\..\Serialization\src\TreeSerial.mdo"
+#include "..\Serialization\src\ISerial.mdo"
+#include "..\Serialization\src\ITreeSerial.mdo"
+#include "..\Serialization\src\TreeSerial.mdo"
 #endif //CO_SERIALIZATION_MODULE
 
 //Others
