@@ -41,8 +41,8 @@ public:
 
 	//bool OutputMemberVar(char *pVarName, void *pOutputAddr);
 	bool QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj) const;
-	bool __cdecl CallMemberFuction(char *pFunName, int param_count, ...) const;
-	bool __cdecl CallStaticMemberFuction(char *pFunName, int param_count, ...) const;
+	bool __cdecl CallMemberFuction(char *pFunName, CParamVector *pParamTypes, ...) const;
+	bool __cdecl CallStaticMemberFuction(char *pFunName, CParamVector *pParamTypes, ...) const;
 
 	//override
 	virtual bool IsTypeOf(const CMetaDataType *pType) const;
@@ -141,7 +141,7 @@ protected:
 private:
 	bool FindBaseType(const CMetaDataType *pType, std::vector<SMetaDataCustomTypeBaseType*> &BaseList) const;
 	bool FindInterface(const CMetaDataType *pIntf, std::vector<SMetaDataCustomTypeInterface*> &IntfList) const;
-	void *DoCreateObject(CParamVector *pParamTypes, va_list pList) const;
+	void *DoCreateObject(CParamVector *pParamTypes, va_list pParamList) const;
 private:
 	bool												m_EnableBaseType;			//是否允许有基类
 	bool												m_Sealed;					//是否允许被继承

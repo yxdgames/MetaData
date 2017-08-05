@@ -149,7 +149,7 @@ bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **
 	return false;
 }
 
-bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ...) const
+bool CMetaDataCustomType::CallMemberFuction(char * pFunName, CParamVector *pParamTypes, ...) const
 {
 	if (!m_pMemberFuncList) return false;
 
@@ -159,7 +159,8 @@ bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ..
 	
 	for (size_t i = 0; i < m_pMemberFuncList->size(); ++i)
 	{
-		if (strcmp(m_pMemberFuncList->at(i)->GetName(), pFunName) == 0)
+		if (strcmp(m_pMemberFuncList->at(i)->GetName(), pFunName) == 0
+			&& m_pMemberFuncList->at(i)->FuncParamsCheck(pParamTypes))
 		{
 			pFunc = m_pMemberFuncList->at(i);
 			break;
@@ -167,10 +168,10 @@ bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ..
 	}
 	if (!pFunc) return false;
 
-	va_start(pList, param_count);
+	va_start(pList, pParamTypes);
 	try
 	{
-		ret = pFunc->CallFunction(param_count, pList, nullptr);
+		ret = pFunc->CallFunction(pParamTypes, pList, nullptr);
 	}
 	catch (...)
 	{
@@ -181,7 +182,7 @@ bool CMetaDataCustomType::CallMemberFuction(char * pFunName, int param_count, ..
 	return ret;
 }
 
-bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_count, ...) const
+bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, CParamVector *pParamTypes, ...) const
 {
 	if (!m_pStaticMemberFuncList) return false;
 
@@ -191,7 +192,8 @@ bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_cou
 
 	for (size_t i = 0; i < m_pStaticMemberFuncList->size(); ++i)
 	{
-		if (strcmp(m_pStaticMemberFuncList->at(i)->GetName(), pFunName) == 0)
+		if (strcmp(m_pStaticMemberFuncList->at(i)->GetName(), pFunName) == 0
+			&& m_pStaticMemberFuncList->at(i)->FuncParamsCheck(pParamTypes))
 		{
 			pFunc = m_pStaticMemberFuncList->at(i);
 			break;
@@ -199,10 +201,10 @@ bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, int param_cou
 	}
 	if (!pFunc) return false;
 
-	va_start(pList, param_count);
+	va_start(pList, pParamTypes);
 	try
 	{
-		ret = pFunc->CallFunction(param_count, pList, nullptr);
+		ret = pFunc->CallFunction(pParamTypes, pList, nullptr);
 	}
 	catch (...)
 	{
@@ -360,12 +362,12 @@ bool CMetaDataCustomType::FindInterface(const CMetaDataType * pIntf, std::vector
 	return false;
 }
 
-void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pList) const
+void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pParamList) const
 {
 	void *pReturn(nullptr);
 
 	if (!m_pConstructorList || m_pConstructorList->size() == 0)
-		throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "未定义构造函数元数据！");
+		throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：未定义构造函数元数据！");
 	
 	std::vector<const CMetaDataFunction*>::iterator itr;
 	
@@ -375,7 +377,7 @@ void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pLi
 		{
 			if (!(*itr)->ReturnIsVoid())
 			{
-				if (!(*itr)->CallFunction(pParamTypes, pList, &pReturn))
+				if (!(*itr)->CallFunction(pParamTypes, pParamList, &pReturn))
 				{
 					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "构造函数调用失败！");
 				}
@@ -387,5 +389,6 @@ void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pLi
 			break;
 		}
 	}
+	if (!pReturn) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：无匹配的构造函数！");
 	return pReturn;
 }

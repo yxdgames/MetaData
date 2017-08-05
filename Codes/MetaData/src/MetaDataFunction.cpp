@@ -6,11 +6,10 @@
 #include "..\include\ExceptionIDMetaData.h"
 #include <stdarg.h>
 
-//平台相关
 #define MD_FUNC_VA_INTSIZEOF(n)   ( ((n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )
 
-//变参函数里的参数size.
-static int SizeInVarParamFunc(const CMetaDataType *pMDType, void *pData, void **pBuff)
+//提取变参函数里的参数数据值及其Size.
+static int ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *pMDType, void *pData, /*out*/void **pBuff)
 {	
 	if (!pMDType) return 0;
 
@@ -21,6 +20,16 @@ static int SizeInVarParamFunc(const CMetaDataType *pMDType, void *pData, void **
 			char *pC(new char);
 			*pC = *reinterpret_cast<int*>(pData);
 			*pBuff = pC;
+		}
+		return sizeof(int);
+	}
+	else if (TypeTraits<wchar_t>::GetMetaDataType() == pMDType)
+	{
+		if (pData && pBuff)
+		{
+			wchar_t *pWCT(new wchar_t);
+			*pWCT = *reinterpret_cast<int*>(pData);
+			*pBuff = pWCT;
 		}
 		return sizeof(int);
 	}
@@ -67,53 +76,43 @@ static int SizeInVarParamFunc(const CMetaDataType *pMDType, void *pData, void **
 	else
 	{
 		if (pBuff) *pBuff = nullptr;
-		return pMDType->GetSize();
+		return MD_FUNC_VA_INTSIZEOF(pMDType->GetSize());
 	}
 }
 
-static void SizeInVarParamFuncFree(const CMetaDataType *pMDType, void **pBuff)
+static void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType, void **pBuff)
 {
-	if (!pMDType) return;
+	if (!pMDType || !pBuff) return;
 
 	if (TypeTraits<char>::GetMetaDataType() == pMDType)
 	{
-		if (pBuff)
-		{
-			char *pC(reinterpret_cast<char*>(*pBuff));
-			delete pC;
-		}
+		char *pC(reinterpret_cast<char*>(*pBuff));
+		delete pC;
+	}
+	else if (TypeTraits<wchar_t>::GetMetaDataType() == pMDType)
+	{
+		wchar_t *pWCT(reinterpret_cast<wchar_t*>(*pBuff));
+		delete pWCT;
 	}
 	else if (TypeTraits<short>::GetMetaDataType() == pMDType)
 	{
-		if (pBuff)
-		{
-			short *pS(reinterpret_cast<short*>(*pBuff));
-			delete pS;
-		}
+		short *pS(reinterpret_cast<short*>(*pBuff));
+		delete pS;
 	}
 	else if (TypeTraits<unsigned char>::GetMetaDataType() == pMDType)
 	{
-		if (pBuff)
-		{
-			unsigned char *pUC(reinterpret_cast<unsigned char*>(*pBuff));
-			delete pUC;
-		}
+		unsigned char *pUC(reinterpret_cast<unsigned char*>(*pBuff));
+		delete pUC;
 	}
 	else if (TypeTraits<unsigned short>::GetMetaDataType() == pMDType)
 	{
-		if (pBuff)
-		{
-			unsigned short *pUS(reinterpret_cast<unsigned short*>(*pBuff));
-			delete pUS;
-		}
+		unsigned short *pUS(reinterpret_cast<unsigned short*>(*pBuff));
+		delete pUS;
 	}
 	else if (TypeTraits<float>::GetMetaDataType() == pMDType)
 	{
-		if (pBuff)
-		{
-			float *pF(reinterpret_cast<float*>(*pBuff));
-			delete pF;
-		}
+		float *pF(reinterpret_cast<float*>(*pBuff));
+		delete pF;
 	}
 	else
 	{
@@ -255,7 +254,7 @@ bool CMetaDataFunction::CallFunction(const unsigned int param_count, CParamVecto
 	void **pParamPtrBuffer = nullptr;
 
 	size_t index;
-	int type_size;
+	int data_size_in_container;
 	bool bParamsOK(true);
 
 	SMetaDataCalledFunctionDataPacket Packet;
@@ -284,14 +283,19 @@ bool CMetaDataFunction::CallFunction(const unsigned int param_count, CParamVecto
 				}
 			}
 			if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
-				type_size = SizeInVarParamFunc(m_pParamTable->at(index)->GetMDType(), reinterpret_cast<void*>(param_addr), pParamPtrBuffer + index);
-			else type_size = sizeof(void*);
+			{
+				data_size_in_container = ExtractDataAndDataSizeInVarParamFunc(
+					m_pParamTable->at(index)->GetMDType(),
+					reinterpret_cast<void*>(param_addr),
+					pParamPtrBuffer + index);
+			}
+			else data_size_in_container = sizeof(void*);
 			pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
 			if (!pNeedRelease[index])
 			{
 				pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
 			}
-			param_addr += MD_FUNC_VA_INTSIZEOF(type_size);
+			param_addr += data_size_in_container;
 		}
 
 		try
@@ -323,14 +327,14 @@ bool CMetaDataFunction::CallFunction(const unsigned int param_count, CParamVecto
 			for (index = 0; index < param_count; ++index)
 			{
 				if (pNeedRelease[index])
-					SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
+					FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
 			}
 			throw;
 		}
 		for (index = 0; index < param_count; ++index)
 		{
 			if (pNeedRelease[index])
-				SizeInVarParamFuncFree(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
+				FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
 		}
 	}
 	catch(...)

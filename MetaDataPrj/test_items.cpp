@@ -264,7 +264,15 @@ void test_item_metadata_function_call(void)
 		printf(" ret: %d\n", ret);
 
 		printf("ClassType call\n");
-		pClsType->CallMemberFuction("cls1_func2", 3, pObj, c, d, &ret);
+		CParamVector param_vector;
+		D_PARAM_VECTOR_ADD_ELE(param_vector, CClass1, 1)
+		D_PARAM_VECTOR_ADD_ELE(param_vector, unsigned char, 0)
+		D_PARAM_VECTOR_ADD_ELE(param_vector, double, 0)
+		ret = 0;
+		if (!pClsType->CallMemberFuction("cls1_func2", &param_vector, pObj, c, d, &ret))
+		{
+			printf("ClassType call Error!\n");
+		}
 		printf("ClassType call ret: %d\n\n", ret);
 	}
 
@@ -277,9 +285,9 @@ void test_item_metadata_function_call(void)
 		double ret;
 
 		CParamVector param_vector;
-		param_vector.push_back(new CMetaDataVarBase("this", nullptr, TypeTraits<CClass1>::GetMetaDataType(), 1));
-		param_vector.push_back(new CMetaDataVarBase("f", nullptr, TypeTraits<float>::GetMetaDataType(), 0));
-		param_vector.push_back(new CMetaDataVarBase("l", nullptr, TypeTraits<unsigned long>::GetMetaDataType(), 0));
+		D_PARAM_VECTOR_ADD_ELE(param_vector, CClass1, 1)
+		D_PARAM_VECTOR_ADD_ELE(param_vector, float, 0)
+		D_PARAM_VECTOR_ADD_ELE(param_vector, unsigned long, 0)
 		pFunc->CallFunction(&param_vector, pObj, f, l, &ret);
 		printf(" ret: %f\n", ret);
 
