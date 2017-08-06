@@ -167,18 +167,17 @@ bool CMetaDataFunction::FuncParamsCheck(CParamVector *pParamTypes) const
 		return (!m_pParamTable) || (m_pParamTable->size() == 0);
 	}
 
-	CParamVector::iterator itr_func;
-	CParamVector::iterator itr_in;
-	
-	for (itr_func = m_pParamTable->begin(), itr_in = pParamTypes->begin();
-		itr_func != m_pParamTable->end() && itr_in != pParamTypes->end(); ++itr_func, ++itr_in)
+	if (m_pParamTable->size() != pParamTypes->size()) return false;
+
+	for (size_t index = 0; index < m_pParamTable->size(); ++index)
 	{
-		if ((*itr_func)->GetMDType() != (*itr_in)->GetMDType() || (*itr_func)->GetPtrLevel() != (*itr_in)->GetPtrLevel())
+		if (m_pParamTable->at(index)->GetMDType() != pParamTypes->at(index)->GetMDType()
+			|| m_pParamTable->at(index)->GetPtrLevel() != pParamTypes->at(index)->GetPtrLevel())
 		{
 			return false;
 		}
 	}
-	return itr_func == m_pParamTable->end() && itr_in == pParamTypes->end();
+	return true;
 }
 
 bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pReturn) const
