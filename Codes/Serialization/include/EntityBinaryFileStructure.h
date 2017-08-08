@@ -9,7 +9,7 @@
 #define D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_USER_BASE	(0x00010000)
 
 //类型定义
-typedef unsigned long TypeBaseUnit;
+typedef TDUIntPtr TypeBaseUnit;
 typedef unsigned char TypeByte;
 
 //容器

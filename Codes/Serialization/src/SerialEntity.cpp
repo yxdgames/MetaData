@@ -50,12 +50,12 @@ void CSerialEntity::ClearChildren(void)
 	FreeChildren();
 }
 
-ISerialEntity *CSerialEntity::FindChild(const char *pName, unsigned int EntTypeId, unsigned int Tag)
-{
-	return nullptr;
-}
+//ISerialEntity *CSerialEntity::FindChild(const char *pName, unsigned int EntTypeId, TDUIntPtr Tag)
+//{
+//	return nullptr;
+//}
 
-ISerialEntity *CSerialEntity::FindChild(const char *pName, char *EntTypeName, unsigned int Tag)
+ISerialEntity *CSerialEntity::FindChild(const char *pName, char *EntTypeName, TDUIntPtr Tag)
 {
 	std::vector<CSerialEntity*>::iterator itr;
 	for (itr = m_Children.begin(); itr != m_Children.end(); ++itr)
@@ -85,14 +85,14 @@ const char *CSerialEntity::GetName(void)
 	return m_pName;
 }
 
-void CSerialEntity::SetEntTypeId(unsigned int iId)
-{
-}
+//void CSerialEntity::SetEntTypeId(unsigned int iId)
+//{
+//}
 
-unsigned int CSerialEntity::GetEntTypeId(void)
-{
-	return 0;
-}
+//unsigned int CSerialEntity::GetEntTypeId(void)
+//{
+//	return 0;
+//}
 
 void CSerialEntity::SetEntTypeName(const char *pName)
 {
@@ -109,12 +109,12 @@ const char *CSerialEntity::GetEntTypeName(void)
 	return m_pTypeName;
 }
 
-void CSerialEntity::SetTag(unsigned int Tag)
+void CSerialEntity::SetTag(TDUIntPtr Tag)
 {
 	m_Tag = Tag;
 }
 
-unsigned int CSerialEntity::GetTag(void)
+TDUIntPtr CSerialEntity::GetTag(void)
 {
 	return m_Tag;
 }
@@ -154,12 +154,12 @@ ISerialEntity *CSerialEntity::GetParent(void)
 	return m_pParent;
 }
 
-unsigned int CSerialEntity::GetChildrenCount(void)
+TDUIntPtr CSerialEntity::GetChildrenCount(void)
 {
 	return m_Children.size();
 }
 
-ISerialEntity *CSerialEntity::GetChildren(unsigned int index)
+ISerialEntity *CSerialEntity::GetChildren(TDUIntPtr index)
 {
 	return m_Children[index];
 }
@@ -197,7 +197,7 @@ void CSerialEntity::RemoveChild(CSerialEntity *pChild)
 
 void CSerialEntity::FreeChildren(void)
 {
-	for (int index = m_Children.size() - 1; index >= 0; --index)
+	for (TDUIntPtr index = m_Children.size() - 1; index >= 0; --index)
 	{
 		delete m_Children[index];
 	}

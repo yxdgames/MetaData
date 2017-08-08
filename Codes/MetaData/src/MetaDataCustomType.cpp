@@ -3,7 +3,7 @@
 #include "..\include\MetaDataInterface.h"
 #include "..\include\ExceptionIDMetaData.h"
 
-CMetaDataCustomType::CMetaDataCustomType(const char *pName, const CMetaData *pParent, unsigned int size,
+CMetaDataCustomType::CMetaDataCustomType(const char *pName, const CMetaData *pParent, TDUIntPtr size,
 										 bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar)
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
@@ -53,7 +53,7 @@ CMetaDataCustomType::~CMetaDataCustomType(void)
 	}
 }
 
-void CMetaDataCustomType::AddBaseType(const CMetaDataCustomType *pBaseType, unsigned int Offset)
+void CMetaDataCustomType::AddBaseType(const CMetaDataCustomType *pBaseType, TDUIntPtr Offset)
 {
 	std::vector<SMetaDataCustomTypeBaseType> *pBaseTypeList(GetBaseTypeList());
 	if (pBaseTypeList)
@@ -65,7 +65,7 @@ void CMetaDataCustomType::AddBaseType(const CMetaDataCustomType *pBaseType, unsi
 	}
 }
 
-void CMetaDataCustomType::AddInterface(const CMetaDataInterface *pIntf, unsigned int Offset)
+void CMetaDataCustomType::AddInterface(const CMetaDataInterface *pIntf, TDUIntPtr Offset)
 {
 	std::vector<SMetaDataCustomTypeInterface> *pIntfList(GetInterfaceList());
 	if (pIntfList)
@@ -142,7 +142,7 @@ bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **
 		if (itr->CustomType->GetFullName(FullNameBuffer, 256) && (strcmp(FullNameBuffer, pBaseTypeName) == 0
 			|| strcmp(FullNameBuffer + 2, pBaseTypeName) == 0)) //+2是为了跳过"::"两个字符
 		{
-			*outObj = reinterpret_cast<void*>((unsigned int)pObj + itr->Offset);
+			*outObj = reinterpret_cast<void*>((TDUIntPtr)pObj + itr->Offset);
 			return true;
 		}
 	}
@@ -238,7 +238,7 @@ void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 {
 	if (this == pType) return pObj;
 
-	unsigned int total_offset(0);
+	TDUIntPtr total_offset(0);
 	size_t i;
 
 	std::vector<SMetaDataCustomTypeBaseType*> BaseList;
@@ -248,7 +248,7 @@ void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 		{
 			total_offset += BaseList[i]->Offset;
 		}
-		return reinterpret_cast<void*>((unsigned int)pObj + total_offset);
+		return reinterpret_cast<void*>((TDUIntPtr)pObj + total_offset);
 	}
 
 	std::vector<SMetaDataCustomTypeInterface*> IntfList;
@@ -258,7 +258,7 @@ void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 		{
 			total_offset += IntfList[i]->Offset;
 		}
-		return reinterpret_cast<void*>((unsigned int)pObj + total_offset);
+		return reinterpret_cast<void*>((TDUIntPtr)pObj + total_offset);
 	}
 
 	if (m_AsTypeExFunPtr)
@@ -284,7 +284,7 @@ bool CMetaDataCustomType::QueryInterface(void *pObj, char *pIntfName, IInterface
 		if (itr->Intf->GetFullName(FullNameBuffer, 256) && (strcmp(FullNameBuffer, pIntfName) == 0
 			|| strcmp(FullNameBuffer + 2, pIntfName) == 0)) //+2是为了跳过"::"两个字符
 		{
-			*outIntf = reinterpret_cast<IInterface*>((unsigned int)pObj + itr->Offset);
+			*outIntf = reinterpret_cast<IInterface*>((TDUIntPtr)pObj + itr->Offset);
 			return true;
 		}
 	}

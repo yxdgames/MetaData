@@ -13,8 +13,8 @@ public:
 	virtual bool DelItem(void *pItem) = 0;
 public:
 	//attribute
-	virtual unsigned int Count(void) = 0;
-	virtual void *GetItem(unsigned int index) = 0;
+	virtual TDUIntPtr Count(void) = 0;
+	virtual void *GetItem(TDUIntPtr index) = 0;
 public:
 	virtual const CMetaDataType *GetItemType(void) = 0;
 
@@ -33,9 +33,9 @@ MD_INTERFACE_DECLARE_DETAIL_KERNEL(IContainer)
 		MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(pItem, void*, 0)
 		MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(bool, 0)
 	MD_INTERFACE_MEMBER_FUNC_DEF(Count, 0)
-		MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(unsigned int, 0)
+		MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(TDUIntPtr, 0)
 	MD_INTERFACE_MEMBER_FUNC_DEF(GetItem, 0)
-		MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(index, unsigned int, 0)
+		MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(index, TDUIntPtr, 0)
 		MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(void*, 0)
 MD_INTERFACE_DECLARE_END(IContainer)
 };

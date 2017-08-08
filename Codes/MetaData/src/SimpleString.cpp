@@ -40,7 +40,7 @@ void SimpleString::SetValue(char *pStr)
 	FreeString();
 	if (pStr)
 	{
-		int str_len(strlen(pStr));
+		TDUIntPtr str_len(strlen(pStr));
 		m_pString = new char[str_len + 1];
 		strcpy(m_pString, pStr);
 	}
@@ -64,34 +64,6 @@ void SimpleString::FreeString(void)
 		delete [] m_pString;
 		m_pString = nullptr;
 	}
-}
-int SimpleString::Position(char * pString, int StrLen, char c, bool bLeftToRight)
-{
-	if (!pString || !StrLen) return -1;
-	char *pS, *pE;
-	int diff_move;
-	if (bLeftToRight)
-	{
-		pS = pString;
-		pE = pString + StrLen - 1;
-		diff_move = 1;
-	}
-	else
-	{
-		pS = pString + StrLen - 1;
-		pE = pString;
-		diff_move = -1;
-	}
-	while (pS != pE)
-	{
-		if (*pS == c)
-		{
-			return (pS - pString);
-		}
-		pS += diff_move;
-	}
-
-	return -1;
 }
 #endif //CO_SIMPLE_STRING_STL_STRING
 

@@ -36,7 +36,7 @@ static void do_print_metadata_tree(const CMetaData *pMD, int space_num)
 		}
 		else printf("__None__\n");
 	}
-	for (unsigned int i = 0; i < pMD->GetChildrenCount(); ++i)
+	for (TDUIntPtr i = 0; i < pMD->GetChildrenCount(); ++i)
 	{
 		do_print_metadata_tree(pMD->GetChild(i), space_num + 1);
 	}
@@ -298,7 +298,7 @@ void test_item_metadata_function_call(void)
 	std::vector<const CMetaData*> vec_metadata;
 	if (pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "CClass1::cls1_static_func1", vec_metadata))
 	{
-		for (unsigned int i = 0; i < vec_metadata.size(); ++i)
+		for (TDUIntPtr i = 0; i < vec_metadata.size(); ++i)
 		{
 			pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(vec_metadata[i]);
 			if (pTmpFunc)
@@ -314,7 +314,7 @@ void test_item_metadata_function_call(void)
 				}
 				else
 				{
-					pFunc->CallFunction(static_cast<const unsigned int>(0));
+					pFunc->CallFunction(static_cast<const TDUIntPtr>(0));
 				}
 			}
 		}

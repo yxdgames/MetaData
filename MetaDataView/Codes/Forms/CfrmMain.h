@@ -90,7 +90,8 @@ namespace MetaDataView {
 				const CMetaDataVariable *pMDVar;
 				const CMetaDataCustomTypeMemberVar *pMDMVar;
 				const CMetaDataFunction *pMDFunc;
-				int index, idx;
+				unsigned int index;
+				int idx;
 				DataRow ^pRow;
 				for (unsigned int i = 0; i < pMD->GetChildrenCount(); ++i)
 				{

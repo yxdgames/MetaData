@@ -188,12 +188,12 @@ bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pRetu
 	return pFunc(Packet);
 }
 
-bool CMetaDataFunction::CallFunction(const unsigned int param_count, va_list pParamList, void *pReturn) const
+bool CMetaDataFunction::CallFunction(const TDUIntPtr param_count, va_list pParamList, void *pReturn) const
 {
 	return CallFunction(param_count, nullptr, pParamList, pReturn);
 }
 
-bool CMetaDataFunction::CallFunction(const unsigned int param_count, ...) const
+bool CMetaDataFunction::CallFunction(const TDUIntPtr param_count, ...) const
 {
 	bool ret;
 	va_list pList;
@@ -237,7 +237,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(const unsigned int param_count, CParamVector *pParamTypes,
+bool CMetaDataFunction::CallFunction(const TDUIntPtr param_count, CParamVector *pParamTypes,
 									 va_list pParamList, void *pReturn) const
 {
 	if (!m_pFunction
@@ -247,7 +247,7 @@ bool CMetaDataFunction::CallFunction(const unsigned int param_count, CParamVecto
 
 	bool ret;
 
-	unsigned int param_addr;
+	TDUIntPtr param_addr;
 
 	bool *pNeedRelease(nullptr);
 	void **pParamPtrBuffer = nullptr;
@@ -259,7 +259,7 @@ bool CMetaDataFunction::CallFunction(const unsigned int param_count, CParamVecto
 	SMetaDataCalledFunctionDataPacket Packet;
 	TpMDCalledFunction pFunc(reinterpret_cast<TpMDCalledFunction>(m_pFunction));
 
-	param_addr = reinterpret_cast<unsigned int>(pParamList);
+	param_addr = reinterpret_cast<TDUIntPtr>(pParamList);
 	if (param_count)
 	{
 		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");

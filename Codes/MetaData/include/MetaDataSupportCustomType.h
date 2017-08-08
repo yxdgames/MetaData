@@ -9,6 +9,8 @@
 //compile option.
 #define CO_MD_CUSTOM_TYPE_EXTRA
 
+#define INT_FOR_MD_SIZEOF		int
+
 /****************************/
 /* Meta data of custom type */
 /****************************/
@@ -35,17 +37,17 @@
 				char *pClsName(#name); \
 				char *pDsrName("~"#name); \
 				md_custom_type &MDType(*const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
-				name *pTemObj(reinterpret_cast<name*>(sizeof(int))); \
+				name *pTemObj(reinterpret_cast<name*>(sizeof(INT_FOR_MD_SIZEOF))); \
 				name *pTemObj2(reinterpret_cast<name*>(0)); \
 				CMetaDataFunction *pMDFunc;
 
 				/*--添加基类元数据信息--*/
 #define MD_CUSTOM_TYPE_BASE_CLASS_DEF(base_class_name) \
-	MDType.AddBaseType(&META_DATA_CUSTOM_TYPE(base_class_name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE), reinterpret_cast<unsigned int>(static_cast<base_class_name*>(pTemObj)) - sizeof(int));
+	MDType.AddBaseType(&META_DATA_CUSTOM_TYPE(base_class_name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE), reinterpret_cast<TDUIntPtr>(static_cast<base_class_name*>(pTemObj)) - sizeof(INT_FOR_MD_SIZEOF));
 
 				/*--添加接口元数据信息--*/
 #define MD_CUSTOM_TYPE_INTERFACE_DEF(intf_name) \
-	MDType.AddInterface(&META_DATA_CUSTOM_TYPE(intf_name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE), reinterpret_cast<unsigned int>(static_cast<intf_name*>(pTemObj)) - sizeof(int));
+	MDType.AddInterface(&META_DATA_CUSTOM_TYPE(intf_name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE), reinterpret_cast<TDUIntPtr>(static_cast<intf_name*>(pTemObj)) - sizeof(INT_FOR_MD_SIZEOF));
 
 				/*--添加构造函数元数据信息--*/
 #define MD_CUSTOM_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(index) \
@@ -90,7 +92,7 @@
 
 				/*--添加成员变量元数据信息--*/
 #define MD_CUSTOM_TYPE_MEMBER_VAR_DEF(var_name, var_type, ptr_level) \
-	static CMetaDataCustomTypeMemberVar _MD__MV##var_name(#var_name, &MDType, TypeTraits<var_type>::GetMetaDataType(), (ptr_level), reinterpret_cast<unsigned int>(&(pTemObj2->var_name))); \
+	static CMetaDataCustomTypeMemberVar _MD__MV##var_name(#var_name, &MDType, TypeTraits<var_type>::GetMetaDataType(), (ptr_level), reinterpret_cast<TDUIntPtr>(&(pTemObj2->var_name))); \
 	MDType.AddMemberVar(&_MD__MV##var_name);
 
 				/*--添加静态成员函数元数据信息--*/

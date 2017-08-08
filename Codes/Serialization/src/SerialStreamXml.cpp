@@ -33,7 +33,7 @@ static const char gXmlEscapeChar[][7] = {
 	"&quot;",
 };
 
-static void ParseSpecialChar(const char *pStr, SSpecialCharInfo **pSpecialCharInfo, unsigned int *pCount)
+static void ParseSpecialChar(const char *pStr, SSpecialCharInfo **pSpecialCharInfo, TDUIntPtr *pCount)
 {
 	if (!pStr || !pSpecialCharInfo) return;
 	
@@ -97,7 +97,7 @@ void XMLCALL XmlElementStart(void *userData, const XML_Char *name, const XML_Cha
 	
 	if (!pEntItem) return;
 
-	int name_len(strlen(name));
+	TDUIntPtr name_len(strlen(name));
 	ISerialEntity *pEnt;
 	EVarType var_type;
 	bool bValueSet(false);
@@ -257,13 +257,13 @@ bool CSerialStreamXml::DoSerialize(ISerialEntity *pEnt, char *pBuff)
 	if (!pBuff || !pEnt->GetName()) return false;
 
 	bool ret(false);
-	int write_buff_len;
-	int str_len;
+	TDUIntPtr write_buff_len;
+	TDUIntPtr str_len;
 	SSpecialCharInfo *pSCI;
-	unsigned int Count;
-	unsigned int i;
-	unsigned int pre_index;
-	unsigned int cpy_size;
+	TDUIntPtr Count;
+	TDUIntPtr i;
+	TDUIntPtr pre_index;
+	TDUIntPtr cpy_size;
 	char *pLocalBuffer(nullptr), *pChildBuffer(pBuff);
 
 	if (pEnt->GetChildrenCount() > 0)

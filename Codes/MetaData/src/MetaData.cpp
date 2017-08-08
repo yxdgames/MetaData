@@ -62,20 +62,20 @@ bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName,
 	return FindChildMetaData(MetaDataTypeID, pFullName, Children, true);
 }
 
-bool CMetaData::GetFullName(char *pFullNameBuffer, unsigned int BufferSize) const
+bool CMetaData::GetFullName(char *pFullNameBuffer, TDUIntPtr BufferSize) const
 {
 	if (pFullNameBuffer == nullptr)
 	{
 		return false;
 	}
 
-	unsigned int Char_BufferSize(BufferSize - 1 * sizeof(char));
-	char *pReBuffer((char*)((unsigned int)pFullNameBuffer + Char_BufferSize));
+	TDUIntPtr Char_BufferSize(BufferSize - 1 * sizeof(char));
+	char *pReBuffer((char*)((TDUIntPtr)pFullNameBuffer + Char_BufferSize));
 
 	const CMetaData *pParent(m_pParent);
 	const char *pName;
-	unsigned int total_size;
-	unsigned int cur_len;
+	TDUIntPtr total_size;
+	TDUIntPtr cur_len;
 
 	pName = this->GetName();
 	
@@ -87,7 +87,7 @@ bool CMetaData::GetFullName(char *pFullNameBuffer, unsigned int BufferSize) cons
 	{
 		return false;
 	}
-	memcpy((void*)((unsigned int)pReBuffer - total_size), pName, cur_len * sizeof(char));
+	memcpy((void*)((TDUIntPtr)pReBuffer - total_size), pName, cur_len * sizeof(char));
 
 	while (pParent)
 	{

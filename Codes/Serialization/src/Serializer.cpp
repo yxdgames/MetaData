@@ -133,7 +133,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		pCustomType = pType->GetBaseType(i);
 		pChild = pSEntity->NewChild();
 		pChild->SetName(pCustomType->GetName());
-		pO = reinterpret_cast<void*>((reinterpret_cast<unsigned int>(pObj) + pType->GetBaseTypeOffset(i)));
+		pO = reinterpret_cast<void*>((reinterpret_cast<TDUIntPtr>(pObj) + pType->GetBaseTypeOffset(i)));
 		if (!SerializeCustomTypeWrapper(pCustomType, pO, pChild, D_SERIALIZER_ENTITY_TAG_BASE_TYPE))
 		{
 			pSEntity->DelChild(pChild);
@@ -184,11 +184,11 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		pChild->SetName(pMemVar->GetName());
 		if (pMemVar->GetPtrLevel() == 0)
 		{
-			pO = reinterpret_cast<void*>((reinterpret_cast<unsigned int>(pObj) + pMemVar->GetOffset()));
+			pO = reinterpret_cast<void*>((reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()));
 		}
 		else if (pMemVar->GetPtrLevel() == 1)
 		{
-			pO = *reinterpret_cast<void**>((reinterpret_cast<unsigned int>(pObj) + pMemVar->GetOffset()));
+			pO = *reinterpret_cast<void**>((reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()));
 		}
 		else continue;
 		switch(pMemVar->GetMDType()->GetTypeID())
@@ -330,7 +330,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		pChild = pSEntity->FindChild(pCustomType->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_BASE_TYPE);
 		if (pChild)
 		{
-			pO = reinterpret_cast<void*>(reinterpret_cast<unsigned int>(pObj) + pType->GetBaseTypeOffset(i));
+			pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pType->GetBaseTypeOffset(i));
 			if (!UnserializeCustomTypeWrapper(pChild, pCustomType, pO, D_SERIALIZER_ENTITY_TAG_BASE_TYPE))
 			{
 				return false;
@@ -393,14 +393,14 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		{
 			if (pMemVar->GetPtrLevel() == 0)
 			{
-				pO = reinterpret_cast<void*>(reinterpret_cast<unsigned int>(pObj) + pMemVar->GetOffset());
+				pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
 			}
 			else if (pMemVar->GetPtrLevel() == 1)
 			{
 				pO = NewObject(pMemVar->GetMDType());
 				if (pO)
 				{
-					*reinterpret_cast<void**>(reinterpret_cast<unsigned int>(pObj) + pMemVar->GetOffset()) = pO;
+					*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = pO;
 				}
 				else return false;
 			}

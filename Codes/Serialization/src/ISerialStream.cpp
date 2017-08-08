@@ -11,7 +11,7 @@ ISerialStream *ISerialStream::CreateSerialStreamIntf(ESerialStreamIntfType IntfT
 	case ssitBin:
 		return new CSerialStreamBinary(pStream, hold_stream);
 	case ssitXml:
-		return new CSerialStreamXml(pStream, hold_stream);
+		return nullptr;//new CSerialStreamXml(pStream, hold_stream);
 	default:
 		return nullptr;
 	}

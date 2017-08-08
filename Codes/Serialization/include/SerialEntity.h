@@ -19,21 +19,21 @@ public:
 	virtual ISerialEntity *NewChild(void);
 	virtual void DelChild(ISerialEntity *pChild);
 	virtual void ClearChildren(void);
-	virtual ISerialEntity *FindChild(const char *pName, unsigned int EntTypeId, unsigned int Tag);
-	virtual ISerialEntity *FindChild(const char *pName, char *EntTypeName, unsigned int Tag);
+	//virtual ISerialEntity *FindChild(const char *pName, TDUIntPtr EntTypeId, TDUIntPtr Tag);
+	virtual ISerialEntity *FindChild(const char *pName, char *EntTypeName, TDUIntPtr Tag);
 
 	//attribute
 	virtual void SetName(const char *pName);
 	virtual const char *GetName(void);
 
-	virtual void SetEntTypeId(unsigned int iId);
-	virtual unsigned int GetEntTypeId(void);
+	//virtual void SetEntTypeId(TDUIntPtr iId);
+	//virtual TDUIntPtr GetEntTypeId(void);
 
 	virtual void SetEntTypeName(const char *pName);
 	virtual const char *GetEntTypeName(void);
 
-	virtual void SetTag(unsigned int Tag);
-	virtual unsigned int GetTag(void);
+	virtual void SetTag(TDUIntPtr Tag);
+	virtual TDUIntPtr GetTag(void);
 
 	virtual void SetValue(const char *pValue);
 	virtual void SetValue(const int Value);
@@ -43,8 +43,8 @@ public:
 	virtual SVariant &GetValue(void);
 
 	virtual ISerialEntity *GetParent(void);
-	virtual unsigned int GetChildrenCount(void);
-	virtual ISerialEntity *GetChildren(unsigned int index);
+	virtual TDUIntPtr GetChildrenCount(void);
+	virtual ISerialEntity *GetChildren(TDUIntPtr index);
 private:
 	void FreeNameString(void);
 	void FreeTypeNameString(void);
@@ -53,7 +53,7 @@ private:
 private:
 	char *m_pName;
 	char *m_pTypeName;
-	unsigned long m_Tag;
+	TDUIntPtr m_Tag;
 	SVariant m_value;
 
 	CSerialEntity *m_pParent;

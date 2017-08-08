@@ -126,6 +126,9 @@
     <ClInclude Include="..\Codes\MetaData\include\IInterfaceDefaultImp.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\include\Typedef.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

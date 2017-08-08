@@ -2,7 +2,7 @@
 #include "..\include\MetaDataInterface.h"
 
 
-CMetaDataInterface::CMetaDataInterface(const char *pName, const CMetaData *pParent, unsigned int size)
+CMetaDataInterface::CMetaDataInterface(const char *pName, const CMetaData *pParent, TDUIntPtr size)
 	:CMetaDataCustomType(pName, pParent, size, true, false, true, true)
 {
 }

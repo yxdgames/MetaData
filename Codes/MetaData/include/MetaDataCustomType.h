@@ -11,13 +11,13 @@ class CMetaDataCustomType;
 struct STRUCT_DESCRIPT SMetaDataCustomTypeBaseType
 {
 	const CMetaDataCustomType *CustomType;
-	unsigned int Offset;
+	TDUIntPtr Offset;
 };
 
 struct STRUCT_DESCRIPT SMetaDataCustomTypeInterface
 {
 	const CMetaDataInterface *Intf;
-	unsigned int Offset;
+	TDUIntPtr Offset;
 };
 
 typedef void *(*TpfunAsTypeEx)(void *pObj, const CMetaDataType *pType);
@@ -25,13 +25,13 @@ typedef void *(*TpfunAsTypeEx)(void *pObj, const CMetaDataType *pType);
 class CLASS_DESCRIPT CMetaDataCustomType : public CMetaDataType
 {
 public:
-	CMetaDataCustomType(const char *pName, const CMetaData *pParent, unsigned int size,
+	CMetaDataCustomType(const char *pName, const CMetaData *pParent, TDUIntPtr size,
 		bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar);
 	virtual ~CMetaDataCustomType(void);
 public:
 	//method
-	void AddBaseType(const CMetaDataCustomType *pBaseType, unsigned int Offset);
-	void AddInterface(const CMetaDataInterface *pIntf, unsigned int Offset);
+	void AddBaseType(const CMetaDataCustomType *pBaseType, TDUIntPtr Offset);
+	void AddInterface(const CMetaDataInterface *pIntf, TDUIntPtr Offset);
 	void AddConstructor(const CMetaDataFunction *pConstructorFunc);
 	void SetDestructor(const CMetaDataFunction *pDestructor);
 	void AddMemberFunc(const CMetaDataFunction *pMFunc);
@@ -58,22 +58,22 @@ public:
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const									{ return D_META_DATA_TYPE_ID_CUSTOM_TYPE; }
-	unsigned int GetBaseTypeCount(void)  const									{ return (m_pBaseTypeList ? m_pBaseTypeList->size() : 0); }
-	const CMetaDataCustomType *GetBaseType(unsigned int index)  const			{ return (m_pBaseTypeList ? m_pBaseTypeList->at(index).CustomType : nullptr); }
-	unsigned int GetBaseTypeOffset(unsigned int index)  const					{ return (m_pBaseTypeList ? m_pBaseTypeList->at(index).Offset : 0); }
-	unsigned int GetInterfaceCount(void)  const									{ return (m_pInterfaceList ? m_pInterfaceList->size() : 0); }
-	const CMetaDataInterface *GetInterface(unsigned int index)  const			{ return (m_pInterfaceList ? m_pInterfaceList->at(index).Intf : nullptr); }
-	unsigned int GetInterfaceOffset(unsigned int index)  const					{ return (m_pInterfaceList ? m_pInterfaceList->at(index).Offset : 0); }
-	unsigned int GetConstructorCount(void)  const								{ return (m_pConstructorList ? m_pConstructorList->size() : 0); }
-	const CMetaDataFunction *GetConstructor(unsigned int index)  const			{ return (m_pConstructorList ? m_pConstructorList->at(index) : nullptr); }
-	unsigned int GetMemberFuncCount(void)  const								{ return (m_pMemberFuncList ? m_pMemberFuncList->size() : 0); }
-	const CMetaDataFunction *GetMemberFunc(unsigned int index)  const			{ return (m_pMemberFuncList ? m_pMemberFuncList->at(index) : nullptr); }
-	unsigned int GetMemberVarCount(void)  const									{ return (m_pMemberVarList ? m_pMemberVarList->size() : 0); }
-	const CMetaDataCustomTypeMemberVar *GetMemberVar(unsigned int index)  const	{ return (m_pMemberVarList ? m_pMemberVarList->at(index) : nullptr); }
-	unsigned int GetStaticMemberFuncCount(void)  const							{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->size() : 0); }
-	const CMetaDataFunction *GetStaticMemberFunc(unsigned int index)  const		{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->at(index) : nullptr); }
-	unsigned int GetStaticMemberVarCount(void)  const							{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->size() : 0); }
-	const CMetaDataVariable *GetStaticMemberVar(unsigned int index)  const		{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->at(index) : nullptr); }
+	TDUIntPtr GetBaseTypeCount(void)  const										{ return (m_pBaseTypeList ? m_pBaseTypeList->size() : 0); }
+	const CMetaDataCustomType *GetBaseType(TDUIntPtr index)  const				{ return (m_pBaseTypeList ? m_pBaseTypeList->at(index).CustomType : nullptr); }
+	TDUIntPtr GetBaseTypeOffset(TDUIntPtr index)  const							{ return (m_pBaseTypeList ? m_pBaseTypeList->at(index).Offset : 0); }
+	TDUIntPtr GetInterfaceCount(void)  const									{ return (m_pInterfaceList ? m_pInterfaceList->size() : 0); }
+	const CMetaDataInterface *GetInterface(TDUIntPtr index)  const				{ return (m_pInterfaceList ? m_pInterfaceList->at(index).Intf : nullptr); }
+	TDUIntPtr GetInterfaceOffset(TDUIntPtr index)  const						{ return (m_pInterfaceList ? m_pInterfaceList->at(index).Offset : 0); }
+	TDUIntPtr GetConstructorCount(void)  const									{ return (m_pConstructorList ? m_pConstructorList->size() : 0); }
+	const CMetaDataFunction *GetConstructor(TDUIntPtr index)  const				{ return (m_pConstructorList ? m_pConstructorList->at(index) : nullptr); }
+	TDUIntPtr GetMemberFuncCount(void)  const									{ return (m_pMemberFuncList ? m_pMemberFuncList->size() : 0); }
+	const CMetaDataFunction *GetMemberFunc(TDUIntPtr index)  const				{ return (m_pMemberFuncList ? m_pMemberFuncList->at(index) : nullptr); }
+	TDUIntPtr GetMemberVarCount(void)  const									{ return (m_pMemberVarList ? m_pMemberVarList->size() : 0); }
+	const CMetaDataCustomTypeMemberVar *GetMemberVar(TDUIntPtr index)  const	{ return (m_pMemberVarList ? m_pMemberVarList->at(index) : nullptr); }
+	TDUIntPtr GetStaticMemberFuncCount(void)  const								{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->size() : 0); }
+	const CMetaDataFunction *GetStaticMemberFunc(TDUIntPtr index)  const		{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->at(index) : nullptr); }
+	TDUIntPtr GetStaticMemberVarCount(void)  const								{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->size() : 0); }
+	const CMetaDataVariable *GetStaticMemberVar(TDUIntPtr index)  const			{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->at(index) : nullptr); }
 public:
 	//attribute
 	void SetAsTypeExFunPtr(TpfunAsTypeEx value) { m_AsTypeExFunPtr = value; }
