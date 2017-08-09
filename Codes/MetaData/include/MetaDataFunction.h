@@ -35,7 +35,7 @@ private:
 
 struct STRUCT_DESCRIPT SMetaDataCalledFunctionDataPacket
 {
-	TDUIntPtr ParamCount;
+	int ParamCount;
 	void **pParam;
 	void *pReturn;
 };
@@ -54,8 +54,8 @@ public:
 
 	bool FuncParamsCheck(CParamVector *pParamTypes) const;
 	bool CallFunction(int param_count, void **pParam, void *pReturn) const;
-	bool CallFunction(const TDUIntPtr param_count, va_list pParamList, void *pReturn) const;
-	bool __cdecl CallFunction(const TDUIntPtr param_count, ...) const;
+	bool CallFunction(const size_t param_count, va_list pParamList, void *pReturn) const;
+	bool __cdecl CallFunction(const size_t param_count, ...) const;
 	bool CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn) const;
 	bool __cdecl CallFunction(CParamVector *pParamTypes, ...) const;
 public:
@@ -63,10 +63,10 @@ public:
 	virtual unsigned char GetTypeID(void) const			{ return D_META_DATA_TYPE_ID_FUNCTION; }
 	bool ReturnIsVoid(void) const						{ return m_pReturnInfo == nullptr; }
 	const CMetaDataVarBase *GetReturnInfo(void) const	{ return m_pReturnInfo; }
-	TDUIntPtr GetParamCount(void) const					{ return m_pParamTable ? m_pParamTable->size() : 0; }
+	size_t GetParamCount(void) const					{ return m_pParamTable ? m_pParamTable->size() : 0; }
 	const CMetaDataVarBase *GetParam(int index) const	{ return m_pParamTable ? m_pParamTable->at(index) : nullptr; }
 private:
-	bool CallFunction(const TDUIntPtr param_count, CParamVector *pParamTypes, va_list pParamList, void *pReturn) const;
+	bool CallFunction(const size_t param_count, CParamVector *pParamTypes, va_list pParamList, void *pReturn) const;
 private:
 	CParamVector *GetParamTable(void)
 	{

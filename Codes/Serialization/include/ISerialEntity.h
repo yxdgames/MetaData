@@ -34,8 +34,8 @@ public:
 	virtual SVariant &GetValue(void) = 0;
 
 	virtual ISerialEntity *GetParent(void) = 0;
-	virtual TDUIntPtr GetChildrenCount(void) = 0;
-	virtual ISerialEntity *GetChildren(TDUIntPtr index) = 0;
+	virtual size_t GetChildrenCount(void) = 0;
+	virtual ISerialEntity *GetChildren(size_t index) = 0;
 
 public:
 	static ISerialEntity *CreateSerialEntityIntf(void);

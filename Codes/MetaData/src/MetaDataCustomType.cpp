@@ -3,7 +3,7 @@
 #include "..\include\MetaDataInterface.h"
 #include "..\include\ExceptionIDMetaData.h"
 
-CMetaDataCustomType::CMetaDataCustomType(const char *pName, const CMetaData *pParent, TDUIntPtr size,
+CMetaDataCustomType::CMetaDataCustomType(const char *pName, const CMetaData *pParent, size_t size,
 										 bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar)
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
@@ -142,7 +142,7 @@ bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **
 		if (itr->CustomType->GetFullName(FullNameBuffer, 256) && (strcmp(FullNameBuffer, pBaseTypeName) == 0
 			|| strcmp(FullNameBuffer + 2, pBaseTypeName) == 0)) //+2是为了跳过"::"两个字符
 		{
-			*outObj = reinterpret_cast<void*>((TDUIntPtr)pObj + itr->Offset);
+			*outObj = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + itr->Offset);
 			return true;
 		}
 	}
@@ -248,7 +248,7 @@ void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 		{
 			total_offset += BaseList[i]->Offset;
 		}
-		return reinterpret_cast<void*>((TDUIntPtr)pObj + total_offset);
+		return reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
 	}
 
 	std::vector<SMetaDataCustomTypeInterface*> IntfList;
@@ -258,7 +258,7 @@ void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 		{
 			total_offset += IntfList[i]->Offset;
 		}
-		return reinterpret_cast<void*>((TDUIntPtr)pObj + total_offset);
+		return reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
 	}
 
 	if (m_AsTypeExFunPtr)
@@ -284,7 +284,7 @@ bool CMetaDataCustomType::QueryInterface(void *pObj, char *pIntfName, IInterface
 		if (itr->Intf->GetFullName(FullNameBuffer, 256) && (strcmp(FullNameBuffer, pIntfName) == 0
 			|| strcmp(FullNameBuffer + 2, pIntfName) == 0)) //+2是为了跳过"::"两个字符
 		{
-			*outIntf = reinterpret_cast<IInterface*>((TDUIntPtr)pObj + itr->Offset);
+			*outIntf = reinterpret_cast<IInterface*>(reinterpret_cast<TDUIntPtr>(pObj) + itr->Offset);
 			return true;
 		}
 	}

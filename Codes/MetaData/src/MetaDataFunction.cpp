@@ -188,12 +188,12 @@ bool CMetaDataFunction::CallFunction(int param_count, void **pParam, void *pRetu
 	return pFunc(Packet);
 }
 
-bool CMetaDataFunction::CallFunction(const TDUIntPtr param_count, va_list pParamList, void *pReturn) const
+bool CMetaDataFunction::CallFunction(const size_t param_count, va_list pParamList, void *pReturn) const
 {
 	return CallFunction(param_count, nullptr, pParamList, pReturn);
 }
 
-bool CMetaDataFunction::CallFunction(const TDUIntPtr param_count, ...) const
+bool CMetaDataFunction::CallFunction(const size_t param_count, ...) const
 {
 	bool ret;
 	va_list pList;
@@ -237,7 +237,7 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(const TDUIntPtr param_count, CParamVector *pParamTypes,
+bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pParamTypes,
 									 va_list pParamList, void *pReturn) const
 {
 	if (!m_pFunction

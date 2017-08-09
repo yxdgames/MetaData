@@ -154,12 +154,12 @@ ISerialEntity *CSerialEntity::GetParent(void)
 	return m_pParent;
 }
 
-TDUIntPtr CSerialEntity::GetChildrenCount(void)
+size_t CSerialEntity::GetChildrenCount(void)
 {
 	return m_Children.size();
 }
 
-ISerialEntity *CSerialEntity::GetChildren(TDUIntPtr index)
+ISerialEntity *CSerialEntity::GetChildren(size_t index)
 {
 	return m_Children[index];
 }
@@ -197,8 +197,8 @@ void CSerialEntity::RemoveChild(CSerialEntity *pChild)
 
 void CSerialEntity::FreeChildren(void)
 {
-	for (TDUIntPtr index = m_Children.size() - 1; index >= 0; --index)
+	for (size_t index = m_Children.size(); index > 0; --index)
 	{
-		delete m_Children[index];
+		delete m_Children[index - 1];
 	}
 }

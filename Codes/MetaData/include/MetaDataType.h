@@ -7,7 +7,7 @@ class IInterface;
 class CLASS_DESCRIPT CMetaDataType : public CMetaData
 {
 public:
-	CMetaDataType(const char *pName, const CMetaData *pParent, bool bChildren, TDUIntPtr size);
+	CMetaDataType(const char *pName, const CMetaData *pParent, bool bChildren, size_t size);
 	virtual ~CMetaDataType(void);
 public:
 	//method
@@ -19,8 +19,8 @@ public:
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_TYPE; }
-	TDUIntPtr GetSize(void) const				{ return m_Size; }
+	size_t GetSize(void) const					{ return m_Size; }
 private:
-	TDUIntPtr			m_Size;
+	size_t			m_Size;
 };
 

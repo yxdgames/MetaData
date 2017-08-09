@@ -2,7 +2,7 @@
 #include "..\include\MetaDataType.h"
 
 
-CMetaDataType::CMetaDataType(const char *pName, const CMetaData *pParent, bool bChildren, TDUIntPtr size)
+CMetaDataType::CMetaDataType(const char *pName, const CMetaData *pParent, bool bChildren, size_t size)
 	:CMetaData(pName, pParent, bChildren), m_Size(size)
 {
 }

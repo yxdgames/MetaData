@@ -146,7 +146,7 @@ void CSerialStreamBinary::SerialInit(void)
 	m_StringFilePositionList.info_vector.clear();
 }
 
-bool CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt, TDUIntPtr &EntSize)
+bool CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt, size_t &EntSize)
 {
 	SFileEntityItem file_ent_item;
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT, 0 };
@@ -200,7 +200,7 @@ bool CSerialStreamBinary::SerializeStringTable(void)
 {
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_STRING, 0 };
 	TypeBaseUnit atom_size_pos;
-	TDUIntPtr size;
+	size_t size;
 	unsigned long i, j;
 
 	atom_size_pos = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SAtom, size);
@@ -249,7 +249,7 @@ void CSerialStreamBinary::UnserialInit(void)
 	m_StreamPosition = 0;
 }
 
-bool CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, TDUIntPtr &EntSize)
+bool CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, size_t &EntSize)
 {
 	SAtom atom;
 	TypeBaseUnit child_ent_size;

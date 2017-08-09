@@ -2,7 +2,7 @@
 #include "..\include\MetaDataInnerType.h"
 
 
-CMetaDataInnerType::CMetaDataInnerType(const char *pName, const CMetaData *pParent, TDUIntPtr size)
+CMetaDataInnerType::CMetaDataInnerType(const char *pName, const CMetaData *pParent, size_t size)
 	:CMetaDataType(pName, pParent, false, size)
 {
 }

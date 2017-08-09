@@ -11,7 +11,7 @@ public:
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_VAR_BASE; }
-	TDUIntPtr GetSize(void) const				{ return m_pMDType ? m_pMDType->GetSize() : 0; }
+	size_t GetSize(void) const					{ return m_pMDType ? m_pMDType->GetSize() : 0; }
 	const CMetaDataType *GetMDType(void) const	{ return m_pMDType; }
 	int GetPtrLevel(void) const					{ return m_PtrLevel; }
 private:

@@ -43,8 +43,8 @@ public:
 	virtual SVariant &GetValue(void);
 
 	virtual ISerialEntity *GetParent(void);
-	virtual TDUIntPtr GetChildrenCount(void);
-	virtual ISerialEntity *GetChildren(TDUIntPtr index);
+	virtual size_t GetChildrenCount(void);
+	virtual ISerialEntity *GetChildren(size_t index);
 private:
 	void FreeNameString(void);
 	void FreeTypeNameString(void);

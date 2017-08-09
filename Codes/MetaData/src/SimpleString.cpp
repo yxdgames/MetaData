@@ -40,7 +40,7 @@ void SimpleString::SetValue(char *pStr)
 	FreeString();
 	if (pStr)
 	{
-		TDUIntPtr str_len(strlen(pStr));
+		size_t str_len(strlen(pStr));
 		m_pString = new char[str_len + 1];
 		strcpy(m_pString, pStr);
 	}
