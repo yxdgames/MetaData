@@ -332,9 +332,4 @@
       <Filter>Codes\Serialization\src</Filter>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Library Include="..\lib\Debug\expat_static.lib">
-      <Filter>lib</Filter>
-    </Library>
-  </ItemGroup>
 </Project>

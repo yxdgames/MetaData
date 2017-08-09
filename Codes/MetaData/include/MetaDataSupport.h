@@ -11,6 +11,8 @@
 #include "MetaDataClassType.h"
 #include "TypeTraits.h"
 
+#define CLASS_DESCRIPT_FOR_MD_SUPPORT
+
 /***********************/
 /* Meta data of module */
 /***********************/

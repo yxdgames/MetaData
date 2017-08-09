@@ -16,5 +16,3 @@
 #define FUNC_DESCRIPT
 #define VAR_DESCRIPT
 #endif
-
-#define CLASS_DESCRIPT_FOR_MD_SUPPORT
