@@ -301,7 +301,7 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pPa
 		{
 			if (bParamsOK)
 			{
-				Packet.ParamCount = param_count;
+				Packet.ParamCount = static_cast<int>(param_count);
 				Packet.pParam = pParamPtrBuffer;
 				if (m_pReturnInfo)
 				{
