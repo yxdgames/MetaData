@@ -364,7 +364,7 @@ bool CMetaDataCustomType::FindInterface(const CMetaDataType * pIntf, std::vector
 		for (base_type_itr = m_pBaseTypeList->begin(); base_type_itr != m_pBaseTypeList->end(); ++base_type_itr)
 		{
 			IntfList.push_back(&(*base_type_itr));
-			if (base_type_itr->CustomType->FindBaseType(pIntf, IntfList))
+			if (base_type_itr->CustomType->FindInterface(pIntf, IntfList))
 			{
 				return true;
 			}
