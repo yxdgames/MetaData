@@ -1,5 +1,7 @@
 #pragma once
+
 #include "ISerialEntity.h"
+#include "..\..\MetaData\include\IInterfaceDefaultImp.h"
 #include <vector>
 
 class CLASS_DESCRIPT CSerialEntity : public ISerialEntity
@@ -10,31 +12,21 @@ public:
 public:
 	void SetReleaseStringFlag(bool flag);
 public:
-	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf)
-	{
-		return nullptr;
-	}
+	//IInterface
+	D_IMPLEMENT_IINTERFACE_MEMBER
 	//ISerialEntity
 	//method
 	virtual ISerialEntity *NewChild(void);
 	virtual void DelChild(ISerialEntity *pChild);
 	virtual void ClearChildren(void);
-	//virtual ISerialEntity *FindChild(const char *pName, TDUIntPtr EntTypeId, TDUIntPtr Tag);
 	virtual ISerialEntity *FindChild(const char *pName, char *EntTypeName, TDUIntPtr Tag);
-
 	//attribute
 	virtual void SetName(const char *pName);
 	virtual const char *GetName(void);
-
-	//virtual void SetEntTypeId(TDUIntPtr iId);
-	//virtual TDUIntPtr GetEntTypeId(void);
-
 	virtual void SetEntTypeName(const char *pName);
 	virtual const char *GetEntTypeName(void);
-
 	virtual void SetTag(TDUIntPtr Tag);
 	virtual TDUIntPtr GetTag(void);
-
 	virtual void SetValue(const char *pValue);
 	virtual void SetValue(const int Value);
 	virtual void SetValue(const long long Value);
@@ -47,17 +39,15 @@ public:
 	virtual size_t GetChildrenCount(void);
 	virtual ISerialEntity *GetChildren(size_t index);
 private:
-	void FreeNameString(void);
-	void FreeTypeNameString(void);
 	void RemoveChild(CSerialEntity *pChild);
 	void FreeChildren(void);
 private:
-	char *m_pName;
-	char *m_pTypeName;
+	std::string *m_pName;
+	std::string *m_pTypeName;
 	TDUIntPtr m_Tag;
 	SVariant m_value;
 
 	CSerialEntity *m_pParent;
-	std::vector<CSerialEntity*>	*m_pChildren;
+	std::vector<CSerialEntity*> *m_pChildren;
 };
 

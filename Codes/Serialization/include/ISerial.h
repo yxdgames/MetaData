@@ -27,6 +27,7 @@ public:
 	//attribute
 	virtual EStructureInStream GetStructInStream(void) = 0;
 	virtual void SetStructInStream(EStructureInStream value) = 0;
+
 public:
 	static ISerial *CreateSerialIntf(void);
 

@@ -21,6 +21,7 @@ public:
 	virtual bool Unserialize(ISerial *pSerial) = 0;
 public:
 	//attribute
+
 public:
 	static ISerialStream *CreateSerialStreamIntf(ESerialStreamIntfType IntfType, std::iostream *pStream, bool hold_stream);
 };

@@ -2,7 +2,8 @@
 #include "..\include\SerialEntity.h"
 
 CSerialEntity::CSerialEntity(CSerialEntity *pParent)
-	:m_pName(nullptr), m_pTypeName(nullptr), m_Tag(0), m_pParent(pParent),
+	:m_pName(new std::string), m_pTypeName(new std::string),
+	m_Tag(0), m_pParent(pParent),
 	m_pChildren(new std::vector<CSerialEntity*>)
 {
 	if (m_pParent) m_pParent->m_pChildren->push_back(this);
@@ -11,14 +12,13 @@ CSerialEntity::CSerialEntity(CSerialEntity *pParent)
 
 CSerialEntity::~CSerialEntity(void)
 {
-	FreeNameString();
-	FreeTypeNameString();
-
 	FreeChildren();
 	
 	if (m_pParent) m_pParent->RemoveChild(this);
 
 	delete m_pChildren;
+	delete m_pTypeName;
+	delete m_pName;
 }
 
 void CSerialEntity::SetReleaseStringFlag(bool flag)
@@ -29,18 +29,15 @@ void CSerialEntity::SetReleaseStringFlag(bool flag)
 //method
 ISerialEntity *CSerialEntity::NewChild(void)
 {
-	CSerialEntity *pEnt(new CSerialEntity(this));
-	return pEnt;
+	return new CSerialEntity(this);
 }
 
 void CSerialEntity::DelChild(ISerialEntity *pChild)
 {
 	std::vector<CSerialEntity*>::iterator itr;
-	ISerialEntity *pIntfSE;
 	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
-		pIntfSE = *itr;
-		if (pIntfSE == pChild)
+		if (*itr == pChild)
 		{
 			delete (*itr);
 			break;
@@ -52,11 +49,6 @@ void CSerialEntity::ClearChildren(void)
 {
 	FreeChildren();
 }
-
-//ISerialEntity *CSerialEntity::FindChild(const char *pName, unsigned int EntTypeId, TDUIntPtr Tag)
-//{
-//	return nullptr;
-//}
 
 ISerialEntity *CSerialEntity::FindChild(const char *pName, char *EntTypeName, TDUIntPtr Tag)
 {
@@ -75,41 +67,30 @@ ISerialEntity *CSerialEntity::FindChild(const char *pName, char *EntTypeName, TD
 //attribute
 void CSerialEntity::SetName(const char *pName)
 {
-	FreeNameString();
 	if (pName)
 	{
-		m_pName = new char [strlen(pName) + 1];
-		strcpy(m_pName, pName);
+		*m_pName = pName;
 	}
+	else *m_pName = "";
 }
 
 const char *CSerialEntity::GetName(void)
 {
-	return m_pName;
+	return m_pName->c_str();
 }
-
-//void CSerialEntity::SetEntTypeId(unsigned int iId)
-//{
-//}
-
-//unsigned int CSerialEntity::GetEntTypeId(void)
-//{
-//	return 0;
-//}
 
 void CSerialEntity::SetEntTypeName(const char *pName)
 {
-	FreeTypeNameString();
 	if (pName)
 	{
-		m_pTypeName = new char [strlen(pName) + 1];
-		strcpy(m_pTypeName, pName);
+		*m_pTypeName = pName;
 	}
+	else *m_pTypeName = "";
 }
 
 const char *CSerialEntity::GetEntTypeName(void)
 {
-	return m_pTypeName;
+	return m_pTypeName->c_str();
 }
 
 void CSerialEntity::SetTag(TDUIntPtr Tag)
@@ -170,24 +151,6 @@ size_t CSerialEntity::GetChildrenCount(void)
 ISerialEntity *CSerialEntity::GetChildren(size_t index)
 {
 	return m_pChildren->at(index);
-}
-
-void CSerialEntity::FreeNameString(void)
-{
-	if (m_pName)
-	{
-		delete [] m_pName;
-		m_pName = nullptr;
-	}
-}
-
-void CSerialEntity::FreeTypeNameString(void)
-{
-	if (m_pTypeName)
-	{
-		delete [] m_pTypeName;
-		m_pTypeName = nullptr;
-	}
 }
 
 void CSerialEntity::RemoveChild(CSerialEntity *pChild)
