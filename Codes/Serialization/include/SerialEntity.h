@@ -38,6 +38,7 @@ public:
 	virtual void SetValue(const char *pValue);
 	virtual void SetValue(const int Value);
 	virtual void SetValue(const long long Value);
+	virtual void SetValue(const double Value);
 	virtual void SetValue(const long double Value);
 	virtual void SetValue(const bool Value);
 	virtual SVariant &GetValue(void);

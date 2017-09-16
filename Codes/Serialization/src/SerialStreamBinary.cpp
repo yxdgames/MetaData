@@ -61,13 +61,13 @@ bool CSerialStreamBinary::Serialize(ISerial *pSerial)
 
 	SFileHeader file_header;
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT, 0 };
-	TypeBaseUnit atom_size_pos;
+	TDBinBaseUnit atom_size_pos;
 
 	memcpy(&file_header.file_tag, D_ENT_BIN_SERIALIZER_FILE_TAG, sizeof(file_header.file_tag));
-	file_header.version[0] = (TypeByte)1;
-	file_header.version[1] = (TypeByte)0;
-	file_header.version[2] = (TypeByte)0;
-	file_header.version[3] = (TypeByte)0;
+	file_header.version[0] = (TDBYTE)1;
+	file_header.version[1] = (TDBYTE)0;
+	file_header.version[2] = (TDBYTE)0;
+	file_header.version[3] = (TDBYTE)0;
 	file_header.endian[0] = 'E';
 	file_header.endian[1] = 'L';
 	file_header.endian[2] = '\0';
@@ -104,7 +104,7 @@ bool CSerialStreamBinary::Unserialize(ISerial *pSerial)
 	if (!m_pStream || !pSerial) return false;
 
 	SFileHeader file_header;
-	TypeBaseUnit ent_size;
+	TDBinBaseUnit ent_size;
 	ITreeSerial *pTreeSerial(pSerial->AsType<ITreeSerial>());
 	ISerialEntity *pEnt;
 
@@ -150,7 +150,7 @@ bool CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt, size_t &EntSize)
 {
 	SFileEntityItem file_ent_item;
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT, 0 };
-	TypeBaseUnit atom_size_pos;
+	TDBinBaseUnit atom_size_pos;
 	SStringFilePositionList::SStringFilePositions *pStringFilePos;
 
 	pStringFilePos = this->m_StringFilePositionList.FindItem(pEnt->GetName(), true);
@@ -199,7 +199,7 @@ bool CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt, size_t &EntSize)
 bool CSerialStreamBinary::SerializeStringTable(void)
 {
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_STRING, 0 };
-	TypeBaseUnit atom_size_pos;
+	TDBinBaseUnit atom_size_pos;
 	size_t size;
 	unsigned long i, j;
 
@@ -252,9 +252,9 @@ void CSerialStreamBinary::UnserialInit(void)
 bool CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, size_t &EntSize)
 {
 	SAtom atom;
-	TypeBaseUnit child_ent_size;
+	TDBinBaseUnit child_ent_size;
 	SFileEntityItem ent_item;
-	TypeBaseUnit str_size1, str_size2;
+	TDBinBaseUnit str_size1, str_size2;
 	char *pStr;
 
 	EntSize = 0;
@@ -308,7 +308,7 @@ bool CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, size_t &EntSize
 			pEnt->SetValue(*((long long*)ent_item.value));
 			break;
 		case vtSTR_PTR:
-			m_pStream->seekg(*((TypeBaseUnit*)ent_item.value));
+			m_pStream->seekg(*((TDBinBaseUnit*)ent_item.value));
 			m_pStream->read((char*)&str_size1, sizeof(str_size1));
 			if (str_size1 > str_size2)
 			{
@@ -328,7 +328,7 @@ bool CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, size_t &EntSize
 		m_pStream->seekg(m_StreamPosition);
 
 		//children
-		for (TypeBaseUnit i = 0; i < ent_item.children_count; ++i)
+		for (TDBinBaseUnit i = 0; i < ent_item.children_count; ++i)
 		{
 			if (!UnserializeEntity(pEnt->NewChild(), child_ent_size))
 			{

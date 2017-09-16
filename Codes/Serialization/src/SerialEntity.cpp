@@ -134,6 +134,11 @@ void CSerialEntity::SetValue(const long long Value)
 	m_value.SetValue(Value);
 }
 
+void CSerialEntity::SetValue(const double Value)
+{
+	m_value.SetValue(Value);
+}
+
 void CSerialEntity::SetValue(const long double Value)
 {
 	m_value.SetValue(Value);

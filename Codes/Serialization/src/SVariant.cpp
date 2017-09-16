@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "..\include\SVariant.h"
 
-#include <string>
-
 SVariant::SVariant(void)
 	: type(vtNone), release_string(true)
 {
@@ -17,34 +15,6 @@ SVariant::SVariant(SVariant &src)
 SVariant::~SVariant(void)
 {
 	FreeStr();
-}
-
-void SVariant::SetValue(const bool Value)
-{
-	FreeStr();
-	type = vtBOOL;
-	value._b = Value;
-}
-
-void SVariant::SetValue(const int Value)
-{
-	FreeStr();
-	type = vtINT;
-	value._i = Value;
-}
-
-void SVariant::SetValue(const long double Value)
-{
-	FreeStr();
-	type = vtFLOAT;
-	value._d = Value;
-}
-
-void SVariant::SetValue(const long long Value)
-{
-	FreeStr();
-	type = vtLONGLONG;
-	value._ll = Value;
 }
 
 void SVariant::SetValue(const char *pStr)
@@ -64,13 +34,6 @@ void SVariant::SetValue(const char *pStr)
 	{
 		value._pstr = const_cast<char*>(pStr);
 	}
-}
-
-void SVariant::SetValueEmpty(void)
-{
-	FreeStr();
-	type = vtNone;
-	memset(&value, 0x00, sizeof(value));
 }
 
 SVariant &SVariant::operator=(SVariant &src)
@@ -94,36 +57,6 @@ SVariant &SVariant::operator=(SVariant &src)
 			value._pstr = nullptr;
 		}
 	}
-	return *this;
-}
-
-SVariant &SVariant::operator=(const bool Value)
-{
-	SetValue(Value);
-	return *this;
-}
-
-SVariant &SVariant::operator=(const int Value)
-{
-	SetValue(Value);
-	return *this;
-}
-
-SVariant &SVariant::operator=(const long double Value)
-{
-	SetValue(Value);
-	return *this;
-}
-
-SVariant &SVariant::operator=(const long long Value)
-{
-	SetValue(Value);
-	return *this;
-}
-
-SVariant &SVariant::operator=(const char *pStr)
-{
-	SetValue(pStr);
 	return *this;
 }
 

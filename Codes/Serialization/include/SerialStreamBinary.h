@@ -27,7 +27,7 @@ private:
 		struct SStringFilePositions
 		{
 			const char *str;
-			std::vector<TypeBaseUnit> positions;
+			std::vector<TDBinBaseUnit> positions;
 		};
 	public:
 		SStringFilePositions *FindItem(const char *pString, bool bNew);
@@ -43,7 +43,7 @@ private:
 private:
 	bool m_HoldStream;
 	std::iostream *m_pStream;
-	TypeBaseUnit m_StreamPosition;
+	TDBinBaseUnit m_StreamPosition;
 	SStringFilePositionList m_StringFilePositionList;
 };
 
