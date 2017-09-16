@@ -3,7 +3,7 @@
 #include "ITreeSerial.h"
 #include "..\..\MetaData\include\IInterfaceDefaultImp.h"
 
-class CTreeSerial : public ITreeSerial
+class CLASS_DESCRIPT CTreeSerial : public ITreeSerial
 {
 public:
 	CTreeSerial(void);

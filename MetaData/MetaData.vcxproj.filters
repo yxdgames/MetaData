@@ -31,6 +31,15 @@
     <Filter Include="Codes\src">
       <UniqueIdentifier>{cc0f9d31-f905-4052-9e76-b777e9f18261}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Codes\Serialization">
+      <UniqueIdentifier>{7ef28866-5dba-4180-8b50-8c4d8d2f0ea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\Serialization\include">
+      <UniqueIdentifier>{ae7500fb-4612-430d-a1ea-a6023aef4429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\Serialization\src">
+      <UniqueIdentifier>{f9a62daf-f834-41c7-9329-4d00c6ed41c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -129,6 +138,48 @@
     <ClInclude Include="..\Codes\include\Typedef.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ExceptionSerialization.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerial.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerialEntity.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerializer.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerialStream.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ITreeSerial.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialEntity.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\Serializer.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SVariant.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\TreeSerial.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\CharArray.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -200,6 +251,42 @@
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerializer.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerialStream.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ITreeSerial.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SerialEntity.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\Serializer.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SVariant.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\src\CharArray.cpp">
+      <Filter>Codes\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\MetaData\src\Demo.mdo">
@@ -222,6 +309,15 @@
     </None>
     <None Include="Source.def">
       <Filter>源文件</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ISerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ITreeSerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\TreeSerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
     </None>
   </ItemGroup>
 </Project>

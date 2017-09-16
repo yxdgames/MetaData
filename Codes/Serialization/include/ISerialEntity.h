@@ -3,7 +3,7 @@
 #include "..\..\MetaData\include\IInterface.h"
 #include "SVariant.h"
 
-class ISerialEntity : public IInterface
+class CLASS_DESCRIPT ISerialEntity : public IInterface
 {
 public:
 	ISerialEntity(void);

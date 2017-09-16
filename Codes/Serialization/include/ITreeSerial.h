@@ -3,7 +3,7 @@
 #include "ISerial.h"
 #include "ISerialEntity.h"
 
-class ITreeSerial : public ISerial
+class CLASS_DESCRIPT ITreeSerial : public ISerial
 {
 public:
 	ITreeSerial(void);

@@ -3,7 +3,7 @@
 #include "ISerializer.h"
 #include "ITreeSerial.h"
 
-class CSerializer : public ISerializer
+class CLASS_DESCRIPT CSerializer : public ISerializer
 {
 public:
 	CSerializer(void);

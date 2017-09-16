@@ -4,10 +4,12 @@
 #include "..\..\MetaData\include\SimpleString.h"
 #include "..\..\include\CharArray.h"
 
-#define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE		(0x00000001)
-#define D_SERIALIZER_ENTITY_TAG_BASE_TYPE			(0x00000002)
+#define D_SERIALIZER_ENTITY_TAG_BASE_TYPE							(0x00000001)
+#define D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE		(0x00000002)
+#define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE						(0x00000003)
 
-#define D_SERIALIZER_ICONTAINER_ELE_NAME	"Ele_of_IContainer"
+#define D_SERIALIZER_ICONTAINER_NAME		"__IContainer__"
+#define D_SERIALIZER_ICONTAINER_ELE_NAME	"__Ele_of_IContainer__"
 
 //CSerializer
 CSerializer::CSerializer(void)
@@ -145,27 +147,35 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 	if (pType->QueryInterface(pObj, "IContainer", &pIntf))
 	{
 		IContainer *pContainter(reinterpret_cast<IContainer*>(pIntf));
-		if (pContainter->GetItemType())
+		ISerialEntity *pContainterEntity;
+		for (size_t type_index = 0; type_index < pContainter->GetItemTypeCount(); ++type_index)
 		{
-			for (i = 0; i < pContainter->Count(); ++i)
+			if (!pContainter->GetItemType(type_index)
+				|| !pContainter->GetItemType(type_index)->GetFullName(TypeName.char_array(), 256))
+				continue;
+			pContainterEntity = pSEntity->NewChild();
+			pContainterEntity->SetName(D_SERIALIZER_ICONTAINER_NAME);
+			pContainterEntity->SetEntTypeName(TypeName.char_array());
+			pContainterEntity->SetTag(D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE);
+			for (i = 0; i < pContainter->Count(type_index); ++i)
 			{
-				pO = pContainter->GetItem(i);
+				pO = pContainter->GetItem(type_index, i);
 				if (!pO) continue;
-				pChild = pSEntity->NewChild();
+				pChild = pContainterEntity->NewChild();
 				pChild->SetName(D_SERIALIZER_ICONTAINER_ELE_NAME);
-				switch (pContainter->GetItemType()->GetTypeID())
+				switch (pContainter->GetItemType(type_index)->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
-					if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType()), pO, pChild, D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE))
+					if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)), pO, pChild, D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE))
 					{
-						pSEntity->DelChild(pChild);
+						pContainterEntity->DelChild(pChild);
 						return false;
 					}
 					break;
 				case D_META_DATA_TYPE_ID_INNER_TYPE:
-					if (!SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pContainter->GetItemType()), pO, pChild))
+					if (!SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pContainter->GetItemType(type_index)), pO, pChild))
 					{
-						pSEntity->DelChild(pChild);
+						pContainterEntity->DelChild(pChild);
 						return false;
 					}
 					break;
@@ -342,33 +352,50 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	if (pType->QueryInterface(pObj, "IContainer", &pIntf))
 	{
 		IContainer *pContainter(reinterpret_cast<IContainer*>(pIntf));
-		if (pContainter->GetItemType())
+		ISerialEntity *pContainterEntity;
+		for (size_t type_index = 0; type_index < pContainter->GetItemTypeCount(); ++type_index)
 		{
-			if (!pContainter->GetItemType()->GetFullName(TypeName.char_array(), 256))
-			{
-				return false;
-			}
+			if (!pContainter->GetItemType(type_index)
+				|| !pContainter->GetItemType(type_index)->GetFullName(TypeName.char_array(), 256))
+				continue;
+			pContainterEntity = nullptr;
 			for (i = 0; i < pSEntity->GetChildrenCount(); ++i)
 			{
 				pChild = pSEntity->GetChildren(i);
+				if (strcmp(TypeName.char_array(), pChild->GetEntTypeName()) == 0
+					&& pChild->GetTag() == D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE
+					&& strcmp(D_SERIALIZER_ICONTAINER_NAME, pChild->GetName()) == 0)
+				{
+					pContainterEntity = pChild;
+					break;
+				}
+			}
+			if (!pContainterEntity) continue;
+			for (i = 0; i < pContainterEntity->GetChildrenCount(); ++i)
+			{
+				pChild = pContainterEntity->GetChildren(i);
 				if (strcmp(TypeName.char_array(), pChild->GetEntTypeName()) != 0
 					|| strcmp(D_SERIALIZER_ICONTAINER_ELE_NAME, pChild->GetName()) != 0)
 					continue;
 
-				pO = NewObject(pContainter->GetItemType());
-				if (!pO) return false;
-				pContainter->AddItem(pO);
+				pO = pContainter->NewItem(type_index);
+				if (!pO)
+				{
+					pO = NewObject(pContainter->GetItemType(type_index));
+					if (!pO) return false;
+					pContainter->AddItem(type_index, pO);
+				}
 				
-				switch (pContainter->GetItemType()->GetTypeID())
+				switch (pContainter->GetItemType(type_index)->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
-					if (!UnserializeCustomTypeWrapper(pChild, reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType()), pO, D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE))
+					if (!UnserializeCustomTypeWrapper(pChild, reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)), pO, D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE))
 					{
 						return false;
 					}
 					break;
 				case D_META_DATA_TYPE_ID_INNER_TYPE:
-					if (!UnserializeInnerType(pChild, reinterpret_cast<const CMetaDataInnerType*>(pContainter->GetItemType()), pO))
+					if (!UnserializeInnerType(pChild, reinterpret_cast<const CMetaDataInnerType*>(pContainter->GetItemType(type_index)), pO))
 					{
 						return false;
 					}

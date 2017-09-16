@@ -10,7 +10,7 @@ enum ESerialStreamIntfType
 	ssitXml,
 };
 
-class ISerialStream : public IInterface
+class CLASS_DESCRIPT ISerialStream : public IInterface
 {
 public:
 	ISerialStream(void);

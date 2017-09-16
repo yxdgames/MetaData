@@ -1,5 +1,7 @@
 #pragma once
 
+#include "..\..\include\CommonDefine.h"
+
 enum EVarType
 {
 	vtNone = 0,
@@ -11,7 +13,7 @@ enum EVarType
 	vtSTR_PTR,
 };
 
-struct SVariant
+struct STRUCT_DESCRIPT SVariant
 {
 	EVarType type;
 	union {

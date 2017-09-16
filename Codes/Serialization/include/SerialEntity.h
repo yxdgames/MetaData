@@ -2,7 +2,7 @@
 #include "ISerialEntity.h"
 #include <vector>
 
-class CSerialEntity : public ISerialEntity
+class CLASS_DESCRIPT CSerialEntity : public ISerialEntity
 {
 public:
 	CSerialEntity(CSerialEntity *pParent);
@@ -58,6 +58,6 @@ private:
 	SVariant m_value;
 
 	CSerialEntity *m_pParent;
-	std::vector<CSerialEntity*>	m_Children;
+	std::vector<CSerialEntity*>	*m_pChildren;
 };
 

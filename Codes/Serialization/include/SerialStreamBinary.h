@@ -3,19 +3,16 @@
 #include "ISerialStream.h"
 #include "ISerialEntity.h"
 #include "..\include\EntityBinaryFileStructure.h"
+#include "..\..\MetaData\include\IInterfaceDefaultImp.h"
 
-class CSerialStreamBinary : public ISerialStream
+class CLASS_DESCRIPT CSerialStreamBinary : public ISerialStream
 {
 public:
 	CSerialStreamBinary(std::iostream *pStream, bool hold_stream);
 	virtual ~CSerialStreamBinary(void);
 public:
-	//
-public:
-	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf)
-	{
-		return nullptr;
-	}
+	//IInterface
+	D_IMPLEMENT_IINTERFACE_MEMBER
 	//ISerialStream
 	//method
 	virtual bool Serialize(ISerial *pSerial);

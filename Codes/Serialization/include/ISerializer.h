@@ -3,7 +3,7 @@
 #include "..\..\MetaData\include\IInterface.h"
 #include "ISerial.h"
 
-class ISerializer : public IInterface
+class CLASS_DESCRIPT ISerializer : public IInterface
 {
 public:
 	ISerializer(void);

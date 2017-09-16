@@ -2,9 +2,10 @@
 #include "..\include\SerialEntity.h"
 
 CSerialEntity::CSerialEntity(CSerialEntity *pParent)
-	:m_pName(nullptr), m_pTypeName(nullptr), m_Tag(0), m_pParent(pParent)
+	:m_pName(nullptr), m_pTypeName(nullptr), m_Tag(0), m_pParent(pParent),
+	m_pChildren(new std::vector<CSerialEntity*>)
 {
-	if (m_pParent) m_pParent->m_Children.push_back(this);
+	if (m_pParent) m_pParent->m_pChildren->push_back(this);
 }
 
 
@@ -16,6 +17,8 @@ CSerialEntity::~CSerialEntity(void)
 	FreeChildren();
 	
 	if (m_pParent) m_pParent->RemoveChild(this);
+
+	delete m_pChildren;
 }
 
 void CSerialEntity::SetReleaseStringFlag(bool flag)
@@ -34,7 +37,7 @@ void CSerialEntity::DelChild(ISerialEntity *pChild)
 {
 	std::vector<CSerialEntity*>::iterator itr;
 	ISerialEntity *pIntfSE;
-	for (itr = m_Children.begin(); itr != m_Children.end(); ++itr)
+	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
 		pIntfSE = *itr;
 		if (pIntfSE == pChild)
@@ -58,7 +61,7 @@ void CSerialEntity::ClearChildren(void)
 ISerialEntity *CSerialEntity::FindChild(const char *pName, char *EntTypeName, TDUIntPtr Tag)
 {
 	std::vector<CSerialEntity*>::iterator itr;
-	for (itr = m_Children.begin(); itr != m_Children.end(); ++itr)
+	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
 		if (strcmp((*itr)->GetName(), pName) == 0 && strcmp((*itr)->GetEntTypeName(), EntTypeName) == 0
 			&& (*itr)->GetTag() == Tag)
@@ -161,12 +164,12 @@ ISerialEntity *CSerialEntity::GetParent(void)
 
 size_t CSerialEntity::GetChildrenCount(void)
 {
-	return m_Children.size();
+	return m_pChildren->size();
 }
 
 ISerialEntity *CSerialEntity::GetChildren(size_t index)
 {
-	return m_Children[index];
+	return m_pChildren->at(index);
 }
 
 void CSerialEntity::FreeNameString(void)
@@ -190,11 +193,11 @@ void CSerialEntity::FreeTypeNameString(void)
 void CSerialEntity::RemoveChild(CSerialEntity *pChild)
 {
 	std::vector<CSerialEntity*>::iterator itr;
-	for (itr = m_Children.begin(); itr != m_Children.end(); ++itr)
+	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
 		if ((*itr) == pChild)
 		{
-			m_Children.erase(itr);
+			m_pChildren->erase(itr);
 			break;
 		}
 	}
@@ -202,8 +205,8 @@ void CSerialEntity::RemoveChild(CSerialEntity *pChild)
 
 void CSerialEntity::FreeChildren(void)
 {
-	for (size_t index = m_Children.size(); index > 0; --index)
+	for (size_t index = m_pChildren->size(); index > 0; --index)
 	{
-		delete m_Children[index - 1];
+		delete m_pChildren->at(index - 1);
 	}
 }

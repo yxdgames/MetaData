@@ -2,7 +2,7 @@
 
 #include "..\..\include\ExceptionBase.h"
 
-class ExceptionSerialization : public ExceptionBase
+class CLASS_DESCRIPT ExceptionSerialization : public ExceptionBase
 {
 public:
 	ExceptionSerialization(int ID, const char *pCaption);

@@ -11,7 +11,7 @@ enum EStructureInStream
 	ssiMax,
 };
 
-class ISerial : public IInterface
+class CLASS_DESCRIPT ISerial : public IInterface
 {
 public:
 	ISerial(void);
