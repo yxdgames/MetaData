@@ -40,7 +40,6 @@ bool CSerializer::DoSerialize(const CMetaDataType *pType, void *pObj, const char
 	if (!pType->GetFullName(TypeName.char_array(), 256)) return false;
 
 	ISerialEntity *pEnt;
-	m_pTreeSerial->Root()->ClearChildren();
 	pEnt = m_pTreeSerial->Root()->NewChild();
 	pEnt->SetName(pName);
 	pEnt->SetEntTypeName(TypeName.char_array());
