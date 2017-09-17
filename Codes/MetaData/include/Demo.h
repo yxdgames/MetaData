@@ -1,5 +1,6 @@
 #pragma once
 
+#include "TProperty.h"
 #include "SimpleString.h"
 #include "MetaDataSupport.h"
 
@@ -32,6 +33,11 @@ public:
 	unsigned int mem_u_i;
 	long mem_long;
 	long *p_mem_long;
+public:
+	void Set_mem_i(int value) { mem_i = value; }
+	int Get_mem_i(void) { return mem_i; }
+	//propert
+	TProperty<CClass1, int>		MemI;
 public:
 	static unsigned char static_mem_uc;
 	static unsigned long static_mem_ulong;

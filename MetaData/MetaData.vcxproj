@@ -184,6 +184,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
+    <ClInclude Include="..\Codes\MetaData\include\TProperty.h" />
     <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
     <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVarBase.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\TProperty.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp" />

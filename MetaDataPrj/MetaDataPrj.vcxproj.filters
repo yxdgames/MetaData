@@ -195,6 +195,9 @@
     <ClInclude Include="..\Codes\include\Typedef.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TProperty.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -300,6 +303,9 @@
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\MetaDataGlobalSpace.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\TProperty.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>

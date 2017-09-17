@@ -6,8 +6,12 @@
 //CClass1
 CClass1::CClass1(void)
 	: mem_i(8329), mem_char(18), mem_short(189), mem_d(951.243), mem_f(832.321f),
-	mem_u_i(9998), mem_long(-9532), p_mem_long(nullptr)
+	mem_u_i(9998), mem_long(-9532), p_mem_long(nullptr),
+	//property
+	MemI(this, &CClass1::Set_mem_i, &CClass1::Get_mem_i)
 {
+	MemI = 100;
+	int x = MemI;
 }
 
 CClass1::~CClass1(void)
