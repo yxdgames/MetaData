@@ -1,6 +1,8 @@
 #pragma once
 
-class CCharArray
+#include "CommonDefine.h"
+
+class CLASS_DESCRIPT CCharArray
 {
 public:
 	CCharArray(unsigned int size);

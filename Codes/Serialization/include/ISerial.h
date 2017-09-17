@@ -20,8 +20,9 @@ public:
 	//method
 	virtual bool SaveToStream(std::iostream &stream) = 0;
 	virtual bool LoadFromStream(std::iostream &stream) = 0;
-	virtual bool SaveToFile(char *pFileName) = 0;
-	virtual bool LoadFromFile(char *pFileName) = 0;
+	virtual bool SaveToFile(const char *pFileName) = 0;
+	virtual bool LoadFromFile(const char *pFileName) = 0;
+	virtual void Clear(void) = 0;
 	virtual void DebugPrintSelf(void) = 0;
 public:
 	//attribute

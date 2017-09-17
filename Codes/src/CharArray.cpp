@@ -10,5 +10,5 @@ CCharArray::CCharArray(unsigned int size)
 
 CCharArray::~CCharArray(void)
 {
-	delete [] m_pCharArray;
+	delete[] m_pCharArray;
 }

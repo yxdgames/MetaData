@@ -15,8 +15,9 @@ public:
 	//method
 	virtual bool SaveToStream(std::iostream &stream);
 	virtual bool LoadFromStream(std::iostream &stream);
-	virtual bool SaveToFile(char *pFileName);
-	virtual bool LoadFromFile(char *pFileName);
+	virtual bool SaveToFile(const char *pFileName);
+	virtual bool LoadFromFile(const char *pFileName);
+	virtual void Clear(void);
 	virtual void DebugPrintSelf(void);
 	//attribute
 	virtual EStructureInStream GetStructInStream(void);

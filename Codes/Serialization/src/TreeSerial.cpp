@@ -39,7 +39,15 @@ bool CTreeSerial::SaveToStream(std::iostream &stream)
 	bool ret;
 	ISerialStream *pSerialStream(NewSerialStream(gTreeSerialSerialStreamIntfType[m_StructInStream], &stream, false));
 	if (!pSerialStream) return false;
-	ret = pSerialStream->Serialize(this);
+	try
+	{
+		ret = pSerialStream->Serialize(this);
+	}
+	catch (...)
+	{
+		delete pSerialStream;
+		throw;
+	}
 	delete pSerialStream;
 	return ret;
 }
@@ -49,33 +57,63 @@ bool CTreeSerial::LoadFromStream(std::iostream &stream)
 	bool ret;
 	ISerialStream *pSerialStream(NewSerialStream(gTreeSerialSerialStreamIntfType[m_StructInStream], &stream, false));
 	if (!pSerialStream) return false;
-	ret = pSerialStream->Unserialize(this);
+	try
+	{
+		ret = pSerialStream->Unserialize(this);
+	}
+	catch (...)
+	{
+		delete pSerialStream;
+		throw;
+	}
 	delete pSerialStream;
 	return ret;
 }
 
-bool CTreeSerial::SaveToFile(char *pFileName)
+bool CTreeSerial::SaveToFile(const char *pFileName)
 {
 	bool ret;
 	std::fstream file_stream(pFileName, std::fstream::out | std::fstream::binary);
 	ISerialStream *pSerialStream(NewSerialStream(gTreeSerialSerialStreamIntfType[m_StructInStream], &file_stream, false));
 	if (!pSerialStream) return false;
-	ret = pSerialStream->Serialize(this);
+	try
+	{
+		ret = pSerialStream->Serialize(this);
+	}
+	catch (...)
+	{
+		delete pSerialStream;
+		throw;
+	}
 	delete pSerialStream;
 	file_stream.close();
 	return ret;
 }
 
-bool CTreeSerial::LoadFromFile(char *pFileName)
+bool CTreeSerial::LoadFromFile(const char *pFileName)
 {
 	bool ret;
 	std::fstream file_stream(pFileName, std::fstream::in | std::fstream::binary);
 	if (!file_stream.is_open()) return false;
 	ISerialStream *pSerialStream(NewSerialStream(gTreeSerialSerialStreamIntfType[m_StructInStream], &file_stream, false));
 	if (!pSerialStream) return false;
-	ret = pSerialStream->Unserialize(this);
+	try
+	{
+		ret = pSerialStream->Unserialize(this);
+	}
+	catch (...)
+	{
+		delete pSerialStream;
+		throw;
+	}
 	delete pSerialStream;
+	file_stream.close();
 	return ret;
+}
+
+void CTreeSerial::Clear(void)
+{
+	this->Root()->ClearChildren();
 }
 
 void CTreeSerial::DebugPrintSelf(void)

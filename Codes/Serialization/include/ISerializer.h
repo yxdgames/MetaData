@@ -12,14 +12,25 @@ public:
 	template <typename T>
 	bool Serialize(T *pObj, const char *pName)
 	{
-		return DoSerialize(TypeTraits<T>::GetMetaDataType(pObj), pObj, pName);
+		return DoSerialize(TypeTraits<T>::GetMetaDataType(pObj),
+			pObj->AsType(TypeTraits<T>::GetMetaDataType(pObj)),
+			pName);
+	}
+	template <typename T>
+	bool Unserialize(const char *pName, T *pObj)
+	{
+		return DoUnserialize(TypeTraits<T>::GetMetaDataType(pObj),
+			pObj->AsType(TypeTraits<T>::GetMetaDataType(pObj)),
+			pName);
 	}
 	template <typename T>
 	bool Unserialize(const char *pName, T **pObj)
 	{
 		if (!pObj) return false;
 		if (!(*pObj)) *pObj = new T;
-		return DoUnserialize(TypeTraits<T>::GetMetaDataType(*pObj), reinterpret_cast<void*>(*pObj), pName);
+		return DoUnserialize(TypeTraits<T>::GetMetaDataType(*pObj),
+			(*pObj)->AsType(TypeTraits<T>::GetMetaDataType(*pObj)),
+			pName);
 	}
 public:
 	//method
