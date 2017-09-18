@@ -10,12 +10,18 @@ public:
 	CMetaDataCustomTypeProperty(const char *pName, const CMetaData *pParent, const CMetaDataType *pType, int PtrLevel, CPropertyBase *pProperty);
 	virtual ~CMetaDataCustomTypeProperty(void);
 public:
+	union UPropertyLocation
+	{
+		TDUIntPtr Offset;
+		CPropertyBase *pProperty;
+	};
+public:
 	//attribute
-	virtual unsigned char GetTypeID(void) const	{ return D_META_DATA_TYPE_ID_CUSTOM_TYPE_PROPERTY; }
-	TDUIntPtr GetOffset(void) const				{ return m_Offset; }
-	bool IsOffset(void) const					{ return m_IsOffset; }
+	virtual unsigned char GetTypeID(void) const			{ return D_META_DATA_TYPE_ID_CUSTOM_TYPE_PROPERTY; }
+	UPropertyLocation GetPropertyLocation(void) const	{ return m_PropertyLocation; }
+	bool IsOffset(void) const							{ return m_IsOffset; }
 private:
-	TDUIntPtr	m_Offset;
-	bool		m_IsOffset;
+	UPropertyLocation	m_PropertyLocation;
+	bool				m_IsOffset;
 };
 
