@@ -8,7 +8,8 @@ CMetaDataCustomType::CMetaDataCustomType(const char *pName, const CMetaData *pPa
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
 	m_pBaseTypeList(nullptr), m_pInterfaceList(nullptr), m_pConstructorList(nullptr), m_pDestructor(nullptr),
-	m_pMemberFuncList(nullptr), m_pMemberVarList(nullptr), m_pStaticMemberFuncList(nullptr), m_pStaticMemberVarList(nullptr),
+	m_pMemberFuncList(nullptr), m_pMemberVarList(nullptr), m_pPropertyList(nullptr),
+	m_pStaticMemberFuncList(nullptr), m_pStaticMemberVarList(nullptr),
 	m_AsTypeExFunPtr(nullptr)
 {
 }
@@ -40,6 +41,11 @@ CMetaDataCustomType::~CMetaDataCustomType(void)
 	{
 		delete m_pMemberVarList;
 		m_pMemberVarList = nullptr;
+	}
+	if (m_pPropertyList)
+	{
+		delete m_pPropertyList;
+		m_pPropertyList = nullptr;
 	}
 	if (m_pStaticMemberFuncList)
 	{
@@ -106,6 +112,15 @@ void CMetaDataCustomType::AddMemberVar(const CMetaDataCustomTypeMemberVar *pMVar
 	if (pMVarList)
 	{
 		pMVarList->push_back(pMVar);
+	}
+}
+
+void CMetaDataCustomType::AddProperty(const CMetaDataCustomTypeProperty *pProp)
+{
+	std::vector<const CMetaDataCustomTypeProperty*> *pPropList(GetPropertyList());
+	if (pPropList)
+	{
+		pPropList->push_back(pProp);
 	}
 }
 

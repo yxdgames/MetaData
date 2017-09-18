@@ -11,7 +11,7 @@
 //                  Demo                      //
 ////////////////////////////////////////////////
 
-class CClass1
+class CLASS_DESCRIPT CClass1
 {
 public:
 	CClass1(void);
@@ -36,6 +36,8 @@ public:
 public:
 	void Set_mem_i(int value) { mem_i = value; }
 	int Get_mem_i(void) { return mem_i; }
+	void Set_mem_char(char value) { mem_char = value; }
+	char Get_mem_char(void) { return mem_char; }
 	//propert
 	TProperty<CClass1, int>		MemI;
 public:
@@ -79,6 +81,8 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1)
 	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_u_i, unsigned int, 0)
 	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_long, long, 0)
 	MD_CLASS_TYPE_MEMBER_VAR_DEF(p_mem_long, long, 1)
+	MD_CLASS_TYPE_MEMBER_PROPERTY_DEF(MemI, int, 0)
+	MD_CLASS_TYPE_PROPERTY_DEF(mem_char, CClass1, char, 0, Set_mem_char, Get_mem_char)
 	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_uc, unsigned char, 0)
 	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_ulong, unsigned long, 0)
 	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_bool, bool, 0)

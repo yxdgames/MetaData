@@ -3,6 +3,7 @@
 #include "MetaDataType.h"
 #include "MetaDataFunction.h"
 #include "MetaDataCustomTypeMemberVar.h"
+#include "MetaDataCustomTypeProperty.h"
 #include "MetaDataVariable.h"
 
 class CMetaDataCustomType;
@@ -45,6 +46,7 @@ public:
 	void SetDestructor(const CMetaDataFunction *pDestructor);
 	void AddMemberFunc(const CMetaDataFunction *pMFunc);
 	void AddMemberVar(const CMetaDataCustomTypeMemberVar *pMVar);
+	void AddProperty(const CMetaDataCustomTypeProperty *pProp);
 	void AddStaticMemberFunc(const CMetaDataFunction *pMFunc);
 	void AddStaticMemberVar(const CMetaDataVariable *pMVar);
 
@@ -79,6 +81,8 @@ public:
 	const CMetaDataFunction *GetMemberFunc(size_t index)  const					{ return (m_pMemberFuncList ? m_pMemberFuncList->at(index) : nullptr); }
 	size_t GetMemberVarCount(void)  const										{ return (m_pMemberVarList ? m_pMemberVarList->size() : 0); }
 	const CMetaDataCustomTypeMemberVar *GetMemberVar(size_t index)  const		{ return (m_pMemberVarList ? m_pMemberVarList->at(index) : nullptr); }
+	size_t GetPropertyCount(void)  const										{ return (m_pPropertyList ? m_pPropertyList->size() : 0); }
+	const CMetaDataCustomTypeProperty *GetProperty(size_t index)  const			{ return (m_pPropertyList ? m_pPropertyList->at(index) : nullptr); }
 	size_t GetStaticMemberFuncCount(void)  const								{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->size() : 0); }
 	const CMetaDataFunction *GetStaticMemberFunc(size_t index)  const			{ return (m_pStaticMemberFuncList ? m_pStaticMemberFuncList->at(index) : nullptr); }
 	size_t GetStaticMemberVarCount(void)  const									{ return (m_pStaticMemberVarList ? m_pStaticMemberVarList->size() : 0); }
@@ -131,6 +135,14 @@ protected:
 		}
 		return m_pMemberVarList;
 	}
+	std::vector<const CMetaDataCustomTypeProperty*> *GetPropertyList(void)
+	{
+		if (!m_pPropertyList)
+		{
+			m_pPropertyList = new std::vector<const CMetaDataCustomTypeProperty*>;
+		}
+		return m_pPropertyList;
+	}
 	std::vector<const CMetaDataFunction*> *GetStaticMemberFuncList(void)
 	{
 		if (!m_pStaticMemberFuncList && m_EnableStaticMemberFunc)
@@ -162,6 +174,7 @@ private:
 	const CMetaDataFunction								*m_pDestructor;				//析构函数
 	std::vector<const CMetaDataFunction*>				*m_pMemberFuncList;			//成员函数
 	std::vector<const CMetaDataCustomTypeMemberVar*>	*m_pMemberVarList;			//成员变量
+	std::vector<const CMetaDataCustomTypeProperty*>		*m_pPropertyList;			//成员属性
 	std::vector<const CMetaDataFunction*>				*m_pStaticMemberFuncList;	//静态成员函数
 	std::vector<const CMetaDataVariable*>				*m_pStaticMemberVarList;	//静态成员变量
 private:

@@ -1,7 +1,9 @@
 #pragma once
-
 #include "..\..\include\CommonDefine.h"
 
+#define CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
+
+/*---CPropertyBase---*/
 class CLASS_DESCRIPT CPropertyBase
 {
 public:
@@ -20,29 +22,26 @@ private:
 	CPropertyBase(CPropertyBase&) {}
 };
 
+/*---TPropertyBase---*/
 template <typename CLASS, typename T>
-class CLASS_DESCRIPT TProperty : public CPropertyBase
+class TEMPLATE_CLASS_DESCRIPT TPropertyBase : public CPropertyBase
 {
+public:
 	typedef void (CLASS::*Tpfun_set)(T value);
 	typedef T (CLASS::*Tpfun_get)(void);
 public:
-	TProperty(CLASS *pObj, Tpfun_set set, Tpfun_get get);
-	~TProperty(void) {}
+	TPropertyBase(Tpfun_set set, Tpfun_get get);
+	~TPropertyBase(void) {}
 public:
 	virtual void CallSet(void *pObj, void *value);
 	virtual void CallGet(void *pObj, void *value);
-public:
-	inline TProperty &operator =(T value);
-	inline operator T();
 private:
-	TProperty(void) {}
-	TProperty(TProperty&) {}
-private:
-	CLASS			*m_pObj;
+	TPropertyBase(void) {}
+	TPropertyBase(TPropertyBase&) {}
 
+#ifdef CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
 private:
-#if 0
-	class CDebugCheck
+	static class TEMPLATE_CLASS_DESCRIPT CDebugCheck
 	{
 	public:
 		CDebugCheck(void)
@@ -50,24 +49,24 @@ private:
 			if (sizeof(void*) != sizeof(Tpfun_set) || sizeof(void*) != sizeof(Tpfun_get))
 				throw ExceptionMetaData(D_E_ID_MD_ERROR, "属性类（类模板）丢失类成员函数指针数据！");
 		}
-	};
-	static CDebugCheck m_DebugCheckObject;
-#endif
+	} m_DebugCheckObject;
+#endif //CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
 };
 
-//template <typename CLASS, typename T>
-//TProperty<CLASS, T>::CDebugCheck TProperty<CLASS, T>::m_DebugCheckObject;
+#ifdef CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
+template <typename CLASS, typename T>
+typename TPropertyBase<CLASS, T>::CDebugCheck TPropertyBase<CLASS, T>::m_DebugCheckObject;
+#endif //CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
 
 template <typename CLASS, typename T>
-TProperty<CLASS, T>::TProperty(CLASS *pObj, Tpfun_set set, Tpfun_get get)
-	:m_pObj(pObj)
+TPropertyBase<CLASS, T>::TPropertyBase(Tpfun_set set, Tpfun_get get)
 {
 	memcpy(&m_pSet, &set, sizeof(m_pSet));
 	memcpy(&m_pGet, &get, sizeof(m_pGet));
 }
 
 template <typename CLASS, typename T>
-void TProperty<CLASS, T>::CallSet(void *pObj, void *value)
+void TPropertyBase<CLASS, T>::CallSet(void *pObj, void *value)
 {
 	if (pObj && value && m_pSet)
 	{
@@ -78,7 +77,7 @@ void TProperty<CLASS, T>::CallSet(void *pObj, void *value)
 }
 
 template <typename CLASS, typename T>
-void TProperty<CLASS, T>::CallGet(void *pObj, void *value)
+void TPropertyBase<CLASS, T>::CallGet(void *pObj, void *value)
 {
 	if (pObj && value && m_pGet)
 	{
@@ -87,6 +86,26 @@ void TProperty<CLASS, T>::CallGet(void *pObj, void *value)
 		*reinterpret_cast<T*>(value) = (reinterpret_cast<CLASS*>(pObj)->*pfun_get)();
 	}
 }
+
+/*---TProperty---*/
+template <typename CLASS, typename T>
+class TEMPLATE_CLASS_DESCRIPT TProperty : public TPropertyBase<CLASS, T>
+{
+	typedef void (CLASS::*Tpfun_set)(T value);
+	typedef T (CLASS::*Tpfun_get)(void);
+public:
+	TProperty(CLASS *pObj, Tpfun_set set, Tpfun_get get)
+		: TPropertyBase<CLASS, T>(set, get), m_pObj(pObj){}
+	~TProperty(void) {}
+public:
+	inline TProperty &operator =(T value);
+	inline operator T();
+private:
+	TProperty(void) {}
+	TProperty(TProperty&) {}
+private:
+	CLASS			*m_pObj;
+};
 
 template <typename CLASS, typename T>
 inline TProperty<CLASS, T> &TProperty<CLASS, T>::operator=(T value)

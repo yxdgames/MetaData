@@ -95,6 +95,15 @@
 	static CMetaDataCustomTypeMemberVar _MD__MV##var_name(#var_name, &MDType, TypeTraits<var_type>::GetMetaDataType(), (ptr_level), reinterpret_cast<TDUIntPtr>(&(pTemObj2->var_name))); \
 	MDType.AddMemberVar(&_MD__MV##var_name);
 
+				/*--添加属性元数据信息--*/
+#define MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get) \
+	static TPropertyBase<cls, prop_type> _MD__CTMPROP##prop_name(&cls::set, &cls::get); \
+	static CMetaDataCustomTypeProperty _MD__PROP##prop_name(#prop_name, &MDType, TypeTraits<prop_type>::GetMetaDataType(), (ptr_level), &_MD__CTMPROP##prop_name); \
+	MDType.AddProperty(&_MD__PROP##prop_name);
+#define MD_CUSTOM_TYPE_MEMBER_PROPERTY_DEF(prop_name, prop_type, ptr_level) \
+	static CMetaDataCustomTypeProperty _MD__PROP##prop_name(#prop_name, &MDType, TypeTraits<prop_type>::GetMetaDataType(), (ptr_level), reinterpret_cast<TDUIntPtr>(&(pTemObj2->prop_name))); \
+	MDType.AddProperty(&_MD__PROP##prop_name);
+
 				/*--添加静态成员函数元数据信息--*/
 #define MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index) \
 	private: \

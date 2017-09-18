@@ -171,6 +171,7 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeMemberVar.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeProperty.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataFunction.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataGlobalSpace.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataInnerType.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataClassType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeMemberVar.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeProperty.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataFunction.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataGlobalSpace.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataInnerType.cpp" />

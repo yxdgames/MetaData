@@ -13,11 +13,12 @@
 #define D_META_DATA_TYPE_ID_INNER_TYPE				((unsigned char)(5))
 #define D_META_DATA_TYPE_ID_CUSTOM_TYPE				((unsigned char)(6))
 #define D_META_DATA_TYPE_ID_CUSTOM_TYPE_MEMBER_VAR	((unsigned char)(7))
-#define D_META_DATA_TYPE_ID_CLASS_TYPE				((unsigned char)(8))
-#define D_META_DATA_TYPE_ID_INTERFACE				((unsigned char)(9))
-#define D_META_DATA_TYPE_ID_VAR_BASE				((unsigned char)(10))
-#define D_META_DATA_TYPE_ID_VARIABLE				((unsigned char)(11))
-#define D_META_DATA_TYPE_ID_FUNCTION				((unsigned char)(12))
+#define D_META_DATA_TYPE_ID_CUSTOM_TYPE_PROPERTY	((unsigned char)(8))
+#define D_META_DATA_TYPE_ID_CLASS_TYPE				((unsigned char)(9))
+#define D_META_DATA_TYPE_ID_INTERFACE				((unsigned char)(10))
+#define D_META_DATA_TYPE_ID_VAR_BASE				((unsigned char)(11))
+#define D_META_DATA_TYPE_ID_VARIABLE				((unsigned char)(12))
+#define D_META_DATA_TYPE_ID_FUNCTION				((unsigned char)(13))
 
 class CLASS_DESCRIPT CMetaData
 {
