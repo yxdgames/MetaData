@@ -3,6 +3,8 @@
 #include "..\..\MetaData\include\IContainer.h"
 #include "..\..\MetaData\include\SimpleString.h"
 #include "..\..\include\CharArray.h"
+#include "..\include\ExceptionSerialization.h"
+#include "..\include\ExceptionIDSerialization.h"
 
 #define D_SERIALIZER_ENTITY_TAG_BASE_TYPE							(0x00000001)
 #define D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE		(0x00000002)
@@ -162,6 +164,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 
 	//属性序列化
 	CPropertyBase *pProperty;
+	bool error_flag(false);
 	for (i = 0; i < pType->GetPropertyCount(); ++i)
 	{
 		pProp = pType->GetProperty(i);
@@ -171,15 +174,56 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		else pProperty = pProp->GetPropertyLocation().pProperty;
 		if (pProp->GetPtrLevel() == 0)
 		{
+			pO = pProp->GetMDType()->NewObject();
+			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（串化过程）！");
+			pProperty->CallGet(pObj, pO);
 		}
 		else if (pProp->GetPtrLevel() == 1)
 		{
+			pProperty->CallGet(pObj, &pO);
 		}
 		else continue;
-		pChild = pSEntity->NewChild();
-		pChild->SetName(pProp->GetName());
-		pChild->SetEntTypeName(TypeName.char_array());
-		pChild->SetTag(D_SERIALIZER_ENTITY_TAG_PROPERTY);
+		try
+		{
+			while (true)
+			{
+				pChild = pSEntity->NewChild();
+				pChild->SetName(pProp->GetName());
+				pChild->SetEntTypeName(TypeName.char_array());
+				pChild->SetTag(D_SERIALIZER_ENTITY_TAG_PROPERTY);
+				switch (pProp->GetMDType()->GetTypeID())
+				{
+				case D_META_DATA_TYPE_ID_CLASS_TYPE:
+					if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataClassType*>(pProp->GetMDType()),
+						pO, pChild))
+					{
+						pSEntity->DelChild(pChild);
+						error_flag = true;
+					}
+					break;
+				case D_META_DATA_TYPE_ID_INNER_TYPE:
+					if (!SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pProp->GetMDType()),
+						pO, pChild))
+					{
+						pSEntity->DelChild(pChild);
+						error_flag = true;
+					}
+					break;
+				default:
+					pSEntity->DelChild(pChild);
+					error_flag = true;
+					break;
+				}
+				break;
+			}
+		}
+		catch (...)
+		{
+			if (pProp->GetPtrLevel() == 0) pProp->GetMDType()->DeleteObject(pO);
+			throw;
+		}
+		if (pProp->GetPtrLevel() == 0) pProp->GetMDType()->DeleteObject(pO);
+		if (error_flag) return false;
 	}
 
 	//IContainer元素序列化
@@ -326,6 +370,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	size_t i;
 	const CMetaDataCustomType *pCustomType;
 	const CMetaDataCustomTypeMemberVar *pMemVar;
+	const CMetaDataCustomTypeProperty *pProp;
 	ISerialEntity *pChild;
 	void *pO;
 	CCharArray TypeName(256);
@@ -344,6 +389,117 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				return false;
 			}
 		}
+	}
+
+	//成员变量反序列化
+	for (i = 0; i < pType->GetMemberVarCount(); ++i)
+	{
+		pMemVar = pType->GetMemberVar(i);
+		if (!pMemVar->GetMDType()
+			|| !(pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)))
+			return false;
+		pChild = pSEntity->FindChild(pMemVar->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
+		if (pChild)
+		{
+			if (pMemVar->GetPtrLevel() == 0)
+			{
+				pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
+			}
+			else if (pMemVar->GetPtrLevel() == 1)
+			{
+				pO = NewObject(pMemVar->GetMDType());
+				if (pO) return false;
+				*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = pO;
+			}
+			else continue;
+		}
+		else continue;
+
+		switch(pMemVar->GetMDType()->GetTypeID())
+		{
+		case D_META_DATA_TYPE_ID_CLASS_TYPE:
+			if (!UnserializeCustomTypeWrapper(pChild,
+				reinterpret_cast<const CMetaDataClassType*>(pMemVar->GetMDType()),
+				pO))
+			{
+				return false;
+			}
+			break;
+		case D_META_DATA_TYPE_ID_INNER_TYPE:
+			if (!UnserializeInnerType(pChild,
+				reinterpret_cast<const CMetaDataInnerType*>(pMemVar->GetMDType()),
+				pO))
+			{
+				return false;
+			}
+			break;
+		default:
+			return false;
+		}
+	}
+
+	//属性反序列化
+	CPropertyBase *pProperty;
+	bool error_flag(false);
+	for (i = 0; i < pType->GetPropertyCount(); ++i)
+	{
+		pProp = pType->GetProperty(i);
+		if (!pProp->GetMDType()->GetFullName(TypeName.char_array(), 265)) return false;
+		pChild = pSEntity->FindChild(pProp->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_PROPERTY);
+		if (pChild)
+		{
+			if (pProp->GetPtrLevel() != 0 && pProp->GetPtrLevel() != 1) continue;
+			pO = pProp->GetMDType()->NewObject();
+			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（反串化过程）！");
+		}
+		else continue;
+		try
+		{
+			while (true)
+			{
+				if (pProp->IsOffset())
+					pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj)
+						+ pProp->GetPropertyLocation().Offset);
+				else pProperty = pProp->GetPropertyLocation().pProperty;
+				switch(pProp->GetMDType()->GetTypeID())
+				{
+				case D_META_DATA_TYPE_ID_CLASS_TYPE:
+					if (!UnserializeCustomTypeWrapper(pChild,
+						reinterpret_cast<const CMetaDataClassType*>(pProp->GetMDType()),
+						pO))
+					{
+						error_flag = true;
+					}
+					break;
+				case D_META_DATA_TYPE_ID_INNER_TYPE:
+					if (!UnserializeInnerType(pChild,
+						reinterpret_cast<const CMetaDataInnerType*>(pProp->GetMDType()),
+						pO))
+					{
+						error_flag = true;
+					}
+					break;
+				default:
+					error_flag = true;
+					break;
+				}
+				break;
+			}
+			if (!error_flag)
+			{
+				if (pProp->GetPtrLevel() == 0)
+					pProperty->CallSet(pObj, pO);
+				else pProperty->CallSet(pObj, &pO); //pProp->GetPtrLevel() == 1
+			}
+		}
+		catch (...)
+		{
+			pProp->GetMDType()->DeleteObject(pO);
+			throw;
+		}
+		pProp->GetMDType()->DeleteObject(pO);
+
+		if (error_flag) return false;
 	}
 
 	//IContainer元素反序列化
@@ -401,56 +557,6 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 					return false;
 				}
 			}
-		}
-	}
-
-	//成员变量反序列化
-	for (i = 0; i < pType->GetMemberVarCount(); ++i)
-	{
-		pMemVar = pType->GetMemberVar(i);
-		if (!pMemVar->GetMDType()
-			|| !(pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)))
-			return false;
-		pChild = pSEntity->FindChild(pMemVar->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
-		if (pChild)
-		{
-			if (pMemVar->GetPtrLevel() == 0)
-			{
-				pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
-			}
-			else if (pMemVar->GetPtrLevel() == 1)
-			{
-				pO = NewObject(pMemVar->GetMDType());
-				if (pO)
-				{
-					*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = pO;
-				}
-				else return false;
-			}
-			else continue;
-		}
-		else continue;
-
-		switch(pMemVar->GetMDType()->GetTypeID())
-		{
-		case D_META_DATA_TYPE_ID_CLASS_TYPE:
-			if (!UnserializeCustomTypeWrapper(pChild,
-				reinterpret_cast<const CMetaDataClassType*>(pMemVar->GetMDType()),
-				pO))
-			{
-				return false;
-			}
-			break;
-		case D_META_DATA_TYPE_ID_INNER_TYPE:
-			if (!UnserializeInnerType(pChild,
-				reinterpret_cast<const CMetaDataInnerType*>(pMemVar->GetMDType()),
-				pO))
-			{
-				return false;
-			}
-			break;
-		default:
-			return false;
 		}
 	}
 
