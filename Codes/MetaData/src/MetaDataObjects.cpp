@@ -17,22 +17,34 @@ FUNC_DESCRIPT const CMetaDataGlobalSpace * _MD__GLOBALSPACE__GetMetaData(void)
 #define META_DATA_GLOBALSPACE()		(*(::_MD__GLOBALSPACE__GetMetaData()))
 #endif
 
+template<typename T>
+static void *NewObject(void)
+{
+	return new T;
+}
+
+template<typename T>
+static void DeleteObject(void *pObj)
+{
+	if (pObj) delete reinterpret_cast<T*>(pObj);
+}
+
 //内建类型元数据
-MD_INNER_TYPE_DEF(char)
-MD_INNER_TYPE_DEF(wchar_t)
-MD_INNER_TYPE_DEF(short)
-MD_INNER_TYPE_DEF(int)
-MD_INNER_TYPE_DEF(long)
-MD_INNER_TYPE_2_DEF(long, long)
-MD_INNER_TYPE_2_DEF(unsigned, char)
-MD_INNER_TYPE_2_DEF(unsigned, short)
-MD_INNER_TYPE_2_DEF(unsigned, int)
-MD_INNER_TYPE_2_DEF(unsigned, long)
-MD_INNER_TYPE_3_DEF(unsigned, long, long)
-MD_INNER_TYPE_DEF(float)
-MD_INNER_TYPE_DEF(double)
-MD_INNER_TYPE_DEF(bool)
-VAR_DESCRIPT const CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPACE(), sizeof(void*));
+MD_INNER_TYPE_DEF(char, NewObject<char>, DeleteObject<char>)
+MD_INNER_TYPE_DEF(wchar_t, NewObject<wchar_t>, DeleteObject<wchar_t>)
+MD_INNER_TYPE_DEF(short, NewObject<short>, DeleteObject<short>)
+MD_INNER_TYPE_DEF(int, NewObject<int>, DeleteObject<int>)
+MD_INNER_TYPE_DEF(long, NewObject<long>, DeleteObject<long>)
+MD_INNER_TYPE_2_DEF(long, long, NewObject<long long>, DeleteObject<long long>)
+MD_INNER_TYPE_2_DEF(unsigned, char, NewObject<unsigned char>, DeleteObject<unsigned char>)
+MD_INNER_TYPE_2_DEF(unsigned, short, NewObject<unsigned short>, DeleteObject<unsigned short>)
+MD_INNER_TYPE_2_DEF(unsigned, int, NewObject<unsigned int>, DeleteObject<unsigned int>)
+MD_INNER_TYPE_2_DEF(unsigned, long, NewObject<unsigned long>, DeleteObject<unsigned long>)
+MD_INNER_TYPE_3_DEF(unsigned, long, long, NewObject<unsigned long long>, DeleteObject<unsigned long long>)
+MD_INNER_TYPE_DEF(float, NewObject<float>, DeleteObject<float>)
+MD_INNER_TYPE_DEF(double, NewObject<double>, DeleteObject<double>)
+MD_INNER_TYPE_DEF(bool, NewObject<bool>, DeleteObject<bool>)
+VAR_DESCRIPT const CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOBALSPACE(), sizeof(void*), NewObject<void*>, DeleteObject<void*>);
 
 //系统扩充类型元数据
 #include "IInterface.mdo"

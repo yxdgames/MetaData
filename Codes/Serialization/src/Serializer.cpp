@@ -7,6 +7,7 @@
 #define D_SERIALIZER_ENTITY_TAG_BASE_TYPE							(0x00000001)
 #define D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE		(0x00000002)
 #define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE						(0x00000003)
+#define D_SERIALIZER_ENTITY_TAG_PROPERTY							(0x00000004)
 
 #define D_SERIALIZER_ICONTAINER_NAME		"__IContainer__"
 #define D_SERIALIZER_ICONTAINER_ELE_NAME	"__Ele_of_IContainer__"
@@ -95,6 +96,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 	size_t i;
 	const CMetaDataCustomType *pCustomType;
 	const CMetaDataCustomTypeMemberVar *pMemVar;
+	const CMetaDataCustomTypeProperty *pProp;
 	void *pO;
 	ISerialEntity *pChild;
 	CCharArray TypeName(256);
@@ -116,11 +118,75 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		}
 	}
 
+	//成员变量序列化
+	for (i = 0; i < pType->GetMemberVarCount(); ++i)
+	{
+		pMemVar = pType->GetMemberVar(i);
+		if (!pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)) return false;
+		if (pMemVar->GetPtrLevel() == 0)
+		{
+			pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
+		}
+		else if (pMemVar->GetPtrLevel() == 1)
+		{
+			pO = *reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
+		}
+		else continue;
+		pChild = pSEntity->NewChild();
+		pChild->SetName(pMemVar->GetName());
+		pChild->SetEntTypeName(TypeName.char_array());
+		pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
+		switch(pMemVar->GetMDType()->GetTypeID())
+		{
+		case D_META_DATA_TYPE_ID_CLASS_TYPE:
+			if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataClassType*>(pMemVar->GetMDType()),
+				pO, pChild))
+			{
+				pSEntity->DelChild(pChild);
+				return false;
+			}
+			break;
+		case D_META_DATA_TYPE_ID_INNER_TYPE:
+			if (!SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pMemVar->GetMDType()),
+				pO, pChild))
+			{
+				pSEntity->DelChild(pChild);
+				return false;
+			}
+			break;
+		default:
+			pSEntity->DelChild(pChild);
+			return false;
+		}
+	}
+
+	//属性序列化
+	CPropertyBase *pProperty;
+	for (i = 0; i < pType->GetPropertyCount(); ++i)
+	{
+		pProp = pType->GetProperty(i);
+		if (!pProp->GetMDType()->GetFullName(TypeName.char_array(), 265)) return false;
+		if (pProp->IsOffset())
+			pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj) + pProp->GetPropertyLocation().Offset);
+		else pProperty = pProp->GetPropertyLocation().pProperty;
+		if (pProp->GetPtrLevel() == 0)
+		{
+		}
+		else if (pProp->GetPtrLevel() == 1)
+		{
+		}
+		else continue;
+		pChild = pSEntity->NewChild();
+		pChild->SetName(pProp->GetName());
+		pChild->SetEntTypeName(TypeName.char_array());
+		pChild->SetTag(D_SERIALIZER_ENTITY_TAG_PROPERTY);
+	}
+
 	//IContainer元素序列化
 	IContainer *pContainter(
 		reinterpret_cast<IContainer*>(
 			pType->AsType(pObj, TypeTraits<IContainer>::GetMetaDataType())
-		)
+			)
 	);
 	if (pContainter)
 	{
@@ -167,48 +233,6 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 					return false;
 				}
 			}
-		}
-	}
-
-	//成员变量序列化
-	for (i = 0; i < pType->GetMemberVarCount(); ++i)
-	{
-		pMemVar = pType->GetMemberVar(i);
-		if (!pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)) return false;
-		if (pMemVar->GetPtrLevel() == 0)
-		{
-			pO = reinterpret_cast<void*>((reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()));
-		}
-		else if (pMemVar->GetPtrLevel() == 1)
-		{
-			pO = *reinterpret_cast<void**>((reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()));
-		}
-		else continue;
-		pChild = pSEntity->NewChild();
-		pChild->SetName(pMemVar->GetName());
-		pChild->SetEntTypeName(TypeName.char_array());
-		pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
-		switch(pMemVar->GetMDType()->GetTypeID())
-		{
-		case D_META_DATA_TYPE_ID_CLASS_TYPE:
-			if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataClassType*>(pMemVar->GetMDType()),
-				pO, pChild))
-			{
-				pSEntity->DelChild(pChild);
-				return false;
-			}
-			break;
-		case D_META_DATA_TYPE_ID_INNER_TYPE:
-			if (!SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pMemVar->GetMDType()),
-				pO, pChild))
-			{
-				pSEntity->DelChild(pChild);
-				return false;
-			}
-			break;
-		default:
-			pSEntity->DelChild(pChild);
-			return false;
 		}
 	}
 

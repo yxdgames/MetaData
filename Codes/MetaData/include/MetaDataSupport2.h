@@ -30,12 +30,12 @@
 /***************************/
 /* Meta data of inner type */
 /***************************/
-#define MD_INNER_TYPE_DEF(name) \
-	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name));
-#define MD_INNER_TYPE_2_DEF(name1, name2) \
-	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_GLOBALSPACE(), sizeof(name1 name2));
-#define MD_INNER_TYPE_3_DEF(name1, name2, name3) \
-	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name1##name2##name3(#name1" "#name2" "#name3, &META_DATA_GLOBALSPACE(), sizeof(name1 name2 name3));
+#define MD_INNER_TYPE_DEF(name, pfunNewObject, pfunDeleteObject) \
+	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name), pfunNewObject, pfunDeleteObject);
+#define MD_INNER_TYPE_2_DEF(name1, name2, pfunNewObject, pfunDeleteObject) \
+	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_GLOBALSPACE(), sizeof(name1 name2), pfunNewObject, pfunDeleteObject);
+#define MD_INNER_TYPE_3_DEF(name1, name2, name3, pfunNewObject, pfunDeleteObject) \
+	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name1##name2##name3(#name1" "#name2" "#name3, &META_DATA_GLOBALSPACE(), sizeof(name1 name2 name3), pfunNewObject, pfunDeleteObject);
 
 /****************************/
 /* Meta data of custom type */

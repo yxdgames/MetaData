@@ -174,7 +174,7 @@ private:
 	const CMetaDataFunction								*m_pDestructor;				//析构函数
 	std::vector<const CMetaDataFunction*>				*m_pMemberFuncList;			//成员函数
 	std::vector<const CMetaDataCustomTypeMemberVar*>	*m_pMemberVarList;			//成员变量
-	std::vector<const CMetaDataCustomTypeProperty*>		*m_pPropertyList;			//成员属性
+	std::vector<const CMetaDataCustomTypeProperty*>		*m_pPropertyList;			//属性
 	std::vector<const CMetaDataFunction*>				*m_pStaticMemberFuncList;	//静态成员函数
 	std::vector<const CMetaDataVariable*>				*m_pStaticMemberVarList;	//静态成员变量
 private:
