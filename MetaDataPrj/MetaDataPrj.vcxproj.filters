@@ -195,10 +195,10 @@
     <ClInclude Include="..\Codes\include\Typedef.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\TProperty.h">
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeProperty.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeProperty.h">
+    <ClInclude Include="..\Codes\MetaData\include\Property.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -308,10 +308,10 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataGlobalSpace.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\TProperty.cpp">
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeProperty.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeProperty.cpp">
+    <ClCompile Include="..\Codes\MetaData\src\Property.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>

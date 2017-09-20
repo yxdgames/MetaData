@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -184,8 +184,8 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
+    <ClInclude Include="..\Codes\MetaData\include\Property.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
-    <ClInclude Include="..\Codes\MetaData\include\TProperty.h" />
     <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
     <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h" />
@@ -223,8 +223,8 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVarBase.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\Property.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\TProperty.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp" />

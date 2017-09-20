@@ -1,7 +1,7 @@
 #pragma once
 
 #include "MetaDataVarBase.h"
-#include "TProperty.h"
+#include "Property.h"
 
 class CLASS_DESCRIPT CMetaDataCustomTypeProperty : public CMetaDataVarBase
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include "..\..\include\CommonDefine.h"
 
-#define CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
+#define CO_PROPERTY_DEBUG_CHECK_MEMBER_FUNC_POINTER
 
 /*---CPropertyBase---*/
 class CLASS_DESCRIPT CPropertyBase
@@ -39,7 +39,7 @@ private:
 	TPropertyBase(void) {}
 	TPropertyBase(TPropertyBase&) {}
 
-#ifdef CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
+#ifdef CO_PROPERTY_DEBUG_CHECK_MEMBER_FUNC_POINTER
 private:
 	static class TEMPLATE_CLASS_DESCRIPT CDebugCheck
 	{
@@ -50,13 +50,13 @@ private:
 				throw ExceptionMetaData(D_E_ID_MD_ERROR, "属性类（类模板）丢失类成员函数指针数据！");
 		}
 	} m_DebugCheckObject;
-#endif //CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
+#endif //CO_PROPERTY_DEBUG_CHECK_MEMBER_FUNC_POINTER
 };
 
-#ifdef CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
+#ifdef CO_PROPERTY_DEBUG_CHECK_MEMBER_FUNC_POINTER
 template <typename CLASS, typename T>
 typename TPropertyBase<CLASS, T>::CDebugCheck TPropertyBase<CLASS, T>::m_DebugCheckObject;
-#endif //CO_PROPERTY_DEBUG_CHECK_FUNC_POINTER
+#endif //CO_PROPERTY_DEBUG_CHECK_MEMBER_FUNC_POINTER
 
 template <typename CLASS, typename T>
 TPropertyBase<CLASS, T>::TPropertyBase(Tpfun_set set, Tpfun_get get)
@@ -87,35 +87,35 @@ void TPropertyBase<CLASS, T>::CallGet(void *pObj, void *value)
 	}
 }
 
-/*---TProperty---*/
+/*---Property---*/
 template <typename CLASS, typename T>
-class TEMPLATE_CLASS_DESCRIPT TProperty : public TPropertyBase<CLASS, T>
+class TEMPLATE_CLASS_DESCRIPT Property : public TPropertyBase<CLASS, T>
 {
 	typedef void (CLASS::*Tpfun_set)(T value);
 	typedef T (CLASS::*Tpfun_get)(void);
 public:
-	TProperty(CLASS *pObj, Tpfun_set set, Tpfun_get get)
+	Property(CLASS *pObj, Tpfun_set set, Tpfun_get get)
 		: TPropertyBase<CLASS, T>(set, get), m_pObj(pObj){}
-	~TProperty(void) {}
+	~Property(void) {}
 public:
-	inline TProperty &operator =(T value);
+	inline Property &operator =(T value);
 	inline operator T();
 private:
-	TProperty(void) {}
-	TProperty(TProperty&) {}
+	Property(void) {}
+	Property(Property&) {}
 private:
 	CLASS			*m_pObj;
 };
 
 template <typename CLASS, typename T>
-inline TProperty<CLASS, T> &TProperty<CLASS, T>::operator=(T value)
+inline Property<CLASS, T> &Property<CLASS, T>::operator=(T value)
 {
 	this->CallSet(m_pObj, &value);
 	return *this;
 }
 
 template <typename CLASS, typename T>
-inline TProperty<CLASS, T>::operator T()
+inline Property<CLASS, T>::operator T()
 {
 	T value;
 	this->CallGet(m_pObj, &value);

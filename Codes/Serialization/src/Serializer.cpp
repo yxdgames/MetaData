@@ -223,6 +223,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 			throw;
 		}
 		if (pProp->GetPtrLevel() == 0) pProp->GetMDType()->DeleteObject(pO);
+
 		if (error_flag) return false;
 	}
 
@@ -395,8 +396,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	for (i = 0; i < pType->GetMemberVarCount(); ++i)
 	{
 		pMemVar = pType->GetMemberVar(i);
-		if (!pMemVar->GetMDType()
-			|| !(pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)))
+		if (!(pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)))
 			return false;
 		pChild = pSEntity->FindChild(pMemVar->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
 		if (pChild)
@@ -408,7 +408,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 			else if (pMemVar->GetPtrLevel() == 1)
 			{
 				pO = NewObject(pMemVar->GetMDType());
-				if (pO) return false;
+				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（反串化过程）！");
 				*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = pO;
 			}
 			else continue;
@@ -457,10 +457,6 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		{
 			while (true)
 			{
-				if (pProp->IsOffset())
-					pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj)
-						+ pProp->GetPropertyLocation().Offset);
-				else pProperty = pProp->GetPropertyLocation().pProperty;
 				switch(pProp->GetMDType()->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
@@ -487,6 +483,10 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 			}
 			if (!error_flag)
 			{
+				if (pProp->IsOffset())
+					pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj)
+						+ pProp->GetPropertyLocation().Offset);
+				else pProperty = pProp->GetPropertyLocation().pProperty;
 				if (pProp->GetPtrLevel() == 0)
 					pProperty->CallSet(pObj, pO);
 				else pProperty->CallSet(pObj, &pO); //pProp->GetPtrLevel() == 1
@@ -531,7 +531,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				if (!pO)
 				{
 					pO = NewObject(pContainter->GetItemType(type_index));
-					if (!pO) return false;
+					if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（反串化过程）！");
 					pContainter->AddItem(type_index, pO);
 				}
 				
