@@ -1549,6 +1549,22 @@ namespace NameSpace1{
 	} //NameSpace1_Sub1
 } //NameSpasce1
 
+namespace NS1
+{
+	//Declare NS1
+	MD_NAME_SPACE_DECLARE(NS1)
+	namespace NS1_Sub1
+	{
+		//Declare NS1_Sub1
+		MD_NAME_SPACE_DECLARE(NS1_Sub1)
+		namespace NS1_Sub1_Sub1
+		{
+			//Declare NS1_Sub1_Sub1
+			MD_NAME_SPACE_DECLARE(NS1_Sub1_Sub1)
+		}
+	}
+}
+
 extern int global_A;
 MD_GLOBAL_VARIABLE_DECLARE(global_A)
 

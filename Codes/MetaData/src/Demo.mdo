@@ -562,6 +562,20 @@ namespace NameSpasce1_Sub1_Sub1
 } //NameSpace1_Sub1
 } //NameSpace1
 
+namespace NS1
+{
+	MD_NAME_SPACE_DEF(NS1)
+	namespace NS1_Sub1
+	{
+		MD_NAME_SPACE_INNER_DEF(NS1_Sub1, NS1)
+		namespace NS1_Sub1_Sub1
+		{
+			
+		}
+	}
+}
+MD_NAME_SPACE_INNER_DEF(NS1_Sub1_Sub1, NS1::NS1_Sub1)
+
 MD_GLOBAL_VARIABLE_DEF(global_A, META_DATA_GLOBALSPACE(), int, 0)
 
 MD_GLOBAL_FUNCTION_DEF_BEGIN(global_func)
