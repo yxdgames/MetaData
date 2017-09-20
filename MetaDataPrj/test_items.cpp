@@ -322,3 +322,46 @@ void test_item_metadata_function_call(void)
 
 	pClsType->DeleteObject(pObj);
 }
+
+void test_item_metadata_property(void)
+{
+	CClass1 cls1;
+	printf("cls1.MemI value:%d\n", static_cast<int>(cls1.MemI));
+	cls1.MemI = 107;
+	int i = cls1.MemI;
+	printf("cls1.MemI value:%d %d\n", static_cast<int>(cls1.MemI), i);
+}
+
+void test_item_metadata_other(void)
+{
+	SimpleString *pStr;
+	CParamVector PVector;
+	pStr = reinterpret_cast<SimpleString*>(
+		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>()
+	);
+	if (pStr)
+	{
+		std::cout << pStr->GetValue();
+		delete pStr;
+	}
+	D_PARAM_VECTOR_ADD_ELE(PVector, char, 1);
+	pStr = reinterpret_cast<SimpleString*>(
+		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>(&PVector, "×Ö·û´®Ö¸Õë\n")
+	);
+	if (pStr)
+	{
+		std::cout << pStr->GetValue();
+		delete pStr;
+	}
+	SimpleString str("SimpleString¶ÔÏó\n");
+	PVector.clear();
+	D_PARAM_VECTOR_ADD_ELE(PVector, SimpleString, 1);
+	pStr = reinterpret_cast<SimpleString*>(
+		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>(&PVector, &str)
+	);
+	if (pStr)
+	{
+		std::cout << pStr->GetValue();
+		delete pStr;
+	}
+}

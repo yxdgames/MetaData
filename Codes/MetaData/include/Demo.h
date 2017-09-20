@@ -34,10 +34,10 @@ public:
 	long mem_long;
 	long *p_mem_long;
 public:
-	void Set_mem_i(int value) { mem_i = value; }
-	int Get_mem_i(void) { return mem_i; }
-	void Set_mem_char(char value) { mem_char = value; }
-	char Get_mem_char(void) { return mem_char; }
+	void Set_mem_i(int value) { mem_i = value; printf("Set_mem_i\n"); }
+	int Get_mem_i(void) { printf("Get_mem_i\n"); return mem_i; }
+	void Set_mem_char(char value) { mem_char = value; printf("Set_mem_char\n"); }
+	char Get_mem_char(void) { printf("Get_mem_char\n"); return mem_char; }
 	//propert
 	Property<CClass1, int>		MemI;
 public:

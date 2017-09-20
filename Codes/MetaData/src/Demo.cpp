@@ -10,8 +10,6 @@ CClass1::CClass1(void)
 	//property
 	MemI(this, &CClass1::Set_mem_i, &CClass1::Get_mem_i)
 {
-	MemI = 100;
-	int x = MemI;
 }
 
 CClass1::~CClass1(void)

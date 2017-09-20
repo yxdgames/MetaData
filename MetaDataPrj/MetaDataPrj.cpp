@@ -51,6 +51,8 @@ public:
 		<<" serial_xml 1 : save tested object to xml file."<<std::endl \
 		<<" unserial_xml : save tested object to xml file."<<std::endl \
 		<<" func_call : call function."<<std::endl \
+		<<" property : test property."<<std::endl \
+		<<" other : ..."<<std::endl \
 		<<" exit : exit application."<<std::endl<<std::endl; \
 	}
 #define D_INPUT_LOGO	(" >")
@@ -116,6 +118,14 @@ int _tmain(int argc, _TCHAR* argv[])
 		else if (strcmp(input_string, "func_call") == 0)
 		{
 			test_item_metadata_function_call();
+		}
+		else if (strcmp(input_string, "property") == 0)
+		{
+			test_item_metadata_property();
+		}
+		else if (strcmp(input_string, "other") == 0)
+		{
+			test_item_metadata_other();
 		}
 		else
 		{

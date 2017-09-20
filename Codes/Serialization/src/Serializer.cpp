@@ -7,9 +7,9 @@
 #include "..\include\ExceptionIDSerialization.h"
 
 #define D_SERIALIZER_ENTITY_TAG_BASE_TYPE							(0x00000001)
-#define D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE		(0x00000002)
-#define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE						(0x00000003)
-#define D_SERIALIZER_ENTITY_TAG_PROPERTY							(0x00000004)
+#define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE						(0x00000002)
+#define D_SERIALIZER_ENTITY_TAG_PROPERTY							(0x00000003)
+#define D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE		(0x00000004)
 
 #define D_SERIALIZER_ICONTAINER_NAME		"__IContainer__"
 #define D_SERIALIZER_ICONTAINER_ELE_NAME	"__Ele_of_IContainer__"
@@ -175,7 +175,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		if (pProp->GetPtrLevel() == 0)
 		{
 			pO = pProp->GetMDType()->NewObject();
-			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（串化过程）！");
+			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（串化过程）！");
 			pProperty->CallGet(pObj, pO);
 		}
 		else if (pProp->GetPtrLevel() == 1)
@@ -407,8 +407,8 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 			}
 			else if (pMemVar->GetPtrLevel() == 1)
 			{
-				pO = NewObject(pMemVar->GetMDType());
-				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（反串化过程）！");
+				pO = pMemVar->GetMDType()->NewObject();
+				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
 				*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = pO;
 			}
 			else continue;
@@ -450,7 +450,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		{
 			if (pProp->GetPtrLevel() != 0 && pProp->GetPtrLevel() != 1) continue;
 			pO = pProp->GetMDType()->NewObject();
-			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（反串化过程）！");
+			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
 		}
 		else continue;
 		try
@@ -530,8 +530,8 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				pO = pContainter->NewItem(type_index);
 				if (!pO)
 				{
-					pO = NewObject(pContainter->GetItemType(type_index));
-					if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "创建对象失败（反串化过程）！");
+					pO = pContainter->GetItemType(type_index)->NewObject();
+					if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
 					pContainter->AddItem(type_index, pO);
 				}
 				
@@ -628,75 +628,4 @@ bool CSerializer::UnserializeInnerType(ISerialEntity *pSEntity, const CMetaDataI
 	else ret = false;
 
 	return ret;
-}
-
-void *CSerializer::NewObject(const CMetaDataType *pType)
-{
-	if (!pType) return nullptr;
-
-	void *pO(pType->NewObject());
-	if (pO) return pO;
-
-	if (pType == TypeTraits<char>::GetMetaDataType())
-	{
-		pO = new char;
-	}
-	if (pType == TypeTraits<wchar_t>::GetMetaDataType())
-	{
-		pO = new wchar_t;
-	}
-	else if (pType == TypeTraits<short>::GetMetaDataType())
-	{
-		pO = new short;
-	}
-	else if (pType == TypeTraits<int>::GetMetaDataType())
-	{
-		pO = new int;
-	}
-	else if (pType == TypeTraits<long>::GetMetaDataType())
-	{
-		pO = new long;
-	}
-	else if (pType == TypeTraits<long long>::GetMetaDataType())
-	{
-		pO = new long long;
-	}
-	else if (pType == TypeTraits<unsigned char>::GetMetaDataType())
-	{
-		pO = new unsigned char;
-	}
-	else if (pType == TypeTraits<unsigned short>::GetMetaDataType())
-	{
-		pO = new unsigned short;
-	}
-	else if (pType == TypeTraits<unsigned int>::GetMetaDataType())
-	{
-		pO = new unsigned int;
-	}
-	else if (pType == TypeTraits<unsigned long>::GetMetaDataType())
-	{
-		pO = new unsigned long;
-	}
-	else if (pType == TypeTraits<unsigned long long>::GetMetaDataType())
-	{
-		pO = new unsigned long long;
-	}
-	else if (pType == TypeTraits<float>::GetMetaDataType())
-	{
-		pO = new float;
-	}
-	else if (pType == TypeTraits<double>::GetMetaDataType())
-	{
-		pO = new double;
-	}
-	else if (pType == TypeTraits<bool>::GetMetaDataType())
-	{
-		pO = new bool;
-	}
-	else if (pType == TypeTraits<SimpleString>::GetMetaDataType())
-	{
-		pO = new SimpleString;
-	}
-
-	return pO;
 }

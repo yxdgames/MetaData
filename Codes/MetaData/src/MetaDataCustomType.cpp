@@ -407,7 +407,7 @@ void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pPa
 			{
 				if (!(*itr)->CallFunction(pParamTypes, pParamList, &pReturn))
 				{
-					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "构造函数调用失败！");
+					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数调用失败！");
 				}
 			}
 			else

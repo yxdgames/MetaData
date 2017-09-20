@@ -29,8 +29,6 @@ private:
 	bool UnserializeCustomTypeWrapper(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj);
 	bool UnserializeCustomType(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj);
 	bool UnserializeInnerType(ISerialEntity *pSEntity, const CMetaDataInnerType *pType, void *pObj);
-	
-	void *NewObject(const CMetaDataType *pType);
 private:
 	ITreeSerial				*m_pTreeSerial;
 };

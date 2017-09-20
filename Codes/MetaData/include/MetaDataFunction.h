@@ -24,9 +24,10 @@ public:
 		delete m_pMDVarBaseVector;
 	}
 public:
+	void push_back(const CMetaDataVarBase *value)				{ m_pMDVarBaseVector->push_back(value); }
+	void clear(void)											{ m_pMDVarBaseVector->clear(); }
 	size_t size(void)											{ return m_pMDVarBaseVector->size(); }
 	const CMetaDataVarBase* at(size_t index)					{ return m_pMDVarBaseVector->at(index); }
-	void push_back(const CMetaDataVarBase *value)				{ m_pMDVarBaseVector->push_back(value); }
 	std::vector<const CMetaDataVarBase*>::iterator begin(void)	{ return m_pMDVarBaseVector->begin(); }
 	std::vector<const CMetaDataVarBase*>::iterator end(void)	{ return m_pMDVarBaseVector->end(); }
 private:
