@@ -13,11 +13,11 @@ public:
 	D_IMPLEMENT_IINTERFACE_MEMBER
 	//ISerial
 	//method
+	virtual void Clear(void);
 	virtual bool SaveToStream(std::iostream &stream);
 	virtual bool LoadFromStream(std::iostream &stream);
 	virtual bool SaveToFile(const char *pFileName);
 	virtual bool LoadFromFile(const char *pFileName);
-	virtual void Clear(void);
 	virtual void DebugPrintSelf(void);
 	//attribute
 	virtual EStructureInStream GetStructInStream(void);

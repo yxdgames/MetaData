@@ -18,11 +18,11 @@ public:
 	virtual ~ISerial(void) = 0;
 public:
 	//method
+	virtual void Clear(void) = 0;
 	virtual bool SaveToStream(std::iostream &stream) = 0;
 	virtual bool LoadFromStream(std::iostream &stream) = 0;
 	virtual bool SaveToFile(const char *pFileName) = 0;
 	virtual bool LoadFromFile(const char *pFileName) = 0;
-	virtual void Clear(void) = 0;
 	virtual void DebugPrintSelf(void) = 0;
 public:
 	//attribute

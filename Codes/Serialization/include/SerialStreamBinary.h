@@ -33,10 +33,10 @@ private:
 	};
 private:
 	void SerialInit(void);
-	bool SerializeEntity(ISerialEntity *pEnt, size_t &EntSize);
+	size_t SerializeEntity(ISerialEntity *pEnt);
 	bool SerializeStringTable(void);
 	void UnserialInit(void);
-	bool UnserializeEntity(ISerialEntity *pEnt, size_t &EntSize);
+	size_t UnserializeEntity(ISerialEntity *pEnt);
 private:
 	bool m_HoldStream;
 	std::iostream *m_pStream;

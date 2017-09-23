@@ -19,8 +19,8 @@ struct STRUCT_DESCRIPT SVariant
 	union {
 		bool _b;
 		int _i;
-		double _d;
 		long long _ll;
+		double _d;
 		long double _ld;
 		char *_pstr;
 	} value;

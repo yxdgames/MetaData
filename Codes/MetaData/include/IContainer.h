@@ -12,6 +12,7 @@ public:
 	virtual void *NewItem(size_t type_index) = 0;
 	virtual bool AddItem(size_t type_index, void *pItem) = 0;
 	virtual bool DelItem(size_t type_index, void *pItem) = 0;
+	virtual void ClearItems(size_t type_index) = 0;
 public:
 	//attribute
 	virtual size_t Count(size_t type_index) = 0;

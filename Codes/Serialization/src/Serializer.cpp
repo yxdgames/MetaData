@@ -50,7 +50,8 @@ bool CSerializer::DoSerialize(const CMetaDataType *pType, void *pObj, const char
 	switch(pType->GetTypeID())
 	{
 	case D_META_DATA_TYPE_ID_CLASS_TYPE:
-		return SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataClassType*>(pType), pObj, pEnt);
+	case D_META_DATA_TYPE_ID_INTERFACE:
+		return SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, pEnt);
 	case D_META_DATA_TYPE_ID_INNER_TYPE:
 		return SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pType), pObj, pEnt);
 	default:
@@ -71,7 +72,8 @@ bool CSerializer::DoUnserialize(const CMetaDataType *pType, void *pObj, const ch
 	switch(pType->GetTypeID())
 	{
 	case D_META_DATA_TYPE_ID_CLASS_TYPE:
-		return UnserializeCustomTypeWrapper(pEnt, reinterpret_cast<const CMetaDataClassType*>(pType), pObj);
+	case D_META_DATA_TYPE_ID_INTERFACE:
+		return UnserializeCustomTypeWrapper(pEnt, reinterpret_cast<const CMetaDataCustomType*>(pType), pObj);
 	case D_META_DATA_TYPE_ID_INNER_TYPE:
 		return UnserializeInnerType(pEnt, reinterpret_cast<const CMetaDataInnerType*>(pType), pObj);
 	default:
@@ -141,7 +143,8 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		switch(pMemVar->GetMDType()->GetTypeID())
 		{
 		case D_META_DATA_TYPE_ID_CLASS_TYPE:
-			if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataClassType*>(pMemVar->GetMDType()),
+		case D_META_DATA_TYPE_ID_INTERFACE:
+			if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pMemVar->GetMDType()),
 				pO, pChild))
 			{
 				pSEntity->DelChild(pChild);
@@ -194,7 +197,8 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 				switch (pProp->GetMDType()->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
-					if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataClassType*>(pProp->GetMDType()),
+				case D_META_DATA_TYPE_ID_INTERFACE:
+					if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pProp->GetMDType()),
 						pO, pChild))
 					{
 						pSEntity->DelChild(pChild);
@@ -257,8 +261,9 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 				switch (pContainter->GetItemType(type_index)->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
+				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!SerializeCustomTypeWrapper(
-						reinterpret_cast<const CMetaDataClassType*>(pContainter->GetItemType(type_index)),
+						reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)),
 						pO, pChild))
 					{
 						pContainterEntity->DelChild(pChild);
@@ -407,9 +412,13 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 			}
 			else if (pMemVar->GetPtrLevel() == 1)
 			{
-				pO = pMemVar->GetMDType()->NewObject();
-				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
-				*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = pO;
+				pO = *reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
+				if (!pO)
+				{
+					pO = pMemVar->GetMDType()->NewObject();
+					if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
+					*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = pO;
+				}
 			}
 			else continue;
 		}
@@ -418,8 +427,9 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		switch(pMemVar->GetMDType()->GetTypeID())
 		{
 		case D_META_DATA_TYPE_ID_CLASS_TYPE:
+		case D_META_DATA_TYPE_ID_INTERFACE:
 			if (!UnserializeCustomTypeWrapper(pChild,
-				reinterpret_cast<const CMetaDataClassType*>(pMemVar->GetMDType()),
+				reinterpret_cast<const CMetaDataCustomType*>(pMemVar->GetMDType()),
 				pO))
 			{
 				return false;
@@ -441,6 +451,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	//属性反序列化
 	CPropertyBase *pProperty;
 	bool error_flag(false);
+	bool pO_is_new;
 	for (i = 0; i < pType->GetPropertyCount(); ++i)
 	{
 		pProp = pType->GetProperty(i);
@@ -448,8 +459,29 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		pChild = pSEntity->FindChild(pProp->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_PROPERTY);
 		if (pChild)
 		{
-			if (pProp->GetPtrLevel() != 0 && pProp->GetPtrLevel() != 1) continue;
-			pO = pProp->GetMDType()->NewObject();
+			if (pProp->IsOffset())
+				pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj)
+					+ pProp->GetPropertyLocation().Offset);
+			else pProperty = pProp->GetPropertyLocation().pProperty;
+			if (pProp->GetPtrLevel() == 0)
+			{
+				pO = pProp->GetMDType()->NewObject();
+				pO_is_new = true;
+			}
+			else if (pProp->GetPtrLevel() == 1)
+			{
+				pProperty->CallGet(pObj, &pO);
+				if (!pO)
+				{
+					pO = pProp->GetMDType()->NewObject();
+					pO_is_new = true;
+				}
+				else
+				{
+					pO_is_new = false;
+				}
+			}
+			else continue;
 			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
 		}
 		else continue;
@@ -460,8 +492,9 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				switch(pProp->GetMDType()->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
+				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!UnserializeCustomTypeWrapper(pChild,
-						reinterpret_cast<const CMetaDataClassType*>(pProp->GetMDType()),
+						reinterpret_cast<const CMetaDataCustomType*>(pProp->GetMDType()),
 						pO))
 					{
 						error_flag = true;
@@ -481,12 +514,8 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				}
 				break;
 			}
-			if (!error_flag)
+			if (!error_flag && pO_is_new)
 			{
-				if (pProp->IsOffset())
-					pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj)
-						+ pProp->GetPropertyLocation().Offset);
-				else pProperty = pProp->GetPropertyLocation().pProperty;
 				if (pProp->GetPtrLevel() == 0)
 					pProperty->CallSet(pObj, pO);
 				else pProperty->CallSet(pObj, &pO); //pProp->GetPtrLevel() == 1
@@ -494,10 +523,10 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		}
 		catch (...)
 		{
-			pProp->GetMDType()->DeleteObject(pO);
+			if (pO_is_new) pProp->GetMDType()->DeleteObject(pO);
 			throw;
 		}
-		pProp->GetMDType()->DeleteObject(pO);
+		if (pO_is_new) pProp->GetMDType()->DeleteObject(pO);
 
 		if (error_flag) return false;
 	}
@@ -519,6 +548,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 			pContainterEntity = pSEntity->FindChild(D_SERIALIZER_ICONTAINER_NAME,
 				TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE);
 			if (!pContainterEntity) continue;
+			pContainter->ClearItems(type_index);
 			for (i = 0; i < pContainterEntity->GetChildrenCount(); ++i)
 			{
 				pChild = pContainterEntity->GetChildren(i);
@@ -538,8 +568,9 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				switch (pContainter->GetItemType(type_index)->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
+				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!UnserializeCustomTypeWrapper(pChild,
-						reinterpret_cast<const CMetaDataClassType*>(pContainter->GetItemType(type_index)),
+						reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)),
 						pO))
 					{
 						return false;
