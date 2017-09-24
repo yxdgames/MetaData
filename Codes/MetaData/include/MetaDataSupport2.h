@@ -6,6 +6,10 @@
  * attention	由MetaDataObjects.cpp来引用（使用）。其它*.meo参考使用，不需要引用。
  */
 
+#ifndef MD_NO_ASTERISK
+#define MD_NO_ASTERISK
+#endif //MD_NO_ASTERISK
+
 /***********************/
 /* Meta data of module */
 /***********************/
@@ -158,7 +162,7 @@
 /*************************/
 /* Meta data of variable */
 /*************************/
-#define MD_GLOBAL_VARIABLE_DEF(name, parent, type, ptr_level)		const CMetaDataVariable _MD__V##name(#name, &(parent), TypeTraits<type>::GetMetaDataType(), (ptr_level), &(name));
+#define MD_GLOBAL_VARIABLE_DEF(name, parent, type, asterisks)		const CMetaDataVariable _MD__V##name(#name, &(parent), TypeTraits<type>::GetMetaDataType(), strlen(#asterisks), &(name));
 
 /*************************/
 /* Meta data of function */
@@ -194,8 +198,8 @@
 /*********************************************/
 /* Meta data of function parameters & return */
 /*********************************************/
-#define MD_GLOBAL_FUNCTION_PARAM_DEF(name, type, ptr_level) \
-	pMDFunction->AddParamInfo(new CMetaDataVarBase(#name, pMDFunction, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
+#define MD_GLOBAL_FUNCTION_PARAM_DEF(name, type, asterisks) \
+	pMDFunction->AddParamInfo(new CMetaDataVarBase(#name, pMDFunction, TypeTraits<type>::GetMetaDataType(), strlen(#asterisks)));
 
-#define MD_GLOBAL_FUNCTION_RETURN_DEF(type, ptr_level) \
-	pMDFunction->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunction, TypeTraits<type>::GetMetaDataType(), (ptr_level)));
+#define MD_GLOBAL_FUNCTION_RETURN_DEF(type, asterisks) \
+	pMDFunction->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunction, TypeTraits<type>::GetMetaDataType(), strlen(#asterisks)));

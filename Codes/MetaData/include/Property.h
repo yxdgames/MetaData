@@ -21,8 +21,8 @@ template <typename CLASS, typename T>
 class TEMPLATE_CLASS_DESCRIPT TPropertyBase : public CPropertyBase
 {
 public:
-	typedef void (CLASS::*Tpfun_set)(T value);
-	typedef T (CLASS::*Tpfun_get)(void);
+	typedef void (CLASS::*Tpfun_set)(const T value);
+	typedef const T (CLASS::*Tpfun_get)(void);
 public:
 	inline TPropertyBase(Tpfun_set set, Tpfun_get get);
 	virtual ~TPropertyBase(void) {}
