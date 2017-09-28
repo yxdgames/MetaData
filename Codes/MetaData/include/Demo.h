@@ -33,13 +33,17 @@ public:
 	unsigned int mem_u_i;
 	long mem_long;
 	long *p_mem_long;
+	const char *pString;
 public:
-	void Set_mem_i(const int value) { mem_i = value; printf("Set_mem_i\n"); }
-	const int Get_mem_i(void) { printf("Get_mem_i\n"); return mem_i; }
-	void Set_mem_char(const char value) { mem_char = value; printf("Set_mem_char\n"); }
-	const char Get_mem_char(void) { printf("Get_mem_char\n"); return mem_char; }
+	void Set_mem_i(int value) { mem_i = value; printf("Set_mem_i\n"); }
+	int Get_mem_i(void) { printf("Get_mem_i\n"); return mem_i; }
+	void Set_mem_char(char value) { mem_char = value; printf("Set_mem_char\n"); }
+	char Get_mem_char(void) { printf("Get_mem_char\n"); return mem_char; }
+	void Set_mem_string(const char *value) { pString = value; }
+	const char *Get_mem_string(void) { return pString; }
 	//propert
-	Property<CClass1, int>		MemI;
+	Property<CClass1, int>			MemI;
+	Property<CClass1, const char*>	MemString;
 public:
 	static unsigned char static_mem_uc;
 	static unsigned long static_mem_ulong;
@@ -82,6 +86,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1)
 	MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_long, long, MD_NO_ASTERISK)
 	MD_CLASS_TYPE_MEMBER_VAR_DEF(p_mem_long, long, *)
 	MD_CLASS_TYPE_MEMBER_PROPERTY_DEF(MemI, int, MD_NO_ASTERISK)
+	MD_CLASS_TYPE_MEMBER_PROPERTY_DEF(MemString, char, *)
 	MD_CLASS_TYPE_PROPERTY_DEF(mem_char, CClass1, char, MD_NO_ASTERISK, Set_mem_char, Get_mem_char)
 	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_uc, unsigned char, MD_NO_ASTERISK)
 	MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(static_mem_ulong, unsigned long, MD_NO_ASTERISK)

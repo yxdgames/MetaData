@@ -6,10 +6,6 @@
  * attention	由MetaDataObjects.cpp来引用（使用）。其它*.meo参考使用，不需要引用。
  */
 
-#ifndef MD_NO_ASTERISK
-#define MD_NO_ASTERISK
-#endif //MD_NO_ASTERISK
-
 /***********************/
 /* Meta data of module */
 /***********************/
