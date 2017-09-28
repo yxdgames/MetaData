@@ -11,10 +11,6 @@
 #include "MetaDataClassType.h"
 #include "TypeTraits.h"
 
-#ifndef MD_NO_ASTERISK
-#define MD_NO_ASTERISK
-#endif //MD_NO_ASTERISK
-
 #define CLASS_DESCRIPT_FOR_MD_SUPPORT
 
 /***********************/
@@ -60,13 +56,13 @@
 #define MD_INTERFACE_MEMBER_FUNC_DEF(func_name, index)					MD_CUSTOM_TYPE_MEMBER_FUNC_DEF(func_name, index)
 
 					//添加成员函数参数元数据信息
-#define MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(name, type, asterisks)		MD_CUSTOM_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, asterisks)
+#define MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)		MD_CUSTOM_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)
 					//添加成员函数返回值元数据信息
-#define MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(type, asterisks)			MD_CUSTOM_TYPE_MEMBER_FUNC_RETURN_DEF(type, asterisks)
+#define MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)			MD_CUSTOM_TYPE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)
 
 				/*--添加属性元数据信息--*/
-#define MD_INTERFACE_PROPERTY_DEF(prop_name, cls, prop_type, asterisks, set, get) \
-	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, asterisks, set, get)
+#define MD_INTERFACE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get) \
+	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get)
 
 #define MD_INTERFACE_DECLARE_END(name)									MD_CUSTOM_TYPE_DECLARE_END(name)
 
@@ -91,7 +87,7 @@
 #define MD_CLASS_TYPE_CONSTRUCTOR_DEF(index)				MD_CUSTOM_TYPE_CONSTRUCTOR_DEF(index)
 
 					//添加构造函数参数元数据信息
-#define MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, asterisks)		MD_CUSTOM_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, asterisks)
+#define MD_CLASS_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, ptr_level)		MD_CUSTOM_TYPE_CONSTRUCTOR_PARAM_DEF(name, type, ptr_level)
 
 				/*--添加析构函数元数据信息--*/
 #define MD_CLASS_TYPE_DESTRUCTOR_WRAPPER_DECLARE()			MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DECLARE()
@@ -102,30 +98,30 @@
 #define MD_CLASS_TYPE_MEMBER_FUNC_DEF(func_name, index)					MD_CUSTOM_TYPE_MEMBER_FUNC_DEF(func_name, index)
 
 					//添加成员函数参数元数据信息
-#define MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, asterisks)		MD_CUSTOM_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, asterisks)
+#define MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)		MD_CUSTOM_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)
 					//添加成员函数返回值元数据信息
-#define MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(type, asterisks)			MD_CUSTOM_TYPE_MEMBER_FUNC_RETURN_DEF(type, asterisks)
+#define MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)			MD_CUSTOM_TYPE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)
 
 				/*--添加成员变量元数据信息--*/
-#define MD_CLASS_TYPE_MEMBER_VAR_DEF(var_name, var_type, asterisks)		MD_CUSTOM_TYPE_MEMBER_VAR_DEF(var_name, var_type, asterisks)
+#define MD_CLASS_TYPE_MEMBER_VAR_DEF(var_name, var_type, ptr_level)		MD_CUSTOM_TYPE_MEMBER_VAR_DEF(var_name, var_type, ptr_level)
 
 				/*--添加属性元数据信息--*/
-#define MD_CLASS_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, asterisks, set, get) \
-	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, asterisks, set, get)
-#define MD_CLASS_TYPE_MEMBER_PROPERTY_DEF(prop_name, prop_type, asterisks) \
-	MD_CUSTOM_TYPE_MEMBER_PROPERTY_DEF(prop_name, prop_type, asterisks)
+#define MD_CLASS_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get) \
+	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get)
+#define MD_CLASS_TYPE_MEMBER_PROPERTY_DEF(prop_name, prop_type, ptr_level) \
+	MD_CUSTOM_TYPE_MEMBER_PROPERTY_DEF(prop_name, prop_type, ptr_level)
 
 				/*--添加静态成员函数元数据信息--*/
 #define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)	MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)
 #define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_DEF(func_name, index)				MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_DEF(func_name, index)
 
 					//添加静态成员函数参数元数据信息
-#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(name, type, asterisks)	MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(name, type, asterisks)
+#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)	MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)
 					//添加静态成员函数返回值元数据信息
-#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(type, asterisks)		MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(type, asterisks)
+#define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(type, ptr_level)		MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_RETURN_DEF(type, ptr_level)
 
 				/*--添加静态成员变量元数据信息--*/
-#define MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, asterisks)	MD_CUSTOM_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, asterisks)
+#define MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, ptr_level)	MD_CUSTOM_TYPE_STATIC_MEMBER_VAR_DEF(var_name, var_type, ptr_level)
 
 				/*--添加AsTypeEx函数指针--*/
 #define MD_CLASS_TYPE_AS_TYPE_EX_DEF(pfun_as_type_ex)						MD_CUSTOM_TYPE_AS_TYPE_EX_DEF(pfun_as_type_ex)
