@@ -61,8 +61,8 @@
 #define MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)			MD_CUSTOM_TYPE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)
 
 				/*--添加属性元数据信息--*/
-#define MD_INTERFACE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get) \
-	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get)
+#define MD_INTERFACE_PROPERTY_DEF(prop_name, cls, cls_prop_type, set, get, prop_type, ptr_level) \
+	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, cls_prop_type, set, get, prop_type, ptr_level)
 
 #define MD_INTERFACE_DECLARE_END(name)									MD_CUSTOM_TYPE_DECLARE_END(name)
 
@@ -106,8 +106,8 @@
 #define MD_CLASS_TYPE_MEMBER_VAR_DEF(var_name, var_type, ptr_level)		MD_CUSTOM_TYPE_MEMBER_VAR_DEF(var_name, var_type, ptr_level)
 
 				/*--添加属性元数据信息--*/
-#define MD_CLASS_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get) \
-	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, prop_type, ptr_level, set, get)
+#define MD_CLASS_TYPE_PROPERTY_DEF(prop_name, cls, cls_prop_type, set, get, prop_type, ptr_level) \
+	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, cls_prop_type, set, get, prop_type, ptr_level)
 #define MD_CLASS_TYPE_MEMBER_PROPERTY_DEF(prop_name, prop_type, ptr_level) \
 	MD_CUSTOM_TYPE_MEMBER_PROPERTY_DEF(prop_name, prop_type, ptr_level)
 
