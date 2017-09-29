@@ -7,7 +7,7 @@ SimpleString::SimpleString(void)
 {
 }
 
-SimpleString::SimpleString(char *pStr)
+SimpleString::SimpleString(const char *pStr)
 	: m_pString(new std::string(pStr ? pStr : ""))
 {
 

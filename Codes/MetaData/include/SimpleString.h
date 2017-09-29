@@ -9,16 +9,16 @@ class CLASS_DESCRIPT SimpleString
 {
 public:
 	SimpleString(void);
-	SimpleString(char *pStr);
+	SimpleString(const char *pStr);
 	SimpleString(SimpleString &Src);
 	virtual ~SimpleString(void);
 public:
 	//attr
-	void SetValue(char *pStr) { (*m_pString) = pStr ? pStr : ""; }
+	void SetValue(const char *pStr) { (*m_pString) = pStr ? pStr : ""; }
 	const char *GetValue(void) { return m_pString->c_str(); }
 public:
 	//operator
-	SimpleString &operator=(char *pStr) { this->SetValue(pStr); return *this; }
+	SimpleString &operator=(const char *pStr) { this->SetValue(pStr); return *this; }
 	SimpleString &operator=(SimpleString &Src) { *this->m_pString = *Src.m_pString; return *this; }
 private:
 	inline void FreeString(void);
