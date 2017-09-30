@@ -32,6 +32,8 @@ private:
 	bool UnserializeCustomType(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj, char strBuffer[D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX]);
 	bool UnserializeInnerType(ISerialEntity *pSEntity, const CMetaDataInnerType *pType, void *pObj);
 private:
+	inline const CMetaDataType *FindMetaDataType(const char *pTypeName);
+private:
 	ITreeSerial				*m_pTreeSerial;
 };
 

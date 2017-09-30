@@ -20,6 +20,7 @@ public:
 public:
 	virtual size_t GetItemTypeCount(void) = 0;
 	virtual const CMetaDataType *GetItemType(size_t type_index) = 0;
+	virtual const CMetaDataType *GetItemType(size_t type_index, void *pItem, void **outItem) = 0;
 
 /*Meta Data Definition*/
 MD_INTERFACE_DECLARE_BEGIN(IContainer)

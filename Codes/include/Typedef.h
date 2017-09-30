@@ -2,3 +2,5 @@
 
 typedef unsigned char	TDBYTE;
 typedef unsigned int	TDUIntPtr;
+
+typedef int				TDEnumType;

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "..\include\MetaData.h"
+#include "..\..\include\CharArray.h"
 
 #include "..\include\ExceptionMetaData.h"
 #include "..\include\ExceptionIDMetaData.h"
@@ -37,18 +38,18 @@ CMetaData::~CMetaData(void)
 	}
 }
 
-const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName) const
+const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName) const
 {
 	if (!m_pChildren) return nullptr;
-	static char FullNameBuffer[256];
+	CCharArray FullName(256);
 	const CMetaData *pMD;
 	std::vector<const CMetaData*>::iterator itr;
 	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
-		if ((*itr)->GetFullName(FullNameBuffer, 256))
+		if ((*itr)->GetFullName(FullName.char_array(), 256))
 		{
-			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullNameBuffer, pFullName) == 0
-				|| strcmp(FullNameBuffer + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
+			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullName.char_array(), pFullName) == 0
+				|| strcmp(FullName.char_array() + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
 				return (*itr);
 		}
 		pMD = (*itr)->FindChildMetaData(MetaDataTypeID, pFullName);
@@ -57,7 +58,7 @@ const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char
 	return nullptr;
 }
 
-bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const
+bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children) const
 {
 	return FindChildMetaData(MetaDataTypeID, pFullName, Children, true);
 }
@@ -143,18 +144,18 @@ void CMetaData::RemoveSelfFromParent(void)
 	}
 }
 
-const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children, bool bClear) const
+const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children, bool bClear) const
 {
 	if (bClear) Children.clear();
 	if (!m_pChildren) return false;
-	static char FullNameBuffer[256];
+	CCharArray FullName(256);
 	std::vector<const CMetaData*>::iterator itr;
 	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
-		if ((*itr)->GetFullName(FullNameBuffer, 256))
+		if ((*itr)->GetFullName(FullName.char_array(), 256))
 		{
-			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullNameBuffer, pFullName) == 0
-				|| strcmp(FullNameBuffer + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
+			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullName.char_array(), pFullName) == 0
+				|| strcmp(FullName.char_array() + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
 				Children.push_back(*itr);
 		}
 		(void)(*itr)->FindChildMetaData(MetaDataTypeID, pFullName, Children, false);

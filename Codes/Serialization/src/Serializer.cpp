@@ -239,6 +239,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 	if (pContainter)
 	{
 		ISerialEntity *pContainterEntity;
+		const CMetaDataType *tmpType;
 		for (size_t type_index = 0; type_index < pContainter->GetItemTypeCount(); ++type_index)
 		{
 			if (!pContainter->GetItemType(type_index)
@@ -253,16 +254,19 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 			{
 				pO = pContainter->GetItem(type_index, i);
 				if (!pO) continue;
+				tmpType = pContainter->GetItemType(type_index, pO, &pO);
+				if (!tmpType || !tmpType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX))
+					return false;
 				pChild = pContainterEntity->NewChild();
 				pChild->SetName(D_SERIALIZER_ICONTAINER_ELE_NAME);
 				pChild->SetEntTypeName(strBuffer);
 				pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
-				switch (pContainter->GetItemType(type_index)->GetTypeID())
+				switch (tmpType->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
 				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!SerializeCustomTypeWrapper(
-						reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)),
+						reinterpret_cast<const CMetaDataCustomType*>(tmpType),
 						pO, pChild, strBuffer))
 					{
 						pContainterEntity->DelChild(pChild);
@@ -270,7 +274,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 					}
 					break;
 				case D_META_DATA_TYPE_ID_INNER_TYPE:
-					if (!SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pContainter->GetItemType(type_index)),
+					if (!SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(tmpType),
 						pO, pChild))
 					{
 						pContainterEntity->DelChild(pChild);
@@ -538,6 +542,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	if (pContainter)
 	{
 		ISerialEntity *pContainterEntity;
+		const CMetaDataType *tmpType;
 		for (size_t type_index = 0; type_index < pContainter->GetItemTypeCount(); ++type_index)
 		{
 			if (!pContainter->GetItemType(type_index)
@@ -551,24 +556,27 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 			{
 				pChild = pContainterEntity->GetChildren(i);
 				if (strcmp(D_SERIALIZER_ICONTAINER_ELE_NAME, pChild->GetName()) != 0
-					|| strcmp(strBuffer, pChild->GetEntTypeName()) != 0
 					|| pChild->GetTag() != D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE)
 					continue;
 
 				pO = pContainter->NewItem(type_index);
 				if (!pO)
 				{
-					pO = pContainter->GetItemType(type_index)->NewObject();
+					tmpType = FindMetaDataType(pChild->GetEntTypeName());
+					if (!tmpType || !tmpType->IsTypeOf(pContainter->GetItemType(type_index)))
+						throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					pO = tmpType->NewObject();
 					if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
-					pContainter->AddItem(type_index, pO);
+					pContainter->AddItem(type_index, tmpType->AsType(pO, pContainter->GetItemType(type_index)));
 				}
+				else tmpType = pContainter->GetItemType(type_index);
 				
-				switch (pContainter->GetItemType(type_index)->GetTypeID())
+				switch (tmpType->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
 				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!UnserializeCustomTypeWrapper(pChild,
-						reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)),
+						reinterpret_cast<const CMetaDataCustomType*>(tmpType),
 						pO, strBuffer))
 					{
 						return false;
@@ -576,7 +584,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 					break;
 				case D_META_DATA_TYPE_ID_INNER_TYPE:
 					if (!UnserializeInnerType(pChild,
-						reinterpret_cast<const CMetaDataInnerType*>(pContainter->GetItemType(type_index)),
+						reinterpret_cast<const CMetaDataInnerType*>(tmpType),
 						pO))
 					{
 						return false;
@@ -657,4 +665,15 @@ bool CSerializer::UnserializeInnerType(ISerialEntity *pSEntity, const CMetaDataI
 	else ret = false;
 
 	return ret;
+}
+
+inline const CMetaDataType *CSerializer::FindMetaDataType(const char *pTypeName)
+{
+	const CMetaData *pType;
+	pType = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_CLASS_TYPE, pTypeName);
+	if (pType) return reinterpret_cast<const CMetaDataType*>(pType);
+	pType = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_INTERFACE, pTypeName);
+	if (pType) return reinterpret_cast<const CMetaDataType*>(pType);
+	pType = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_INNER_TYPE, pTypeName);
+	return reinterpret_cast<const CMetaDataType*>(pType);
 }

@@ -27,8 +27,8 @@ public:
 	virtual ~CMetaData(void);
 public:
 	//method
-	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName) const;
-	bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children) const;
+	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName) const;
+	bool FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children) const;
 public:
 	//attribute
 	const char *GetName(void) const							{ return m_pName; }
@@ -40,7 +40,7 @@ public:
 private:
 	void InsertSelfToParent(void);
 	void RemoveSelfFromParent(void);
-	const bool FindChildMetaData(unsigned char MetaDataTypeID, char *pFullName, std::vector<const CMetaData*> &Children, bool bClear) const;
+	const bool FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children, bool bClear) const;
 private:
 	const char						*m_pName;
 	const CMetaData					*m_pParent;
