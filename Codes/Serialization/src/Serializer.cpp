@@ -39,8 +39,8 @@ void CSerializer::SetSerial(ISerial *pSerial)
 bool CSerializer::DoSerialize(const CMetaDataType *pType, void *pObj, const char *pName)
 {
 	if (!pType || !pObj || !m_pTreeSerial || !m_pTreeSerial->Root()) return false;
-	CCharArray TypeName(256);
-	if (!pType->GetFullName(TypeName.char_array(), 256)) return false;
+	CCharArray TypeName(D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX);
+	if (!pType->GetFullName(TypeName.char_array(), D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 
 	ISerialEntity *pEnt;
 	pEnt = m_pTreeSerial->Root()->NewChild();
@@ -51,7 +51,7 @@ bool CSerializer::DoSerialize(const CMetaDataType *pType, void *pObj, const char
 	{
 	case D_META_DATA_TYPE_ID_CLASS_TYPE:
 	case D_META_DATA_TYPE_ID_INTERFACE:
-		return SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, pEnt);
+		return SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, pEnt, TypeName.char_array());
 	case D_META_DATA_TYPE_ID_INNER_TYPE:
 		return SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pType), pObj, pEnt);
 	default:
@@ -63,8 +63,8 @@ bool CSerializer::DoSerialize(const CMetaDataType *pType, void *pObj, const char
 bool CSerializer::DoUnserialize(const CMetaDataType *pType, void *pObj, const char *pName)
 {
 	if (!pType || !pObj || !m_pTreeSerial || !m_pTreeSerial->Root()) return false;
-	CCharArray TypeName(256);
-	if (!pType->GetFullName(TypeName.char_array(), 256)) return false;
+	CCharArray TypeName(D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX);
+	if (!pType->GetFullName(TypeName.char_array(), D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 	ISerialEntity *pEnt(m_pTreeSerial->Root()->FindChild(
 		pName, TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE));
 	if (!pEnt) return false;
@@ -73,7 +73,7 @@ bool CSerializer::DoUnserialize(const CMetaDataType *pType, void *pObj, const ch
 	{
 	case D_META_DATA_TYPE_ID_CLASS_TYPE:
 	case D_META_DATA_TYPE_ID_INTERFACE:
-		return UnserializeCustomTypeWrapper(pEnt, reinterpret_cast<const CMetaDataCustomType*>(pType), pObj);
+		return UnserializeCustomTypeWrapper(pEnt, reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, TypeName.char_array());
 	case D_META_DATA_TYPE_ID_INNER_TYPE:
 		return UnserializeInnerType(pEnt, reinterpret_cast<const CMetaDataInnerType*>(pType), pObj);
 	default:
@@ -82,11 +82,11 @@ bool CSerializer::DoUnserialize(const CMetaDataType *pType, void *pObj, const ch
 	return false;
 }
 
-bool CSerializer::SerializeCustomTypeWrapper(const CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity)
+bool CSerializer::SerializeCustomTypeWrapper(const CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity, char strBuffer[D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX])
 {
 	if (TypeTraits<SimpleString>::GetMetaDataType() != pType)
 	{
-		return SerializeCustomType(pType, pObj, pSEntity);
+		return SerializeCustomType(pType, pObj, pSEntity, strBuffer);
 	}
 	else
 	{
@@ -95,7 +95,7 @@ bool CSerializer::SerializeCustomTypeWrapper(const CMetaDataCustomType *pType, v
 	}
 }
 
-bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity)
+bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pObj, ISerialEntity *pSEntity, char strBuffer[D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX])
 {
 	size_t i;
 	const CMetaDataCustomType *pCustomType;
@@ -103,19 +103,18 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 	const CMetaDataCustomTypeProperty *pProp;
 	void *pO;
 	ISerialEntity *pChild;
-	CCharArray TypeName(256);
 
 	//基类数据序列化
 	for (i = 0; i < pType->GetBaseTypeCount(); ++i)
 	{
 		pCustomType = pType->GetBaseType(i);
-		if (!pCustomType->GetFullName(TypeName.char_array(), 256)) return false;
+		if (!pCustomType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 		pO = reinterpret_cast<void*>((reinterpret_cast<TDUIntPtr>(pObj) + pType->GetBaseTypeOffset(i)));
 		pChild = pSEntity->NewChild();
 		pChild->SetName(pCustomType->GetName());
-		pChild->SetEntTypeName(TypeName.char_array());
+		pChild->SetEntTypeName(strBuffer);
 		pChild->SetTag(D_SERIALIZER_ENTITY_TAG_BASE_TYPE);
-		if (!SerializeCustomTypeWrapper(pCustomType, pO, pChild))
+		if (!SerializeCustomTypeWrapper(pCustomType, pO, pChild, strBuffer))
 		{
 			pSEntity->DelChild(pChild);
 			return false;
@@ -126,7 +125,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 	for (i = 0; i < pType->GetMemberVarCount(); ++i)
 	{
 		pMemVar = pType->GetMemberVar(i);
-		if (!pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)) return false;
+		if (!pMemVar->GetMDType()->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 		if (pMemVar->GetPtrLevel() == 0)
 		{
 			pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
@@ -138,14 +137,14 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		else continue;
 		pChild = pSEntity->NewChild();
 		pChild->SetName(pMemVar->GetName());
-		pChild->SetEntTypeName(TypeName.char_array());
+		pChild->SetEntTypeName(strBuffer);
 		pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
 		switch(pMemVar->GetMDType()->GetTypeID())
 		{
 		case D_META_DATA_TYPE_ID_CLASS_TYPE:
 		case D_META_DATA_TYPE_ID_INTERFACE:
 			if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pMemVar->GetMDType()),
-				pO, pChild))
+				pO, pChild, strBuffer))
 			{
 				pSEntity->DelChild(pChild);
 				return false;
@@ -171,7 +170,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 	for (i = 0; i < pType->GetPropertyCount(); ++i)
 	{
 		pProp = pType->GetProperty(i);
-		if (!pProp->GetMDType()->GetFullName(TypeName.char_array(), 265)) return false;
+		if (!pProp->GetMDType()->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 		if (pProp->IsOffset())
 			pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj) + pProp->GetPropertyLocation().Offset);
 		else pProperty = pProp->GetPropertyLocation().pProperty;
@@ -192,14 +191,14 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 			{
 				pChild = pSEntity->NewChild();
 				pChild->SetName(pProp->GetName());
-				pChild->SetEntTypeName(TypeName.char_array());
+				pChild->SetEntTypeName(strBuffer);
 				pChild->SetTag(D_SERIALIZER_ENTITY_TAG_PROPERTY);
 				switch (pProp->GetMDType()->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
 				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pProp->GetMDType()),
-						pO, pChild))
+						pO, pChild, strBuffer))
 					{
 						pSEntity->DelChild(pChild);
 						error_flag = true;
@@ -243,12 +242,12 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		for (size_t type_index = 0; type_index < pContainter->GetItemTypeCount(); ++type_index)
 		{
 			if (!pContainter->GetItemType(type_index)
-				|| !pContainter->GetItemType(type_index)->GetFullName(TypeName.char_array(), 256))
+				|| !pContainter->GetItemType(type_index)->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX))
 				return false;
 
 			pContainterEntity = pSEntity->NewChild();
 			pContainterEntity->SetName(D_SERIALIZER_ICONTAINER_NAME);
-			pContainterEntity->SetEntTypeName(TypeName.char_array());
+			pContainterEntity->SetEntTypeName(strBuffer);
 			pContainterEntity->SetTag(D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE);
 			for (i = 0; i < pContainter->Count(type_index); ++i)
 			{
@@ -256,7 +255,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 				if (!pO) continue;
 				pChild = pContainterEntity->NewChild();
 				pChild->SetName(D_SERIALIZER_ICONTAINER_ELE_NAME);
-				pChild->SetEntTypeName(TypeName.char_array());
+				pChild->SetEntTypeName(strBuffer);
 				pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
 				switch (pContainter->GetItemType(type_index)->GetTypeID())
 				{
@@ -264,7 +263,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!SerializeCustomTypeWrapper(
 						reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)),
-						pO, pChild))
+						pO, pChild, strBuffer))
 					{
 						pContainterEntity->DelChild(pChild);
 						return false;
@@ -354,11 +353,11 @@ bool CSerializer::SerializeInnerType(const CMetaDataInnerType *pType, void *pObj
 	return ret;
 }
 
-bool CSerializer::UnserializeCustomTypeWrapper(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj)
+bool CSerializer::UnserializeCustomTypeWrapper(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj, char strBuffer[D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX])
 {
 	if (TypeTraits<SimpleString>::GetMetaDataType() != pType)
 	{
-		return UnserializeCustomType(pSEntity, pType, pObj);
+		return UnserializeCustomType(pSEntity, pType, pObj, strBuffer);
 	}
 	else
 	{
@@ -371,7 +370,7 @@ bool CSerializer::UnserializeCustomTypeWrapper(ISerialEntity *pSEntity, const CM
 	}
 }
 
-bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj)
+bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaDataCustomType *pType, void *pObj, char strBuffer[D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX])
 {
 	size_t i;
 	const CMetaDataCustomType *pCustomType;
@@ -379,18 +378,17 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	const CMetaDataCustomTypeProperty *pProp;
 	ISerialEntity *pChild;
 	void *pO;
-	CCharArray TypeName(256);
 
 	//基类数据反序列化
 	for (i = 0; i < pType->GetBaseTypeCount(); ++i)
 	{
 		pCustomType = pType->GetBaseType(i);
-		if (!pCustomType->GetFullName(TypeName.char_array(), 256)) return false;
-		pChild = pSEntity->FindChild(pCustomType->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_BASE_TYPE);
+		if (!pCustomType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
+		pChild = pSEntity->FindChild(pCustomType->GetName(), strBuffer, D_SERIALIZER_ENTITY_TAG_BASE_TYPE);
 		if (pChild)
 		{
 			pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pType->GetBaseTypeOffset(i));
-			if (!UnserializeCustomTypeWrapper(pChild, pCustomType, pO))
+			if (!UnserializeCustomTypeWrapper(pChild, pCustomType, pO, strBuffer))
 			{
 				return false;
 			}
@@ -401,9 +399,9 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	for (i = 0; i < pType->GetMemberVarCount(); ++i)
 	{
 		pMemVar = pType->GetMemberVar(i);
-		if (!(pMemVar->GetMDType()->GetFullName(TypeName.char_array(), 256)))
+		if (!(pMemVar->GetMDType()->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)))
 			return false;
-		pChild = pSEntity->FindChild(pMemVar->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
+		pChild = pSEntity->FindChild(pMemVar->GetName(), strBuffer, D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
 		if (pChild)
 		{
 			if (pMemVar->GetPtrLevel() == 0)
@@ -430,7 +428,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		case D_META_DATA_TYPE_ID_INTERFACE:
 			if (!UnserializeCustomTypeWrapper(pChild,
 				reinterpret_cast<const CMetaDataCustomType*>(pMemVar->GetMDType()),
-				pO))
+				pO, strBuffer))
 			{
 				return false;
 			}
@@ -455,8 +453,8 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 	for (i = 0; i < pType->GetPropertyCount(); ++i)
 	{
 		pProp = pType->GetProperty(i);
-		if (!pProp->GetMDType()->GetFullName(TypeName.char_array(), 265)) return false;
-		pChild = pSEntity->FindChild(pProp->GetName(), TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_PROPERTY);
+		if (!pProp->GetMDType()->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
+		pChild = pSEntity->FindChild(pProp->GetName(), strBuffer, D_SERIALIZER_ENTITY_TAG_PROPERTY);
 		if (pChild)
 		{
 			if (pProp->IsOffset())
@@ -495,7 +493,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!UnserializeCustomTypeWrapper(pChild,
 						reinterpret_cast<const CMetaDataCustomType*>(pProp->GetMDType()),
-						pO))
+						pO, strBuffer))
 					{
 						error_flag = true;
 					}
@@ -543,17 +541,17 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		for (size_t type_index = 0; type_index < pContainter->GetItemTypeCount(); ++type_index)
 		{
 			if (!pContainter->GetItemType(type_index)
-				|| !pContainter->GetItemType(type_index)->GetFullName(TypeName.char_array(), 256))
+				|| !pContainter->GetItemType(type_index)->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX))
 				return false;
 			pContainterEntity = pSEntity->FindChild(D_SERIALIZER_ICONTAINER_NAME,
-				TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE);
+				strBuffer, D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE);
 			if (!pContainterEntity) continue;
 			pContainter->ClearItems(type_index);
 			for (i = 0; i < pContainterEntity->GetChildrenCount(); ++i)
 			{
 				pChild = pContainterEntity->GetChildren(i);
 				if (strcmp(D_SERIALIZER_ICONTAINER_ELE_NAME, pChild->GetName()) != 0
-					|| strcmp(TypeName.char_array(), pChild->GetEntTypeName()) != 0
+					|| strcmp(strBuffer, pChild->GetEntTypeName()) != 0
 					|| pChild->GetTag() != D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE)
 					continue;
 
@@ -571,7 +569,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 				case D_META_DATA_TYPE_ID_INTERFACE:
 					if (!UnserializeCustomTypeWrapper(pChild,
 						reinterpret_cast<const CMetaDataCustomType*>(pContainter->GetItemType(type_index)),
-						pO))
+						pO, strBuffer))
 					{
 						return false;
 					}
