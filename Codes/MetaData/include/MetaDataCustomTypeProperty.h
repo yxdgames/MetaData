@@ -19,9 +19,9 @@ public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const			{ return D_META_DATA_TYPE_ID_CUSTOM_TYPE_PROPERTY; }
 	UPropertyLocation GetPropertyLocation(void) const	{ return m_PropertyLocation; }
-	bool IsOffset(void) const							{ return m_IsOffset; }
+	bool PropertyLocationIsOffset(void) const			{ return m_PropertyLocationIsOffset; }
 private:
 	UPropertyLocation	m_PropertyLocation;
-	bool				m_IsOffset;
+	bool				m_PropertyLocationIsOffset;
 };
 

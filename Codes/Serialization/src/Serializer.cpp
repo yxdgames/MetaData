@@ -171,7 +171,7 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 	{
 		pProp = pType->GetProperty(i);
 		if (!pProp->GetMDType()->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
-		if (pProp->IsOffset())
+		if (pProp->PropertyLocationIsOffset())
 			pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj) + pProp->GetPropertyLocation().Offset);
 		else pProperty = pProp->GetPropertyLocation().pProperty;
 		if (pProp->GetPtrLevel() == 0)
@@ -457,7 +457,7 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		pChild = pSEntity->FindChild(pProp->GetName(), strBuffer, D_SERIALIZER_ENTITY_TAG_PROPERTY);
 		if (pChild)
 		{
-			if (pProp->IsOffset())
+			if (pProp->PropertyLocationIsOffset())
 				pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj)
 					+ pProp->GetPropertyLocation().Offset);
 			else pProperty = pProp->GetPropertyLocation().pProperty;
