@@ -5,8 +5,8 @@
 class CLASS_DESCRIPT IContainer : public IInterface
 {
 public:
-	IContainer(void);
-	virtual ~IContainer(void) = 0;
+	IContainer(void) {}
+	virtual ~IContainer(void) = 0 {}
 public:
 	//method
 	virtual void *NewItem(size_t type_index) = 0;
@@ -20,13 +20,13 @@ public:
 public:
 	virtual size_t GetItemTypeCount(void) = 0;
 	virtual const CMetaDataType *GetItemType(size_t type_index) = 0;
-	virtual const CMetaDataType *GetItemType(size_t type_index, void *pItem, void **outItem) = 0;
 
 /*Meta Data Definition*/
 MD_INTERFACE_DECLARE_BEGIN(IContainer)
 	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(NewItem, 0)
 	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(AddItem, 0)
 	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(DelItem, 0)
+	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(ClearItems, 0)
 	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(Count, 0)
 	MD_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(GetItem, 0)
 MD_INTERFACE_DECLARE_DETAIL_KERNEL(IContainer)
@@ -42,6 +42,8 @@ MD_INTERFACE_DECLARE_DETAIL_KERNEL(IContainer)
 		MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(type_index, size_t, 0)
 		MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(pItem, void*, 0)
 		MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(bool, 0)
+	MD_INTERFACE_MEMBER_FUNC_DEF(ClearItems, 0)
+		MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(type_index, size_t, 0)
 	MD_INTERFACE_MEMBER_FUNC_DEF(Count, 0)
 		MD_INTERFACE_MEMBER_FUNC_PARAM_DEF(type_index, size_t, 0)
 		MD_INTERFACE_MEMBER_FUNC_RETURN_DEF(size_t, 0)

@@ -186,6 +186,9 @@
     <ClInclude Include="..\Codes\MetaData\include\Property.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -299,6 +302,9 @@
     <ClCompile Include="..\Codes\MetaData\src\Property.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IMetaData.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\MetaData\src\Demo.mdo">
@@ -330,6 +336,9 @@
     </None>
     <None Include="..\Codes\Serialization\src\TreeSerial.mdo">
       <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IMetaData.mdo">
+      <Filter>Codes\MetaData\src</Filter>
     </None>
   </ItemGroup>
 </Project>

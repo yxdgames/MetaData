@@ -5,7 +5,7 @@
 class CLASS_DESCRIPT IClone : public IInterface
 {
 public:
-	IClone(void);
+	IClone(void) {}
 	virtual ~IClone(void) = 0 {}
 public:
 	//method

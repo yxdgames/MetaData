@@ -5,7 +5,7 @@
 class CLASS_DESCRIPT IInterface
 {
 public:
-	IInterface(void);
+	IInterface(void) {}
 	virtual ~IInterface(void) = 0 {};
 public:
 	//method of interface

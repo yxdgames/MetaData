@@ -167,6 +167,7 @@
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h" />
     <ClInclude Include="..\Codes\MetaData\include\IInterface.h" />
     <ClInclude Include="..\Codes\MetaData\include\IInterfaceDefaultImp.h" />
+    <ClInclude Include="..\Codes\MetaData\include\IMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomType.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\IMetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataClassType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomType.cpp" />
@@ -265,6 +267,7 @@
     <None Include="..\Codes\MetaData\src\IClone.mdo" />
     <None Include="..\Codes\MetaData\src\IContainer.mdo" />
     <None Include="..\Codes\MetaData\src\IInterface.mdo" />
+    <None Include="..\Codes\MetaData\src\IMetaData.mdo" />
     <None Include="..\Codes\MetaData\src\SimpleString.mdo" />
     <None Include="..\Codes\Serialization\src\ISerial.mdo" />
     <None Include="..\Codes\Serialization\src\ITreeSerial.mdo" />
