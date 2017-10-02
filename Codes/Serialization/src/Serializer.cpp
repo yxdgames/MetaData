@@ -9,8 +9,10 @@
 
 #define D_SERIALIZER_ENTITY_TAG_BASE_TYPE							(0x00000001)
 #define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE						(0x00000002)
-#define D_SERIALIZER_ENTITY_TAG_PROPERTY							(0x00000003)
-#define D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE		(0x00000004)
+#define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE_ACTUAL				(0x00000003)
+#define D_SERIALIZER_ENTITY_TAG_PROPERTY							(0x00000004)
+#define D_SERIALIZER_ENTITY_TAG_PROPERTY_ACTUAL						(0x00000005)
+#define D_SERIALIZER_ENTITY_TAG_CONTAINER							(0x00000006)
 
 #define D_SERIALIZER_ICONTAINER_NAME		"__IContainer__"
 #define D_SERIALIZER_ICONTAINER_ELE_NAME	"__Ele_of_IContainer__"
@@ -148,10 +150,12 @@ bool CSerializer::SerializeCustomTypeMemVar(const CMetaDataCustomType *pType, vo
 	IObjectTraits *pObjectTraits;
 	ISerialEntity *pParent;
 	ISerialEntity *pChild;
+	TDUIntPtr Tag;
 	for (size_t i = 0; i < pType->GetMemberVarCount(); ++i)
 	{
 		pMemVar = pType->GetMemberVar(i);
 		tmpType = pMemVar->GetMDType();
+		Tag = D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE;
 		if (pMemVar->GetPtrLevel() == 0)
 		{
 			pO = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
@@ -171,6 +175,7 @@ bool CSerializer::SerializeCustomTypeMemVar(const CMetaDataCustomType *pType, vo
 				pParent->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
 				tmpType = pObjectTraits->GetActualMetaDataType();
 				pO = pObjectTraits->GetActualSelf();
+				Tag = D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE_ACTUAL;
 			}
 			else pParent = pSEntity;
 		}
@@ -179,7 +184,7 @@ bool CSerializer::SerializeCustomTypeMemVar(const CMetaDataCustomType *pType, vo
 		pChild = pParent->NewChild();
 		pChild->SetName(pMemVar->GetName());
 		pChild->SetEntTypeName(strBuffer);
-		pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
+		pChild->SetTag(Tag);
 		switch(tmpType->GetTypeID())
 		{
 		case D_META_DATA_TYPE_ID_CLASS_TYPE:
@@ -217,11 +222,13 @@ bool CSerializer::SerializeCustomTypeProperty(const CMetaDataCustomType *pType, 
 	IObjectTraits *pObjectTraits;
 	ISerialEntity *pParent;
 	ISerialEntity *pChild;
+	TDUIntPtr Tag;
 	bool error_flag(false);
 	for (size_t i = 0; i < pType->GetPropertyCount(); ++i)
 	{
 		pProp = pType->GetProperty(i);
 		tmpType = pProp->GetMDType();
+		Tag = D_SERIALIZER_ENTITY_TAG_PROPERTY;
 		if (pProp->PropertyLocationIsOffset())
 			pProperty = reinterpret_cast<CPropertyBase*>(reinterpret_cast<TDUIntPtr>(pObj) + pProp->GetPropertyLocation().Offset);
 		else pProperty = pProp->GetPropertyLocation().pProperty;
@@ -246,6 +253,7 @@ bool CSerializer::SerializeCustomTypeProperty(const CMetaDataCustomType *pType, 
 				pParent->SetTag(D_SERIALIZER_ENTITY_TAG_PROPERTY);
 				tmpType = pObjectTraits->GetActualMetaDataType();
 				pO = pObjectTraits->GetActualSelf();
+				Tag = D_SERIALIZER_ENTITY_TAG_PROPERTY_ACTUAL;
 			}
 			else pParent = pSEntity;
 		}
@@ -262,7 +270,7 @@ bool CSerializer::SerializeCustomTypeProperty(const CMetaDataCustomType *pType, 
 				pChild = pParent->NewChild();
 				pChild->SetName(pProp->GetName());
 				pChild->SetEntTypeName(strBuffer);
-				pChild->SetTag(D_SERIALIZER_ENTITY_TAG_PROPERTY);
+				pChild->SetTag(Tag);
 				switch (tmpType->GetTypeID())
 				{
 				case D_META_DATA_TYPE_ID_CLASS_TYPE:
@@ -324,7 +332,7 @@ bool CSerializer::SerializeCustomTypeContainer(IContainer *pContainter, ISerialE
 		pContainterEntity = pSEntity->NewChild();
 		pContainterEntity->SetName(D_SERIALIZER_ICONTAINER_NAME);
 		pContainterEntity->SetEntTypeName(strBuffer);
-		pContainterEntity->SetTag(D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE);
+		pContainterEntity->SetTag(D_SERIALIZER_ENTITY_TAG_CONTAINER);
 		for (index = 0; index < pContainter->Count(type_index); ++index)
 		{
 			pO = pContainter->GetItem(type_index, index);
@@ -341,7 +349,7 @@ bool CSerializer::SerializeCustomTypeContainer(IContainer *pContainter, ISerialE
 			pChild = pContainterEntity->NewChild();
 			pChild->SetName(D_SERIALIZER_ICONTAINER_ELE_NAME);
 			pChild->SetEntTypeName(strBuffer);
-			pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
+			pChild->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE_ACTUAL);
 			switch (tmpType2->GetTypeID())
 			{
 			case D_META_DATA_TYPE_ID_CLASS_TYPE:
@@ -521,10 +529,12 @@ bool CSerializer::UnserializeCustomTypeMemVar(ISerialEntity *pSEntity, const CMe
 		else if (pMemVar->GetPtrLevel() == 1)
 		{
 			pO = *reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
-			if (pChild->GetChildrenCount() == 1)
+			if (pChild->GetChildrenCount() == 1
+				&& pChild->GetChildren(0)->GetTag() == D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE_ACTUAL
+				&& strcmp(pMemVar->GetName(), pChild->GetChildren(0)->GetName()) == 0)
 			{
-				tmpType2 = FindMetaDataType(pChild->GetChildren(0)->GetEntTypeName(), true);
 				pChild = pChild->GetChildren(0);
+				tmpType2 = FindMetaDataType(pChild->GetEntTypeName(), true);
 			}
 			else tmpType2 = nullptr;
 			if (pO)
@@ -621,10 +631,12 @@ bool CSerializer::UnserializeCustomTypeProperty(ISerialEntity *pSEntity, const C
 		else if (pProp->GetPtrLevel() == 1)
 		{
 			pProperty->CallGet(pObj, &pO);
-			if (pChild->GetChildrenCount() == 1)
+			if (pChild->GetChildrenCount() == 1
+				&& pChild->GetChildren(0)->GetTag() == D_SERIALIZER_ENTITY_TAG_PROPERTY_ACTUAL
+				&& strcmp(pProp->GetName(), pChild->GetChildren(0)->GetName()) == 0)
 			{
-				tmpType2 = FindMetaDataType(pChild->GetChildren(0)->GetEntTypeName(), true);
 				pChild = pChild->GetChildren(0);
+				tmpType2 = FindMetaDataType(pChild->GetEntTypeName(), true);
 			}
 			else tmpType2 = nullptr;
 			if (pO)
@@ -728,14 +740,14 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 		if (!tmpType || !tmpType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX))
 			return false;
 		pContainterEntity = pSEntity->FindChild(D_SERIALIZER_ICONTAINER_NAME,
-			strBuffer, D_SERIALIZER_ENTITY_TAG_CONTAINER_OF_MEMBER_VARIABLE);
+			strBuffer, D_SERIALIZER_ENTITY_TAG_CONTAINER);
 		if (!pContainterEntity) continue;
 		pContainter->ClearItems(type_index);
 		for (index = 0; index < pContainterEntity->GetChildrenCount(); ++index)
 		{
 			pChild = pContainterEntity->GetChildren(index);
 			if (strcmp(D_SERIALIZER_ICONTAINER_ELE_NAME, pChild->GetName()) != 0
-				|| pChild->GetTag() != D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE)
+				|| pChild->GetTag() != D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE_ACTUAL)
 				continue;
 			tmpType2 = FindMetaDataType(pChild->GetEntTypeName(), true);
 			pO = pContainter->NewItem(type_index);
