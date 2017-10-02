@@ -186,7 +186,7 @@
     <ClInclude Include="..\Codes\MetaData\include\Property.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\IMetaData.h">
+    <ClInclude Include="..\Codes\MetaData\include\IObjectTraits.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -302,7 +302,7 @@
     <ClCompile Include="..\Codes\MetaData\src\Property.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\IMetaData.cpp">
+    <ClCompile Include="..\Codes\MetaData\src\IObjectTraits.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -337,7 +337,7 @@
     <None Include="..\Codes\Serialization\src\TreeSerial.mdo">
       <Filter>Codes\Serialization\src</Filter>
     </None>
-    <None Include="..\Codes\MetaData\src\IMetaData.mdo">
+    <None Include="..\Codes\MetaData\src\IObjectTraits.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
   </ItemGroup>

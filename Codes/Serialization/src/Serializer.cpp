@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "..\include\Serializer.h"
-#include "..\..\MetaData\include\IMetaData.h"
+#include "..\..\MetaData\include\IObjectTraits.h"
 #include "..\..\MetaData\include\IContainer.h"
 #include "..\..\MetaData\include\SimpleString.h"
 #include "..\..\include\CharArray.h"
@@ -145,7 +145,7 @@ bool CSerializer::SerializeCustomTypeMemVar(const CMetaDataCustomType *pType, vo
 	const CMetaDataCustomTypeMemberVar *pMemVar;
 	const CMetaDataType *tmpType;
 	void *pO;
-	IMetaData *pMetaData;
+	IObjectTraits *pObjectTraits;
 	ISerialEntity *pParent;
 	ISerialEntity *pChild;
 	for (size_t i = 0; i < pType->GetMemberVarCount(); ++i)
@@ -161,16 +161,16 @@ bool CSerializer::SerializeCustomTypeMemVar(const CMetaDataCustomType *pType, vo
 		{
 			pO = *reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
 			if (!pO) continue;
-			pMetaData = reinterpret_cast<IMetaData*>(tmpType->AsType(pO, TypeTraits<IMetaData>::GetMetaDataType()));
-			if (pMetaData && tmpType != pMetaData->GetActualMetaDataType())
+			pObjectTraits = reinterpret_cast<IObjectTraits*>(tmpType->AsType(pO, TypeTraits<IObjectTraits>::GetMetaDataType()));
+			if (pObjectTraits && tmpType != pObjectTraits->GetActualMetaDataType())
 			{
 				if (!tmpType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 				pParent = pSEntity->NewChild();
 				pParent->SetName(pMemVar->GetName());
 				pParent->SetEntTypeName(strBuffer);
 				pParent->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
-				tmpType = pMetaData->GetActualMetaDataType();
-				pO = pMetaData->GetActualSelf();
+				tmpType = pObjectTraits->GetActualMetaDataType();
+				pO = pObjectTraits->GetActualSelf();
 			}
 			else pParent = pSEntity;
 		}
@@ -214,7 +214,7 @@ bool CSerializer::SerializeCustomTypeProperty(const CMetaDataCustomType *pType, 
 	const CMetaDataType *tmpType;
 	CPropertyBase *pProperty;
 	void *pO;
-	IMetaData *pMetaData;
+	IObjectTraits *pObjectTraits;
 	ISerialEntity *pParent;
 	ISerialEntity *pChild;
 	bool error_flag(false);
@@ -236,16 +236,16 @@ bool CSerializer::SerializeCustomTypeProperty(const CMetaDataCustomType *pType, 
 		{
 			pProperty->CallGet(pObj, &pO);
 			if (!pO) continue;
-			pMetaData = reinterpret_cast<IMetaData*>(tmpType->AsType(pO, TypeTraits<IMetaData>::GetMetaDataType()));
-			if (pMetaData && tmpType != pMetaData->GetActualMetaDataType())
+			pObjectTraits = reinterpret_cast<IObjectTraits*>(tmpType->AsType(pO, TypeTraits<IObjectTraits>::GetMetaDataType()));
+			if (pObjectTraits && tmpType != pObjectTraits->GetActualMetaDataType())
 			{
 				if (!tmpType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 				pParent = pSEntity->NewChild();
 				pParent->SetName(pProp->GetName());
 				pParent->SetEntTypeName(strBuffer);
 				pParent->SetTag(D_SERIALIZER_ENTITY_TAG_PROPERTY);
-				tmpType = pMetaData->GetActualMetaDataType();
-				pO = pMetaData->GetActualSelf();
+				tmpType = pObjectTraits->GetActualMetaDataType();
+				pO = pObjectTraits->GetActualSelf();
 			}
 			else pParent = pSEntity;
 		}
@@ -311,7 +311,7 @@ bool CSerializer::SerializeCustomTypeContainer(IContainer *pContainter, ISerialE
 	const CMetaDataType *tmpType;
 	const CMetaDataType *tmpType2;
 	void *pO;
-	IMetaData *pMetaData;
+	IObjectTraits *pObjectTraits;
 	ISerialEntity *pContainterEntity;
 	ISerialEntity *pChild;
 
@@ -329,11 +329,11 @@ bool CSerializer::SerializeCustomTypeContainer(IContainer *pContainter, ISerialE
 		{
 			pO = pContainter->GetItem(type_index, index);
 			if (!pO) continue;
-			pMetaData = reinterpret_cast<IMetaData*>(tmpType->AsType(pO, TypeTraits<IMetaData>::GetMetaDataType()));
-			if (pMetaData && tmpType != pMetaData->GetActualMetaDataType())
+			pObjectTraits = reinterpret_cast<IObjectTraits*>(tmpType->AsType(pO, TypeTraits<IObjectTraits>::GetMetaDataType()));
+			if (pObjectTraits && tmpType != pObjectTraits->GetActualMetaDataType())
 			{
-				tmpType2 = pMetaData->GetActualMetaDataType();
-				pO = pMetaData->GetActualSelf();
+				tmpType2 = pObjectTraits->GetActualMetaDataType();
+				pO = pObjectTraits->GetActualSelf();
 			}
 			else tmpType2 = tmpType;
 			if (!tmpType2->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX))
@@ -503,7 +503,7 @@ bool CSerializer::UnserializeCustomTypeMemVar(ISerialEntity *pSEntity, const CMe
 	const CMetaDataType *tmpType2;
 	void *pO;
 	void *tmpO;
-	IMetaData *pMetaData;
+	IObjectTraits *pObjectTraits;
 	ISerialEntity *pChild;
 	for (size_t i = 0; i < pType->GetMemberVarCount(); ++i)
 	{
@@ -529,13 +529,13 @@ bool CSerializer::UnserializeCustomTypeMemVar(ISerialEntity *pSEntity, const CMe
 			else tmpType2 = nullptr;
 			if (pO)
 			{
-				pMetaData = reinterpret_cast<IMetaData*>(tmpType->AsType(pO, TypeTraits<IMetaData>::GetMetaDataType()));
-				if (pMetaData && tmpType != pMetaData->GetActualMetaDataType())
+				pObjectTraits = reinterpret_cast<IObjectTraits*>(tmpType->AsType(pO, TypeTraits<IObjectTraits>::GetMetaDataType()));
+				if (pObjectTraits && tmpType != pObjectTraits->GetActualMetaDataType())
 				{
-					if (tmpType2 && tmpType2 == pMetaData->GetActualMetaDataType())
+					if (tmpType2 && tmpType2 == pObjectTraits->GetActualMetaDataType())
 					{
 						tmpType = tmpType2;
-						pO = pMetaData->GetActualSelf();
+						pO = pObjectTraits->GetActualSelf();
 					}
 					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
 				}
@@ -596,7 +596,7 @@ bool CSerializer::UnserializeCustomTypeProperty(ISerialEntity *pSEntity, const C
 	CPropertyBase *pProperty;
 	void *pO;
 	void *tmpO;
-	IMetaData *pMetaData;
+	IObjectTraits *pObjectTraits;
 	ISerialEntity *pChild;
 	bool error_flag(false);
 	bool set_pO;
@@ -630,13 +630,13 @@ bool CSerializer::UnserializeCustomTypeProperty(ISerialEntity *pSEntity, const C
 			if (pO)
 			{
 				tmpO = pO;
-				pMetaData = reinterpret_cast<IMetaData*>(tmpType->AsType(pO, TypeTraits<IMetaData>::GetMetaDataType()));
-				if (pMetaData && tmpType != pMetaData->GetActualMetaDataType())
+				pObjectTraits = reinterpret_cast<IObjectTraits*>(tmpType->AsType(pO, TypeTraits<IObjectTraits>::GetMetaDataType()));
+				if (pObjectTraits && tmpType != pObjectTraits->GetActualMetaDataType())
 				{
-					if (tmpType2 && tmpType2 == pMetaData->GetActualMetaDataType())
+					if (tmpType2 && tmpType2 == pObjectTraits->GetActualMetaDataType())
 					{
 						tmpType = tmpType2;
-						pO = pMetaData->GetActualSelf();
+						pO = pObjectTraits->GetActualSelf();
 					}
 					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
 				}
@@ -719,7 +719,7 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 	const CMetaDataType *tmpType;
 	const CMetaDataType *tmpType2;
 	void *pO;
-	IMetaData *pMetaData;
+	IObjectTraits *pObjectTraits;
 	ISerialEntity *pContainterEntity;
 	ISerialEntity *pChild;
 	for (type_index = 0; type_index < pContainter->GetItemTypeCount(); ++type_index)
@@ -749,8 +749,8 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 			}
 			else
 			{
-				pMetaData = reinterpret_cast<IMetaData*>(tmpType->AsType(pO, TypeTraits<IMetaData>::GetMetaDataType()));
-				if (pMetaData && tmpType2 != pMetaData->GetActualMetaDataType())
+				pObjectTraits = reinterpret_cast<IObjectTraits*>(tmpType->AsType(pO, TypeTraits<IObjectTraits>::GetMetaDataType()));
+				if (pObjectTraits && tmpType2 != pObjectTraits->GetActualMetaDataType())
 				{
 					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
 				}
