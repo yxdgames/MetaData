@@ -8,7 +8,7 @@ public:
 	IObjectTraits(void) {}
 	virtual ~IObjectTraits(void) = 0 {}
 public:
-	virtual CMetaDataType *GetActualMetaDataType(void) = 0;
+	virtual const CMetaDataType *GetActualMetaDataType(void) = 0;
 	virtual void *GetActualSelf(void) = 0;
 
 /*Meta Data Definition*/
