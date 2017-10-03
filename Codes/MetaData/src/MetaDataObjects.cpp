@@ -48,7 +48,6 @@ VAR_DESCRIPT const CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOB
 
 //系统扩充类型元数据
 #include "IInterface.mdo"
-#include "IObjectTraits.mdo"
 #include "IClone.mdo"
 #include "IContainer.mdo"
 #include "SimpleString.mdo"
