@@ -756,7 +756,11 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
 				pO = tmpType2->NewObject();
 				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
-				pContainter->AddItem(type_index, tmpType2->AsType(pO, tmpType));
+				if (!pContainter->AddItem(type_index, tmpType2->AsType(pO, tmpType)))
+				{
+					tmpType2->DeleteObject(pO);
+					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：IContainer::AddItem失败（反串化过程）！");
+				}
 			}
 			else
 			{
@@ -871,6 +875,6 @@ inline const CMetaDataType *CSerializer::FindMetaDataType(const char *pTypeName,
 	pType = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_INNER_TYPE, pTypeName);
 	if (pType) reinterpret_cast<const CMetaDataType*>(pType);
 	if (throwException)
-		throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：未找到类型（反串化过程）！");
+		throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：未找到类型！");
 	else return nullptr;
 }

@@ -1,7 +1,7 @@
 #pragma once
 /*
  * file			MetaDataSupportCustomType.h
- * brief		自定义类型元数据声明基础宏定义
+ * brief		为自定义类型的元数据声明、引用提供基础宏定义
  * note			None
  * attention	None
  */
@@ -26,6 +26,12 @@
 	private: \
 		static const md_custom_type _MD__##md_obj_pre_name##name; \
 		__MD_CUSTOM_TYPE_MEMBER_EXTRA
+#define MD_CUSTOM_TYPE_DECLARE_BEGIN_NO_VIRTUAL(name, md_obj_pre_name, md_custom_type) \
+	public: \
+		const CMetaDataType *GetType(void)					{ return &_MD__##md_obj_pre_name##name; } \
+		static const md_custom_type *GetMetaData(void)		{ return &_MD__##md_obj_pre_name##name; } \
+	private: \
+		static const md_custom_type _MD__##md_obj_pre_name##name;
 
 #define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type, md_custom_type_id, cls_descript) \
 	private: \

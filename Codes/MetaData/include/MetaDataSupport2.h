@@ -3,7 +3,7 @@
  * file			MetaDataSupport2.h
  * brief		为元数据定义提供通用的宏定义
  * note			None
- * attention	由MetaDataObjects.cpp来引用（使用）。其它*.meo参考使用，不需要引用。
+ * attention	由MetaDataObjects.cpp来引用（使用）。其它*.mdo参考使用，不需要引用。
  */
 
 /***********************/
@@ -37,44 +37,7 @@
 #define MD_INNER_TYPE_3_DEF(name1, name2, name3, pfunNewObject, pfunDeleteObject) \
 	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name1##name2##name3(#name1" "#name2" "#name3, &META_DATA_GLOBALSPACE(), sizeof(name1 name2 name3), pfunNewObject, pfunDeleteObject);
 
-/****************************/
-/* Meta data of custom type */
-/****************************/
-//无嵌套
-#define MD_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type) \
-	const md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name)); \
-	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
-
-//嵌套用(命名空间内部)
-#define MD_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name) \
-	const md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \
-	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
-
-//析构函数封装
-#define MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name) \
-	bool cls_name::_MD__CTMDSR(SMetaDataCalledFunctionDataPacket &DataPacket) \
-	{ \
-		if (DataPacket.ParamCount != 1) return false; \
-		delete (*reinterpret_cast<cls_name**>(DataPacket.pParam[0])); \
-		return true; \
-	}
-
-//成员函数封装
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(cls_name, func_name, index) \
-	bool cls_name::_MD__CTMMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket) \
-	{ \
-		bool ret_val(true);
-
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)		{ if (DataPacket.ParamCount != (param_count) + 1) return false; }
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_OBJ(type_name)				(*reinterpret_cast<type_name**>(DataPacket.pParam[0]))
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)	(*reinterpret_cast<type_name*>(DataPacket.pParam[(index) + 1]))
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)			(*reinterpret_cast<type_name*>(DataPacket.pReturn))
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL						(ret_val)
-
-#define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END() \
-		return ret_val; \
-	}
-
+#include "MetaDataSupportCustomType2.h"
 /**************************/
 /* Meta data of interface */
 /**************************/
@@ -85,7 +48,7 @@
 #define MD_INTERFACE_IN_NS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, outer_name)
 
 //析构函数封装
-#define MD_INTERFACE_DESTRUCTOR_WRAPPER_DEF(intf_name)								MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name)
+#define MD_INTERFACE_DESTRUCTOR_WRAPPER_DEF(intf_name)								MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(intf_name)
 
 //成员函数封装
 #define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)		MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)
@@ -154,6 +117,26 @@
 #define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_END() \
 		return ret_val; \
 	}
+
+/**********************************/
+/* Meta data of unknown interface */
+/**********************************/
+//无嵌套
+#define MD_UNKWN_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Iukn, CMetaDataInterface)
+
+//嵌套用(命名空间内部)
+#define MD_UNKWN_INTERFACE_IN_NS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_NS_DEF(name, Iukn, CMetaDataInterface, outer_name)
+
+//成员函数封装
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)	MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_BEGIN(intf_name, func_name, index)
+
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)				MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_PROC_CHECK(param_count)
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_OBJ(type_name)						MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_OBJ(type_name)
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)			MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_PARAM(index, type_name)
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)					MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_DP_RET(type_name)
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL								MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_RET_VAL
+
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_END()								MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
 
 /*************************/
 /* Meta data of variable */

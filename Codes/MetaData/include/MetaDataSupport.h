@@ -128,6 +128,34 @@
 
 #define MD_CLASS_TYPE_DECLARE_END(name)										MD_CUSTOM_TYPE_DECLARE_END(name)
 
+/**********************************/
+/* Meta data of unknown interface */
+/**********************************/
+#define META_DATA_UNKWN_INTERFACE(name)						META_DATA_CUSTOM_TYPE(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE)
+#define META_DATA_UNKWN_INTERFACE_NO_ASSERT(name)			META_DATA_CUSTOM_TYPE_NO_ASSERT(name, CMetaDataInterface)
+
+#define MD_UNKWN_INTERFACE_DECLARE_BEGIN(name)				MD_CUSTOM_TYPE_DECLARE_BEGIN_NO_VIRTUAL(name, Iukn, CMetaDataInterface)
+#define MD_UNKWN_INTERFACE_DECLARE_DETAIL(name)				MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT_FOR_MD_SUPPORT)
+#define MD_UNKWN_INTERFACE_DECLARE_DETAIL_KERNEL(name)		MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT)
+
+				/*--添加接口元数据信息--*/
+#define MD_UNKWN_INTERFACE_INTERFACE_DEF(parent_intf_name)	MD_CUSTOM_TYPE_INTERFACE_DEF(parent_intf_name)
+
+				/*--添加成员函数元数据信息--*/
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)	MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(func_name, index)
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_DEF(func_name, index)				MD_CUSTOM_TYPE_MEMBER_FUNC_DEF(func_name, index)
+
+					//添加成员函数参数元数据信息
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)		MD_CUSTOM_TYPE_MEMBER_FUNC_PARAM_DEF(name, type, ptr_level)
+					//添加成员函数返回值元数据信息
+#define MD_UNKWN_INTERFACE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)			MD_CUSTOM_TYPE_MEMBER_FUNC_RETURN_DEF(type, ptr_level)
+
+				/*--添加属性元数据信息--*/
+#define MD_UNKWN_INTERFACE_PROPERTY_DEF(prop_name, cls, cls_prop_type, set, get, prop_type, ptr_level) \
+	MD_CUSTOM_TYPE_PROPERTY_DEF(prop_name, cls, cls_prop_type, set, get, prop_type, ptr_level)
+
+#define MD_UNKWN_INTERFACE_DECLARE_END(name)								MD_CUSTOM_TYPE_DECLARE_END(name)
+
 /*************************/
 /* Meta data of variable */
 /*************************/
