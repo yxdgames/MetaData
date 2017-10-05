@@ -103,9 +103,9 @@ TDUIntPtr CSerialEntity::GetTag(void)
 	return m_Tag;
 }
 
-void CSerialEntity::SetValue(const char *pValue)
+void CSerialEntity::SetValue(const bool Value)
 {
-	m_value.SetValue(pValue);
+	m_value.SetValue(Value);
 }
 
 void CSerialEntity::SetValue(const int Value)
@@ -128,9 +128,9 @@ void CSerialEntity::SetValue(const long double Value)
 	m_value.SetValue(Value);
 }
 
-void CSerialEntity::SetValue(const bool Value)
+void CSerialEntity::SetValue(const char * const pValue)
 {
-	m_value.SetValue(Value);
+	m_value.SetValue(pValue);
 }
 
 SVariant &CSerialEntity::GetValue(void)

@@ -10,7 +10,7 @@ enum EVarType
 	vtLONGLONG,
 	vtFLOAT,
 	vtLONGFLOAT,
-	vtSTR_PTR,
+	vtCSTR_PTR,
 };
 
 struct STRUCT_DESCRIPT SVariant
@@ -22,28 +22,29 @@ struct STRUCT_DESCRIPT SVariant
 		long long _ll;
 		double _d;
 		long double _ld;
-		char *_pstr;
+		const char *_pcstr;
 	} value;
 public:
 	SVariant(void);
 	SVariant(SVariant &src);
 	~SVariant(void);
 public:
+	void SetValue(SVariant &src);
 	inline void SetValue(const bool Value);
 	inline void SetValue(const int Value);
 	inline void SetValue(const long long Value);
 	inline void SetValue(const double Value);
 	inline void SetValue(const long double Value);
-	void SetValue(const char *pStr);
+	void SetValue(const char * const pStr);
 	inline void SetValueEmpty(void);
 public:
-	SVariant &operator=(SVariant &src);
+	inline SVariant &operator=(SVariant &src);
 	inline SVariant &operator=(const bool Value);
 	inline SVariant &operator=(const int Value);
 	inline SVariant &operator=(const long long Value);
 	inline SVariant &operator=(const double Value);
 	inline SVariant &operator=(const long double Value);
-	inline SVariant &operator=(const char *pStr);
+	inline SVariant &operator=(const char * const pStr);
 public:
 	void SetReleaseStringFlag(bool flag);
 private:
@@ -99,37 +100,43 @@ inline void SVariant::SetValueEmpty(void)
 	memset(&value, 0x00, sizeof(value));
 }
 
-SVariant &SVariant::operator=(const bool Value)
+inline SVariant &SVariant::operator=(SVariant &src)
+{
+	SetValue(src);
+	return *this;
+}
+
+inline SVariant &SVariant::operator=(const bool Value)
 {
 	SetValue(Value);
 	return *this;
 }
 
-SVariant &SVariant::operator=(const int Value)
+inline SVariant &SVariant::operator=(const int Value)
 {
 	SetValue(Value);
 	return *this;
 }
 
-SVariant &SVariant::operator=(const long long Value)
+inline SVariant &SVariant::operator=(const long long Value)
 {
 	SetValue(Value);
 	return *this;
 }
 
-SVariant &SVariant::operator=(const double Value)
+inline SVariant &SVariant::operator=(const double Value)
 {
 	SetValue(Value);
 	return *this;
 }
 
-SVariant &SVariant::operator=(const long double Value)
+inline SVariant &SVariant::operator=(const long double Value)
 {
 	SetValue(Value);
 	return *this;
 }
 
-SVariant &SVariant::operator=(const char *pStr)
+inline SVariant &SVariant::operator=(const char * const pStr)
 {
 	SetValue(pStr);
 	return *this;

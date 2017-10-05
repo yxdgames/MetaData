@@ -27,12 +27,12 @@ public:
 	virtual const char *GetEntTypeName(void);
 	virtual void SetTag(TDUIntPtr Tag);
 	virtual TDUIntPtr GetTag(void);
-	virtual void SetValue(const char *pValue);
+	virtual void SetValue(const bool Value);
 	virtual void SetValue(const int Value);
 	virtual void SetValue(const long long Value);
 	virtual void SetValue(const double Value);
 	virtual void SetValue(const long double Value);
-	virtual void SetValue(const bool Value);
+	virtual void SetValue(const char * const pValue);
 	virtual SVariant &GetValue(void);
 
 	virtual ISerialEntity *GetParent(void);

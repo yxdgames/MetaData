@@ -451,9 +451,9 @@ bool CSerializer::UnserializeCustomTypeWrapper(ISerialEntity *pSEntity, const CM
 	}
 	else
 	{
-		if (pSEntity->GetValue().type == vtSTR_PTR)
+		if (pSEntity->GetValue().type == vtCSTR_PTR)
 		{
-			reinterpret_cast<SimpleString*>(pObj)->SetValue(pSEntity->GetValue().value._pstr);
+			reinterpret_cast<SimpleString*>(pObj)->SetValue(pSEntity->GetValue().value._pcstr);
 			return true;
 		}
 		else return false;

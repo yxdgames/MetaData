@@ -17,47 +17,46 @@ SVariant::~SVariant(void)
 	FreeStr();
 }
 
-void SVariant::SetValue(const char *pStr)
-{
-	FreeStr();
-	type = vtSTR_PTR;
-	if (release_string)
-	{
-		if (pStr)
-		{
-			value._pstr = new char [strlen(pStr) + 1];
-			strcpy(value._pstr, pStr);
-		}
-		else value._pstr = nullptr;
-	}
-	else
-	{
-		value._pstr = const_cast<char*>(pStr);
-	}
-}
-
-SVariant &SVariant::operator=(SVariant &src)
+void SVariant::SetValue(SVariant &src)
 {
 	FreeStr();
 	this->type = src.type;
 	this->release_string = src.release_string;
-	if (this->type != vtSTR_PTR || !(this->release_string))
+	if (this->type != vtCSTR_PTR || !(this->release_string))
 	{
 		this->value = src.value;
 	}
 	else
 	{
-		if (src.value._pstr)
+		if (src.value._pcstr)
 		{
-			value._pstr = new char [strlen(src.value._pstr) + 1];
-			strcpy(value._pstr, src.value._pstr);
+			value._pcstr = new char [strlen(src.value._pcstr) + 1];
+			strcpy(const_cast<char*>(value._pcstr), src.value._pcstr);
 		}
 		else
 		{
-			value._pstr = nullptr;
+			value._pcstr = nullptr;
 		}
 	}
-	return *this;
+}
+
+void SVariant::SetValue(const char * const pStr)
+{
+	FreeStr();
+	type = vtCSTR_PTR;
+	if (release_string)
+	{
+		if (pStr)
+		{
+			value._pcstr = new char [strlen(pStr) + 1];
+			strcpy(const_cast<char*>(value._pcstr), pStr);
+		}
+		else value._pcstr = nullptr;
+	}
+	else
+	{
+		value._pcstr = pStr;
+	}
 }
 
 void SVariant::SetReleaseStringFlag(bool flag)
@@ -68,9 +67,9 @@ void SVariant::SetReleaseStringFlag(bool flag)
 
 void SVariant::FreeStr(void)
 {
-	if (type == vtSTR_PTR && value._pstr && release_string)
+	if (type == vtCSTR_PTR && value._pcstr && release_string)
 	{
-		delete [] value._pstr;
-		value._pstr = nullptr;
+		delete [] value._pcstr;
+		value._pcstr = nullptr;
 	}
 }

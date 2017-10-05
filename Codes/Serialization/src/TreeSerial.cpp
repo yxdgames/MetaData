@@ -161,8 +161,8 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		case vtLONGLONG:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%lld\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
 			break;
-		case vtSTR_PTR:
-			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%s\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._pstr);
+		case vtCSTR_PTR:
+			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%s\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._pcstr);
 			break;
 		default:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);
@@ -202,8 +202,8 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		case vtLONGLONG:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%lld\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
 			break;
-		case vtSTR_PTR:
-			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%s\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._pstr);
+		case vtCSTR_PTR:
+			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%s\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._pcstr);
 			break;
 		default:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);

@@ -157,9 +157,9 @@ size_t CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt)
 	file_ent_item.value_type = static_cast<TDBinBaseUnit>(pEnt->GetValue().type);
 	memcpy(file_ent_item.value, &(pEnt->GetValue().value), sizeof(file_ent_item.value));
 	file_ent_item.children_count = pEnt->GetChildrenCount();
-	if (pEnt->GetValue().type == vtSTR_PTR)
+	if (pEnt->GetValue().type == vtCSTR_PTR)
 	{
-		pStringFilePos = this->m_StringFilePositionList.FindItem(pEnt->GetValue().value._pstr, true);
+		pStringFilePos = this->m_StringFilePositionList.FindItem(pEnt->GetValue().value._pcstr, true);
 		pStringFilePos->positions.push_back(m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, value[0]));
 	}
 
@@ -292,7 +292,7 @@ size_t CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt)
 	case vtLONGFLOAT:
 		pEnt->SetValue(*reinterpret_cast<long double*>(ent_item.value));
 		break;
-	case vtSTR_PTR:
+	case vtCSTR_PTR:
 		m_pStream->seekg(*reinterpret_cast<TDBinBaseUnit*>(ent_item.value));
 		m_pStream->read((char*)&str_size1, sizeof(str_size1));
 		if (str_size1 > str_size2)
