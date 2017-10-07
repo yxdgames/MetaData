@@ -207,6 +207,9 @@
     <ClInclude Include="..\Codes\MetaData\include\IUnkwn.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IBlob.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -323,6 +326,9 @@
     <ClCompile Include="..\Codes\MetaData\src\IUnkwn.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IBlob.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\src\ExtraMetaDataObjects.mdo">
@@ -353,6 +359,9 @@
       <Filter>Codes\Serialization\src</Filter>
     </None>
     <None Include="..\Codes\MetaData\src\IUnkwn.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IBlob.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
   </ItemGroup>

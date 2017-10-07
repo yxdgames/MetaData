@@ -157,6 +157,7 @@
     <ClInclude Include="..\Codes\lib_h\expat_external.h" />
     <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
+    <ClInclude Include="..\Codes\MetaData\include\IBlob.h" />
     <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h" />
     <ClInclude Include="..\Codes\MetaData\include\IInterface.h" />
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClCompile Include="..\Codes\MetaData\src\Demo.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\IBlob.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp" />
@@ -248,6 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\MetaData\src\Demo.mdo" />
+    <None Include="..\Codes\MetaData\src\IBlob.mdo" />
     <None Include="..\Codes\MetaData\src\IClone.mdo" />
     <None Include="..\Codes\MetaData\src\IContainer.mdo" />
     <None Include="..\Codes\MetaData\src\IInterface.mdo" />
