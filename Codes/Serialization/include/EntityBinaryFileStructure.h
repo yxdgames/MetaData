@@ -11,8 +11,8 @@
 //ÎÄ¼þÍ·
 struct SFileHeader
 {
-	TDBYTE file_tag[10];
-	TDBYTE version[4];
+	TDByte file_tag[10];
+	TDByte version[4];
 	char endian[4];
 };
 

@@ -163,6 +163,7 @@
     <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
+    <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h" />
     <ClInclude Include="..\Codes\MetaData\include\IInterface.h" />
@@ -207,6 +208,7 @@
   <ItemGroup>
     <ClCompile Include="..\Codes\MetaData\src\Demo.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp" />

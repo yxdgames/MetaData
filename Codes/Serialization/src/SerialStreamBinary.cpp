@@ -61,10 +61,10 @@ bool CSerialStreamBinary::Serialize(ISerial *pSerial)
 	TDBinBaseUnit atom_size_pos;
 
 	memcpy(&file_header.file_tag, D_ENT_BIN_SERIALIZER_FILE_TAG, sizeof(file_header.file_tag));
-	file_header.version[0] = (TDBYTE)1;
-	file_header.version[1] = (TDBYTE)0;
-	file_header.version[2] = (TDBYTE)0;
-	file_header.version[3] = (TDBYTE)0;
+	file_header.version[0] = (TDByte)1;
+	file_header.version[1] = (TDByte)0;
+	file_header.version[2] = (TDByte)0;
+	file_header.version[3] = (TDByte)0;
 	file_header.endian[0] = 'E';
 	file_header.endian[1] = 'L';
 	file_header.endian[2] = '\0';

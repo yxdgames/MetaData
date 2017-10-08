@@ -12,7 +12,9 @@ public:
 public:
 	//method
 	virtual bool IsTypeOf(const CMetaDataType *pType) const									{ return this == pType; }
+	virtual bool IsTypeOf(const TDGUID &type_guid) const									{ return this->Compare(type_guid); }
 	virtual void *AsType(void *pObj, const CMetaDataType *pType) const						{ return (this == pType ? pObj : nullptr); }
+	virtual void *AsType(void *pObj, const TDGUID &type_guid) const							{ return (this->Compare(type_guid) ? pObj : nullptr); }
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf) const	{ return false; }
 	virtual void *NewObject(void) const														{ return nullptr; }
 	virtual void DeleteObject(void *pObj) const												{ /*do nothing.*/ }

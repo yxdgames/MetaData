@@ -1,7 +1,13 @@
 #pragma once
 
 #include "MetaDataSupport.h"
+#include <guiddef.h>
 
+/*---Type Definition---*/
+typedef long			HResult;
+typedef unsigned long	ULong;
+
+/*---Macro---*/
 #define IUNKWN_CALLCONVENTION				__stdcall
 #define IUNKWN_MEMFUN_DESCRIPT				IUNKWN_CALLCONVENTION
 
@@ -10,8 +16,15 @@
 		unkwn_name(void) {} \
 		~unkwn_name(void) {}
 
+/*---IUnkwn---*/
 struct STRUCT_DESCRIPT IUnkwn
 {
+public:
+	virtual HResult IUNKWN_MEMFUN_DESCRIPT QueryInterface(
+        /* [in] */ REFIID riid,
+        /* [out] */ void **ppvObject) = 0;
+    virtual ULong IUNKWN_MEMFUN_DESCRIPT AddRef(void) = 0;
+    virtual ULong IUNKWN_MEMFUN_DESCRIPT Release(void) = 0;
 
 IUNKWN_CONSTRAINT(IUnkwn)
 /*Meta Data Definition*/

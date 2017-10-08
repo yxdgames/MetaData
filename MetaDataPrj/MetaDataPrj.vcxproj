@@ -184,6 +184,8 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />
     <ClInclude Include="..\Codes\MetaData\include\Property.h" />
     <ClInclude Include="..\Codes\MetaData\include\SimpleString.h" />
+    <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h" />
+    <ClInclude Include="..\Codes\MetaData\include\TUnkwnObject.h" />
     <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h" />
     <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h" />
@@ -226,6 +228,8 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\Property.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp" />

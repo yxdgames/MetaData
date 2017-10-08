@@ -189,6 +189,9 @@
     <ClInclude Include="..\Codes\MetaData\include\IUnkwn.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -303,6 +306,9 @@
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\IUnkwn.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>

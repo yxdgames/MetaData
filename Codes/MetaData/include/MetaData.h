@@ -2,6 +2,7 @@
 
 #include "..\..\include\Typedef.h"
 #include "..\..\include\CommonDefine.h"
+#include "GuidOfMetaData.h"
 
 #include <vector>
 
@@ -29,6 +30,8 @@ public:
 	//method
 	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName) const;
 	bool FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children) const;
+	bool Compare(const CMetaData *pMetaData) const { return (this == pMetaData) || (pMetaData && pMetaData->m_GUID == this->m_GUID); }
+	bool Compare(const TDGUID &guid) const { return this->m_GUID == guid; }
 public:
 	//attribute
 	const char *GetName(void) const							{ return m_pName; }
@@ -37,11 +40,16 @@ public:
 	const char *GetTypeCaption(void) const;
 	size_t GetChildrenCount(void) const					{ return (m_pChildren ? m_pChildren->size() : 0); }
 	const CMetaData *GetChild(size_t index) const		{ return (m_pChildren ? m_pChildren->at(index) : nullptr); }
+public:
+	//GUID
+	void SetGUID(const TDGUID &guid) { this->m_GUID = guid; }
+	void SetGUID(const void *pData) { this->m_GUID = pData; }
 private:
 	void InsertSelfToParent(void);
 	void RemoveSelfFromParent(void);
 	const bool FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children, bool bClear) const;
 private:
+	TDGUID							m_GUID;
 	const char						*m_pName;
 	const CMetaData					*m_pParent;
 	std::vector<const CMetaData*>	*m_pChildren;

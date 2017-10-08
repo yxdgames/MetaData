@@ -3,6 +3,7 @@
 #include "Property.h"
 #include "SimpleString.h"
 #include "MetaDataSupport.h"
+#include "TUnkwnObject.h"
 
 //#define	__META_DATA_DEMO__
 
@@ -10,6 +11,11 @@
 ////////////////////////////////////////////////
 //                  Demo                      //
 ////////////////////////////////////////////////
+
+class CLASS_DESCRIPT CUnkwn : public IUnkwn
+{
+};
+extern TUnkwnObject<CUnkwn> *gobjUnkwn;
 
 class CLASS_DESCRIPT CClass1
 {

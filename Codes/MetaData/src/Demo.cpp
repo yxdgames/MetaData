@@ -3,6 +3,8 @@
 
 #ifdef __META_DATA_DEMO__
 
+TUnkwnObject<CUnkwn> *gobjUnkwn;
+
 //CClass1
 CClass1::CClass1(void)
 	: mem_i(8329), mem_char(18), mem_short(189), mem_d(951.243), mem_f(832.321f),
