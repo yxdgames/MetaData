@@ -265,11 +265,10 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pPa
 		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
 		pNeedRelease = new bool[param_count];
 		pParamPtrBuffer = new void*[param_count];
+		memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
 	}
 	try
 	{
-		if (pParamPtrBuffer)
-			memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
 		for (index = 0; index < param_count; ++index)
 		{
 			if (pParamTypes)
