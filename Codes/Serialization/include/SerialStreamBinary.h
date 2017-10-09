@@ -31,16 +31,29 @@ private:
 	public:
 		std::vector<SStringFilePositions> info_vector;
 	};
+	struct SBlobFilePositionList
+	{
+	public:
+		struct SBlobFilePosition
+		{
+			IBlob *pBlog;
+			TDBinBaseUnit Posistion;
+		};
+	public:
+		std::vector<SBlobFilePosition> info_vector;
+	};
 private:
 	void SerialInit(void);
 	size_t SerializeEntity(ISerialEntity *pEnt);
 	bool SerializeStringTable(void);
+	bool SerializeBlob(void);
 	void UnserialInit(void);
-	size_t UnserializeEntity(ISerialEntity *pEnt);
+	size_t UnserializeEntity(ISerialEntity *pEnt, ISerial *pSerial);
 private:
 	bool m_HoldStream;
 	std::iostream *m_pStream;
 	TDBinBaseUnit m_StreamPosition;
 	SStringFilePositionList m_StringFilePositionList;
+	SBlobFilePositionList m_BlobFilePositionList;
 };
 

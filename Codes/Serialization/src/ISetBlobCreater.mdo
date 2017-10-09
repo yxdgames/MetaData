@@ -1,0 +1,4 @@
+#include "..\include\ISetBlobCreater.h"
+
+/*Define: MetaData of Interface*/
+MD_INTERFACE_DEF(ISetBlobCreater)

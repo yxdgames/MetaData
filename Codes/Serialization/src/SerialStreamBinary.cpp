@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "..\include\SerialStreamBinary.h"
 #include "..\include\ITreeSerial.h"
+#include "..\include\IBlobCreater.h"
+#include "..\include\ExceptionSerialization.h"
+#include "..\include\ExceptionIDSerialization.h"
 
 #define D_ENT_BIN_SERIALIZER_FILE_TAG	"OBBINSER\0"
 
@@ -9,11 +12,13 @@
 
 #define D_CLASS_MEMBER_VARIABLE_OFFSET(cls, mem_var)	(reinterpret_cast<TDUIntPtr>(&(reinterpret_cast<cls*>(0)->mem_var)))
 
+#define D_BLOB_BUFFER_SIZE_MAX		(512)
+
 //CSerialStreamBinary::SStringFilePositionList
 CSerialStreamBinary::SStringFilePositionList::SStringFilePositions *CSerialStreamBinary::SStringFilePositionList::FindItem(const char *pString, bool bNew)
 {
 	SStringFilePositions *pStringFilePos(nullptr);
-	for (unsigned long i = 0; i < this->info_vector.size(); ++i)
+	for (size_t i = 0; i < this->info_vector.size(); ++i)
 	{
 		if ((pString && info_vector.at(i).str && strcmp(info_vector.at(i).str, pString) == 0)
 			|| (!pString && info_vector.at(i).str == pString))
@@ -57,7 +62,7 @@ bool CSerialStreamBinary::Serialize(ISerial *pSerial)
 	SerialInit();
 
 	SFileHeader file_header;
-	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT, 0 };
+	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_ENTITY, 0 };
 	TDBinBaseUnit atom_size_pos;
 
 	memcpy(&file_header.file_tag, D_ENT_BIN_SERIALIZER_FILE_TAG, sizeof(file_header.file_tag));
@@ -86,6 +91,11 @@ bool CSerialStreamBinary::Serialize(ISerial *pSerial)
 
 	//持久化字符串表
 	if (!SerializeStringTable())
+	{
+		return false;
+	}
+	//持久化Blob
+	if (!SerializeBlob())
 	{
 		return false;
 	}
@@ -124,8 +134,8 @@ bool CSerialStreamBinary::Unserialize(ISerial *pSerial)
 	m_pStream->read((char*)&atom, sizeof(atom));
 	m_StreamPosition += sizeof(atom);
 
-	if (atom.type == D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT)
-		return UnserializeEntity(pEnt) + sizeof(atom) == atom.size;
+	if (atom.type == D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_ENTITY)
+		return UnserializeEntity(pEnt, pSerial) + sizeof(atom) == atom.size;
 	else return false;
 }
 
@@ -137,15 +147,17 @@ void CSerialStreamBinary::SerialInit(void)
 	}
 	m_StreamPosition = 0;
 	m_StringFilePositionList.info_vector.clear();
+	m_BlobFilePositionList.info_vector.clear();
 }
 
 size_t CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt)
 {
 	size_t ent_size;
 	SFileEntityItem file_ent_item;
-	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT, 0 };
+	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_ENTITY, 0 };
 	TDBinBaseUnit atom_size_pos;
 	SStringFilePositionList::SStringFilePositions *pStringFilePos;
+	SBlobFilePositionList::SBlobFilePosition BlobFilePos;
 
 	pStringFilePos = this->m_StringFilePositionList.FindItem(pEnt->GetName(), true);
 	pStringFilePos->positions.push_back(m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, name_addr));
@@ -161,6 +173,12 @@ size_t CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt)
 	{
 		pStringFilePos = this->m_StringFilePositionList.FindItem(pEnt->GetValue().value._pcstr, true);
 		pStringFilePos->positions.push_back(m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, value[0]));
+	}
+	else if (pEnt->GetValue().type == vtIntfBlob)
+	{
+		BlobFilePos.pBlog = pEnt->GetValue().value._pblob;
+		BlobFilePos.Posistion = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, value[0]);
+		m_BlobFilePositionList.info_vector.push_back(BlobFilePos);
 	}
 
 	m_pStream->write((char*)&file_ent_item, sizeof(file_ent_item));
@@ -191,7 +209,7 @@ bool CSerialStreamBinary::SerializeStringTable(void)
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_STRING, 0 };
 	TDBinBaseUnit atom_size_pos;
 	size_t size;
-	unsigned long i, j;
+	size_t i, j;
 
 	atom_size_pos = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SAtom, size);
 	m_pStream->write((char*)&atom, sizeof(atom));
@@ -230,6 +248,61 @@ bool CSerialStreamBinary::SerializeStringTable(void)
 	return true;
 }
 
+bool CSerialStreamBinary::SerializeBlob(void)
+{
+	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_BINARY, 0 };
+	TDBinBaseUnit atom_size_pos;
+	size_t read_size;
+	TDByte *pBuffer(new TDByte[D_BLOB_BUFFER_SIZE_MAX]);
+	try
+	{
+		for (size_t i = 0; i < m_BlobFilePositionList.info_vector.size(); ++i)
+		{
+			m_pStream->seekp(m_BlobFilePositionList.info_vector.at(i).Posistion);
+			m_pStream->write((char*)&m_StreamPosition, sizeof(m_StreamPosition));
+			m_pStream->seekp(m_StreamPosition);
+
+			atom_size_pos = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SAtom, size);
+			m_pStream->write((char*)&atom, sizeof(atom));
+			m_StreamPosition += sizeof(atom);
+
+			m_BlobFilePositionList.info_vector.at(i).pBlog->BeginRead();
+			try
+			{
+				atom.size = sizeof(atom);
+				while (true)
+				{
+					read_size = m_BlobFilePositionList.info_vector.at(i).pBlog->Read(pBuffer, D_BLOB_BUFFER_SIZE_MAX);
+					if (read_size)
+					{
+						m_pStream->write((char*)pBuffer, read_size);
+						m_StreamPosition += read_size;
+						atom.size += read_size;
+					}
+					else break;
+				}
+				m_pStream->seekp(atom_size_pos);
+				m_pStream->write((char*)&atom.size, sizeof(atom.size));
+				m_pStream->seekp(m_StreamPosition);
+			}
+			catch (...)
+			{
+				m_BlobFilePositionList.info_vector.at(i).pBlog->EndRead();
+				throw;
+			}
+			m_BlobFilePositionList.info_vector.at(i).pBlog->EndRead();
+		}
+	}
+	catch (...)
+	{
+		delete[] pBuffer;
+		throw;
+	}
+	delete[] pBuffer;
+
+	return true;
+}
+
 void CSerialStreamBinary::UnserialInit(void)
 {
 	if (m_pStream)
@@ -239,76 +312,126 @@ void CSerialStreamBinary::UnserialInit(void)
 	m_StreamPosition = 0;
 }
 
-size_t CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt)
+size_t CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, ISerial *pSerial)
 {
 	size_t ent_size;
 	SFileEntityItem ent_item;
 	SAtom atom;
-	TDBinBaseUnit str_size1, str_size2;
-	char *pStr;
-
-	m_pStream->read((char*)&ent_item, sizeof(ent_item));
-	m_StreamPosition += sizeof(ent_item);
-	ent_size = sizeof(ent_item);
-
-	//name
-	m_pStream->seekg(ent_item.name_addr);
-	m_pStream->read((char*)&str_size1, sizeof(str_size1));
-	pStr = new char [str_size1 + 1];
-	m_pStream->read(pStr, str_size1);
-	pStr[str_size1] = '\0';
-	pEnt->SetName(pStr);
-
-	//type name
-	m_pStream->seekg(ent_item.type_name_addr);
-	m_pStream->read((char*)&str_size2, sizeof(str_size2));
-	if (str_size2 > str_size1)
+	TDBinBaseUnit size1, size2;
+	
+	char *pStr(nullptr);
+	try
 	{
-		delete [] pStr;
-		pStr = new char [str_size2 + 1];
-	}
-	m_pStream->read(pStr, str_size2);
-	pStr[str_size2] = '\0';
-	pEnt->SetEntTypeName(pStr);
+		m_pStream->read((char*)&ent_item, sizeof(ent_item));
+		m_StreamPosition += sizeof(ent_item);
+		ent_size = sizeof(ent_item);
 
-	//tag
-	pEnt->SetTag(ent_item.tag);
+		//name
+		m_pStream->seekg(ent_item.name_addr);
+		m_pStream->read((char*)&size1, sizeof(size1));
+		pStr = new char[size1 + 1];
+		m_pStream->read(pStr, size1);
+		pStr[size1] = '\0';
+		pEnt->SetName(pStr);
 
-	//value
-	switch(ent_item.value_type)
-	{
-	case vtBOOL:
-		pEnt->SetValue(*reinterpret_cast<bool*>(ent_item.value));
-		break;
-	case vtINT:
-		pEnt->SetValue(*reinterpret_cast<int*>(ent_item.value));
-		break;
-	case vtLONGLONG:
-		pEnt->SetValue(*reinterpret_cast<long long*>(ent_item.value));
-		break;
-	case vtFLOAT:
-		pEnt->SetValue(*reinterpret_cast<double*>(ent_item.value));
-		break;
-	case vtLONGFLOAT:
-		pEnt->SetValue(*reinterpret_cast<long double*>(ent_item.value));
-		break;
-	case vtCSTR_PTR:
-		m_pStream->seekg(*reinterpret_cast<TDBinBaseUnit*>(ent_item.value));
-		m_pStream->read((char*)&str_size1, sizeof(str_size1));
-		if (str_size1 > str_size2)
+		//type name
+		m_pStream->seekg(ent_item.type_name_addr);
+		m_pStream->read((char*)&size2, sizeof(size2));
+		if (size2 > size1)
 		{
-			delete [] pStr;
-			pStr = new char [str_size1 + 1];
+			delete[] pStr;
+			pStr = new char[size2 + 1];
 		}
-		m_pStream->read(pStr, str_size1);
-		pStr[str_size1] = '\0';
-		pEnt->SetValue(pStr);
-		break;
-	case vtNone:
-	default:
-		break;
+		m_pStream->read(pStr, size2);
+		pStr[size2] = '\0';
+		pEnt->SetEntTypeName(pStr);
+
+		//tag
+		pEnt->SetTag(ent_item.tag);
+
+		//value
+		switch (ent_item.value_type)
+		{
+		case vtBOOL:
+			pEnt->SetValue(*reinterpret_cast<bool*>(ent_item.value));
+			break;
+		case vtINT:
+			pEnt->SetValue(*reinterpret_cast<int*>(ent_item.value));
+			break;
+		case vtLONGLONG:
+			pEnt->SetValue(*reinterpret_cast<long long*>(ent_item.value));
+			break;
+		case vtFLOAT:
+			pEnt->SetValue(*reinterpret_cast<double*>(ent_item.value));
+			break;
+		case vtLONGFLOAT:
+			pEnt->SetValue(*reinterpret_cast<long double*>(ent_item.value));
+			break;
+		case vtCSTR_PTR:
+			m_pStream->seekg(*reinterpret_cast<TDBinBaseUnit*>(ent_item.value));
+			m_pStream->read((char*)&size1, sizeof(size1));
+			if (size1 > size2)
+			{
+				delete[] pStr;
+				pStr = new char[size1 + 1];
+			}
+			m_pStream->read(pStr, size1);
+			pStr[size1] = '\0';
+			pEnt->SetValue(pStr);
+			break;
+		case vtIntfBlob:
+			{
+				IBlobCreater *pBlobCreater(pSerial->AsType<IBlobCreater>());
+				IBlob *pBlob(nullptr);
+				if (pBlobCreater)
+				{
+					size_t read_size;
+					TDByte *pBuffer(new TDByte[D_BLOB_BUFFER_SIZE_MAX]);
+					try
+					{
+						pBlob = pBlobCreater->CreateBlob();
+						if (!pBlob) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：IBlob接口创建失败！");
+						m_pStream->seekg(*reinterpret_cast<TDBinBaseUnit*>(ent_item.value));
+						m_pStream->read((char*)&atom, sizeof(atom));
+						atom.size -= sizeof(atom);
+						pBlob->BeginWrite();
+						try
+						{
+							do {
+								read_size = atom.size > D_BLOB_BUFFER_SIZE_MAX ? D_BLOB_BUFFER_SIZE_MAX : atom.size;
+								m_pStream->read((char*)pBuffer, read_size);
+								pBlob->Write(pBuffer, read_size);
+								atom.size -= read_size;
+							} while (atom.size > 0);
+						}
+						catch (...)
+						{
+							pBlob->EndWrite();
+							throw;
+						}
+						pBlob->EndWrite();
+					}
+					catch (...)
+					{
+						delete[] pBuffer;
+						throw;
+					}
+					delete[] pBuffer;
+				}
+				pEnt->SetValue(pBlob, true);
+			}
+			break;
+		case vtNone:
+		default:
+			break;
+		}
 	}
-	delete [] pStr;
+	catch (...)
+	{
+		if (pStr) delete[] pStr;
+		throw;
+	}
+	if (pStr) delete [] pStr;
 
 	m_pStream->seekg(m_StreamPosition);
 
@@ -317,10 +440,10 @@ size_t CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt)
 	{
 		memset(&atom, 0x00, sizeof(atom));
 		m_pStream->read((char*)&atom, sizeof(atom));
-		if (atom.type == D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_OBJECT)
+		if (atom.type == D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_ENTITY)
 		{
 			m_StreamPosition += sizeof(atom);
-			if (UnserializeEntity(pEnt->NewChild()) + sizeof(atom) == atom.size)
+			if (UnserializeEntity(pEnt->NewChild(), pSerial) + sizeof(atom) == atom.size)
 				ent_size += atom.size;
 			else return 0;
 		}

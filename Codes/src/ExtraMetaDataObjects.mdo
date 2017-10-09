@@ -6,6 +6,8 @@
 //Serialization
 #include "..\Serialization\src\ISerial.mdo"
 #include "..\Serialization\src\ITreeSerial.mdo"
+#include "..\Serialization\src\IBlobCreater.mdo"
+#include "..\Serialization\src\ISetBlobCreater.mdo"
 #include "..\Serialization\src\TreeSerial.mdo"
 #endif //CO_SERIALIZATION_MODULE
 

@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -164,6 +164,7 @@
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h" />
+    <ClInclude Include="..\Codes\MetaData\include\IBlob.h" />
     <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h" />
     <ClInclude Include="..\Codes\MetaData\include\IInterface.h" />
@@ -192,6 +193,7 @@
     <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionSerialization.h" />
+    <ClInclude Include="..\Codes\Serialization\include\IBlobCreater.h" />
     <ClInclude Include="..\Codes\Serialization\include\ISerial.h" />
     <ClInclude Include="..\Codes\Serialization\include\ISerialEntity.h" />
     <ClInclude Include="..\Codes\Serialization\include\ISerializer.h" />
@@ -209,6 +211,7 @@
     <ClCompile Include="..\Codes\MetaData\src\Demo.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\IBlob.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp" />
@@ -230,6 +233,7 @@
     <ClCompile Include="..\Codes\MetaData\src\Property.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
+    <ClCompile Include="..\Codes\Serialization\src\IBlobCreater.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerializer.cpp" />
@@ -266,11 +270,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\MetaData\src\Demo.mdo" />
+    <None Include="..\Codes\MetaData\src\IBlob.mdo" />
     <None Include="..\Codes\MetaData\src\IClone.mdo" />
     <None Include="..\Codes\MetaData\src\IContainer.mdo" />
     <None Include="..\Codes\MetaData\src\IInterface.mdo" />
     <None Include="..\Codes\MetaData\src\IUnkwn.mdo" />
     <None Include="..\Codes\MetaData\src\SimpleString.mdo" />
+    <None Include="..\Codes\Serialization\src\IBlobCreater.mdo" />
     <None Include="..\Codes\Serialization\src\ISerial.mdo" />
     <None Include="..\Codes\Serialization\src\ITreeSerial.mdo" />
     <None Include="..\Codes\Serialization\src\TreeSerial.mdo" />

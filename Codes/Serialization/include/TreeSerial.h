@@ -1,9 +1,10 @@
 #pragma once
 
 #include "ITreeSerial.h"
+#include "ISetBlobCreater.h"
 #include "..\..\MetaData\include\IInterfaceDefaultImp.h"
 
-class CLASS_DESCRIPT CTreeSerial : public ITreeSerial
+class CLASS_DESCRIPT CTreeSerial : public ITreeSerial, public ISetBlobCreater
 {
 public:
 	CTreeSerial(void);
@@ -24,17 +25,24 @@ public:
 	virtual void SetStructInStream(EStructureInStream value);
 	//ITreeSerial
 	virtual ISerialEntity *Root(void);
+	//ISetBlobCreater
+	virtual void SetBlobCreater(IBlobCreater *pBlobCreater) { m_pBlobCreater = pBlobCreater; }
 private:
 	void DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level);
 private:
 	ISerialEntity *m_pSerialEntiry;
 	EStructureInStream m_StructInStream;
+private:
+	IBlobCreater *m_pBlobCreater;
+private:
+	static void *AsTypeEx(void *pObj, const CMetaDataType *pType);
 
 /*Meta Data Definition*/
 MD_CLASS_TYPE_DECLARE_BEGIN(CTreeSerial)
 MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CTreeSerial)
-	MD_CLASS_TYPE_INTERFACE_DEF(ISerial)
 	MD_CLASS_TYPE_INTERFACE_DEF(ITreeSerial)
+	MD_CLASS_TYPE_INTERFACE_DEF(ISetBlobCreater)
+	MD_CLASS_TYPE_AS_TYPE_EX_DEF(AsTypeEx)
 MD_CLASS_TYPE_DECLARE_END(CTreeSerial)
 };
 

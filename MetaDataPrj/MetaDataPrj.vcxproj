@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -188,6 +188,8 @@
     <ClInclude Include="..\Codes\MetaData\include\TUnkwnObject.h" />
     <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h" />
+    <ClInclude Include="..\Codes\Serialization\include\IBlobCreater.h" />
+    <ClInclude Include="..\Codes\Serialization\include\ISetBlobCreater.h" />
     <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h" />
     <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h" />
     <ClInclude Include="..\Codes\Serialization\include\ExceptionSerialization.h" />
@@ -230,6 +232,8 @@
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp" />
+    <ClCompile Include="..\Codes\Serialization\src\IBlobCreater.cpp" />
+    <ClCompile Include="..\Codes\Serialization\src\ISetBlobCreater.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp" />
@@ -260,6 +264,8 @@
     <None Include="..\Codes\MetaData\src\IInterface.mdo" />
     <None Include="..\Codes\MetaData\src\IUnkwn.mdo" />
     <None Include="..\Codes\MetaData\src\SimpleString.mdo" />
+    <None Include="..\Codes\Serialization\src\IBlobCreater.mdo" />
+    <None Include="..\Codes\Serialization\src\ISetBlobCreater.mdo" />
     <None Include="..\Codes\Serialization\src\ISerial.mdo" />
     <None Include="..\Codes\Serialization\src\ITreeSerial.mdo" />
     <None Include="..\Codes\Serialization\src\TreeSerial.mdo" />

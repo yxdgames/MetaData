@@ -133,6 +133,11 @@ void CSerialEntity::SetValue(const char * const pValue)
 	m_value.SetValue(pValue);
 }
 
+void CSerialEntity::SetValue(IBlob * pBlob, bool release_flag)
+{
+	m_value.SetValue(pBlob, release_flag);
+}
+
 SVariant &CSerialEntity::GetValue(void)
 {
 	return m_value;

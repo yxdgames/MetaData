@@ -33,6 +33,7 @@ public:
 	virtual void SetValue(const double Value);
 	virtual void SetValue(const long double Value);
 	virtual void SetValue(const char * const pValue);
+	virtual void SetValue(IBlob *pBlob, bool release_flag = false);
 	virtual SVariant &GetValue(void);
 
 	virtual ISerialEntity *GetParent(void);

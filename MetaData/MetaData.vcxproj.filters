@@ -192,6 +192,12 @@
     <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IBlob.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\IBlobCreater.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -311,6 +317,12 @@
     <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IBlob.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\IBlobCreater.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\MetaData\src\Demo.mdo">
@@ -345,6 +357,12 @@
     </None>
     <None Include="..\Codes\MetaData\src\IUnkwn.mdo">
       <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IBlob.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\IBlobCreater.mdo">
+      <Filter>Codes\Serialization\src</Filter>
     </None>
   </ItemGroup>
 </Project>

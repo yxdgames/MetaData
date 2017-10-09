@@ -24,7 +24,8 @@ static ISerialStream *NewSerialStream(ESerialStreamIntfType IntfType, std::iostr
 
 //CTreeSerial
 CTreeSerial::CTreeSerial(void)
-	:m_pSerialEntiry(NewSerialEntiry()), m_StructInStream(sisNone)
+	:m_pSerialEntiry(NewSerialEntiry()), m_StructInStream(sisNone),
+	m_pBlobCreater(nullptr)
 {
 }
 
@@ -210,4 +211,12 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 			break;
 		}
 	}
+}
+
+void * CTreeSerial::AsTypeEx(void * pObj, const CMetaDataType * pType)
+{
+	CTreeSerial *pTreeSerial(reinterpret_cast<CTreeSerial*>(pObj));
+	if (pType == TypeTraits<IBlobCreater>::GetMetaDataType())
+		return pTreeSerial->m_pBlobCreater;
+	else return nullptr;
 }

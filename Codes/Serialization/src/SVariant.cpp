@@ -2,26 +2,27 @@
 #include "..\include\SVariant.h"
 
 SVariant::SVariant(void)
-	: type(vtNone), release_string(true)
+	: type(vtNone), release_string(true), release_blob(false)
 {
 	memset(&value, 0x00, sizeof(value));
 }
 
 SVariant::SVariant(SVariant &src)
 {
-	this->operator=(src);
+	this->SetValue(src);
 }
 
 SVariant::~SVariant(void)
 {
-	FreeStr();
+	FreeResource();
 }
 
 void SVariant::SetValue(SVariant &src)
 {
-	FreeStr();
+	FreeResource();
 	this->type = src.type;
 	this->release_string = src.release_string;
+	this->release_blob = false;
 	if (this->type != vtCSTR_PTR || !(this->release_string))
 	{
 		this->value = src.value;
@@ -42,7 +43,7 @@ void SVariant::SetValue(SVariant &src)
 
 void SVariant::SetValue(const char * const pStr)
 {
-	FreeStr();
+	FreeResource();
 	type = vtCSTR_PTR;
 	if (release_string)
 	{
@@ -61,7 +62,7 @@ void SVariant::SetValue(const char * const pStr)
 
 void SVariant::SetReleaseStringFlag(bool flag)
 {
-	FreeStr();
+	FreeResource();
 	release_string = flag;
 }
 

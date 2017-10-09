@@ -113,6 +113,9 @@ bool CSerializer::SerializeCustomType(const CMetaDataCustomType *pType, void *pO
 		pType->AsType(pObj, TypeTraits<IContainer>::GetMetaDataType())),
 		pSEntity, strBuffer)) return false;
 
+	//IBlob序列化（直接作为pSEntity的值进行序列化）
+	pSEntity->SetValue(reinterpret_cast<IBlob*>(pType->AsType(pObj, TypeTraits<IBlob>::GetMetaDataType())));
+
 	return true;
 }
 

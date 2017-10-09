@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\include\CommonDefine.h"
+#include "..\..\MetaData\include\IBlob.h"
 
 enum EVarType
 {
@@ -11,6 +11,7 @@ enum EVarType
 	vtFLOAT,
 	vtLONGFLOAT,
 	vtCSTR_PTR,
+	vtIntfBlob,
 };
 
 struct STRUCT_DESCRIPT SVariant
@@ -23,6 +24,7 @@ struct STRUCT_DESCRIPT SVariant
 		double _d;
 		long double _ld;
 		const char *_pcstr;
+		IBlob *_pblob;
 	} value;
 public:
 	SVariant(void);
@@ -36,6 +38,7 @@ public:
 	inline void SetValue(const double Value);
 	inline void SetValue(const long double Value);
 	void SetValue(const char * const pStr);
+	inline void SetValue(IBlob *pBlob, bool release_flag = false);
 	inline void SetValueEmpty(void);
 public:
 	inline SVariant &operator=(SVariant &src);
@@ -45,12 +48,16 @@ public:
 	inline SVariant &operator=(const double Value);
 	inline SVariant &operator=(const long double Value);
 	inline SVariant &operator=(const char * const pStr);
+	inline SVariant &operator=(IBlob *pBlob);
 public:
 	void SetReleaseStringFlag(bool flag);
 private:
 	void FreeStr(void);
+	inline void FreeBlob(void);
+	inline void FreeResource(void);
 private:
 	bool release_string;
+	bool release_blob;
 };
 
 /*--------------------------------*/
@@ -60,42 +67,50 @@ private:
 
 inline void SVariant::SetValue(const bool Value)
 {
-	FreeStr();
+	FreeResource();
 	type = vtBOOL;
 	value._b = Value;
 }
 
 inline void SVariant::SetValue(const int Value)
 {
-	FreeStr();
+	FreeResource();
 	type = vtINT;
 	value._i = Value;
 }
 
 inline void SVariant::SetValue(const long long Value)
 {
-	FreeStr();
+	FreeResource();
 	type = vtLONGLONG;
 	value._ll = Value;
 }
 
 inline void SVariant::SetValue(const double Value)
 {
-	FreeStr();
+	FreeResource();
 	type = vtFLOAT;
 	value._d = Value;
 }
 
 inline void SVariant::SetValue(const long double Value)
 {
-	FreeStr();
+	FreeResource();
 	type = vtLONGFLOAT;
 	value._ld = Value;
 }
 
+inline void SVariant::SetValue(IBlob *pBlob, bool release_flag)
+{
+	FreeResource();
+	type = vtIntfBlob;
+	this->release_blob = release_flag;
+	value._pblob = pBlob;
+}
+
 inline void SVariant::SetValueEmpty(void)
 {
-	FreeStr();
+	FreeResource();
 	type = vtNone;
 	memset(&value, 0x00, sizeof(value));
 }
@@ -140,4 +155,25 @@ inline SVariant &SVariant::operator=(const char * const pStr)
 {
 	SetValue(pStr);
 	return *this;
+}
+
+inline SVariant &SVariant::operator=(IBlob *pBlob)
+{
+	SetValue(pBlob, false);
+	return *this;
+}
+
+inline void SVariant::FreeBlob(void)
+{
+	if (type == vtIntfBlob && value._pblob && release_blob)
+	{
+		delete value._pblob;
+		value._pblob = nullptr;
+	}
+}
+
+inline void SVariant::FreeResource(void)
+{
+	this->FreeStr();
+	this->FreeBlob();
 }
