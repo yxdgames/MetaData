@@ -176,9 +176,12 @@ size_t CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt)
 	}
 	else if (pEnt->GetValue().type == vtIntfBlob)
 	{
-		BlobFilePos.pBlog = pEnt->GetValue().value._pblob;
-		BlobFilePos.Posistion = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, value[0]);
-		m_BlobFilePositionList.info_vector.push_back(BlobFilePos);
+		if (pEnt->GetValue().value._pblob)
+		{
+			BlobFilePos.pBlog = pEnt->GetValue().value._pblob;
+			BlobFilePos.Posistion = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, value[0]);
+			m_BlobFilePositionList.info_vector.push_back(BlobFilePos);
+		}
 	}
 
 	m_pStream->write((char*)&file_ent_item, sizeof(file_ent_item));
