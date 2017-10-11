@@ -480,6 +480,9 @@ bool CSerializer::UnserializeCustomType(ISerialEntity *pSEntity, const CMetaData
 		reinterpret_cast<IContainer*>(pType->AsType(pObj, TypeTraits<IContainer>::GetMetaDataType())),
 		strBuffer)) return false;
 
+	//IBlob反序列化（直接读取pSEntity的值）
+	IBlob *pBlob(reinterpret_cast<IBlob*>(pType->AsType(pObj, TypeTraits<IBlob>::GetMetaDataType())));
+	if (pBlob && pSEntity->GetValue().type == vtIntfBlob) *pBlob = *pSEntity->GetValue().value._pblob;
 	return true;
 }
 

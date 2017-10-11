@@ -7,12 +7,12 @@ public:
 	inline TArray(const size_t size);
 	inline ~TArray(void);
 public:
-	void Reset(const size_t size);
+	void Reset(const size_t size, bool allow_greater = false);
 public:
 	T *array(void) { return m_pArray; }
 	size_t array_size(void) { return m_Size; }
 public:
-	inline T operator [](size_t index);
+	inline T &operator [](size_t index);
 private:
 	TArray(void) {}
 	TArray(TArray&) {}
@@ -34,9 +34,13 @@ inline TArray<T>::~TArray(void)
 }
 
 template <typename T>
-void TArray<T>::Reset(const size_t size)
+void TArray<T>::Reset(const size_t size, bool allow_greater)
 {
-	if (size == m_Size) return;
+	if (allow_greater)
+	{
+		if (size <= m_Size) return;
+	}
+	else if (size == m_Size) return;
 	if (m_pArray) delete[] m_pArray;
 	m_Size = size;
 	if (m_Size)
@@ -45,7 +49,7 @@ void TArray<T>::Reset(const size_t size)
 }
 
 template <typename T>
-inline T TArray<T>::operator [](size_t index)
+inline T &TArray<T>::operator [](size_t index)
 {
 	if (index >= m_Size) throw new ExceptionBase(D_E_ID_ERROR, "Array overflow!");
 	return m_pArray[index];

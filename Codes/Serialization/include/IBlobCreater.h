@@ -2,7 +2,7 @@
 
 #include "..\..\MetaData\include\IBlob.h"
 
-class IBlobCreater : public IInterface
+class CLASS_DESCRIPT IBlobCreater : public IInterface
 {
 public:
 	IBlobCreater() {}

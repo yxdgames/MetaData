@@ -15,6 +15,8 @@ public:
 	virtual void BeginWrite(void) = 0;
 	virtual void EndWrite(void) = 0;
 	virtual size_t Write(void *pBuffer, size_t BufferSize) = 0;
+public:
+	virtual IBlob &operator =(IBlob &src) = 0;
 
 /*Meta Data Definition*/
 MD_INTERFACE_DECLARE_BEGIN(IBlob)
