@@ -155,10 +155,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Codes\include\CharArray.h" />
     <ClInclude Include="..\Codes\include\CommonDefine.h" />
     <ClInclude Include="..\Codes\include\ExceptionBase.h" />
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
+    <ClInclude Include="..\Codes\include\TArray.h" />
     <ClInclude Include="..\Codes\include\Typedef.h" />
     <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h" />
@@ -244,7 +244,6 @@
     <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\SVariant.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp" />
-    <ClCompile Include="..\Codes\src\CharArray.cpp" />
     <ClCompile Include="..\Codes\src\ExceptionBase.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>

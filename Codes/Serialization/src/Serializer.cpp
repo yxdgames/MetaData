@@ -2,7 +2,7 @@
 #include "..\include\Serializer.h"
 #include "..\..\MetaData\include\IContainer.h"
 #include "..\..\MetaData\include\SimpleString.h"
-#include "..\..\include\CharArray.h"
+#include "..\..\include\TArray.h"
 #include "..\include\ExceptionSerialization.h"
 #include "..\include\ExceptionIDSerialization.h"
 
@@ -41,19 +41,19 @@ void CSerializer::SetSerial(ISerial *pSerial)
 bool CSerializer::DoSerialize(const CMetaDataType *pType, void *pObj, const char *pName)
 {
 	if (!pType || !pObj || !m_pTreeSerial || !m_pTreeSerial->Root()) return false;
-	CCharArray TypeName(D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX);
-	if (!pType->GetFullName(TypeName.char_array(), D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
+	TDCharArray TypeName(D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX);
+	if (!pType->GetFullName(TypeName.array(), D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 
 	ISerialEntity *pEnt;
 	pEnt = m_pTreeSerial->Root()->NewChild();
 	pEnt->SetName(pName);
-	pEnt->SetEntTypeName(TypeName.char_array());
+	pEnt->SetEntTypeName(TypeName.array());
 	pEnt->SetTag(D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE);
 	switch(pType->GetTypeID())
 	{
 	case D_META_DATA_TYPE_ID_CLASS_TYPE:
 	case D_META_DATA_TYPE_ID_INTERFACE:
-		return SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, pEnt, TypeName.char_array());
+		return SerializeCustomTypeWrapper(reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, pEnt, TypeName.array());
 	case D_META_DATA_TYPE_ID_INNER_TYPE:
 		return SerializeInnerType(reinterpret_cast<const CMetaDataInnerType*>(pType), pObj, pEnt);
 	default:
@@ -65,17 +65,17 @@ bool CSerializer::DoSerialize(const CMetaDataType *pType, void *pObj, const char
 bool CSerializer::DoUnserialize(const CMetaDataType *pType, void *pObj, const char *pName)
 {
 	if (!pType || !pObj || !m_pTreeSerial || !m_pTreeSerial->Root()) return false;
-	CCharArray TypeName(D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX);
-	if (!pType->GetFullName(TypeName.char_array(), D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
+	TDCharArray TypeName(D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX);
+	if (!pType->GetFullName(TypeName.array(), D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 	ISerialEntity *pEnt(m_pTreeSerial->Root()->FindChild(
-		pName, TypeName.char_array(), D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE));
+		pName, TypeName.array(), D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE));
 	if (!pEnt) return false;
 
 	switch(pType->GetTypeID())
 	{
 	case D_META_DATA_TYPE_ID_CLASS_TYPE:
 	case D_META_DATA_TYPE_ID_INTERFACE:
-		return UnserializeCustomTypeWrapper(pEnt, reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, TypeName.char_array());
+		return UnserializeCustomTypeWrapper(pEnt, reinterpret_cast<const CMetaDataCustomType*>(pType), pObj, TypeName.array());
 	case D_META_DATA_TYPE_ID_INNER_TYPE:
 		return UnserializeInnerType(pEnt, reinterpret_cast<const CMetaDataInnerType*>(pType), pObj);
 	default:

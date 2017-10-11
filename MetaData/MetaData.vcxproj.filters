@@ -177,9 +177,6 @@
     <ClInclude Include="..\Codes\Serialization\include\TreeSerial.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\include\CharArray.h">
-      <Filter>Codes\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeProperty.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -197,6 +194,9 @@
     </ClInclude>
     <ClInclude Include="..\Codes\Serialization\include\IBlobCreater.h">
       <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\TArray.h">
+      <Filter>Codes\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -301,9 +301,6 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp">
       <Filter>Codes\Serialization\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Codes\src\CharArray.cpp">
-      <Filter>Codes\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeProperty.cpp">
       <Filter>Codes\MetaData\src</Filter>

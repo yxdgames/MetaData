@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "..\include\MetaData.h"
-#include "..\..\include\CharArray.h"
+#include "..\..\include\TArray.h"
 
 #include "..\include\ExceptionMetaData.h"
 #include "..\include\ExceptionIDMetaData.h"
@@ -41,15 +41,15 @@ CMetaData::~CMetaData(void)
 const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName) const
 {
 	if (!m_pChildren) return nullptr;
-	CCharArray FullName(256);
+	TDCharArray FullName(256);
 	const CMetaData *pMD;
 	std::vector<const CMetaData*>::iterator itr;
 	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
-		if ((*itr)->GetFullName(FullName.char_array(), 256))
+		if ((*itr)->GetFullName(FullName.array(), 256))
 		{
-			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullName.char_array(), pFullName) == 0
-				|| strcmp(FullName.char_array() + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
+			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullName.array(), pFullName) == 0
+				|| strcmp(FullName.array() + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
 				return (*itr);
 		}
 		pMD = (*itr)->FindChildMetaData(MetaDataTypeID, pFullName);
@@ -148,14 +148,14 @@ const bool CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, const char
 {
 	if (bClear) Children.clear();
 	if (!m_pChildren) return false;
-	CCharArray FullName(256);
+	TDCharArray FullName(256);
 	std::vector<const CMetaData*>::iterator itr;
 	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
 	{
-		if ((*itr)->GetFullName(FullName.char_array(), 256))
+		if ((*itr)->GetFullName(FullName.array(), 256))
 		{
-			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullName.char_array(), pFullName) == 0
-				|| strcmp(FullName.char_array() + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
+			if ((*itr)->GetTypeID() == MetaDataTypeID && (strcmp(FullName.array(), pFullName) == 0
+				|| strcmp(FullName.array() + 2, pFullName) == 0)) //+2是为了跳过"::"两个字符
 				Children.push_back(*itr);
 		}
 		(void)(*itr)->FindChildMetaData(MetaDataTypeID, pFullName, Children, false);

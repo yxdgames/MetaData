@@ -148,10 +148,10 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Codes\include\CharArray.h" />
     <ClInclude Include="..\Codes\include\CommonDefine.h" />
     <ClInclude Include="..\Codes\include\ExceptionBase.h" />
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
+    <ClInclude Include="..\Codes\include\TArray.h" />
     <ClInclude Include="..\Codes\include\Typedef.h" />
     <ClInclude Include="..\Codes\lib_h\expat.h" />
     <ClInclude Include="..\Codes\lib_h\expat_external.h" />
@@ -245,7 +245,6 @@
     <ClCompile Include="..\Codes\Serialization\src\Serializer.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\SVariant.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp" />
-    <ClCompile Include="..\Codes\src\CharArray.cpp" />
     <ClCompile Include="..\Codes\src\ExceptionBase.cpp" />
     <ClCompile Include="MetaDataPrj.cpp" />
     <ClCompile Include="stdafx.cpp">

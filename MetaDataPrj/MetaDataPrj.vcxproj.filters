@@ -162,9 +162,6 @@
     <ClInclude Include="..\Codes\Serialization\include\ISerializer.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\include\CharArray.h">
-      <Filter>Codes\include</Filter>
-    </ClInclude>
     <ClInclude Include="test_items.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -221,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="..\Codes\Serialization\include\ISetBlobCreater.h">
       <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\TArray.h">
+      <Filter>Codes\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -313,9 +313,6 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\ISerializer.cpp">
       <Filter>Codes\Serialization\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Codes\src\CharArray.cpp">
-      <Filter>Codes\src</Filter>
     </ClCompile>
     <ClCompile Include="test_items.cpp">
       <Filter>源文件</Filter>
