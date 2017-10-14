@@ -10,8 +10,6 @@ public:
 	CSerialEntity(CSerialEntity *pParent);
 	virtual ~CSerialEntity(void);
 public:
-	void SetReleaseStringFlag(bool flag);
-public:
 	//IInterface
 	D_IMPLEMENT_IINTERFACE_MEMBER
 	//ISerialEntity

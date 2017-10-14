@@ -10,6 +10,8 @@ enum EVarType
 	vtLONGLONG,
 	vtFLOAT,
 	vtLONGFLOAT,
+	/*以vtPointer为界，以下为指针*/
+	vtPointer,
 	vtCSTR_PTR,
 	vtIntfBlob,
 };
@@ -37,8 +39,8 @@ public:
 	inline void SetValue(const long long Value);
 	inline void SetValue(const double Value);
 	inline void SetValue(const long double Value);
-	void SetValue(const char * const pStr);
-	inline void SetValue(IBlob *pBlob, bool release_flag = false);
+	void SetValue(const char * const pStr, bool release_flag);
+	inline void SetValue(IBlob *pBlob, bool release_flag);
 	inline void SetValueEmpty(void);
 public:
 	inline SVariant &operator=(SVariant &src);
@@ -49,15 +51,12 @@ public:
 	inline SVariant &operator=(const long double Value);
 	inline SVariant &operator=(const char * const pStr);
 	inline SVariant &operator=(IBlob *pBlob);
-public:
-	void SetReleaseStringFlag(bool flag);
 private:
-	void FreeStr(void);
+	inline void FreeStr(void);
 	inline void FreeBlob(void);
 	inline void FreeResource(void);
 private:
-	bool release_string;
-	bool release_blob;
+	bool release_flag;
 };
 
 /*--------------------------------*/
@@ -104,7 +103,7 @@ inline void SVariant::SetValue(IBlob *pBlob, bool release_flag)
 {
 	FreeResource();
 	type = vtIntfBlob;
-	this->release_blob = release_flag;
+	this->release_flag = release_flag;
 	value._pblob = pBlob;
 }
 
@@ -153,7 +152,7 @@ inline SVariant &SVariant::operator=(const long double Value)
 
 inline SVariant &SVariant::operator=(const char * const pStr)
 {
-	SetValue(pStr);
+	SetValue(pStr, true);
 	return *this;
 }
 
@@ -163,9 +162,18 @@ inline SVariant &SVariant::operator=(IBlob *pBlob)
 	return *this;
 }
 
+inline void SVariant::FreeStr(void)
+{
+	if (type == vtCSTR_PTR && value._pcstr && this->release_flag)
+	{
+		delete[] value._pcstr;
+		value._pcstr = nullptr;
+	}
+}
+
 inline void SVariant::FreeBlob(void)
 {
-	if (type == vtIntfBlob && value._pblob && release_blob)
+	if (type == vtIntfBlob && value._pblob && release_flag)
 	{
 		delete value._pblob;
 		value._pblob = nullptr;

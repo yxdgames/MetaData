@@ -21,11 +21,6 @@ CSerialEntity::~CSerialEntity(void)
 	delete m_pName;
 }
 
-void CSerialEntity::SetReleaseStringFlag(bool flag)
-{
-	m_value.SetReleaseStringFlag(flag);
-}
-
 //method
 ISerialEntity *CSerialEntity::NewChild(void)
 {
@@ -130,7 +125,7 @@ void CSerialEntity::SetValue(const long double Value)
 
 void CSerialEntity::SetValue(const char * const pValue)
 {
-	m_value.SetValue(pValue);
+	m_value.SetValue(pValue, true);
 }
 
 void CSerialEntity::SetValue(IBlob * pBlob, bool release_flag)
