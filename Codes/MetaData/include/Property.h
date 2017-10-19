@@ -10,6 +10,8 @@ public:
 public:
 	virtual void CallSet(void *pObj, void *value) = 0;
 	virtual void CallGet(void *pObj, void *value) = 0;
+	virtual void CallSet(void *value) {}
+	virtual void CallGet(void *value) {}
 	virtual bool ExistSet(void) = 0;
 	virtual bool ExistGet(void) = 0;
 private:
@@ -27,6 +29,7 @@ public:
 	inline TPropertyBase(Tpfun_set set, Tpfun_get get);
 	virtual ~TPropertyBase(void) {}
 public:
+	//override
 	virtual void CallSet(void *pObj, void *value);
 	virtual void CallGet(void *pObj, void *value);
 	virtual bool ExistSet(void) { return m_pSet != nullptr; }
@@ -72,6 +75,10 @@ public:
 		: TPropertyBase<CLASS, T>(set, get), m_pObj(pObj){}
 	virtual ~Property(void) {}
 public:
+	//override
+	virtual inline void CallSet(void *value);
+	virtual inline void CallGet(void *value);
+public:
 	inline Property &operator =(T value);
 	inline operator T();
 private:
@@ -82,9 +89,21 @@ private:
 };
 
 template <typename CLASS, typename T>
+inline void Property<CLASS, T>::CallSet(void *value)
+{
+	this->TPropertyBase<CLASS, T>::CallSet(m_pObj, value);
+}
+
+template <typename CLASS, typename T>
+inline void Property<CLASS, T>::CallGet(void *value)
+{
+	this->TPropertyBase<CLASS, T>::CallGet(m_pObj, value);
+}
+
+template <typename CLASS, typename T>
 inline Property<CLASS, T> &Property<CLASS, T>::operator=(T value)
 {
-	this->CallSet(m_pObj, &value);
+	this->CallSet(&value);
 	return *this;
 }
 
@@ -92,6 +111,6 @@ template <typename CLASS, typename T>
 inline Property<CLASS, T>::operator T()
 {
 	T value;
-	this->CallGet(m_pObj, &value);
+	this->CallGet(&value);
 	return value;
 }
