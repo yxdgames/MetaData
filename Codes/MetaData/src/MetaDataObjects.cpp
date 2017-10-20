@@ -51,6 +51,7 @@ VAR_DESCRIPT const CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOB
 #include "IClone.mdo"
 #include "IContainer.mdo"
 #include "IBlob.mdo"
+#include "IPropertyNotify.mdo"
 #include "SimpleString.mdo"
 #include "IUnkwn.mdo"
 

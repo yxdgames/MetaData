@@ -222,6 +222,9 @@
     <ClInclude Include="..\Codes\include\TArray.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IPropertyNotify.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -350,6 +353,9 @@
     <ClCompile Include="..\Codes\Serialization\src\ISetBlobCreater.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IPropertyNotify.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\src\ExtraMetaDataObjects.mdo">
@@ -390,6 +396,9 @@
     </None>
     <None Include="..\Codes\Serialization\src\ISetBlobCreater.mdo">
       <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IPropertyNotify.mdo">
+      <Filter>Codes\MetaData\src</Filter>
     </None>
   </ItemGroup>
 </Project>

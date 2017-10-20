@@ -10,7 +10,7 @@ public:
 public:
 	//IUnkwn
 	virtual HResult IUNKWN_MEMFUN_DESCRIPT QueryInterface(REFIID riid, void **ppvObject);
-	virtual ULong IUNKWN_MEMFUN_DESCRIPT AddRef(void) { return m_refCount++; }
+	virtual ULong IUNKWN_MEMFUN_DESCRIPT AddRef(void) { return ++m_refCount; }
 	virtual ULong IUNKWN_MEMFUN_DESCRIPT Release(void);
 private:
 	TUnkwnObject(TUnkwnObject&) {}
