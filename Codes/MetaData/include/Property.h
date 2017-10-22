@@ -1,14 +1,15 @@
 #pragma once
 #include "..\..\include\CommonDefine.h"
+#include <vector>
 
-class IPropertyNotify;
+class CLASS_DESCRIPT IPropertyNotify;
 
 /*---CPropertyBase---*/
 class CLASS_DESCRIPT CPropertyBase
 {
 public:
-	CPropertyBase(void) :m_pPropertyNotify(nullptr) {}
-	virtual ~CPropertyBase(void) {}
+	CPropertyBase(void) :m_pPropertyNotifications(new std::vector<IPropertyNotify*>) {}
+	virtual ~CPropertyBase(void) { delete m_pPropertyNotifications; }
 public:
 	virtual void CallSet(void *pObj, void *value) = 0;
 	virtual void CallGet(void *pObj, void *value) = 0;
@@ -18,17 +19,27 @@ public:
 	virtual bool ExistGet(void) = 0;
 	virtual CPropertyBase *Clone(void) = 0;
 public:
-	void SetPropertyNotify(IPropertyNotify *value) { m_pPropertyNotify = value; }
+	void AddPropertyNotification(IPropertyNotify *pNotify);
+	void DelPropertyNotification(IPropertyNotify *pNotify);
+	void ClearNotification(void);
+public:
+	IPropertyNotify *GetPropertyNotification(size_t index) { return m_pPropertyNotifications->at(index); }
+	size_t GetPropertyNotificationCount(void) { return m_pPropertyNotifications->size(); }
 protected:
 	void BeginSet(void *pObj, void *value);
 	void EndSet(void *pObj, void *value);
 	void BeginGet(void *pObj);
 	void EndGet(void *pObj, void *value);
 protected:
-	CPropertyBase(CPropertyBase &src) :m_pPropertyNotify(src.m_pPropertyNotify) {}
+	inline CPropertyBase(CPropertyBase &src);
 private:
-	IPropertyNotify		*m_pPropertyNotify;
+	std::vector<IPropertyNotify*>	*m_pPropertyNotifications;
 };
+
+inline CPropertyBase::CPropertyBase(CPropertyBase &src)
+	:m_pPropertyNotifications(new std::vector<IPropertyNotify*>(*src.m_pPropertyNotifications))
+{
+}
 
 /*---TPropertyBase---*/
 template <typename CLASS, typename T>
@@ -52,8 +63,8 @@ protected:
 private:
 	TPropertyBase(void) {}
 private:
-	Tpfun_set	m_pSet;
-	Tpfun_get	m_pGet;
+	const Tpfun_set	m_pSet;
+	const Tpfun_get	m_pGet;
 };
 
 template <typename CLASS, typename T>
@@ -111,13 +122,17 @@ public:
 	virtual inline void CallGet(void *value);
 	virtual CPropertyBase *Clone(void);
 public:
+	//attribute
+	CLASS *GetObject(void) { return m_pObj; }
+public:
 	inline Property &operator =(T value);
 	inline operator T();
+protected:
+	inline Property(Property &src);
 private:
 	Property(void) {}
-	Property(Property &src);
 private:
-	CLASS			*m_pObj;
+	CLASS		* const m_pObj;
 };
 
 template <typename CLASS, typename T>

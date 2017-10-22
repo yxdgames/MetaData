@@ -2,7 +2,7 @@
 
 #include "MetaData.h"
 
-class IInterface;
+class CLASS_DESCRIPT IInterface;
 
 class CLASS_DESCRIPT CMetaDataType : public CMetaData
 {

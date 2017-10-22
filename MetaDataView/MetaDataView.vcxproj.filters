@@ -108,6 +108,63 @@
     <ClInclude Include="..\Codes\include\Typedef.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IBlob.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IClone.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IContainer.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IInterface.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IInterfaceDefaultImp.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IPropertyNotify.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IUnkwn.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeProperty.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Property.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\SimpleString.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TUnkwnObject.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
