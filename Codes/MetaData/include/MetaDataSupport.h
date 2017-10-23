@@ -44,8 +44,12 @@
 #define MD_INTERFACE_DECLARE_DETAIL(name)				MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT_FOR_MD_SUPPORT)
 #define MD_INTERFACE_DECLARE_DETAIL_KERNEL(name)		MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT)
 
+				/*--设置GUID--*/
+#define MD_INTERFACE_GUID_DEF(data1, data2, data3, data4_1, data4_2, data4_3, data4_4, data4_5, data4_6, data4_7, data4_8) \
+	MD_CUSTOM_TYPE_GUID_DEF(data1, data2, data3, data4_1, data4_2, data4_3, data4_4, data4_5, data4_6, data4_7, data4_8)
+
 				/*--添加接口元数据信息--*/
-#define MD_INTERFACE_INTERFACE_DEF(parent_intf_name)	MD_CUSTOM_TYPE_INTERFACE_DEF(parent_intf_name)
+#define MD_INTERFACE_INTERFACE_DEF(parent_intf_name)					MD_CUSTOM_TYPE_INTERFACE_DEF(parent_intf_name)
 
 				/*--添加析构函数元数据信息--*/
 #define MD_INTERFACE_DESTRUCTOR_WRAPPER_DECLARE()						MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DECLARE()
@@ -75,6 +79,10 @@
 #define MD_CLASS_TYPE_DECLARE_BEGIN(name)					MD_CUSTOM_TYPE_DECLARE_BEGIN(name, CT, CMetaDataClassType)
 #define MD_CLASS_TYPE_DECLARE_DETAIL(name)					MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, CLASS_DESCRIPT_FOR_MD_SUPPORT)
 #define MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(name)			MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, CLASS_DESCRIPT)
+
+				/*--设置GUID--*/
+#define MD_CLASS_TYPE_GUID_DEF(data1, data2, data3, data4_1, data4_2, data4_3, data4_4, data4_5, data4_6, data4_7, data4_8) \
+	MD_CUSTOM_TYPE_GUID_DEF(data1, data2, data3, data4_1, data4_2, data4_3, data4_4, data4_5, data4_6, data4_7, data4_8)
 
 				/*--添加基类元数据信息--*/
 #define MD_CLASS_TYPE_BASE_CLASS_DEF(base_class_name)		MD_CUSTOM_TYPE_BASE_CLASS_DEF(base_class_name)
@@ -137,6 +145,10 @@
 #define MD_UNKWN_INTERFACE_DECLARE_BEGIN(name)				MD_CUSTOM_TYPE_DECLARE_BEGIN_NO_VIRTUAL(name, Iukn, CMetaDataInterface)
 #define MD_UNKWN_INTERFACE_DECLARE_DETAIL(name)				MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT_FOR_MD_SUPPORT)
 #define MD_UNKWN_INTERFACE_DECLARE_DETAIL_KERNEL(name)		MD_CUSTOM_TYPE_DECLARE_DETAIL(name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, CLASS_DESCRIPT)
+
+				/*--设置GUID--*/
+#define MD_UNKWN_INTERFACE_GUID_DEF(data1, data2, data3, data4_1, data4_2, data4_3, data4_4, data4_5, data4_6, data4_7, data4_8) \
+	MD_CUSTOM_TYPE_GUID_DEF(data1, data2, data3, data4_1, data4_2, data4_3, data4_4, data4_5, data4_6, data4_7, data4_8)
 
 				/*--添加接口元数据信息--*/
 #define MD_UNKWN_INTERFACE_INTERFACE_DEF(parent_intf_name)	MD_CUSTOM_TYPE_INTERFACE_DEF(parent_intf_name)

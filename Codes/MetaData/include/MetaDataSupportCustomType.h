@@ -11,6 +11,9 @@
 
 #define INT_FOR_MD_SIZEOF		int
 
+#define TYPE_BYTE4_FOR_MD		unsigned long
+#define TYPE_BYTE2_FOR_MD		unsigned short
+
 /****************************/
 /* Meta data of custom type */
 /****************************/
@@ -46,6 +49,16 @@
 				name *pTemObj(reinterpret_cast<name*>(sizeof(INT_FOR_MD_SIZEOF))); \
 				name *pTemObj2(reinterpret_cast<name*>(0)); \
 				CMetaDataFunction *pMDFunc;
+
+				/*--设置GUID--*/
+#define MD_CUSTOM_TYPE_GUID_DEF(data1, data2, data3, data4_1, data4_2, data4_3, data4_4, data4_5, data4_6, data4_7, data4_8) \
+	struct { \
+		TYPE_BYTE4_FOR_MD data_1; \
+		TYPE_BYTE2_FOR_MD data_2; \
+		TYPE_BYTE2_FOR_MD data_3; \
+		TDByte data_4[8]; \
+	} guid_data = { (data1), (data2), (data3), { (data4_1), (data4_2), (data4_3), (data4_4), (data4_5), (data4_6), (data4_7), (data4_8) } }; \
+	MDType.SetGUID(static_cast<void*>(&guid_data));
 
 				/*--添加基类元数据信息--*/
 #define MD_CUSTOM_TYPE_BASE_CLASS_DEF(base_class_name) \
@@ -131,7 +144,7 @@
 	static CMetaDataVariable _MD__SMV##var_name(#var_name, &MDType, TypeTraits<var_type>::GetMetaDataType(), (ptr_level), &var_name); \
 	MDType.AddStaticMemberVar(&_MD__SMV##var_name);
 
-				/*--添加AsTypeEx函数指针--*/
+				/*--设置AsTypeEx函数指针--*/
 #define MD_CUSTOM_TYPE_AS_TYPE_EX_DEF(pfun_as_type_ex) \
 	MDType.SetAsTypeExFunPtr(pfun_as_type_ex);
 

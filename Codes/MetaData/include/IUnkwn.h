@@ -16,7 +16,7 @@ typedef unsigned long	ULong;
 		unkwn_name(void) {} \
 		~unkwn_name(void) {}
 
-/*---IUnkwn---*/
+/*---IUnkwn(”ÎCOM IUnknownºÊ»›)---*/
 struct STRUCT_DESCRIPT IUnkwn
 {
 public:
@@ -30,5 +30,7 @@ IUNKWN_CONSTRAINT(IUnkwn)
 /*Meta Data Definition*/
 MD_UNKWN_INTERFACE_DECLARE_BEGIN(IUnkwn)
 MD_UNKWN_INTERFACE_DECLARE_DETAIL_KERNEL(IUnkwn)
+	//{ 00000000-0000-0000-C000-000000000046 }
+	MD_UNKWN_INTERFACE_GUID_DEF(0x00000000, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46)
 MD_UNKWN_INTERFACE_DECLARE_END(IUnkwn)
 };

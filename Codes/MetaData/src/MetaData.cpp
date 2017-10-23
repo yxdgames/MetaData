@@ -38,6 +38,21 @@ CMetaData::~CMetaData(void)
 	}
 }
 
+const CMetaData * CMetaData::FindChildMetaData(const TDGUID & guid) const
+{
+	if (!m_pChildren) return nullptr;
+	const CMetaData *pMD;
+	std::vector<const CMetaData*>::iterator itr;
+	for (itr = m_pChildren->begin(); itr != m_pChildren->end(); ++itr)
+	{
+		if ((*itr)->Compare(guid))
+			return (*itr);
+		pMD = (*itr)->FindChildMetaData(guid);
+		if (pMD) return pMD;
+	}
+	return nullptr;
+}
+
 const CMetaData *CMetaData::FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName) const
 {
 	if (!m_pChildren) return nullptr;

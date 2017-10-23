@@ -28,10 +28,11 @@ public:
 	virtual ~CMetaData(void);
 public:
 	//method
+	const CMetaData *FindChildMetaData(const TDGUID &guid) const;
 	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName) const;
 	bool FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children) const;
-	bool Compare(const CMetaData *pMetaData) const { return (this == pMetaData) || (pMetaData && pMetaData->m_GUID == this->m_GUID); }
-	bool Compare(const TDGUID &guid) const { return this->m_GUID == guid; }
+	inline bool Compare(const CMetaData *pMetaData) const;
+	inline bool Compare(const TDGUID &guid) const;
 public:
 	//attribute
 	const char *GetName(void) const							{ return m_pName; }
@@ -56,3 +57,16 @@ private:
 };
 
 extern FUNC_DESCRIPT const CMetaData *AssertMetaData(const CMetaData *pMetaData, unsigned char TypeID);
+
+/*--------------------------------*/
+/*   Inline Function Definition   */
+/*--------------------------------*/
+inline bool CMetaData::Compare(const CMetaData * pMetaData) const
+{
+	return (this == pMetaData) || (pMetaData && pMetaData->m_GUID.IsValid() && this->m_GUID == pMetaData->m_GUID);
+}
+
+inline bool CMetaData::Compare(const TDGUID &guid) const
+{
+	return this->m_GUID.IsValid() && this->m_GUID == guid;
+}
