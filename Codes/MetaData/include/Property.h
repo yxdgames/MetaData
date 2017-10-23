@@ -17,6 +17,7 @@ public:
 	virtual void CallGet(void *value) {}
 	virtual bool ExistSet(void) = 0;
 	virtual bool ExistGet(void) = 0;
+	virtual size_t GetDataSize(void) = 0;
 	virtual CPropertyBase *Clone(void) = 0;
 public:
 	void AddPropertyNotification(IPropertyNotify *pNotify);
@@ -57,6 +58,7 @@ public:
 	virtual void CallGet(void *pObj, void *value);
 	virtual bool ExistSet(void) { return m_pSet != nullptr; }
 	virtual bool ExistGet(void) { return m_pGet != nullptr; }
+	virtual size_t GetDataSize(void) { return sizeof(T); }
 	virtual CPropertyBase *Clone(void);
 protected:
 	inline TPropertyBase(TPropertyBase &src);
