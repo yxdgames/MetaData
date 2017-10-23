@@ -163,6 +163,10 @@
 		{ \
 			return this->GetType()->IsTypeOf(pType); \
 		} \
+		bool IsTypeOf(const TDGUID &guid) \
+		{ \
+			return this->GetType()->IsTypeOf(guid); \
+		} \
 		template <typename T> \
 		bool IsTypeOf(void) \
 		{ \
@@ -171,6 +175,10 @@
 		void *AsType(const CMetaDataType *pType) \
 		{ \
 			return this->GetType()->AsType(this->GetTrueSelf(), pType); \
+		} \
+		void *AsType(const TDGUID &guid) \
+		{ \
+			return this->GetType()->AsType(this->GetTrueSelf(), guid); \
 		} \
 		template <typename T> \
 		T *AsType(void) \

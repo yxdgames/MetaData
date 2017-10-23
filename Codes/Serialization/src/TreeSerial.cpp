@@ -213,10 +213,12 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 	}
 }
 
-void * CTreeSerial::AsTypeEx(void * pObj, const CMetaDataType * pType)
+void * CTreeSerial::AsTypeEx(void * pObj, const CMetaDataType *pType, const TDGUID &GUID)
 {
 	CTreeSerial *pTreeSerial(reinterpret_cast<CTreeSerial*>(pObj));
-	if (pType == TypeTraits<IBlobCreater>::GetMetaDataType())
+	if (TypeTraits<IBlobCreater>::GetMetaDataType()->Compare(pType)
+		|| TypeTraits<IBlobCreater>::GetMetaDataType()->Compare(GUID))
 		return pTreeSerial->m_pBlobCreater;
-	else return nullptr;
+	
+	return nullptr;
 }

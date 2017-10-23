@@ -45,6 +45,7 @@ public:
 	//GUID
 	void SetGUID(const TDGUID &guid) { this->m_GUID = guid; }
 	void SetGUID(const void *pData) { this->m_GUID = pData; }
+	const TDGUID &GetGUID(void) const { return m_GUID; }
 private:
 	void InsertSelfToParent(void);
 	void RemoveSelfFromParent(void);

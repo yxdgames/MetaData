@@ -3,11 +3,81 @@
 #include "..\include\MetaDataInterface.h"
 #include "..\include\ExceptionIDMetaData.h"
 
+template<typename _CompareType>
+bool CMetaDataCustomType::FindBaseType(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &BaseList) const
+{
+	if (m_pBaseTypeList)
+	{
+		std::vector<SMDBaseTypeOfCustomType>::iterator base_type_itr;
+		for (base_type_itr = m_pBaseTypeList->begin(); base_type_itr != m_pBaseTypeList->end(); ++base_type_itr)
+		{
+			BaseList.push_back(&(*base_type_itr));
+			if (base_type_itr->CustomType->Compare(ct_var))
+			{
+				return true;
+			}
+			else
+			{
+				if (base_type_itr->CustomType->FindBaseType<_CompareType>(ct_var, BaseList))
+				{
+					return true;
+				}
+			}
+			BaseList.pop_back();
+		}
+	}
+
+	return false;
+}
+
+template<typename _CompareType>
+bool CMetaDataCustomType::FindInterface(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &IntfList) const
+{
+	if (m_pInterfaceList)
+	{
+		std::vector<SMDInterfaceOfCustomType>::iterator intf_itr;
+		for (intf_itr = m_pInterfaceList->begin(); intf_itr != m_pInterfaceList->end(); ++intf_itr)
+		{
+			IntfList.push_back(&(*intf_itr));
+			if (intf_itr->Intf()->Compare(ct_var))
+			{
+				return true;
+			}
+			else
+			{
+				if (intf_itr->Intf()->FindInterface<_CompareType>(ct_var, IntfList))
+				{
+					return true;
+				}
+			}
+			IntfList.pop_back();
+		}
+	}
+	//查找基类支持的接口
+	if (m_pBaseTypeList)
+	{
+		std::vector<SMDBaseTypeOfCustomType>::iterator base_type_itr;
+		for (base_type_itr = m_pBaseTypeList->begin(); base_type_itr != m_pBaseTypeList->end(); ++base_type_itr)
+		{
+			IntfList.push_back(&(*base_type_itr));
+			if (base_type_itr->CustomType->FindInterface<_CompareType>(ct_var, IntfList))
+			{
+				return true;
+			}
+			IntfList.pop_back();
+		}
+	}
+
+	return false;
+}
+
+//CMetaDataCustomType
 CMetaDataCustomType::CMetaDataCustomType(const char *pName, const CMetaData *pParent, size_t size,
 										 bool EnableBaseType, bool bSealed, bool EnableStaticMemberFunc, bool EnableStaticMemberVar)
 	:CMetaDataType(pName, pParent, true, size),
 	m_EnableBaseType(EnableBaseType), m_Sealed(bSealed), m_EnableStaticMemberFunc(EnableStaticMemberFunc), m_EnableStaticMemberVar(EnableStaticMemberVar),
-	m_pBaseTypeList(nullptr), m_pInterfaceList(nullptr), m_pConstructorList(nullptr), m_pDestructor(nullptr),
+	m_pBaseTypeList(nullptr), m_pInterfaceList(nullptr), m_pUnknownInterfaceList(nullptr),
+	m_pConstructorList(nullptr), m_pDestructor(nullptr),
 	m_pMemberFuncList(nullptr), m_pMemberVarList(nullptr), m_pPropertyList(nullptr),
 	m_pStaticMemberFuncList(nullptr), m_pStaticMemberVarList(nullptr),
 	m_AsTypeExFunPtr(nullptr)
@@ -26,6 +96,11 @@ CMetaDataCustomType::~CMetaDataCustomType(void)
 	{
 		delete m_pInterfaceList;
 		m_pInterfaceList = nullptr;
+	}
+	if (m_pUnknownInterfaceList)
+	{
+		delete m_pUnknownInterfaceList;
+		m_pUnknownInterfaceList = nullptr;
 	}
 	if (m_pConstructorList)
 	{
@@ -59,87 +134,20 @@ CMetaDataCustomType::~CMetaDataCustomType(void)
 	}
 }
 
-void CMetaDataCustomType::AddBaseType(const CMetaDataCustomType *pBaseType, TDUIntPtr Offset)
-{
-	std::vector<SMDBaseTypeOfCustomType> *pBaseTypeList(GetBaseTypeList());
-	if (pBaseTypeList)
-	{
-		SMDBaseTypeOfCustomType bt;
-		bt.CustomType = pBaseType;
-		bt.Offset = Offset;
-		pBaseTypeList->push_back(bt);
-	}
-}
-
 void CMetaDataCustomType::AddInterface(const CMetaDataInterface *pIntf, TDUIntPtr Offset)
 {
-	std::vector<SMDInterfaceOfCustomType> *pIntfList(GetInterfaceList());
-	if (pIntfList)
-	{
-		SMDInterfaceOfCustomType intf;
-		intf.CustomType = pIntf;
-		intf.Offset = Offset;
-		pIntfList->push_back(intf);
-	}
+	SMDInterfaceOfCustomType intf;
+	intf.CustomType = pIntf;
+	intf.Offset = Offset;
+	GetInterfaceList()->push_back(intf);
 }
 
-void CMetaDataCustomType::AddConstructor(const CMetaDataFunction *pConstructorFunc)
+void CMetaDataCustomType::AddUnknownInterface(const CMetaDataInterface *pIntf, TDUIntPtr Offset)
 {
-	std::vector<const CMetaDataFunction*> *pConsList(GetConstructorList());
-	if (pConsList)
-	{
-		pConsList->push_back(pConstructorFunc);
-	}
-}
-
-void CMetaDataCustomType::SetDestructor(const CMetaDataFunction *pDestructor)
-{
-	m_pDestructor = pDestructor;
-}
-
-void CMetaDataCustomType::AddMemberFunc(const CMetaDataFunction *pMFunc)
-{
-	std::vector<const CMetaDataFunction*> *pMFuncList(GetMemberFuncList());
-	if (pMFuncList)
-	{
-		pMFuncList->push_back(pMFunc);
-	}
-}
-
-void CMetaDataCustomType::AddMemberVar(const CMetaDataCustomTypeMemberVar *pMVar)
-{
-	std::vector<const CMetaDataCustomTypeMemberVar*> *pMVarList(GetMemberVarList());
-	if (pMVarList)
-	{
-		pMVarList->push_back(pMVar);
-	}
-}
-
-void CMetaDataCustomType::AddProperty(const CMetaDataCustomTypeProperty *pProp)
-{
-	std::vector<const CMetaDataCustomTypeProperty*> *pPropList(GetPropertyList());
-	if (pPropList)
-	{
-		pPropList->push_back(pProp);
-	}
-}
-
-void CMetaDataCustomType::AddStaticMemberFunc(const CMetaDataFunction *pMFunc)
-{
-	std::vector<const CMetaDataFunction*> *pMFuncList(GetStaticMemberFuncList());
-	if (pMFuncList)
-	{
-		pMFuncList->push_back(pMFunc);
-	}
-}
-
-void CMetaDataCustomType::AddStaticMemberVar(const CMetaDataVariable *pMVar)
-{
-	std::vector<const CMetaDataVariable*> *pMVarList(GetStaticMemberVarList());
-	if (pMVarList)
-	{
-		pMVarList->push_back(pMVar);
-	}
+	SMDInterfaceOfCustomType intf;
+	intf.CustomType = pIntf;
+	intf.Offset = Offset;
+	GetUnknownInterfaceList()->push_back(intf);
 }
 
 bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj) const
@@ -232,16 +240,35 @@ bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, CParamVector 
 
 bool CMetaDataCustomType::IsTypeOf(const CMetaDataType *pType) const
 {
-	if (this == pType) return true;
+	if (this->Compare(pType)) return true;
 
-	std::vector<SMDCustomTypeOffsetDescript*> CTODescriptList;
+	std::vector<SMDCustomTypeOffsetDescriptInCustomType*> CTODescriptList;
 
-	if (FindBaseType(pType, CTODescriptList))
+	if (FindBaseType<const CMetaDataType*>(pType, CTODescriptList))
 	{
 		return true;
 	}
 
-	if (FindInterface(pType, CTODescriptList))
+	if (FindInterface<const CMetaDataType*>(pType, CTODescriptList))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool CMetaDataCustomType::IsTypeOf(const TDGUID &type_guid) const
+{
+	if (this->Compare(type_guid)) return true;
+
+	std::vector<SMDCustomTypeOffsetDescriptInCustomType*> CTODescriptList;
+
+	if (FindBaseType<const TDGUID&>(type_guid, CTODescriptList))
+	{
+		return true;
+	}
+
+	if (FindInterface<const TDGUID&>(type_guid, CTODescriptList))
 	{
 		return true;
 	}
@@ -251,13 +278,13 @@ bool CMetaDataCustomType::IsTypeOf(const CMetaDataType *pType) const
 
 void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 {
-	if (this == pType) return pObj;
+	if (this->Compare(pType)) return pObj;
 
 	TDUIntPtr total_offset(0);
 	size_t i;
 
-	std::vector<SMDCustomTypeOffsetDescript*> CTODescriptList;
-	if (FindBaseType(pType, CTODescriptList))
+	std::vector<SMDCustomTypeOffsetDescriptInCustomType*> CTODescriptList;
+	if (FindBaseType<const CMetaDataType*>(pType, CTODescriptList))
 	{
 		for (i = 0; i < CTODescriptList.size(); ++i)
 		{
@@ -266,7 +293,7 @@ void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 		return reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
 	}
 
-	if (FindInterface(pType, CTODescriptList))
+	if (FindInterface<const CMetaDataType*>(pType, CTODescriptList))
 	{
 		for (i = 0; i < CTODescriptList.size(); ++i)
 		{
@@ -277,7 +304,41 @@ void *CMetaDataCustomType::AsType(void *pObj, const CMetaDataType *pType) const
 
 	if (m_AsTypeExFunPtr)
 	{
-		return m_AsTypeExFunPtr(pObj, pType);
+		return m_AsTypeExFunPtr(pObj, pType, pType->GetGUID());
+	}
+
+	return nullptr;
+}
+
+void *CMetaDataCustomType::AsType(void *pObj, const TDGUID &type_guid) const
+{
+	if (this->Compare(type_guid)) return pObj;
+
+	TDUIntPtr total_offset(0);
+	size_t i;
+
+	std::vector<SMDCustomTypeOffsetDescriptInCustomType*> CTODescriptList;
+	if (FindBaseType<const TDGUID&>(type_guid, CTODescriptList))
+	{
+		for (i = 0; i < CTODescriptList.size(); ++i)
+		{
+			total_offset += CTODescriptList[i]->Offset;
+		}
+		return reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
+	}
+
+	if (FindInterface<const TDGUID&>(type_guid, CTODescriptList))
+	{
+		for (i = 0; i < CTODescriptList.size(); ++i)
+		{
+			total_offset += CTODescriptList[i]->Offset;
+		}
+		return reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
+	}
+
+	if (m_AsTypeExFunPtr)
+	{
+		return m_AsTypeExFunPtr(pObj, nullptr, type_guid);
 	}
 
 	return nullptr;
@@ -318,76 +379,6 @@ void CMetaDataCustomType::DeleteObject(void *pObj) const
 			m_pDestructor->CallFunction(1, pObj);
 		else throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "析构函数元数据不存在！");
 	}
-}
-
-bool CMetaDataCustomType::FindBaseType(const CMetaDataType * pType, std::vector<SMDCustomTypeOffsetDescript*> &BaseList) const
-{
-	if (!pType) return false;
-
-	if (m_pBaseTypeList)
-	{
-		std::vector<SMDBaseTypeOfCustomType>::iterator base_type_itr;
-		for (base_type_itr = m_pBaseTypeList->begin(); base_type_itr != m_pBaseTypeList->end(); ++base_type_itr)
-		{
-			BaseList.push_back(&(*base_type_itr));
-			if (base_type_itr->CustomType == pType)
-			{
-				return true;
-			}
-			else
-			{
-				if (base_type_itr->CustomType->FindBaseType(pType, BaseList))
-				{
-					return true;
-				}
-			}
-			BaseList.pop_back();
-		}
-	}
-
-	return false;
-}
-
-bool CMetaDataCustomType::FindInterface(const CMetaDataType * pIntf, std::vector<SMDCustomTypeOffsetDescript*> &IntfList) const
-{
-	if (!pIntf) return false;
-
-	if (m_pInterfaceList)
-	{
-		std::vector<SMDInterfaceOfCustomType>::iterator intf_itr;
-		for (intf_itr = m_pInterfaceList->begin(); intf_itr != m_pInterfaceList->end(); ++intf_itr)
-		{
-			IntfList.push_back(&(*intf_itr));
-			if (intf_itr->Intf() == pIntf)
-			{
-				return true;
-			}
-			else
-			{
-				if (intf_itr->Intf()->FindInterface(pIntf, IntfList))
-				{
-					return true;
-				}
-			}
-			IntfList.pop_back();
-		}
-	}
-	//查找基类支持的接口
-	if (m_pBaseTypeList)
-	{
-		std::vector<SMDBaseTypeOfCustomType>::iterator base_type_itr;
-		for (base_type_itr = m_pBaseTypeList->begin(); base_type_itr != m_pBaseTypeList->end(); ++base_type_itr)
-		{
-			IntfList.push_back(&(*base_type_itr));
-			if (base_type_itr->CustomType->FindInterface(pIntf, IntfList))
-			{
-				return true;
-			}
-			IntfList.pop_back();
-		}
-	}
-
-	return false;
 }
 
 void *CMetaDataCustomType::DoCreateObject(CParamVector *pParamTypes, va_list pParamList) const
