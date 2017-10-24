@@ -53,6 +53,9 @@ VAR_DESCRIPT const CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOB
 #include "IBlob.mdo"
 #include "IPropertyNotify.mdo"
 #include "SimpleString.mdo"
+
+//跨言语接口（与COM兼容的接口基类）
+#include "..\include\MetaDataSupport_Unkwn2.h"
 #include "IUnkwn.mdo"
 
 ////////////////////////////////////////////////

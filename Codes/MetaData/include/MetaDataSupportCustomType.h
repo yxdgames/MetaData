@@ -6,6 +6,10 @@
  * attention	None
  */
 
+#include "MetaDataInterface.h"
+#include "MetaDataClassType.h"
+#include "TypeTraits.h"
+
 //compile option.
 #define CO_MD_CUSTOM_TYPE_EXTRA
 
@@ -67,6 +71,10 @@
 				/*--添加接口元数据信息--*/
 #define MD_CUSTOM_TYPE_INTERFACE_DEF(intf_name) \
 	MDType.AddInterface(&META_DATA_CUSTOM_TYPE(intf_name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE), reinterpret_cast<TDUIntPtr>(static_cast<intf_name*>(pTemObj)) - sizeof(INT_FOR_MD_SIZEOF));
+
+				/*--添加未知接口元数据信息--*/
+#define MD_CUSTOM_TYPE_UNKNOWN_INTERFACE_DEF(unkwn_intf_name) \
+	MDType.AddUnknownInterface(&META_DATA_CUSTOM_TYPE(unkwn_intf_name, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE), reinterpret_cast<TDUIntPtr>(static_cast<unkwn_intf_name*>(pTemObj)) - sizeof(INT_FOR_MD_SIZEOF));
 
 				/*--添加构造函数元数据信息--*/
 #define MD_CUSTOM_TYPE_CONSTRUCTOR_WRAPPER_DECLARE(index) \
@@ -167,6 +175,10 @@
 		{ \
 			return this->GetType()->IsTypeOf(guid); \
 		} \
+		bool IsTypeOf(const char *pTypeFullName) \
+		{ \
+			return this->GetType()->IsTypeOf(pTypeFullName); \
+		} \
 		template <typename T> \
 		bool IsTypeOf(void) \
 		{ \
@@ -179,6 +191,10 @@
 		void *AsType(const TDGUID &guid) \
 		{ \
 			return this->GetType()->AsType(this->GetTrueSelf(), guid); \
+		} \
+		void *AsType(const char *pTypeFullName) \
+		{ \
+			return this->GetType()->AsType(this->GetTrueSelf(), pTypeFullName); \
 		} \
 		template <typename T> \
 		T *AsType(void) \

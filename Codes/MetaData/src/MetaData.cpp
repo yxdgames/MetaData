@@ -14,6 +14,7 @@ static const char *gMetaDataTypeCaption[] = {
 	"InnerType",
 	"CustomType",
 	"CustomTypeMemberVar",
+	"CustomTypeProperty",
 	"Class",
 	"Interface",
 	"Var Base",

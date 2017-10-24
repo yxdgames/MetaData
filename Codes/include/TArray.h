@@ -1,4 +1,6 @@
 #pragma once
+#include "ExceptionBase.h"
+#include "ExceptionID.h"
 
 template <typename T>
 class TArray

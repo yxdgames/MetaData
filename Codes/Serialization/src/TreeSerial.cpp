@@ -213,12 +213,26 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 	}
 }
 
-void * CTreeSerial::AsTypeEx(void * pObj, const CMetaDataType *pType, const TDGUID &GUID)
+void * CTreeSerial::AsTypeEx(void * pObj, const SAsTypeExTypeParam &AsTypeExParam)
 {
 	CTreeSerial *pTreeSerial(reinterpret_cast<CTreeSerial*>(pObj));
-	if (TypeTraits<IBlobCreater>::GetMetaDataType()->Compare(pType)
-		|| TypeTraits<IBlobCreater>::GetMetaDataType()->Compare(GUID))
-		return pTreeSerial->m_pBlobCreater;
+	switch (AsTypeExParam.ParamKind)
+	{
+	case SAsTypeExTypeParam::EParamKind::pkMDType:
+		if (TypeTraits<IBlobCreater>::GetMetaDataType()->Compare(AsTypeExParam.Param.pType))
+			return pTreeSerial->m_pBlobCreater;
+		break;
+	case SAsTypeExTypeParam::EParamKind::pkTypeGUID:
+		if (TypeTraits<IBlobCreater>::GetMetaDataType()->Compare(AsTypeExParam.Param.ptype_guid))
+			return pTreeSerial->m_pBlobCreater;
+		break;
+	case SAsTypeExTypeParam::EParamKind::pkTypeFullNameStr:
+		if (TypeTraits<IBlobCreater>::GetMetaDataType()->Compare(AsTypeExParam.Param.pTypeFullName))
+			return pTreeSerial->m_pBlobCreater;
+		break;
+	default:
+		break;
+	}
 	
 	return nullptr;
 }

@@ -28,7 +28,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -182,6 +182,8 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType2.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn2.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />

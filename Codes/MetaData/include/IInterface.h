@@ -1,5 +1,16 @@
 #pragma once
-
+/*--------------------------------------------------------*/
+/*                                                        */
+/*               元数据提供的默认接口基类                 */
+/*              元数据可以识别到IInterface                */
+/*                                                        */
+/* IInterface系接口要求：                                 */
+/*     直接派生自IInterface，并且将IInterface作为         */
+/* 第一个父接口的接口，称之为“IInterface系接口”。       */
+/*     间接派生自IInterface，并且将“IInterface系接口”   */
+/* 作为第一个父接口的接口，也称之为“IInterface系接口”。 */
+/*                                                        */
+/*--------------------------------------------------------*/
 #include "MetaDataSupport.h"
 
 class CLASS_DESCRIPT IInterface

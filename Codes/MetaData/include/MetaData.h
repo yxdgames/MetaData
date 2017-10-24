@@ -28,11 +28,12 @@ public:
 	virtual ~CMetaData(void);
 public:
 	//method
+	inline bool Compare(const CMetaData *pMetaData) const;
+	inline bool Compare(const TDGUID &guid) const;
+	inline bool Compare(const char *pFullName) const;
 	const CMetaData *FindChildMetaData(const TDGUID &guid) const;
 	const CMetaData *FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName) const;
 	bool FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children) const;
-	inline bool Compare(const CMetaData *pMetaData) const;
-	inline bool Compare(const TDGUID &guid) const;
 public:
 	//attribute
 	const char *GetName(void) const							{ return m_pName; }
@@ -62,6 +63,8 @@ extern FUNC_DESCRIPT const CMetaData *AssertMetaData(const CMetaData *pMetaData,
 /*--------------------------------*/
 /*   Inline Function Definition   */
 /*--------------------------------*/
+#include "..\..\include\TArray.h"
+
 inline bool CMetaData::Compare(const CMetaData * pMetaData) const
 {
 	return (this == pMetaData) || (pMetaData && pMetaData->m_GUID.IsValid() && this->m_GUID == pMetaData->m_GUID);
@@ -70,4 +73,11 @@ inline bool CMetaData::Compare(const CMetaData * pMetaData) const
 inline bool CMetaData::Compare(const TDGUID &guid) const
 {
 	return this->m_GUID.IsValid() && this->m_GUID == guid;
+}
+
+inline bool CMetaData::Compare(const char *pFullName) const
+{
+	TDCharArray char_array(1024);
+	return pFullName && this->GetFullName(char_array.array(), char_array.array_size())
+		&& (strcmp(char_array.array(), pFullName) == 0 || strcmp(char_array.array() + 2, pFullName) == 0); //+2是为了跳过"::"两个字符
 }

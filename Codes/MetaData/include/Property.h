@@ -100,8 +100,7 @@ void TPropertyBase<CLASS, T>::CallGet(void *pObj, void *value)
 template <typename CLASS, typename T>
 CPropertyBase *TPropertyBase<CLASS, T>::Clone(void)
 {
-	TPropertyBase<CLASS, T> *pProperty(new TPropertyBase<CLASS, T>(*this));
-	return pProperty;
+	return new TPropertyBase<CLASS, T>(*this);
 }
 
 template <typename CLASS, typename T>
@@ -152,8 +151,7 @@ inline void Property<CLASS, T>::CallGet(void *value)
 template <typename CLASS, typename T>
 CPropertyBase *Property<CLASS, T>::Clone(void)
 {
-	Property<CLASS, T> *pProperty(new Property<CLASS, T>(*this));
-	return pProperty;
+	return new Property<CLASS, T>(*this);
 }
 
 template <typename CLASS, typename T>

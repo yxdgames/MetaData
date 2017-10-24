@@ -35,7 +35,7 @@ private:
 private:
 	IBlobCreater *m_pBlobCreater;
 private:
-	static void *AsTypeEx(void *pObj, const CMetaDataType *pType, const TDGUID &GUID);
+	static void *AsTypeEx(void *pObj, const SAsTypeExTypeParam &AsTypeExParam);
 
 /*Meta Data Definition*/
 MD_CLASS_TYPE_DECLARE_BEGIN(CTreeSerial)

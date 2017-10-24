@@ -41,9 +41,6 @@ typedef GuidOfMetaData		TDGUID;
 /*--------------------------------*/
 /*   Inline Function Definition   */
 /*--------------------------------*/
-#include "ExceptionIDMetaData.h"
-#include "ExceptionMetaData.h"
-
 inline GuidOfMetaData::GuidOfMetaData(const void *pData)
 	:m_Valid(false)
 {

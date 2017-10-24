@@ -1,6 +1,19 @@
 #pragma once
-
-#include "MetaDataSupport.h"
+/*-------------------------------------------------------------------*/
+/*                                                                   */
+/*                            跨语言接口                             */
+/*          提供一个二进制层面的接口，可以与其它语言交互             */
+/*                      对于元数据侧是未知的。                       */
+/*                                                                   */
+/*   虽然CMetaDataCustomType定义了一个专门Vector来存放未知接口信息， */
+/* 但CMetaDataCustomType只是提供了一个信息存放容器，只是知道存放的   */
+/* 是一个非IInterface系接口的信息，并不知道是IUnkwn类型。使用时，由  */
+/* 使用方强转后使用。                                                */
+/*                                                                   */
+/*   派生自IUnkwn的子接口，必须将IUnkwn作为第一个父接口。            */
+/*                                                                   */
+/*-------------------------------------------------------------------*/
+#include "MetaDataSupport_Unkwn.h"
 #include <guiddef.h>
 
 /*---Type Definition---*/

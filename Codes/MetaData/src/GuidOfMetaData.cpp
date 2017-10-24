@@ -6,7 +6,6 @@ static TDUIntPtr gGuidInvalidData[MD_GUID_DATA_MAX] = { 0x00 };
 //GuidOfMetaData
 const GuidOfMetaData *GuidOfMetaData::m_pInvalid = nullptr;
 
-//Only for static member GuidOfMetaData object
 const GuidOfMetaData &GuidOfMetaData::Invalid(void)
 {
 	if (!m_pInvalid)

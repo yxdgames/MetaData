@@ -3,7 +3,7 @@
 
 
 CMetaDataInterface::CMetaDataInterface(const char *pName, const CMetaData *pParent, size_t size)
-	:CMetaDataCustomType(pName, pParent, size, true, false, true, true)
+	:CMetaDataCustomType(pName, pParent, size, false, false, true, true)
 {
 }
 

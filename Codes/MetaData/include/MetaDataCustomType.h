@@ -1,5 +1,25 @@
 #pragma once
-
+/*--------------------------------------------------------------------------------------------*/
+/*                                                                                            */
+/*                                CMetaDataCustomType                                         */
+/*                                                                                            */
+/*！强调！                                                                                    */
+/* m_pBaseTypeList: 存放自定义类型的基类信息。                                                */
+/* m_pInterfaceList: 存放自定义类型的“IInterface系接口”的接口信息。                         */
+/* m_pUnknownInterfaceList: 存放自定义类型的一切“非IInterface系接口”的接口信息。            */
+/*                                                                                            */
+/* 非IInterface系接口：只要不符合“IInterface系接口要求”的，都是非IInterface系接口。         */
+/*                                                                                            */
+/* 注：m_pUnknownInterfaceList中存放的信息是接口信息，但是这些接口是用户自定义的独立的接口，  */
+/* 不符合“IInterface系接口要求”。                                                           */
+/*                                                                                            */
+/* 例：系统中定义了一个IUnkwn的接口，它没有任何基类接口，这个就是一个“非IInterface系接口”。 */
+/* 当然，用户也可以按自己的要求，定义自己独立的接口（这个接口可以派生自IUnkwn，               */
+/* 也可以向IUnkwn那样，没有任何基类接口，完全独立，等...），                                  */
+/* 所有的这些“非IInterface系接口”都是加入到m_pUnknownInterfaceList中去。                    */
+/* 在使用过程中，由使用方直接强转回正确的接口类型，进行使用。                                 */
+/*                                                                                            */
+/*--------------------------------------------------------------------------------------------*/
 #include "MetaDataType.h"
 #include "MetaDataFunction.h"
 #include "MetaDataCustomTypeMemberVar.h"
@@ -30,7 +50,18 @@ struct STRUCT_DESCRIPT SMDInterfaceOfCustomType
 	}
 };
 
-typedef void *(*TpfunAsTypeEx)(void *pObj, const CMetaDataType *pType, const TDGUID &GUID);
+struct STRUCT_DESCRIPT SAsTypeExTypeParam
+{
+	enum EParamKind { pkNone, pkMDType, pkTypeGUID, pkTypeFullNameStr, };
+	EParamKind ParamKind;
+	union {
+		const CMetaDataType *pType;
+		const TDGUID *ptype_guid;
+		const char *pTypeFullName;
+	} Param;
+};
+
+typedef void *(*TpfunAsTypeEx)(void *pObj, const SAsTypeExTypeParam &AsTypeExParam);
 
 class CLASS_DESCRIPT CMetaDataCustomType : public CMetaDataType
 {
@@ -59,8 +90,10 @@ public:
 	//method - override
 	virtual bool IsTypeOf(const CMetaDataType *pType) const;
 	virtual bool IsTypeOf(const TDGUID &type_guid) const;
+	virtual bool IsTypeOf(const char *pTypeFullName) const;
 	virtual void *AsType(void *pObj, const CMetaDataType *pType) const;
 	virtual void *AsType(void *pObj, const TDGUID &type_guid) const;
+	virtual void *AsType(void *pObj, const char *pTypeFullName) const;
 	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf) const;
 	virtual void *NewObject(void) const;
 	virtual void DeleteObject(void *pObj) const;
@@ -114,14 +147,16 @@ private:
 	bool FindBaseType(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &BaseList) const;
 	template<typename _CompareType>
 	bool FindInterface(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &IntfList) const;
+	template<typename _CompareType>
+	bool FindUnknownInterface(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &IntfList) const;
 private:
 	bool												m_EnableBaseType;			//是否允许有基类
 	bool												m_Sealed;					//是否允许被继承
 	bool												m_EnableStaticMemberFunc;	//是否允许有静态成员函数
 	bool												m_EnableStaticMemberVar;	//是否允许有静态成员变量
 	std::vector<SMDBaseTypeOfCustomType>				*m_pBaseTypeList;			//基类
-	std::vector<SMDInterfaceOfCustomType>				*m_pInterfaceList;			//接口
-	std::vector<SMDInterfaceOfCustomType>				*m_pUnknownInterfaceList;	//接口(IUnkwn)
+	std::vector<SMDInterfaceOfCustomType>				*m_pInterfaceList;			//接口(IInterface系接口表)
+	std::vector<SMDInterfaceOfCustomType>				*m_pUnknownInterfaceList;	//未知接口(非IInterface系接口系表)
 	std::vector<const CMetaDataFunction*>				*m_pConstructorList;		//构造函数
 	const CMetaDataFunction								*m_pDestructor;				//析构函数
 	std::vector<const CMetaDataFunction*>				*m_pMemberFuncList;			//成员函数
