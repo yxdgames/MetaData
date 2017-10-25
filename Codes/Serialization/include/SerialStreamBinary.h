@@ -12,7 +12,7 @@ public:
 	virtual ~CSerialStreamBinary(void);
 public:
 	//IInterface
-	D_IMPLEMENT_IINTERFACE_MEMBER
+	D_IMPLEMENT_IINTERFACE_MEMBER_NO_METADATA
 	//ISerialStream
 	//method
 	virtual bool Serialize(ISerial *pSerial);

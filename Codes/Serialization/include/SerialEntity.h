@@ -11,7 +11,7 @@ public:
 	virtual ~CSerialEntity(void);
 public:
 	//IInterface
-	D_IMPLEMENT_IINTERFACE_MEMBER
+	D_IMPLEMENT_IINTERFACE_MEMBER_NO_METADATA
 	//ISerialEntity
 	//method
 	virtual ISerialEntity *NewChild(void);

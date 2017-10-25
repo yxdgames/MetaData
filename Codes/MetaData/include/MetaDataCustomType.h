@@ -94,7 +94,8 @@ public:
 	virtual void *AsType(void *pObj, const CMetaDataType *pType) const;
 	virtual void *AsType(void *pObj, const TDGUID &type_guid) const;
 	virtual void *AsType(void *pObj, const char *pTypeFullName) const;
-	virtual bool QueryInterface(void *pObj, char *pIntfName, IInterface **outIntf) const;
+	virtual bool QueryInterface(void *pObj, const char *pIntfName, IInterface **outIntf) const;
+	virtual bool QueryInterface(void *pObj, const TDGUID &IntfGuid, IInterface **outIntf) const;
 	virtual void *NewObject(void) const;
 	virtual void DeleteObject(void *pObj) const;
 public:
@@ -149,6 +150,12 @@ private:
 	bool FindInterface(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &IntfList) const;
 	template<typename _CompareType>
 	bool FindUnknownInterface(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &IntfList) const;
+	template<typename _CompareType>
+	bool DoIsTypeOf(_CompareType ct_var) const;
+	template<typename _CompareType, SAsTypeExTypeParam::EParamKind param_kind>
+	void *DoAsType(void *pObj, _CompareType ct_var) const;
+	template<typename _CompareType, SAsTypeExTypeParam::EParamKind param_kind>
+	inline void *CallAsTypeExFun(void *pObj, _CompareType ct_var) const;
 private:
 	bool												m_EnableBaseType;			//是否允许有基类
 	bool												m_Sealed;					//是否允许被继承

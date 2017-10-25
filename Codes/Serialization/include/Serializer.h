@@ -15,7 +15,7 @@ public:
 	virtual ~CSerializer(void);
 public:
 	//IInterface
-	D_IMPLEMENT_IINTERFACE_MEMBER
+	D_IMPLEMENT_IINTERFACE_MEMBER_NO_METADATA
 	//ISerializer
 	//method
 	//atrribute

@@ -5,9 +5,7 @@
 public: \
 	virtual bool QueryInterface(TDGUID &guid, IInterface **outIntf) \
 	{ \
-		if (!outIntf) return false; \
-		*outIntf = reinterpret_cast<IInterface*>(this->GetType()->AsType(this->GetTrueSelf(), guid)); \
-		return *outIntf != nullptr; \
+		return this->GetType()->QueryInterface(this->GetTrueSelf(), guid, outIntf); \
 	} \
 	virtual bool QueryInterface(char *pIntfName, IInterface **outIntf) \
 	{ \
