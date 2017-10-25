@@ -6,8 +6,8 @@
  * attention	None
  */
 
-#include "MetaDataInterface.h"
 #include "MetaDataClassType.h"
+#include "MetaDataInterface.h"
 #include "TypeTraits.h"
 
 //compile option.

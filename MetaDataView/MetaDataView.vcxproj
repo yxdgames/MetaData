@@ -94,7 +94,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\lib\Debug\MetaData.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\lib\Debug\MetaData.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,7 +134,6 @@
     <ClInclude Include="..\Codes\include\ExceptionBase.h" />
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
     <ClInclude Include="..\Codes\include\Typedef.h" />
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h" />
@@ -160,6 +159,8 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType2.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn.h" />
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn2.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h" />
     <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h" />

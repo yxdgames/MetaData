@@ -108,9 +108,6 @@
     <ClInclude Include="..\Codes\include\Typedef.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -163,6 +160,12 @@
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn2.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
   </ItemGroup>
