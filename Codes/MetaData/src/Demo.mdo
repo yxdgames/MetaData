@@ -2,6 +2,9 @@
 
 #ifdef __META_DATA_DEMO__
 
+//CUnkwn
+MD_CLASS_TYPE_DEF(CUnkwn)
+
 //CClass1
 MD_CLASS_TYPE_DEF(CClass1)
 

@@ -306,7 +306,7 @@ void CMetaDataCustomType::AddUnknownInterface(const CMetaDataInterface *pIntf, T
 	GetUnknownInterfaceList()->push_back(intf);
 }
 
-bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj) const
+bool CMetaDataCustomType::QueryBaseType(void *pObj, const char *pBaseTypeName, void **outObj) const
 {
 	if (!pObj || !pBaseTypeName || !outObj) return false;
 
@@ -329,16 +329,89 @@ bool CMetaDataCustomType::QueryBaseType(void *pObj, char *pBaseTypeName, void **
 		return true;
 	}
 
-	if (m_AsTypeExFunPtr)
+	*outObj = CallAsTypeExFun<const char*, SAsTypeExTypeParam::EParamKind::pkTypeFullNameStr>(pObj, pBaseTypeName);
+	return *outObj != nullptr;
+}
+
+bool CMetaDataCustomType::QueryBaseType(void * pObj, const TDGUID & BaseTypeGuid, void ** outObj) const
+{
+	if (!pObj || !outObj) return false;
+
+	if (this->Compare(BaseTypeGuid))
 	{
-		SAsTypeExTypeParam AsTypeExTypeParam;
-		AsTypeExTypeParam.ParamKind = SAsTypeExTypeParam::EParamKind::pkTypeFullNameStr;
-		AsTypeExTypeParam.Param.pTypeFullName = pBaseTypeName;
-		*outObj = m_AsTypeExFunPtr(pObj, AsTypeExTypeParam);
+		*outObj = pObj;
 		return true;
 	}
 
-	return false;
+	TDUIntPtr total_offset(0);
+
+	std::vector<SMDCustomTypeOffsetDescriptInCustomType*> CTODescriptList;
+	if (FindBaseType<const TDGUID&>(BaseTypeGuid, CTODescriptList))
+	{
+		for (size_t i = 0; i < CTODescriptList.size(); ++i)
+		{
+			total_offset += CTODescriptList[i]->Offset;
+		}
+		*outObj = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
+		return true;
+	}
+
+	*outObj = CallAsTypeExFun<const TDGUID&, SAsTypeExTypeParam::EParamKind::pkTypeGUID>(pObj, BaseTypeGuid);
+	return *outObj != nullptr;
+}
+
+bool CMetaDataCustomType::QueryUnknownInterface(void * pObj, const char * pUnkwnIntfName, void ** outUnkwnIntf) const
+{
+	if (!pObj || !pUnkwnIntfName || !outUnkwnIntf) return false;
+
+	if (this->Compare(pUnkwnIntfName))
+	{
+		*outUnkwnIntf = pObj;
+		return true;
+	}
+
+	TDUIntPtr total_offset(0);
+
+	std::vector<SMDCustomTypeOffsetDescriptInCustomType*> CTODescriptList;
+	if (FindUnknownInterface<const char*>(pUnkwnIntfName, CTODescriptList))
+	{
+		for (size_t i = 0; i < CTODescriptList.size(); ++i)
+		{
+			total_offset += CTODescriptList[i]->Offset;
+		}
+		*outUnkwnIntf = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
+		return true;
+	}
+
+	*outUnkwnIntf = CallAsTypeExFun<const char*, SAsTypeExTypeParam::EParamKind::pkTypeFullNameStr>(pObj, pUnkwnIntfName);
+	return *outUnkwnIntf != nullptr;
+}
+
+bool CMetaDataCustomType::QueryUnknownInterface(void * pObj, const TDGUID & UnkwnIntfGuid, void ** outUnkwnIntf) const
+{
+	if (!pObj || !outUnkwnIntf) return false;
+
+	if (this->Compare(UnkwnIntfGuid))
+	{
+		*outUnkwnIntf = pObj;
+		return true;
+	}
+
+	TDUIntPtr total_offset(0);
+
+	std::vector<SMDCustomTypeOffsetDescriptInCustomType*> CTODescriptList;
+	if (FindUnknownInterface<const TDGUID&>(UnkwnIntfGuid, CTODescriptList))
+	{
+		for (size_t i = 0; i < CTODescriptList.size(); ++i)
+		{
+			total_offset += CTODescriptList[i]->Offset;
+		}
+		*outUnkwnIntf = reinterpret_cast<void*>(reinterpret_cast<TDUIntPtr>(pObj) + total_offset);
+		return true;
+	}
+
+	*outUnkwnIntf = CallAsTypeExFun<const TDGUID&, SAsTypeExTypeParam::EParamKind::pkTypeGUID>(pObj, UnkwnIntfGuid);
+	return *outUnkwnIntf != nullptr;
 }
 
 bool CMetaDataCustomType::CallMemberFuction(char * pFunName, CParamVector *pParamTypes, ...) const
@@ -460,7 +533,7 @@ bool CMetaDataCustomType::QueryInterface(void *pObj, const char *pIntfName, IInt
 		return true;
 	}
 
-	*outIntf = reinterpret_cast<IInterface*>(CallAsTypeExFun<const char*, SAsTypeExTypeParam::EParamKind::pkTypeGUID>(pObj, pIntfName));
+	*outIntf = reinterpret_cast<IInterface*>(CallAsTypeExFun<const char*, SAsTypeExTypeParam::EParamKind::pkTypeFullNameStr>(pObj, pIntfName));
 	return *outIntf != nullptr;
 }
 

@@ -14,8 +14,14 @@
 
 class CLASS_DESCRIPT CUnkwn : public IUnkwn
 {
+public:
+	CUnkwn(void) {}
+	virtual ~CUnkwn(void) { printf("CUnkwn Object destructor!\n"); }
+MD_CLASS_TYPE_DECLARE_BEGIN(CUnkwn)
+MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CUnkwn)
+	MD_CLASS_TYPE_UNKNOWN_INTERFACE_DEF(IUnkwn)
+MD_CLASS_TYPE_DECLARE_END(CUnkwn)
 };
-extern TUnkwnObject<CUnkwn> *gobjUnkwn;
 
 class CLASS_DESCRIPT CClass1
 {

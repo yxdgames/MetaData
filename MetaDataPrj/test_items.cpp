@@ -365,3 +365,27 @@ void test_item_metadata_other(void)
 		delete pStr;
 	}
 }
+
+void test_item_iunkwn_obj_template(void)
+{
+	IUnkwn *pUnkwn(new TUnkwnObject<CUnkwn>);
+	printf("Unkwn Object AddRef:%d\n", pUnkwn->AddRef());
+	printf("Unkwn Object AddRef:%d\n", pUnkwn->AddRef());
+	printf("Unkwn Object AddRef:%d\n", pUnkwn->AddRef());
+	printf("Unkwn Object AddRef:%d\n", pUnkwn->AddRef());
+	printf("Unkwn Object AddRef:%d\n", pUnkwn->AddRef());
+
+	printf("Unkwn Object Release:%d\n", pUnkwn->Release());
+	printf("Unkwn Object Release:%d\n", pUnkwn->Release());
+	printf("Unkwn Object Release:%d\n", pUnkwn->Release());
+	printf("Unkwn Object Release:%d\n", pUnkwn->Release());
+	IID iid = { 0x00000000, 0x0000, 0x0000, { 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46 } };
+	void *outUnkwn(nullptr);
+	if (pUnkwn->QueryInterface(iid, &outUnkwn) == 0)
+	{
+		printf("QueryInterface successfully:%p - %p\n", pUnkwn, outUnkwn);
+		reinterpret_cast<IUnkwn*>(outUnkwn)->Release();
+	}
+	else printf("QueryInterface failure:%p - %p\n", pUnkwn, outUnkwn);
+	printf("Unkwn Object Release:%d\n", pUnkwn->Release());
+}

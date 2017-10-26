@@ -83,7 +83,10 @@ public:
 	inline void AddStaticMemberVar(const CMetaDataVariable *pMVar);
 
 	//bool OutputMemberVar(char *pVarName, void *pOutputAddr);
-	bool QueryBaseType(void *pObj, char *pBaseTypeName, void **outObj) const;
+	bool QueryBaseType(void *pObj, const char *pBaseTypeName, void **outObj) const;
+	bool QueryBaseType(void *pObj, const TDGUID &BaseTypeGuid, void **outObj) const;
+	bool QueryUnknownInterface(void *pObj, const char *pUnkwnIntfName, void **outUnkwnIntf) const;
+	bool QueryUnknownInterface(void *pObj, const TDGUID &UnkwnIntfGuid, void **outUnkwnIntf) const;
 	bool __cdecl CallMemberFuction(char *pFunName, CParamVector *pParamTypes, ...) const;
 	bool __cdecl CallStaticMemberFuction(char *pFunName, CParamVector *pParamTypes, ...) const;
 public:

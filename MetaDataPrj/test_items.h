@@ -12,3 +12,5 @@ extern void test_item_metadata_function_call(void);
 extern void test_item_metadata_property(void);
 
 extern void test_item_metadata_other(void);
+
+extern void test_item_iunkwn_obj_template(void);

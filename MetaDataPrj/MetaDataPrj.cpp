@@ -52,6 +52,7 @@ public:
 		<<" unserial_xml : save tested object to xml file."<<std::endl \
 		<<" func_call : call function."<<std::endl \
 		<<" property : test property."<<std::endl \
+		<<" unkwn_object_template : test UnkwnObject Template."<<std::endl \
 		<<" other : ..."<<std::endl \
 		<<" exit : exit application."<<std::endl<<std::endl; \
 	}
@@ -122,6 +123,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		else if (strcmp(input_string, "property") == 0)
 		{
 			test_item_metadata_property();
+		}
+		else if (strcmp(input_string, "unkwn_object_template") == 0)
+		{
+			test_item_iunkwn_obj_template();
 		}
 		else if (strcmp(input_string, "other") == 0)
 		{
