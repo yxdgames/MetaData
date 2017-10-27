@@ -82,7 +82,7 @@ public:
 	inline void AddStaticMemberFunc(const CMetaDataFunction *pMFunc);
 	inline void AddStaticMemberVar(const CMetaDataVariable *pMVar);
 
-	//bool OutputMemberVar(char *pVarName, void *pOutputAddr);
+	//bool OutputMemberVar(char *pVarName, void *pOutputAddr) const;
 	bool QueryBaseType(void *pObj, const char *pBaseTypeName, void **outObj) const;
 	bool QueryBaseType(void *pObj, const TDGUID &BaseTypeGuid, void **outObj) const;
 	bool QueryUnknownInterface(void *pObj, const char *pUnkwnIntfName, void **outUnkwnIntf) const;
@@ -295,8 +295,6 @@ inline std::vector<const CMetaDataVariable*> *CMetaDataCustomType::GetStaticMemb
 /*--------------*/
 /*   Template   */
 /*--------------*/
-#include "ExceptionMetaData.h"
-#include "..\..\include\ExceptionID.h"
 #include <stdarg.h>
 
 template<typename T>

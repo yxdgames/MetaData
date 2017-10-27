@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "..\include\MetaDataCustomType.h"
 #include "..\include\MetaDataInterface.h"
+#include "..\include\ExceptionMetaData.h"
 #include "..\include\ExceptionIDMetaData.h"
 
 /*----------------------------------------*/
