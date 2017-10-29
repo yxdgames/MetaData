@@ -27,7 +27,7 @@ private:
 			std::vector<TDBinBaseUnit> positions;
 		};
 	public:
-		SStringFilePositions *FindItem(const char *pString, bool bNew);
+		inline SStringFilePositions *FindItem(const char *pString, bool bNew);
 	public:
 		std::vector<SStringFilePositions> info_vector;
 	};
@@ -36,9 +36,11 @@ private:
 	public:
 		struct SBlobFilePosition
 		{
-			IBlob *pBlog;
-			TDBinBaseUnit Posistion;
+			IBlob *pBlob;
+			std::vector<TDBinBaseUnit> posistions;
 		};
+	public:
+		inline SBlobFilePosition *FindItem(IBlob *pBlob, bool bNew);
 	public:
 		std::vector<SBlobFilePosition> info_vector;
 	};

@@ -16,7 +16,7 @@
 #define D_BLOB_BUFFER_SIZE_MAX		(10 * 1024 * 1024) //10M
 
 //CSerialStreamBinary::SStringFilePositionList
-CSerialStreamBinary::SStringFilePositionList::SStringFilePositions *CSerialStreamBinary::SStringFilePositionList::FindItem(const char *pString, bool bNew)
+inline CSerialStreamBinary::SStringFilePositionList::SStringFilePositions *CSerialStreamBinary::SStringFilePositionList::FindItem(const char *pString, bool bNew)
 {
 	SStringFilePositions *pStringFilePos(nullptr);
 	for (size_t i = 0; i < this->info_vector.size(); ++i)
@@ -36,6 +36,27 @@ CSerialStreamBinary::SStringFilePositionList::SStringFilePositions *CSerialStrea
 		pStringFilePos = &info_vector.back();
 	}
 	return pStringFilePos;
+}
+
+inline CSerialStreamBinary::SBlobFilePositionList::SBlobFilePosition *CSerialStreamBinary::SBlobFilePositionList::FindItem(IBlob *pBlob, bool bNew)
+{
+	SBlobFilePosition *pBlobFilePosition(nullptr);
+	for (size_t i = 0; i < this->info_vector.size(); ++i)
+	{
+		if (pBlob && pBlob == this->info_vector.at(i).pBlob)
+		{
+			pBlobFilePosition = &info_vector.at(i);
+			break;
+		}
+	}
+	if (!pBlobFilePosition && bNew)
+	{
+		SBlobFilePosition value;
+		value.pBlob = pBlob;
+		info_vector.push_back(value);
+		pBlobFilePosition = &info_vector.back();
+	}
+	return pBlobFilePosition;
 }
 
 //CSerialStreamBinary
@@ -158,7 +179,7 @@ size_t CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt)
 	SAtom atom = { D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_ENTITY, 0 };
 	TDBinBaseUnit atom_size_pos;
 	SStringFilePositionList::SStringFilePositions *pStringFilePos;
-	SBlobFilePositionList::SBlobFilePosition BlobFilePos;
+	SBlobFilePositionList::SBlobFilePosition *pBlobFilePos;
 
 	pStringFilePos = this->m_StringFilePositionList.FindItem(pEnt->GetName(), true);
 	pStringFilePos->positions.push_back(m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, name_addr));
@@ -179,9 +200,8 @@ size_t CSerialStreamBinary::SerializeEntity(ISerialEntity *pEnt)
 	{
 		if (pEnt->GetValue().value._pblob)
 		{
-			BlobFilePos.pBlog = pEnt->GetValue().value._pblob;
-			BlobFilePos.Posistion = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, value[0]);
-			m_BlobFilePositionList.info_vector.push_back(BlobFilePos);
+			pBlobFilePos = this->m_BlobFilePositionList.FindItem(pEnt->GetValue().value._pblob, true);
+			pBlobFilePos->posistions.push_back(m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SFileEntityItem, value[0]));
 		}
 	}
 
@@ -261,21 +281,24 @@ bool CSerialStreamBinary::SerializeBlob(void)
 	
 	for (size_t i = 0; i < m_BlobFilePositionList.info_vector.size(); ++i)
 	{
-		m_pStream->seekp(m_BlobFilePositionList.info_vector.at(i).Posistion);
-		m_pStream->write((char*)&m_StreamPosition, sizeof(m_StreamPosition));
+		for (size_t j = 0; j < m_BlobFilePositionList.info_vector.at(i).posistions.size(); ++j)
+		{
+			m_pStream->seekp(m_BlobFilePositionList.info_vector.at(i).posistions.at(j));
+			m_pStream->write((char*)&m_StreamPosition, sizeof(m_StreamPosition));
+		}
 		m_pStream->seekp(m_StreamPosition);
 
 		atom_size_pos = m_StreamPosition + D_CLASS_MEMBER_VARIABLE_OFFSET(SAtom, size);
 		m_pStream->write((char*)&atom, sizeof(atom));
 		m_StreamPosition += sizeof(atom);
 
-		m_BlobFilePositionList.info_vector.at(i).pBlog->BeginRead();
+		m_BlobFilePositionList.info_vector.at(i).pBlob->BeginRead();
 		try
 		{
 			atom.size = sizeof(atom);
 			while (true)
 			{
-				read_size = m_BlobFilePositionList.info_vector.at(i).pBlog->Read(Buffer.array(), Buffer.array_size());
+				read_size = m_BlobFilePositionList.info_vector.at(i).pBlob->Read(Buffer.array(), Buffer.array_size());
 				if (read_size)
 				{
 					m_pStream->write((char*)Buffer.array(), read_size);
@@ -290,10 +313,10 @@ bool CSerialStreamBinary::SerializeBlob(void)
 		}
 		catch (...)
 		{
-			m_BlobFilePositionList.info_vector.at(i).pBlog->EndRead();
+			m_BlobFilePositionList.info_vector.at(i).pBlob->EndRead();
 			throw;
 		}
-		m_BlobFilePositionList.info_vector.at(i).pBlog->EndRead();
+		m_BlobFilePositionList.info_vector.at(i).pBlob->EndRead();
 	}
 
 	return true;
