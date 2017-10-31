@@ -210,6 +210,15 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType2.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TUnkwnObject.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISetBlobCreater.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -335,6 +344,12 @@
     <ClCompile Include="..\Codes\MetaData\src\IPropertyNotify.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISetBlobCreater.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\MetaData\src\Demo.mdo">
@@ -378,6 +393,9 @@
     </None>
     <None Include="..\Codes\MetaData\src\IPropertyNotify.mdo">
       <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ISetBlobCreater.mdo">
+      <Filter>Codes\Serialization\src</Filter>
     </None>
   </ItemGroup>
 </Project>

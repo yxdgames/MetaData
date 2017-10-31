@@ -34,12 +34,6 @@
     <Filter Include="Codes\MetaData\src">
       <UniqueIdentifier>{8c1760e5-d549-4405-8343-11872681bb6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Codes\lib_h">
-      <UniqueIdentifier>{544841ce-0481-41d2-8037-df4cc95fbb60}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="lib">
-      <UniqueIdentifier>{5e6e0599-7293-4747-9321-87bbd02f3ce7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Codes\include">
       <UniqueIdentifier>{431c7281-a2bf-47f1-8d2e-9099961d88ef}</UniqueIdentifier>
     </Filter>
@@ -119,12 +113,6 @@
     </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\IContainer.h">
       <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Codes\lib_h\expat.h">
-      <Filter>Codes\lib_h</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Codes\lib_h\expat_external.h">
-      <Filter>Codes\lib_h</Filter>
     </ClInclude>
     <ClInclude Include="..\Codes\Serialization\include\SVariant.h">
       <Filter>Codes\Serialization\include</Filter>
@@ -230,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn2.h">
       <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h">
+      <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

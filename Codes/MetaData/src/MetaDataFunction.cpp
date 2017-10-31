@@ -6,118 +6,120 @@
 #include "..\include\ExceptionIDMetaData.h"
 #include <stdarg.h>
 
-#define MD_FUNC_VA_INTSIZEOF(n)   ( ((n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )
+#ifdef CO_PLATFORM_WIN_X64
+#define MD_FUNC_VAR_PARAM_ELE_STANDARD_SIZE		sizeof(__int64)
+#else
+#define MD_FUNC_VAR_PARAM_SIZEOF(n)   ( ((n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )
+#endif
 
 //提取变参函数里的参数数据值及其Size.
-static int ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *pMDType, void *pData, /*out*/void **pBuff)
+static inline size_t ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *pMDType, void *pData, /*out*/void **pParamPtrBuffer)
 {	
-	if (!pMDType) return 0;
-
+	if (!pMDType || !pData || !pParamPtrBuffer) return 0;
+#ifdef CO_PLATFORM_WIN_X64
+	if ( pMDType->GetSize() > MD_FUNC_VAR_PARAM_ELE_STANDARD_SIZE
+		|| ( pMDType->GetSize() & (pMDType->GetSize() - 1) ) != 0 )
+	{
+		*pParamPtrBuffer = *reinterpret_cast<void**>(pData);
+	}
+	else
+	{
+		*pParamPtrBuffer = pData;
+	}
+	return MD_FUNC_VAR_PARAM_ELE_STANDARD_SIZE;
+#else
 	if (TypeTraits<char>::GetMetaDataType() == pMDType)
 	{
-		if (pData && pBuff)
-		{
-			char *pC(new char);
-			*pC = *reinterpret_cast<int*>(pData);
-			*pBuff = pC;
-		}
+		char *pC(new char);
+		*pC = *reinterpret_cast<int*>(pData);
+		*pParamPtrBuffer = pC;
 		return sizeof(int);
 	}
 	else if (TypeTraits<wchar_t>::GetMetaDataType() == pMDType)
 	{
-		if (pData && pBuff)
-		{
-			wchar_t *pWCT(new wchar_t);
-			*pWCT = *reinterpret_cast<int*>(pData);
-			*pBuff = pWCT;
-		}
+		wchar_t *pWCT(new wchar_t);
+		*pWCT = *reinterpret_cast<int*>(pData);
+		*pParamPtrBuffer = pWCT;
 		return sizeof(int);
 	}
 	else if (TypeTraits<short>::GetMetaDataType() == pMDType)
 	{
-		if (pData && pBuff)
-		{
-			short *pS(new short);
-			*pS = *reinterpret_cast<int*>(pData);
-			*pBuff = pS;
-		}
+		short *pS(new short);
+		*pS = *reinterpret_cast<int*>(pData);
+		*pParamPtrBuffer = pS;
 		return sizeof(int);
 	}
 	else if (TypeTraits<unsigned char>::GetMetaDataType() == pMDType)
 	{
-		if (pData && pBuff)
-		{
-			unsigned char *pUC(new unsigned char);
-			*pUC = *reinterpret_cast<int*>(pData);
-			*pBuff = pUC;
-		}
+		unsigned char *pUC(new unsigned char);
+		*pUC = *reinterpret_cast<int*>(pData);
+		*pParamPtrBuffer = pUC;
 		return sizeof(int);
 	}
 	else if (TypeTraits<unsigned short>::GetMetaDataType() == pMDType)
 	{
-		if (pData && pBuff)
-		{
-			unsigned short *pUS(new unsigned short);
-			*pUS = *reinterpret_cast<int*>(pData);
-			*pBuff = pUS;
-		}
+		unsigned short *pUS(new unsigned short);
+		*pUS = *reinterpret_cast<int*>(pData);
+		*pParamPtrBuffer = pUS;
 		return sizeof(int);
 	}
 	else if (TypeTraits<float>::GetMetaDataType() == pMDType)
 	{
-		if (pData && pBuff)
-		{
-			float *pF(new float);
-			*pF = static_cast<float>(*reinterpret_cast<double*>(pData));
-			*pBuff = pF;
-		}
+		float *pF(new float);
+		*pF = static_cast<float>(*reinterpret_cast<double*>(pData));
+		*pParamPtrBuffer = pF;
 		return sizeof(double);
 	}
 	else
 	{
-		if (pBuff) *pBuff = nullptr;
-		return MD_FUNC_VA_INTSIZEOF(pMDType->GetSize());
+		*pParamPtrBuffer = pData;
+		return MD_FUNC_VAR_PARAM_SIZEOF(pMDType->GetSize());
 	}
+#endif
 }
 
-static void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType, void **pBuff)
+static inline void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType, void **pParamPtrBuffer)
 {
-	if (!pMDType || !pBuff) return;
+#ifdef CO_PLATFORM_WIN_X64
+	//do nothing.
+#else
+	if (!pMDType || !pParamPtrBuffer) return;
 
 	if (TypeTraits<char>::GetMetaDataType() == pMDType)
 	{
-		char *pC(reinterpret_cast<char*>(*pBuff));
+		char *pC(reinterpret_cast<char*>(*pParamPtrBuffer));
 		delete pC;
 	}
 	else if (TypeTraits<wchar_t>::GetMetaDataType() == pMDType)
 	{
-		wchar_t *pWCT(reinterpret_cast<wchar_t*>(*pBuff));
+		wchar_t *pWCT(reinterpret_cast<wchar_t*>(*pParamPtrBuffer));
 		delete pWCT;
 	}
 	else if (TypeTraits<short>::GetMetaDataType() == pMDType)
 	{
-		short *pS(reinterpret_cast<short*>(*pBuff));
+		short *pS(reinterpret_cast<short*>(*pParamPtrBuffer));
 		delete pS;
 	}
 	else if (TypeTraits<unsigned char>::GetMetaDataType() == pMDType)
 	{
-		unsigned char *pUC(reinterpret_cast<unsigned char*>(*pBuff));
+		unsigned char *pUC(reinterpret_cast<unsigned char*>(*pParamPtrBuffer));
 		delete pUC;
 	}
 	else if (TypeTraits<unsigned short>::GetMetaDataType() == pMDType)
 	{
-		unsigned short *pUS(reinterpret_cast<unsigned short*>(*pBuff));
+		unsigned short *pUS(reinterpret_cast<unsigned short*>(*pParamPtrBuffer));
 		delete pUS;
 	}
 	else if (TypeTraits<float>::GetMetaDataType() == pMDType)
 	{
-		float *pF(reinterpret_cast<float*>(*pBuff));
+		float *pF(reinterpret_cast<float*>(*pParamPtrBuffer));
 		delete pF;
 	}
 	else
 	{
 		//do nothing.
 	}
+#endif
 }
 
 CMetaDataFunction::CMetaDataFunction(const char *pName, const CMetaData *pParent, void *pFunction)
@@ -249,11 +251,10 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pPa
 
 	TDUIntPtr param_addr;
 
-	bool *pNeedRelease(nullptr);
 	void **pParamPtrBuffer = nullptr;
 
 	size_t index;
-	int data_size_in_container;
+	size_t data_size_in_container;
 	bool bParamsOK(true);
 
 	SMetaDataCalledFunctionDataPacket Packet;
@@ -263,7 +264,6 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pPa
 	if (param_count)
 	{
 		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：参数表缺失！");
-		pNeedRelease = new bool[param_count];
 		pParamPtrBuffer = new void*[param_count];
 		memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
 	}
@@ -287,11 +287,10 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pPa
 					reinterpret_cast<void*>(param_addr),
 					pParamPtrBuffer + index);
 			}
-			else data_size_in_container = sizeof(void*);
-			pNeedRelease[index] = pParamPtrBuffer[index] != nullptr;
-			if (!pNeedRelease[index])
+			else
 			{
 				pParamPtrBuffer[index] = reinterpret_cast<void*>(param_addr);
+				data_size_in_container = sizeof(void*);
 			}
 			param_addr += data_size_in_container;
 		}
@@ -324,25 +323,21 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pPa
 		{
 			for (index = 0; index < param_count; ++index)
 			{
-				if (pNeedRelease[index])
-					FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
+				FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
 			}
 			throw;
 		}
 		for (index = 0; index < param_count; ++index)
 		{
-			if (pNeedRelease[index])
-				FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
+			FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
 		}
 	}
 	catch(...)
 	{
 		if (pParamPtrBuffer) delete [] pParamPtrBuffer;
-		if (pNeedRelease) delete[] pNeedRelease;
 		throw;
 	}
 	if (pParamPtrBuffer) delete [] pParamPtrBuffer;
-	if (pNeedRelease) delete[] pNeedRelease;
 
 	return ret;
 }
