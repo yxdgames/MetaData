@@ -276,6 +276,19 @@ void test_item_metadata_function_call(void)
 		printf("ClassType call ret: %d\n\n", ret);
 	}
 
+	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::SetParam"));
+	if (pTmpFunc)
+	{
+		pFunc = pTmpFunc;
+		SParam param;
+		TDByte ret;
+		param.Data[0] = 10;
+		param.Data[1] = 11;
+		param.Data[2] = 32;
+		pFunc->CallFunction(4, pObj, param, 20.813, 19, &ret);
+		printf(" ret: %d\n\n", ret);
+	}
+
 	pTmpFunc = reinterpret_cast<const CMetaDataFunction*>(pClsType->FindChildMetaData(D_META_DATA_TYPE_ID_FUNCTION, "::CClass1::cls1_vir_func1"));
 	if (pTmpFunc)
 	{

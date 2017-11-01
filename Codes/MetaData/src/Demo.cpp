@@ -33,6 +33,16 @@ int CClass1::cls1_func2(unsigned char c, double d)
 	return ret;
 }
 
+TDByte CClass1::SetParam(SParam param, float f, long l)
+{
+	m_Param = param;
+	float fr = m_Param.Data[0] + m_Param.Data[1] + m_Param.Data[2] - f + l;
+	TDByte ret = (TDByte)fr;
+	printf("m_Param.Data[0]:%d, m_Param.Data[1]:%d, m_Param.Data[2]:%d, f:%f, l:%ld, fr:%f, ret = %d\n",
+		this->m_Param.Data[0], this->m_Param.Data[1], this->m_Param.Data[2], f, l, fr, ret);
+	return ret;
+}
+
 double CClass1::cls1_vir_func1(float f, unsigned long l)
 {
 	double ret = f + l - this->mem_d;

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "..\include\TreeSerial.h"
 #include "..\include\ISerialStream.h"
-
 #include <fstream>
 
 static const ESerialStreamIntfType gTreeSerialSerialStreamIntfType[ssiMax] = {
@@ -150,6 +149,26 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		}
 		switch(pEnt->GetValue().type)
 		{
+#ifdef CO_PLATFORM_WIN_X64
+		case vtBOOL:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
+			break;
+		case vtINT:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._i);
+			break;
+		case vtFLOAT:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%f\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._d);
+			break;
+		case vtLONGLONG:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%lld\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
+			break;
+		case vtCSTR_PTR:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%s\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._pcstr);
+			break;
+		default:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);
+			break;
+#else
 		case vtBOOL:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%d\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
 			break;
@@ -168,6 +187,7 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		default:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);
 			break;
+#endif
 		}
 
 		for (i = 0; i < pEnt->GetChildrenCount(); ++i)
@@ -191,6 +211,26 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		}
 		switch(pEnt->GetValue().type)
 		{
+#ifdef CO_PLATFORM_WIN_X64
+		case vtBOOL:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
+			break;
+		case vtINT:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._i);
+			break;
+		case vtFLOAT:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%f\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._d);
+			break;
+		case vtLONGLONG:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%lld\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._ll);
+			break;
+		case vtCSTR_PTR:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%s\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._pcstr);
+			break;
+		default:
+			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);
+			break;
+#else
 		case vtBOOL:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"%d\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
 			break;
@@ -209,6 +249,7 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		default:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);
 			break;
+#endif
 		}
 	}
 }

@@ -12,6 +12,15 @@
 //                  Demo                      //
 ////////////////////////////////////////////////
 
+struct CLASS_DESCRIPT SParam
+{
+	TDByte Data[3];
+
+MD_CLASS_TYPE_DECLARE_BEGIN(SParam)
+MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(SParam)
+MD_CLASS_TYPE_DECLARE_END(SParam)
+};
+
 class CLASS_DESCRIPT CUnkwn : public IUnkwn
 {
 public:
@@ -31,6 +40,7 @@ public:
 public:
 	int cls1_func1(int a, double d);
 	int cls1_func2(unsigned char c, double d);
+	TDByte SetParam(SParam param, float f, long l);
 public:
 	virtual double cls1_vir_func1(float f, unsigned long l);
 public:
@@ -46,6 +56,7 @@ public:
 	long mem_long;
 	long *p_mem_long;
 	const char *m_pString;
+	SParam m_Param;
 public:
 	void Set_mem_i(int value) { mem_i = value; printf("Set_mem_i\n"); }
 	int Get_mem_i(void) { printf("Get_mem_i\n"); return mem_i; }
@@ -65,6 +76,7 @@ MD_CLASS_TYPE_DECLARE_BEGIN(CClass1)
 	MD_CLASS_TYPE_DESTRUCTOR_WRAPPER_DECLARE()
 	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_func1, 0)
 	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_func2, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(SetParam, 0)
 	MD_CLASS_TYPE_MEMBER_FUNC_WRAPPER_DECLARE(cls1_vir_func1, 0)
 	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(cls1_static_func1, 0)
 	MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DECLARE(cls1_static_func1, 1)
@@ -80,6 +92,11 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1)
 		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(c, unsigned char, 0)
 		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(d, double, 0)
 		MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(int, 0)
+	MD_CLASS_TYPE_MEMBER_FUNC_DEF(SetParam, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(param, SParam, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(f, float, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(l, long, 0)
+		MD_CLASS_TYPE_MEMBER_FUNC_RETURN_DEF(TDByte, 0)
 	MD_CLASS_TYPE_MEMBER_FUNC_DEF(cls1_vir_func1, 0)
 		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(f, float, 0)
 		MD_CLASS_TYPE_MEMBER_FUNC_PARAM_DEF(l, unsigned long, 0)
