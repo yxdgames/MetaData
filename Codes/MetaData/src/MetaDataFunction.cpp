@@ -144,6 +144,14 @@ static inline void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType
 		delete reinterpret_cast<float*>(*pParamPtrBuffer);
 	}
 #ifdef CO_PLATFORM_WIN_X64
+	else if (TypeTraits<int>::GetMetaDataType() == pMDType)
+	{
+		delete reinterpret_cast<int*>(*pParamPtrBuffer);
+	}
+	else if (TypeTraits<unsigned int>::GetMetaDataType() == pMDType)
+	{
+		delete reinterpret_cast<unsigned int*>(*pParamPtrBuffer);
+	}
 	else if (TypeTraits<long>::GetMetaDataType() == pMDType)
 	{
 		delete reinterpret_cast<long*>(*pParamPtrBuffer);
