@@ -66,6 +66,20 @@ static inline size_t ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *p
 		return sizeof(TD_FLOAT_TYPE);
 	}
 #ifdef CO_PLATFORM_WIN_X64
+	else if (TypeTraits<int>::GetMetaDataType() == pMDType)
+	{
+		int *pI(new int);
+		*pI = static_cast<int>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pI;
+		return sizeof(TD_INT_TYPE);
+	}
+	else if (TypeTraits<unsigned int>::GetMetaDataType() == pMDType)
+	{
+		unsigned int *pUI(new unsigned int);
+		*pUI = static_cast<unsigned int>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pUI;
+		return sizeof(TD_INT_TYPE);
+	}
 	else if (TypeTraits<long>::GetMetaDataType() == pMDType)
 	{
 		long *pL(new long);

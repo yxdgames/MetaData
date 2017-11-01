@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\include\GuidOfMetaData.h"
 
-static TDUIntPtr gGuidInvalidData[MD_GUID_DATA_MAX] = { 0x00 };
+static const TDByte gGuidInvalidData[MD_GUID_DATA_MAX] = { 0x00 };
 
 //GuidOfMetaData
 const GuidOfMetaData *GuidOfMetaData::m_pInvalid = nullptr;
