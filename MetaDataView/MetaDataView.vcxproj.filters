@@ -168,6 +168,12 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn2.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\include\TArray.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

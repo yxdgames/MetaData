@@ -28,13 +28,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -208,7 +208,6 @@
     <ClInclude Include="..\Codes\Serialization\include\SerialEntity.h" />
     <ClInclude Include="..\Codes\Serialization\include\Serializer.h" />
     <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h" />
-    <ClInclude Include="..\Codes\Serialization\include\SerialStreamXml.h" />
     <ClInclude Include="..\Codes\Serialization\include\SVariant.h" />
     <ClInclude Include="..\Codes\Serialization\include\TreeSerial.h" />
     <ClInclude Include="stdafx.h" />
