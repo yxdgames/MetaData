@@ -8,6 +8,8 @@
 
 #include "MetaDataSupportCustomType.h"
 
+#define CLASS_DESCRIPT_FOR_MD_SUPPORT
+
 /**********************************/
 /* Meta data of unknown interface */
 /**********************************/
