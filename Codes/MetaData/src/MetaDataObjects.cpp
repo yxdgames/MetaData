@@ -13,10 +13,6 @@ FUNC_DESCRIPT const CMetaDataGlobalSpace * _MD__GLOBALSPACE__GetMetaData(void)
 	return &_MD__GlobalSpace;
 }
 
-#ifndef META_DATA_GLOBALSPACE
-#define META_DATA_GLOBALSPACE()		(*(::_MD__GLOBALSPACE__GetMetaData()))
-#endif
-
 template<typename T>
 static void *NewObject(void)
 {

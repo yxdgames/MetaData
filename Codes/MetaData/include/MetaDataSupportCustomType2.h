@@ -7,7 +7,7 @@
  */
 
 #ifndef META_DATA_GLOBALSPACE
-#define META_DATA_GLOBALSPACE()							(*(::_MD__GLOBALSPACE__GetMetaData()))
+#define META_DATA_GLOBALSPACE()			(*(::_MD__GLOBALSPACE__GetMetaData()))
 #endif //META_DATA_GLOBALSPACE
 
 /****************************/
