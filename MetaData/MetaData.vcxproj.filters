@@ -216,6 +216,9 @@
     <ClInclude Include="..\Codes\Serialization\include\ISetBlobCreater.h">
       <Filter>Codes\Serialization\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TUnkwnAutoPtr.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -346,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\ISetBlobCreater.cpp">
       <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\TUnkwnAutoPtr.cpp">
+      <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -219,6 +219,9 @@
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn2.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TUnkwnAutoPtr.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -348,6 +351,9 @@
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\IPropertyNotify.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\TUnkwnAutoPtr.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>

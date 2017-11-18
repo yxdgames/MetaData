@@ -47,3 +47,18 @@ MD_UNKWN_INTERFACE_DECLARE_DETAIL_KERNEL(IUnkwn)
 	MD_UNKWN_INTERFACE_GUID_DEF(0x00000000, 0x0000, 0x0000, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46)
 MD_UNKWN_INTERFACE_DECLARE_END(IUnkwn)
 };
+
+/*---------------------------------------*/
+/*   Global Inline Function Definition   */
+/*---------------------------------------*/
+inline const IID &GuidOfMetaDataToIID(const TDGUID &guid)
+{
+	return *reinterpret_cast<const IID*>(guid.Data);
+}
+
+inline const IID &GetIIDFromMetaData(const CMetaData *pMetaData)
+{
+	return *reinterpret_cast<const IID*>(pMetaData->GetGUID().Data);
+}
+
+#define D_IUNKWN_GUID(iukn)	GetIIDFromMetaData(TypeTraits<iukn>::GetMetaDataType())

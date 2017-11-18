@@ -19,6 +19,9 @@ private:
 	ULong	m_refCount;
 };
 
+#define HR_OK				(0x00000000L)
+#define HR_E_NOIUNKWN		(0x80004002L)
+
 template <typename _Base>
 HResult TUnkwnObject<_Base>::QueryInterface(REFIID riid, void **ppvObject)
 {
@@ -26,9 +29,9 @@ HResult TUnkwnObject<_Base>::QueryInterface(REFIID riid, void **ppvObject)
 	if (reinterpret_cast<const CMetaDataCustomType*>(this->GetType())->QueryUnknownInterface(this->GetTrueSelf(), type_guid, ppvObject))
 	{
 		reinterpret_cast<IUnkwn*>(*ppvObject)->AddRef();
-		return 0;
+		return HR_OK;
 	}
-	else return -1;
+	else return HR_E_NOIUNKWN;
 }
 
 template <typename _Base>
