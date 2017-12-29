@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Codes">
+      <UniqueIdentifier>{22a5bead-a117-4191-8026-757dd0e16682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\MetaData">
+      <UniqueIdentifier>{eb772cec-6285-433f-b5e0-976664971288}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\MetaData\include">
+      <UniqueIdentifier>{8bfbb221-f7c7-4c3b-a696-b767197eeea1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\MetaData\src">
+      <UniqueIdentifier>{6e85dc73-3501-48f2-9c41-2e610d438339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\include">
+      <UniqueIdentifier>{070f281c-9cba-4a21-b878-cac5ba6c3db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\src">
+      <UniqueIdentifier>{cb0f4e39-0d66-44cb-b90f-efd5a052ff43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\Serialization">
+      <UniqueIdentifier>{135b31aa-747a-4fc3-945b-038a1f353bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\Serialization\include">
+      <UniqueIdentifier>{9c59a9f1-aadf-4cf2-9e75-45aa60ccaae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Codes\Serialization\src">
+      <UniqueIdentifier>{b8b9acaa-b9db-4276-b6ed-48a946ba9b52}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IBlob.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IClone.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IContainer.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IInterface.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IInterfaceDefaultImp.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IPropertyNotify.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\IUnkwn.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaData.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataClassType.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomType.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeMemberVar.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataCustomTypeProperty.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataFunction.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataGlobalSpace.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataInnerType.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataInterface.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataNameSpace.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataObjects.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataSupport_Unkwn2.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataType.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataVarBase.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\MetaDataVariable.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Property.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\SimpleString.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TUnkwnAutoPtr.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TUnkwnObject.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\TypeTraits.h">
+      <Filter>Codes\MetaData\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\CommonDefine.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\ExceptionBase.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\ExceptionID.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\TArray.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\include\Typedef.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\EntityBinaryFileStructure.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ExceptionIDSerialization.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ExceptionSerialization.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\IBlobCreater.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerial.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerialEntity.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerializer.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISerialStream.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ISetBlobCreater.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\ITreeSerial.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialEntity.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\Serializer.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SerialStreamBinary.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\SVariant.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Serialization\include\TreeSerial.h">
+      <Filter>Codes\Serialization\include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IBlob.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IClone.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IPropertyNotify.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\IUnkwn.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaData.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataClassType.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomType.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeMemberVar.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomTypeProperty.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataFunction.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataGlobalSpace.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataInnerType.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataInterface.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataNameSpace.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataObjects.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataType.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataVarBase.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\Property.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\TUnkwnAutoPtr.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\src\ExceptionBase.cpp">
+      <Filter>Codes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\IBlobCreater.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerial.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerialEntity.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerializer.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISerialStream.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ISetBlobCreater.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\ITreeSerial.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SerialEntity.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\Serializer.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\SVariant.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Serialization\src\TreeSerial.cpp">
+      <Filter>Codes\Serialization\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Codes\MetaData\src\IBlob.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IClone.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IContainer.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IInterface.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IPropertyNotify.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\IUnkwn.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\SimpleString.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\src\ExtraMetaDataObjects.mdo">
+      <Filter>Codes\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\IBlobCreater.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ISerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ISetBlobCreater.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\ITreeSerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+    <None Include="..\Codes\Serialization\src\TreeSerial.mdo">
+      <Filter>Codes\Serialization\src</Filter>
+    </None>
+  </ItemGroup>
+</Project>

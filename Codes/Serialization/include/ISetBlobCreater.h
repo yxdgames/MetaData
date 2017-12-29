@@ -6,7 +6,7 @@ class CLASS_DESCRIPT ISetBlobCreater : public IInterface
 {
 public:
 	ISetBlobCreater() {}
-	virtual ~ISetBlobCreater() = 0 {}
+	virtual ~ISetBlobCreater() = 0;
 public:
 	virtual void SetBlobCreater(IBlobCreater *pBlobCreater) = 0;
 

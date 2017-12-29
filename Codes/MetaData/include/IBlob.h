@@ -7,7 +7,7 @@ class CLASS_DESCRIPT IBlob : public IInterface
 {
 public:
 	IBlob(void) {}
-	virtual ~IBlob(void) = 0 {}
+	virtual ~IBlob(void) = 0;
 public:
 	virtual void BeginRead(void) = 0;
 	virtual void EndRead(void) = 0;

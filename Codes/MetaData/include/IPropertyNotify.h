@@ -5,7 +5,7 @@ class CLASS_DESCRIPT IPropertyNotify : public IInterface
 {
 public:
 	IPropertyNotify() {}
-	virtual ~IPropertyNotify() = 0 {}
+	virtual ~IPropertyNotify() = 0;
 public:
 	virtual void BeginSet(void *pObj, void *value) = 0;
 	virtual void EndSet(void *pObj, void *value) = 0;

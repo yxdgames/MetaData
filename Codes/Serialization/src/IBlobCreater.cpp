@@ -2,3 +2,6 @@
 #include "..\include\IBlobCreater.h"
 
 
+IBlobCreater::~IBlobCreater(void)
+{
+}

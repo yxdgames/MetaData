@@ -2,3 +2,6 @@
 #include "..\include\IPropertyNotify.h"
 
 
+IPropertyNotify::~IPropertyNotify(void)
+{
+}

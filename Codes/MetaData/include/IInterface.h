@@ -17,7 +17,7 @@ class CLASS_DESCRIPT IInterface
 {
 public:
 	IInterface(void) {}
-	virtual ~IInterface(void) = 0 {};
+	virtual ~IInterface(void) = 0;
 public:
 	//method of interface
 	virtual bool QueryInterface(TDGUID &guid, IInterface **outIntf) = 0;

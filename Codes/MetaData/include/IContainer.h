@@ -6,7 +6,7 @@ class CLASS_DESCRIPT IContainer : public IInterface
 {
 public:
 	IContainer(void) {}
-	virtual ~IContainer(void) = 0 {}
+	virtual ~IContainer(void) = 0;
 public:
 	//method
 	virtual void *NewItem(size_t type_index) = 0;

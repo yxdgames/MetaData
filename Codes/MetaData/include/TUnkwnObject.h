@@ -44,3 +44,6 @@ ULong TUnkwnObject<_Base>::Release(void)
 	}
 	return refCount;
 }
+
+//for compiling static library
+extern void TUnkwnObject_Dummy_Func(void);

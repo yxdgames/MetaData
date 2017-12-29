@@ -2,3 +2,6 @@
 #include "..\include\ISetBlobCreater.h"
 
 
+ISetBlobCreater::~ISetBlobCreater(void)
+{
+}

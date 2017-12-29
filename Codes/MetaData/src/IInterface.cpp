@@ -2,4 +2,6 @@
 #include "..\include\IInterface.h"
 
 
-
+IInterface::~IInterface(void)
+{
+}

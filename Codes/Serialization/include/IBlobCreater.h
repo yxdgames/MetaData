@@ -6,7 +6,7 @@ class CLASS_DESCRIPT IBlobCreater : public IInterface
 {
 public:
 	IBlobCreater() {}
-	virtual ~IBlobCreater() = 0 {}
+	virtual ~IBlobCreater() = 0;
 public:
 	virtual IBlob *CreateBlob(void) = 0;
 
