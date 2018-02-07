@@ -17,3 +17,8 @@
 *.resources
 *.bi
 *.user
+*.dll
+*.lib
+*.exp
+*.unsuccessfulbuild
+*.metagen

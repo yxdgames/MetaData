@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "..\include\MetaData.h"
-#include "..\..\include\TArray.h"
 
 #include "..\include\ExceptionMetaData.h"
 #include "..\include\ExceptionIDMetaData.h"
