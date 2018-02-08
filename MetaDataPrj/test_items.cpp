@@ -264,10 +264,10 @@ void test_item_metadata_function_call(void)
 		printf(" ret: %d\n", ret);
 
 		printf("ClassType call\n");
-		CParamVector param_vector;
-		D_PARAM_VECTOR_ADD_ELE(param_vector, CClass1, 1)
-		D_PARAM_VECTOR_ADD_ELE(param_vector, unsigned char, 0)
-		D_PARAM_VECTOR_ADD_ELE(param_vector, double, 0)
+		CFuncParamMDVector param_vector;
+		D_FUNC_PARAM_MD_VECTOR_ADD_ELE(param_vector, CClass1, 1)
+		D_FUNC_PARAM_MD_VECTOR_ADD_ELE(param_vector, unsigned char, 0)
+		D_FUNC_PARAM_MD_VECTOR_ADD_ELE(param_vector, double, 0)
 		ret = 0;
 		if (!pClsType->CallMemberFuction("cls1_func2", &param_vector, pObj, c, d, &ret))
 		{
@@ -297,10 +297,10 @@ void test_item_metadata_function_call(void)
 		unsigned long l(914);
 		double ret;
 
-		CParamVector param_vector;
-		D_PARAM_VECTOR_ADD_ELE(param_vector, CClass1, 1)
-		D_PARAM_VECTOR_ADD_ELE(param_vector, float, 0)
-		D_PARAM_VECTOR_ADD_ELE(param_vector, unsigned long, 0)
+		CFuncParamMDVector param_vector;
+		D_FUNC_PARAM_MD_VECTOR_ADD_ELE(param_vector, CClass1, 1)
+		D_FUNC_PARAM_MD_VECTOR_ADD_ELE(param_vector, float, 0)
+		D_FUNC_PARAM_MD_VECTOR_ADD_ELE(param_vector, unsigned long, 0)
 		pFunc->CallFunction(&param_vector, pObj, f, l, &ret);
 		printf(" ret: %f\n", ret);
 
@@ -348,7 +348,7 @@ void test_item_metadata_property(void)
 void test_item_metadata_other(void)
 {
 	SimpleString *pStr;
-	CParamVector PVector;
+	CFuncParamMDVector PVector;
 	pStr = reinterpret_cast<SimpleString*>(
 		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>()
 	);
@@ -357,7 +357,7 @@ void test_item_metadata_other(void)
 		std::cout << pStr->GetValue();
 		delete pStr;
 	}
-	D_PARAM_VECTOR_ADD_ELE(PVector, char, 1);
+	D_FUNC_PARAM_MD_VECTOR_ADD_ELE(PVector, char, 1);
 	pStr = reinterpret_cast<SimpleString*>(
 		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>(&PVector, "×Ö·û´®Ö¸Õë\n")
 	);
@@ -368,7 +368,7 @@ void test_item_metadata_other(void)
 	}
 	SimpleString str("SimpleString¶ÔÏó\n");
 	PVector.clear();
-	D_PARAM_VECTOR_ADD_ELE(PVector, SimpleString, 1);
+	D_FUNC_PARAM_MD_VECTOR_ADD_ELE(PVector, SimpleString, 1);
 	pStr = reinterpret_cast<SimpleString*>(
 		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>(&PVector, &str)
 	);

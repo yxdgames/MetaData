@@ -191,7 +191,7 @@ void CMetaDataFunction::AddParamInfo(const CMetaDataVarBase *pParam)
 {
 	if (pParam && pParam->GetMDType())
 	{
-		CParamVector *pParamTable(GetParamTable());
+		CFuncParamMDVector *pParamTable(GetParamTable());
 		pParamTable->push_back(pParam);
 	}
 }
@@ -203,23 +203,23 @@ void CMetaDataFunction::SetReturnInfo(const CMetaDataVarBase *pRet)
 	m_pReturnInfo = pRet;
 }
 
-bool CMetaDataFunction::FuncParamsCheck(CParamVector *pParamTypes) const
+bool CMetaDataFunction::FuncParamsCheck(CFuncParamMDVector *pParamMDVector) const
 {
 	if (!m_pParamTable)
 	{
-		return (!pParamTypes) || (pParamTypes->size() == 0);
+		return (!pParamMDVector) || (pParamMDVector->size() == 0);
 	}
-	else if (!pParamTypes)
+	else if (!pParamMDVector)
 	{
 		return (!m_pParamTable) || (m_pParamTable->size() == 0);
 	}
 
-	if (m_pParamTable->size() != pParamTypes->size()) return false;
+	if (m_pParamTable->size() != pParamMDVector->size()) return false;
 
 	for (size_t index = 0; index < m_pParamTable->size(); ++index)
 	{
-		if (m_pParamTable->at(index)->GetMDType() != pParamTypes->at(index)->GetMDType()
-			|| m_pParamTable->at(index)->GetPtrLevel() != pParamTypes->at(index)->GetPtrLevel())
+		if (m_pParamTable->at(index)->GetMDType() != pParamMDVector->at(index)->GetMDType()
+			|| m_pParamTable->at(index)->GetPtrLevel() != pParamMDVector->at(index)->GetPtrLevel())
 		{
 			return false;
 		}
@@ -258,21 +258,21 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, ...) const
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, va_list pParamList, void *pReturn) const
+bool CMetaDataFunction::CallFunction(CFuncParamMDVector *pParamMDVector, va_list pParamList, void *pReturn) const
 {
-	if (pParamTypes)
-		return CallFunction(pParamTypes->size(), pParamTypes, pParamList, pReturn);
-	else return CallFunction(0, pParamTypes, pParamList, pReturn);
+	if (pParamMDVector)
+		return CallFunction(pParamMDVector->size(), pParamMDVector, pParamList, pReturn);
+	else return CallFunction(0, pParamMDVector, pParamList, pReturn);
 }
 
-bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
+bool CMetaDataFunction::CallFunction(CFuncParamMDVector *pParamMDVector, ...) const
 {
 	bool ret;
 	va_list pList;
-	va_start(pList, pParamTypes);
+	va_start(pList, pParamMDVector);
 	try
 	{
-		ret = CallFunction(pParamTypes, pList, nullptr);
+		ret = CallFunction(pParamMDVector, pList, nullptr);
 	}
 	catch(...)
 	{
@@ -284,13 +284,13 @@ bool CMetaDataFunction::CallFunction(CParamVector *pParamTypes, ...) const
 	return ret;
 }
 
-bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pParamTypes,
+bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVector *pParamMDVector,
 									 va_list pParamList, void *pReturn) const
 {
 	if (!m_pFunction
 		|| (!m_pParamTable && param_count != 0)
 		|| (m_pParamTable && param_count != m_pParamTable->size())) return false;
-	if (pParamTypes && param_count != pParamTypes->size()) return false;
+	if (pParamMDVector && param_count != pParamMDVector->size()) return false;
 
 	bool ret;
 
@@ -316,10 +316,10 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CParamVector *pPa
 	{
 		for (index = 0; index < param_count; ++index)
 		{
-			if (pParamTypes)
+			if (pParamMDVector)
 			{
-				if (pParamTypes->at(index)->GetMDType() != m_pParamTable->at(index)->GetMDType()
-					|| pParamTypes->at(index)->GetPtrLevel() != m_pParamTable->at(index)->GetPtrLevel())
+				if (pParamMDVector->at(index)->GetMDType() != m_pParamTable->at(index)->GetMDType()
+					|| pParamMDVector->at(index)->GetPtrLevel() != m_pParamTable->at(index)->GetPtrLevel())
 				{
 					bParamsOK = false;
 					break;

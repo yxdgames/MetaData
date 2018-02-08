@@ -87,8 +87,8 @@ public:
 	bool QueryBaseType(void *pObj, const TDGUID &BaseTypeGuid, void **outObj) const;
 	bool QueryUnknownInterface(void *pObj, const char *pUnkwnIntfName, void **outUnkwnIntf) const;
 	bool QueryUnknownInterface(void *pObj, const TDGUID &UnkwnIntfGuid, void **outUnkwnIntf) const;
-	bool __cdecl CallMemberFuction(char *pFunName, CParamVector *pParamTypes, ...) const;
-	bool __cdecl CallStaticMemberFuction(char *pFunName, CParamVector *pParamTypes, ...) const;
+	bool __cdecl CallMemberFuction(char *pFunName, CFuncParamMDVector *pParamMDVector, ...) const;
+	bool __cdecl CallStaticMemberFuction(char *pFunName, CFuncParamMDVector *pParamMDVector, ...) const;
 public:
 	//method - override
 	virtual bool IsTypeOf(const CMetaDataType *pType) const;
@@ -103,7 +103,7 @@ public:
 	virtual void DeleteObject(void *pObj) const;
 public:
 	template<typename T>
-	T *CreateObject(CParamVector *pParamTypes, ...) const;
+	T *CreateObject(CFuncParamMDVector *pParamMDVector, ...) const;
 	template<typename T>
 	T *CreateObject(void) const;
 public:
@@ -145,7 +145,7 @@ protected:
 	inline std::vector<const CMetaDataFunction*> *GetStaticMemberFuncList(void);
 	inline std::vector<const CMetaDataVariable*> *GetStaticMemberVarList(void);
 private:
-	void *DoCreateObject(CParamVector *pParamTypes, va_list pParamList) const;
+	void *DoCreateObject(CFuncParamMDVector *pParamMDVector, va_list pParamList) const;
 private:
 	template<typename _CompareType>
 	bool FindBaseType(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &BaseList) const;
@@ -298,15 +298,15 @@ inline std::vector<const CMetaDataVariable*> *CMetaDataCustomType::GetStaticMemb
 #include <stdarg.h>
 
 template<typename T>
-T *CMetaDataCustomType::CreateObject(CParamVector *pParamTypes, ...) const
+T *CMetaDataCustomType::CreateObject(CFuncParamMDVector *pParamMDVector, ...) const
 {
 	void *pReturn;
 	void *pObj;
 	va_list pList;
-	va_start(pList, pParamTypes);
+	va_start(pList, pParamMDVector);
 	try
 	{
-		pObj = DoCreateObject(pParamTypes, pList);
+		pObj = DoCreateObject(pParamMDVector, pList);
 		if (pObj)
 		{
 			pReturn = this->AsType(pObj, TypeTraits<T>::GetMetaDataType());
