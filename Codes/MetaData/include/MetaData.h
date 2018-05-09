@@ -67,7 +67,7 @@ extern FUNC_DESCRIPT const CMetaData *AssertMetaData(const CMetaData *pMetaData,
 
 inline bool CMetaData::Compare(const CMetaData * pMetaData) const
 {
-	return (this == pMetaData) || (pMetaData && pMetaData->m_GUID.IsValid() && this->m_GUID == pMetaData->m_GUID);
+	return pMetaData && ((this == pMetaData) || (pMetaData->m_GUID.IsValid() && this->m_GUID == pMetaData->m_GUID));
 }
 
 inline bool CMetaData::Compare(const TDGUID &guid) const

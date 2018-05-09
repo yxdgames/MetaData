@@ -14,7 +14,8 @@ public:
 	T *array(void) { return m_pArray; }
 	size_t array_size(void) { return m_Size; }
 public:
-	inline T &operator [](size_t index);
+	inline T &operator[](size_t index);
+	inline TArray &operator=(TArray &src);
 private:
 	TArray(void) {}
 	TArray(TArray&) {}
@@ -51,10 +52,18 @@ void TArray<T>::Reset(const size_t size, bool allow_greater)
 }
 
 template <typename T>
-inline T &TArray<T>::operator [](size_t index)
+inline T &TArray<T>::operator[](size_t index)
 {
 	if (index >= m_Size) throw new ExceptionBase(D_E_ID_ERROR, "Array overflow!");
 	return m_pArray[index];
+}
+
+template <typename T>
+inline TArray<T> &TArray<T>::operator=(TArray<T> &src)
+{
+	this->Reset(src.array_size());
+	memcpy(this->array(), src.array(), this->array_size());
+	return *this;
 }
 
 #include "Typedef.h"
