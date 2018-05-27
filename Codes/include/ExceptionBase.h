@@ -12,7 +12,7 @@ public:
 	int GetID(void) const					{ return m_ID; }
 	const char *GetCaption(void) const		{ return m_pCaption; }
 private:
-	int		m_ID;
+	int			m_ID;
 	const char	*m_pCaption;
 };
 

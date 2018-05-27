@@ -219,6 +219,9 @@
     <ClInclude Include="..\Codes\MetaData\include\TUnkwnAutoPtr.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\include\ExceptionCommon.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -352,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\TUnkwnAutoPtr.cpp">
       <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\src\ExceptionCommon.cpp">
+      <Filter>Codes\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
