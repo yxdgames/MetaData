@@ -62,6 +62,3 @@ inline const IID &GetIIDFromMetaData(const CMetaData *pMetaData)
 }
 
 #define D_IUNKWN_GUID(iukn)	GetIIDFromMetaData(TypeTraits<iukn>::GetMetaDataType())
-
-//for compiling static library
-extern void IUnkwn_Dummy_Func(void);

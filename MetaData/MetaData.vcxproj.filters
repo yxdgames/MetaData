@@ -332,9 +332,6 @@
     <ClCompile Include="..\Codes\MetaData\src\Property.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\IUnkwn.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\GuidOfMetaData.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
@@ -347,17 +344,14 @@
     <ClCompile Include="..\Codes\MetaData\src\IPropertyNotify.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\ISetBlobCreater.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\TUnkwnAutoPtr.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Codes\src\ExceptionCommon.cpp">
       <Filter>Codes\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp">
+      <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

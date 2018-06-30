@@ -224,7 +224,6 @@
     <ClCompile Include="..\Codes\MetaData\src\IContainer.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IInterface.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IPropertyNotify.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\IUnkwn.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataClassType.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\MetaDataCustomType.cpp" />
@@ -241,7 +240,6 @@
     <ClCompile Include="..\Codes\MetaData\src\MetaDataVariable.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\Property.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\SimpleString.cpp" />
-    <ClCompile Include="..\Codes\MetaData\src\TUnkwnAutoPtr.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\ExceptionSerialization.cpp" />
     <ClCompile Include="..\Codes\Serialization\src\IBlobCreater.cpp" />

@@ -1,6 +1,7 @@
 #pragma once
-
 #include "IUnkwn.h"
+
+class CLASS_DESCRIPT CUnkwnObjLock;
 
 template <typename _Base>
 class TEMPLATE_CLASS_DESCRIPT TUnkwnObject : public _Base
@@ -10,13 +11,14 @@ public:
 public:
 	//IUnkwn
 	virtual HResult IUNKWN_MEMFUN_DESCRIPT QueryInterface(REFIID riid, void **ppvObject);
-	virtual ULong IUNKWN_MEMFUN_DESCRIPT AddRef(void) { return ++m_refCount; }
+	virtual ULong IUNKWN_MEMFUN_DESCRIPT AddRef(void);
 	virtual ULong IUNKWN_MEMFUN_DESCRIPT Release(void);
 private:
 	TUnkwnObject(TUnkwnObject&) {}
 	~TUnkwnObject(void) {}
 private:
-	ULong	m_refCount;
+	CUnkwnObjLock	m_Lock;
+	ULong			m_refCount;
 };
 
 #define HR_OK				(0x00000000L)
@@ -35,9 +37,22 @@ HResult TUnkwnObject<_Base>::QueryInterface(REFIID riid, void **ppvObject)
 }
 
 template <typename _Base>
+ULong TUnkwnObject<_Base>::AddRef(void)
+{
+	ULong refCount;
+	m_Lock.Lock();
+	refCount = ++m_refCount;
+	m_Lock.Unlock();
+	return refCount;
+}
+
+template <typename _Base>
 ULong TUnkwnObject<_Base>::Release(void)
 {
-	ULong refCount(--m_refCount);
+	ULong refCount;
+	m_Lock.Lock();
+	refCount = --m_refCount;
+	m_Lock.Unlock();
 	if (refCount == 0)
 	{
 		delete this;
@@ -45,5 +60,14 @@ ULong TUnkwnObject<_Base>::Release(void)
 	return refCount;
 }
 
-//for compiling static library
-extern void TUnkwnObject_Dummy_Func(void);
+class CLASS_DESCRIPT CUnkwnObjLock
+{
+public:
+	CUnkwnObjLock(void);
+	~CUnkwnObjLock(void);
+public:
+	void Lock(void);
+	void Unlock(void);
+private:
+	void *m_pLockObject;
+};
