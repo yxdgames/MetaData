@@ -1,7 +1,7 @@
 #pragma once
 #include "IUnkwn.h"
 
-class CLASS_DESCRIPT CUnkwnObjLock;
+class CLASS_DESCRIPT CUnkwnObjRefCountLock;
 
 template <typename _Base>
 class TEMPLATE_CLASS_DESCRIPT TUnkwnObject : public _Base
@@ -17,8 +17,8 @@ private:
 	TUnkwnObject(TUnkwnObject&) {}
 	~TUnkwnObject(void) {}
 private:
-	CUnkwnObjLock	m_Lock;
-	ULong			m_refCount;
+	CUnkwnObjRefCountLock	m_Lock;
+	ULong					m_refCount;
 };
 
 #define HR_OK				(0x00000000L)
@@ -39,35 +39,25 @@ HResult TUnkwnObject<_Base>::QueryInterface(REFIID riid, void **ppvObject)
 template <typename _Base>
 ULong TUnkwnObject<_Base>::AddRef(void)
 {
-	ULong refCount;
-	m_Lock.Lock();
-	refCount = ++m_refCount;
-	m_Lock.Unlock();
-	return refCount;
+	return m_Lock.IncreaseRefCount(m_refCount);
 }
 
 template <typename _Base>
 ULong TUnkwnObject<_Base>::Release(void)
 {
-	ULong refCount;
-	m_Lock.Lock();
-	refCount = --m_refCount;
-	m_Lock.Unlock();
-	if (refCount == 0)
-	{
-		delete this;
-	}
+	ULong refCount(m_Lock.DecreaseRefCount(m_refCount));
+	if (refCount == 0) delete this;
 	return refCount;
 }
 
-class CLASS_DESCRIPT CUnkwnObjLock
+class CLASS_DESCRIPT CUnkwnObjRefCountLock
 {
 public:
-	CUnkwnObjLock(void);
-	~CUnkwnObjLock(void);
+	CUnkwnObjRefCountLock(void);
+	~CUnkwnObjRefCountLock(void);
 public:
-	void Lock(void);
-	void Unlock(void);
+	ULong IncreaseRefCount(volatile ULong &refCount);
+	ULong DecreaseRefCount(volatile ULong &refCount);
 private:
 	void *m_pLockObject;
 };

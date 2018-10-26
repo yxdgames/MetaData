@@ -1,27 +1,23 @@
 #include "stdafx.h"
 #include "..\include\TUnkwnObject.h"
-#include <winsync.h>
+#include <Windows.h>
 
-//CUnkwnObjLock
-CUnkwnObjLock::CUnkwnObjLock(void)
-	: m_pLockObject(new CRITICAL_SECTION)
+//CUnkwnObjRefCountLock
+CUnkwnObjRefCountLock::CUnkwnObjRefCountLock(void)
+	: m_pLockObject(nullptr)
 {
-	if (!::InitializeCriticalSectionAndSpinCount(reinterpret_cast<CRITICAL_SECTION*>(m_pLockObject), 0))
-		throw new ExceptionBase(D_E_ID_ERROR, "InitializeCriticalSectionAndSpinCount Error!");
 }
 
-CUnkwnObjLock::~CUnkwnObjLock(void)
+CUnkwnObjRefCountLock::~CUnkwnObjRefCountLock(void)
 {
-	::DeleteCriticalSection(reinterpret_cast<CRITICAL_SECTION*>(m_pLockObject));
-	delete reinterpret_cast<CRITICAL_SECTION*>(m_pLockObject);
 }
 
-void CUnkwnObjLock::Lock(void)
+ULong CUnkwnObjRefCountLock::IncreaseRefCount(volatile ULong &refCount)
 {
-	::EnterCriticalSection(reinterpret_cast<CRITICAL_SECTION*>(m_pLockObject));
+	return ::InterlockedIncrement(&refCount);
 }
 
-void CUnkwnObjLock::Unlock(void)
+ULong CUnkwnObjRefCountLock::DecreaseRefCount(volatile ULong &refCount)
 {
-	::LeaveCriticalSection(reinterpret_cast<CRITICAL_SECTION*>(m_pLockObject));
+	return ::InterlockedDecrement(&refCount);
 }
