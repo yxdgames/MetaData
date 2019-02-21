@@ -26,34 +26,34 @@ void CPropertyBase::ClearNotification(void)
 	this->m_pPropertyNotifications->clear();
 }
 
-void CPropertyBase::BeginSet(void * pObj, void * value)
+void CPropertyBase::BeginSet(void * pObj, TDUIntPtr PropertyTag, void * value)
 {
 	for (size_t i = 0; i < m_pPropertyNotifications->size(); ++i)
 	{
-		m_pPropertyNotifications->at(i)->BeginSet(pObj, value);
+		m_pPropertyNotifications->at(i)->BeginSet(pObj, PropertyTag, value);
 	}
 }
 
-void CPropertyBase::EndSet(void * pObj, void * value)
+void CPropertyBase::EndSet(void * pObj, TDUIntPtr PropertyTag, void * value)
 {
 	for (size_t i = 0; i < m_pPropertyNotifications->size(); ++i)
 	{
-		m_pPropertyNotifications->at(i)->EndSet(pObj, value);
+		m_pPropertyNotifications->at(i)->EndSet(pObj, PropertyTag, value);
 	}
 }
 
-void CPropertyBase::BeginGet(void *pObj)
+void CPropertyBase::BeginGet(void *pObj, TDUIntPtr PropertyTag)
 {
 	for (size_t i = 0; i < m_pPropertyNotifications->size(); ++i)
 	{
-		m_pPropertyNotifications->at(i)->BeginGet(pObj);
+		m_pPropertyNotifications->at(i)->BeginGet(pObj, PropertyTag);
 	}
 }
 
-void CPropertyBase::EndGet(void * pObj, void * value)
+void CPropertyBase::EndGet(void * pObj, TDUIntPtr PropertyTag, void * value)
 {
 	for (size_t i = 0; i < m_pPropertyNotifications->size(); ++i)
 	{
-		m_pPropertyNotifications->at(i)->EndGet(pObj, value);
+		m_pPropertyNotifications->at(i)->EndGet(pObj, PropertyTag, value);
 	}
 }

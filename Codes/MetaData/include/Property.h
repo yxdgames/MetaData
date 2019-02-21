@@ -1,5 +1,6 @@
 #pragma once
 #include "..\..\include\CommonDefine.h"
+#include "..\..\include\Typedef.h"
 #include <vector>
 
 class CLASS_DESCRIPT IPropertyNotify;
@@ -27,10 +28,10 @@ public:
 	IPropertyNotify *GetPropertyNotification(size_t index) { return m_pPropertyNotifications->at(index); }
 	size_t GetPropertyNotificationCount(void) { return m_pPropertyNotifications->size(); }
 protected:
-	void BeginSet(void *pObj, void *value);
-	void EndSet(void *pObj, void *value);
-	void BeginGet(void *pObj);
-	void EndGet(void *pObj, void *value);
+	void BeginSet(void *pObj, TDUIntPtr PropertyTag, void *value);
+	void EndSet(void *pObj, TDUIntPtr PropertyTag, void *value);
+	void BeginGet(void *pObj, TDUIntPtr PropertyTag);
+	void EndGet(void *pObj, TDUIntPtr PropertyTag, void *value);
 protected:
 	inline CPropertyBase(CPropertyBase &src);
 private:
@@ -80,9 +81,9 @@ void TPropertyBase<CLASS, T>::CallSet(void *pObj, void *value)
 {
 	if (pObj && value && m_pSet)
 	{
-		this->BeginSet(pObj, value);
+		this->BeginSet(pObj, reinterpret_cast<TDUIntPtr>(&m_pSet), value);
 		(reinterpret_cast<CLASS*>(pObj)->*m_pSet)(*reinterpret_cast<T*>(value));
-		this->EndSet(pObj, value);
+		this->EndSet(pObj, reinterpret_cast<TDUIntPtr>(&m_pSet), value);
 	}
 }
 
@@ -91,9 +92,9 @@ void TPropertyBase<CLASS, T>::CallGet(void *pObj, void *value)
 {
 	if (pObj && value && m_pGet)
 	{
-		this->BeginGet(pObj);
+		this->BeginGet(pObj, reinterpret_cast<TDUIntPtr>(&m_pGet));
 		*reinterpret_cast<T*>(value) = (reinterpret_cast<CLASS*>(pObj)->*m_pGet)();
-		this->EndGet(pObj, value);
+		this->EndGet(pObj, reinterpret_cast<TDUIntPtr>(&m_pGet), value);
 	}
 }
 
