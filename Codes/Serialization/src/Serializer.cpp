@@ -772,9 +772,14 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 			else
 			{
 				pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
-				if (pInterface && tmpType2 != pInterface->GetType())
+				if (pInterface)
 				{
-					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					if (tmpType2 != pInterface->GetType()) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					pO = pInterface->AsType(tmpType2);
+				}
+				else
+				{
+					if (!tmpType2->Compare(tmpType)) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
 				}
 			}
 				
