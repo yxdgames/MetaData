@@ -169,7 +169,7 @@ bool CSerializer::SerializeCustomTypeMemVar(const CMetaDataCustomType *pType, vo
 			pO = *reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset());
 			if (!pO) continue;
 			pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
-			if (pInterface && tmpType != pInterface->GetType())
+			if (pInterface && !tmpType->Compare(pInterface->GetType()))
 			{
 				if (!tmpType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 				pParent = pSEntity->NewChild();
@@ -247,7 +247,7 @@ bool CSerializer::SerializeCustomTypeProperty(const CMetaDataCustomType *pType, 
 			pProperty->CallGet(pObj, &pO);
 			if (!pO) continue;
 			pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
-			if (pInterface && tmpType != pInterface->GetType())
+			if (pInterface && !tmpType->Compare(pInterface->GetType()))
 			{
 				if (!tmpType->GetFullName(strBuffer, D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX)) return false;
 				pParent = pSEntity->NewChild();
@@ -341,7 +341,7 @@ bool CSerializer::SerializeCustomTypeContainer(IContainer *pContainter, ISerialE
 			pO = pContainter->GetItem(type_index, index);
 			if (!pO) continue;
 			pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
-			if (pInterface && tmpType != pInterface->GetType())
+			if (pInterface && !tmpType->Compare(pInterface->GetType()))
 			{
 				tmpType2 = pInterface->GetType();
 				pO = pInterface->AsType(tmpType2);
@@ -546,9 +546,9 @@ bool CSerializer::UnserializeCustomTypeMemVar(ISerialEntity *pSEntity, const CMe
 			if (pO)
 			{
 				pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
-				if (pInterface && tmpType != pInterface->GetType())
+				if (pInterface && !tmpType->Compare(pInterface->GetType()))
 				{
-					if (tmpType2 && tmpType2 == pInterface->GetType())
+					if (tmpType2 && tmpType2->Compare(pInterface->GetType()))
 					{
 						tmpType = tmpType2;
 						pO = pInterface->AsType(tmpType);
@@ -649,9 +649,9 @@ bool CSerializer::UnserializeCustomTypeProperty(ISerialEntity *pSEntity, const C
 			{
 				tmpO = pO;
 				pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
-				if (pInterface && tmpType != pInterface->GetType())
+				if (pInterface && !tmpType->Compare(pInterface->GetType()))
 				{
-					if (tmpType2 && tmpType2 == pInterface->GetType())
+					if (tmpType2 && tmpType2->Compare(pInterface->GetType()))
 					{
 						tmpType = tmpType2;
 						pO = pInterface->AsType(tmpType);
@@ -774,7 +774,7 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 				pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
 				if (pInterface)
 				{
-					if (tmpType2 != pInterface->GetType()) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					if (!tmpType2->Compare(pInterface->GetType())) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
 					pO = pInterface->AsType(tmpType2);
 				}
 				else
@@ -885,7 +885,7 @@ inline const CMetaDataType *CSerializer::FindMetaDataType(const char *pTypeName,
 	pType = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_INTERFACE, pTypeName);
 	if (pType) return reinterpret_cast<const CMetaDataType*>(pType);
 	pType = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_INNER_TYPE, pTypeName);
-	if (pType) reinterpret_cast<const CMetaDataType*>(pType);
+	if (pType) return reinterpret_cast<const CMetaDataType*>(pType);
 	if (throwException)
 		throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：未找到类型！");
 	else return nullptr;
