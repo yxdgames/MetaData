@@ -167,6 +167,53 @@ static inline void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType
 	}
 }
 
+//CFuncParamMDVector
+CFuncParamMDVector::CFuncParamMDVector()
+	: m_pMDVarBaseVector(new std::vector<const CMetaDataVarBase*>)
+{
+}
+
+CFuncParamMDVector::~CFuncParamMDVector(void)
+{
+	std::vector<const CMetaDataVarBase*>::iterator itr;
+	for (itr = this->m_pMDVarBaseVector->begin(); itr != this->m_pMDVarBaseVector->end(); ++itr)
+	{
+		delete (*itr);
+	}
+	delete m_pMDVarBaseVector;
+}
+
+void CFuncParamMDVector::push_back(const CMetaDataVarBase *value)
+{
+	m_pMDVarBaseVector->push_back(value);
+}
+
+void CFuncParamMDVector::clear(void)
+{
+	m_pMDVarBaseVector->clear();
+}
+
+size_t CFuncParamMDVector::size(void)
+{
+	return m_pMDVarBaseVector->size();
+}
+
+const CMetaDataVarBase *CFuncParamMDVector::at(size_t index)
+{
+	return m_pMDVarBaseVector->at(index);
+}
+
+std::vector<const CMetaDataVarBase*>::iterator CFuncParamMDVector::begin(void)
+{
+	return m_pMDVarBaseVector->begin();
+}
+
+std::vector<const CMetaDataVarBase*>::iterator CFuncParamMDVector::end(void)
+{
+	return m_pMDVarBaseVector->end();
+}
+
+//CMetaDataFunction
 CMetaDataFunction::CMetaDataFunction(const char *pName, const CMetaData *pParent, void *pFunction)
 	:CMetaData(pName, pParent, true), m_pFunction(pFunction), m_pParamTable(nullptr), m_pReturnInfo(nullptr)
 {

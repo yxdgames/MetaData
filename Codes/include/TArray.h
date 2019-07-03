@@ -3,7 +3,7 @@
 #include "ExceptionID.h"
 
 template <typename T>
-class TArray
+class TEMPLATE_CLASS_DESCRIPT TArray
 {
 public:
 	inline TArray(const size_t size);

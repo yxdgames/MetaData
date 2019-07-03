@@ -13,23 +13,15 @@ class CLASS_DESCRIPT CFuncParamMDVector
 public:
 	typedef std::vector<const CMetaDataVarBase*>::iterator iterator;
 public:
-	CFuncParamMDVector(void) : m_pMDVarBaseVector(new std::vector<const CMetaDataVarBase*>) {}
-	~CFuncParamMDVector(void)
-	{
-		std::vector<const CMetaDataVarBase*>::iterator itr;
-		for (itr = this->m_pMDVarBaseVector->begin(); itr != this->m_pMDVarBaseVector->end(); ++itr)
-		{
-			delete (*itr);
-		}
-		delete m_pMDVarBaseVector;
-	}
+	CFuncParamMDVector(void);
+	~CFuncParamMDVector(void);
 public:
-	void push_back(const CMetaDataVarBase *value)				{ m_pMDVarBaseVector->push_back(value); }
-	void clear(void)											{ m_pMDVarBaseVector->clear(); }
-	size_t size(void)											{ return m_pMDVarBaseVector->size(); }
-	const CMetaDataVarBase* at(size_t index)					{ return m_pMDVarBaseVector->at(index); }
-	std::vector<const CMetaDataVarBase*>::iterator begin(void)	{ return m_pMDVarBaseVector->begin(); }
-	std::vector<const CMetaDataVarBase*>::iterator end(void)	{ return m_pMDVarBaseVector->end(); }
+	void push_back(const CMetaDataVarBase *value);
+	void clear(void);
+	size_t size(void);
+	const CMetaDataVarBase* at(size_t index);
+	std::vector<const CMetaDataVarBase*>::iterator begin(void);
+	std::vector<const CMetaDataVarBase*>::iterator end(void);
 private:
 	std::vector<const CMetaDataVarBase*> *m_pMDVarBaseVector;
 };
