@@ -1,4 +1,6 @@
 #pragma once
+#include "..\..\include\Typedef.h"
+#include "..\..\include\CommonDefine.h"
 
 //definition of atom type
 #define D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_NONE		(0x00000000)
@@ -10,7 +12,7 @@
 #define D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_USER_BASE	(0x00010000)
 
 //文件头
-struct SFileHeader
+struct STRUCT_DESCRIPT SFileHeader
 {
 	TDByte file_tag[10];
 	TDByte version[4];
@@ -21,14 +23,14 @@ struct SFileHeader
 typedef TDUIntPtr TDBinBaseUnit;
 
 //容器
-struct SAtom
+struct STRUCT_DESCRIPT SAtom
 {
 	TDBinBaseUnit type;
 	TDBinBaseUnit size;
 };
 
 //对象描述项
-struct SFileEntityItem
+struct STRUCT_DESCRIPT SFileEntityItem
 {
 	TDBinBaseUnit name_addr;
 	TDBinBaseUnit type_name_addr;

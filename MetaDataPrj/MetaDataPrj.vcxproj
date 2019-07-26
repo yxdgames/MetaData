@@ -156,7 +156,7 @@
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
     <ClInclude Include="..\Codes\include\TArray.h" />
     <ClInclude Include="..\Codes\include\Typedef.h" />
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
+    <ClInclude Include="..\Codes\MetaData\include\Demo\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\IBlob.h" />
     <ClInclude Include="..\Codes\MetaData\include\IClone.h" />
@@ -212,7 +212,7 @@
     <ClInclude Include="test_items.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Codes\MetaData\src\Demo.cpp" />
+    <ClCompile Include="..\Codes\MetaData\src\Demo\Demo.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IBlob.cpp" />
     <ClCompile Include="..\Codes\MetaData\src\IClone.cpp" />
@@ -262,7 +262,7 @@
     <ClCompile Include="test_items.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\MetaData\src\Demo.mdo" />
+    <None Include="..\Codes\MetaData\src\Demo\Demo.mdo" />
     <None Include="..\Codes\MetaData\src\IBlob.mdo" />
     <None Include="..\Codes\MetaData\src\IClone.mdo" />
     <None Include="..\Codes\MetaData\src\IContainer.mdo" />

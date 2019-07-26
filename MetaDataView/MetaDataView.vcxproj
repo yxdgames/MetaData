@@ -136,7 +136,7 @@
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
     <ClInclude Include="..\Codes\include\TArray.h" />
     <ClInclude Include="..\Codes\include\Typedef.h" />
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h" />
+    <ClInclude Include="..\Codes\MetaData\include\Demo\Demo.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h" />
     <ClInclude Include="..\Codes\MetaData\include\GuidOfMetaData.h" />

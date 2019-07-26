@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\Demo.h"
+#include "..\..\include\Demo\Demo.h"
 
 #ifdef __META_DATA_DEMO__
 

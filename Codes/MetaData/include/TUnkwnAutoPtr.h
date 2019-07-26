@@ -1,7 +1,8 @@
 #pragma once
+#include "..\..\include\CommonDefine.h"
 
 template <typename IU>
-class TUnkwnAutoPtr
+class TEMPLATE_CLASS_DESCRIPT TUnkwnAutoPtr
 {
 public:
 	TUnkwnAutoPtr(void) : m_pUnkwn(nullptr) {}

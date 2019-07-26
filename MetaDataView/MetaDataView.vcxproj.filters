@@ -37,6 +37,9 @@
     <Filter Include="Codes\src">
       <UniqueIdentifier>{42427d35-4d74-4b76-afe9-5568a5e97c7b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Codes\MetaData\include\Demo">
+      <UniqueIdentifier>{9744a38d-f247-41f0-8249-ba154688cc17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -171,11 +174,11 @@
     <ClInclude Include="..\Codes\include\TArray.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\include\ExceptionCommon.h">
       <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Demo\Demo.h">
+      <Filter>Codes\MetaData\include\Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

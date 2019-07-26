@@ -40,6 +40,9 @@
     <Filter Include="Codes\src">
       <UniqueIdentifier>{95aeb9d2-0e91-464d-94c8-8c6c92516788}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Codes\MetaData\include\Demo">
+      <UniqueIdentifier>{3e5739e8-b538-4abc-802e-78eb334f3b2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -153,9 +156,6 @@
     <ClInclude Include="test_items.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\MetaDataSupportCustomType.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -224,6 +224,9 @@
     </ClInclude>
     <ClInclude Include="..\Codes\include\ExceptionCommon.h">
       <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Demo\Demo.h">
+      <Filter>Codes\MetaData\include\Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,9 +323,6 @@
     <ClCompile Include="test_items.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\Demo.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Codes\Serialization\src\SerialStreamBinary.cpp">
       <Filter>Codes\Serialization\src</Filter>
     </ClCompile>
@@ -356,13 +356,13 @@
     <ClCompile Include="..\Codes\MetaData\src\TUnkwnObject.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Codes\MetaData\src\Demo\Demo.cpp">
+      <Filter>Codes\MetaData\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Codes\src\ExtraMetaDataObjects.mdo">
       <Filter>Codes\src</Filter>
-    </None>
-    <None Include="..\Codes\MetaData\src\Demo.mdo">
-      <Filter>Codes\MetaData\src</Filter>
     </None>
     <None Include="..\Codes\MetaData\src\IClone.mdo">
       <Filter>Codes\MetaData\src</Filter>
@@ -398,6 +398,9 @@
       <Filter>Codes\Serialization\src</Filter>
     </None>
     <None Include="..\Codes\MetaData\src\IPropertyNotify.mdo">
+      <Filter>Codes\MetaData\src</Filter>
+    </None>
+    <None Include="..\Codes\MetaData\src\Demo\Demo.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>
   </ItemGroup>

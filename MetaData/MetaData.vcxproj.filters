@@ -57,9 +57,6 @@
     <ClInclude Include="..\Codes\include\ExceptionID.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\ExceptionMetaData.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -236,9 +233,6 @@
     <ClCompile Include="MetaDataMain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Codes\MetaData\src\Demo.cpp">
-      <Filter>Codes\MetaData\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Codes\MetaData\src\ExceptionMetaData.cpp">
       <Filter>Codes\MetaData\src</Filter>
     </ClCompile>
@@ -355,9 +349,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Codes\MetaData\src\Demo.mdo">
-      <Filter>Codes\MetaData\src</Filter>
-    </None>
     <None Include="..\Codes\MetaData\src\IClone.mdo">
       <Filter>Codes\MetaData\src</Filter>
     </None>

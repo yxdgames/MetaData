@@ -8,11 +8,11 @@
 
 #include "MetaDataObjects.h"
 
-struct __bool_true {};
-struct __bool_false {};
+struct STRUCT_DESCRIPT __bool_true {};
+struct STRUCT_DESCRIPT __bool_false {};
 
 template <typename T>
-class TypeTraits
+class TEMPLATE_CLASS_DESCRIPT TypeTraits
 {
 public:
 	//method
@@ -27,7 +27,7 @@ private:
 
 //Specialization
 template <>
-class TypeTraits<char>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<char>
 {
 public:
 	//method
@@ -41,7 +41,7 @@ private:
 };
 
 template <>
-class TypeTraits<wchar_t>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<wchar_t>
 {
 public:
 	//method
@@ -55,7 +55,7 @@ private:
 };
 
 template <>
-class TypeTraits<short>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<short>
 {
 public:
 	//method
@@ -69,7 +69,7 @@ private:
 };
 
 template <>
-class TypeTraits<int>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<int>
 {
 public:
 	//method
@@ -83,7 +83,7 @@ private:
 };
 
 template <>
-class TypeTraits<long>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<long>
 {
 public:
 	//method
@@ -97,7 +97,7 @@ private:
 };
 
 template <>
-class TypeTraits<long long>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<long long>
 {
 public:
 	//method
@@ -111,7 +111,7 @@ private:
 };
 
 template <>
-class TypeTraits<unsigned char>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<unsigned char>
 {
 public:
 	//method
@@ -125,7 +125,7 @@ private:
 };
 
 template <>
-class TypeTraits<unsigned short>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<unsigned short>
 {
 public:
 	//method
@@ -139,7 +139,7 @@ private:
 };
 
 template <>
-class TypeTraits<unsigned int>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<unsigned int>
 {
 public:
 	//method
@@ -153,7 +153,7 @@ private:
 };
 
 template <>
-class TypeTraits<unsigned long>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<unsigned long>
 {
 public:
 	//method
@@ -167,7 +167,7 @@ private:
 };
 
 template <>
-class TypeTraits<unsigned long long>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<unsigned long long>
 {
 public:
 	//method
@@ -181,7 +181,7 @@ private:
 };
 
 template <>
-class TypeTraits<float>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<float>
 {
 public:
 	//method
@@ -195,7 +195,7 @@ private:
 };
 
 template <>
-class TypeTraits<double>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<double>
 {
 public:
 	//method
@@ -209,7 +209,7 @@ private:
 };
 
 template <>
-class TypeTraits<bool>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<bool>
 {
 public:
 	//method
@@ -223,7 +223,7 @@ private:
 };
 
 template <>
-class TypeTraits<void*>
+class TEMPLATE_CLASS_DESCRIPT TypeTraits<void*>
 {
 public:
 	//method

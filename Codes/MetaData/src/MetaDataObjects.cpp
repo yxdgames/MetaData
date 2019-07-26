@@ -59,7 +59,7 @@ VAR_DESCRIPT const CMetaDataInnerType _MD__InnerTypePtr("void*", &META_DATA_GLOB
 ////////////////////////////////////////////////
 //Demo
 #ifdef __META_DATA_DEMO__
-#include "Demo.mdo"
+#include "Demo\Demo.mdo"
 #endif //__META_DATA_DEMO__
 
 #include "..\..\src\ExtraMetaDataObjects.mdo"

@@ -26,7 +26,7 @@
 #include "MetaDataCustomTypeProperty.h"
 #include "MetaDataVariable.h"
 
-class CMetaDataCustomType;
+class CLASS_DESCRIPT CMetaDataCustomType;
 
 struct STRUCT_DESCRIPT SMDCustomTypeOffsetDescriptInCustomType
 {
@@ -39,7 +39,7 @@ struct STRUCT_DESCRIPT SMDBaseTypeOfCustomType
 {
 };
 
-class CMetaDataInterface;
+class CLASS_DESCRIPT CMetaDataInterface;
 
 struct STRUCT_DESCRIPT SMDInterfaceOfCustomType
 	: public SMDCustomTypeOffsetDescriptInCustomType

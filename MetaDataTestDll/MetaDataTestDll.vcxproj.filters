@@ -25,6 +25,9 @@
     <Filter Include="Codes\MetaData\include">
       <UniqueIdentifier>{166fe5fd-cc01-4280-9a8a-a33d1d905984}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Codes\MetaData\include\Demo">
+      <UniqueIdentifier>{14de46a0-306e-4467-ad1a-d4850d9ca7c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -108,9 +111,6 @@
     <ClInclude Include="..\Codes\include\TArray.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MetaData\include\Demo.h">
-      <Filter>Codes\MetaData\include</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h">
       <Filter>Codes\MetaData\include</Filter>
     </ClInclude>
@@ -164,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="..\Codes\include\ExceptionCommon.h">
       <Filter>Codes\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\MetaData\include\Demo\Demo.h">
+      <Filter>Codes\MetaData\include\Demo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

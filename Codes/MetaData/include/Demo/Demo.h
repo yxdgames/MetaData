@@ -1,11 +1,9 @@
 #pragma once
 
-#include "Property.h"
-#include "SimpleString.h"
-#include "MetaDataSupport.h"
-#include "TUnkwnObject.h"
-
-//#define	__META_DATA_DEMO__
+#include "..\Property.h"
+#include "..\SimpleString.h"
+#include "..\MetaDataSupport.h"
+#include "..\TUnkwnObject.h"
 
 #ifdef __META_DATA_DEMO__
 ////////////////////////////////////////////////
