@@ -1,9 +1,9 @@
 #pragma once
-
 #include "..\Property.h"
 #include "..\SimpleString.h"
 #include "..\MetaDataSupport.h"
 #include "..\TUnkwnObject.h"
+#include "..\IInterface.h"
 
 #ifdef __META_DATA_DEMO__
 ////////////////////////////////////////////////
@@ -1596,6 +1596,28 @@ namespace NS1
 		}
 	}
 }
+
+class CLASS_DESCRIPT IIntf1 : public IInterface
+{
+public:
+	class CLASS_DESCRIPT IIntf1InIntf1 : public IInterface
+	{
+	public:
+		IIntf1InIntf1(void) {}
+		virtual ~IIntf1InIntf1(void) = 0 {}
+
+	MD_INTERFACE_DECLARE_BEGIN(IIntf1InIntf1)
+	MD_INTERFACE_DECLARE_DETAIL_KERNEL(IIntf1InIntf1)
+	MD_INTERFACE_DECLARE_END(IIntf1InIntf1)
+	};
+public:
+	IIntf1(void) {}
+	virtual ~IIntf1(void) = 0 {}
+
+MD_INTERFACE_DECLARE_BEGIN(IIntf1)
+MD_INTERFACE_DECLARE_DETAIL_KERNEL(IIntf1)
+MD_INTERFACE_DECLARE_END(IIntf1)
+};
 
 extern int global_A;
 MD_GLOBAL_VARIABLE_DECLARE(global_A)

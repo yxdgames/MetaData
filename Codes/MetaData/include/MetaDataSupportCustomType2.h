@@ -18,6 +18,11 @@
 	const md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name)); \
 	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
 
+//嵌套用(自定义类型内部)
+#define MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, outer_name, meta_data_ctm_type_outer_name) \
+	const md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &meta_data_ctm_type_outer_name, sizeof(name)); \
+	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
+
 //嵌套用(命名空间内部)
 #define MD_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name) \
 	const md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \

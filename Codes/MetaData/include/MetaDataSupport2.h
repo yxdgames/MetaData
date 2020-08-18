@@ -44,6 +44,12 @@
 //无嵌套
 #define MD_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface)
 
+//嵌套用(接口内部)
+#define MD_INTERFACE_IN_INTF_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_INTERFACE(outer_name))
+
+//嵌套用(类内部)
+#define MD_INTERFACE_IN_CLS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_CLASS_TYPE(outer_name))
+
 //嵌套用(命名空间内部)
 #define MD_INTERFACE_IN_NS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, outer_name)
 
@@ -67,10 +73,11 @@
 //无嵌套
 #define MD_CLASS_TYPE_DEF(name)		MD_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType)
 
+//嵌套用(接口内部)
+#define MD_CLASS_TYPE_IN_INTF_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_INTERFACE(outer_name))
+
 //嵌套用(类内部)
-#define MD_CLASS_TYPE_IN_CLS_DEF(name, outer_name) \
-	const CMetaDataClassType outer_name::name::_MD__CT##name(#name, &META_DATA_CLASS_TYPE(outer_name), sizeof(name)); \
-	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
+#define MD_CLASS_TYPE_IN_CLS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_CLASS_TYPE(outer_name))
 
 //嵌套用(命名空间内部)
 #define MD_CLASS_TYPE_IN_NS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_NS_DEF(name, CT, CMetaDataClassType, outer_name)
