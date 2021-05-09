@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F7F57E10-1864-49C3-A7A1-F6BCA64D8A44}</ProjectGuid>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>MetaDataView</RootNamespace>
   </PropertyGroup>
@@ -191,27 +191,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v14.1">
-      <HintPath>DevExpress.Data.v14.1</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v14.1.Core">
-      <HintPath>DevExpress.Printing.v14.1.Core</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v14.1">
-      <HintPath>DevExpress.Utils.v14.1</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v14.1">
-      <HintPath>DevExpress.XtraEditors.v14.1</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v14.1">
-      <HintPath>D:\DotNetFrame\DevExpress 14.1\Components\Bin\Framework\DevExpress.XtraGrid.v14.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraLayout.v14.1">
-      <HintPath>DevExpress.XtraLayout.v14.1</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v14.1">
-      <HintPath>DevExpress.XtraPrinting.v14.1</HintPath>
-    </Reference>
+    <Reference Include="DevExpress.Data.Desktop.v20.2, Version=20.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Data.v20.2, Version=20.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v20.2.Core, Version=20.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v20.2, Version=20.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v20.2, Version=20.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v20.2, Version=20.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
