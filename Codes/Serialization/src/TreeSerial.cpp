@@ -149,7 +149,8 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		}
 		switch(pEnt->GetValue().type)
 		{
-#ifdef CO_PLATFORM_WIN_X64
+#ifdef CO_OS_WIN
+#ifdef CO_MACHINE_X64
 		case vtBOOL:
 			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
 			break;
@@ -188,6 +189,7 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);
 			break;
 #endif
+#endif
 		}
 
 		for (i = 0; i < pEnt->GetChildrenCount(); ++i)
@@ -211,7 +213,8 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		}
 		switch(pEnt->GetValue().type)
 		{
-#ifdef CO_PLATFORM_WIN_X64
+#ifdef CO_OS_WIN
+#ifdef CO_MACHINE_X64
 		case vtBOOL:
 			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
 			break;
@@ -249,6 +252,7 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		default:
 			printf("<%s type_name=\"%s\" tag=\"%d\" value_type=\"%d\" value=\"\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type);
 			break;
+#endif
 #endif
 		}
 	}
