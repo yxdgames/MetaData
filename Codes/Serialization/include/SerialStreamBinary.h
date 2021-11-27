@@ -1,9 +1,8 @@
 #pragma once
-
 #include "ISerialStream.h"
 #include "ISerialEntity.h"
-#include "..\include\EntityBinaryFileStructure.h"
-#include "..\..\MetaData\include\IInterfaceDefaultImp.h"
+#include "../include/EntityBinaryFileStructure.h"
+#include "../../MetaData/include/IInterfaceDefaultImp.h"
 
 class CLASS_DESCRIPT CSerialStreamBinary : public ISerialStream
 {

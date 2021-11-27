@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "..\include\TreeSerial.h"
-#include "..\include\ISerialStream.h"
+#include "../include/TreeSerial.h"
+#include "../include/ISerialStream.h"
 #include <fstream>
 
 static const ESerialStreamIntfType gTreeSerialSerialStreamIntfType[ssiMax] = {
@@ -149,7 +149,7 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		}
 		switch(pEnt->GetValue().type)
 		{
-#ifdef CO_PLATFORM_WIN_X64
+#ifdef CO_MACHINE_X64
 		case vtBOOL:
 			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\">\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
 			break;
@@ -211,7 +211,7 @@ void CTreeSerial::DoDebugPrintSelf(ISerialEntity *pEnt, unsigned int level)
 		}
 		switch(pEnt->GetValue().type)
 		{
-#ifdef CO_PLATFORM_WIN_X64
+#ifdef CO_MACHINE_X64
 		case vtBOOL:
 			printf("<%s type_name=\"%s\" tag=\"%lld\" value_type=\"%d\" value=\"%d\"/>\n", pEnt->GetName(), pEnt->GetEntTypeName(), pEnt->GetTag(), pEnt->GetValue().type, pEnt->GetValue().value._b);
 			break;

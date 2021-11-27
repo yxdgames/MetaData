@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\ExceptionBase.h"
+#include "../include/ExceptionBase.h"
 
 
 ExceptionBase::ExceptionBase(int ID, const char *pCaption)

@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "..\include\SerialStreamBinary.h"
-#include "..\include\ITreeSerial.h"
-#include "..\include\IBlobCreater.h"
-#include "..\include\ExceptionSerialization.h"
-#include "..\include\ExceptionIDSerialization.h"
-#include "..\..\include\TArray.h"
+#include "../include/SerialStreamBinary.h"
+#include "../include/ITreeSerial.h"
+#include "../include/IBlobCreater.h"
+#include "../include/ExceptionSerialization.h"
+#include "../include/ExceptionIDSerialization.h"
+#include "../../include/TArray.h"
 
 #define D_ENT_BIN_SERIALIZER_FILE_TAG	"OBBINSER\0"
 

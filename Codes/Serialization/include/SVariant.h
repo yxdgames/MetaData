@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\MetaData\include\IBlob.h"
+#include "../../MetaData/include/IBlob.h"
 
 enum EVarType
 {

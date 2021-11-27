@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\SimpleString.h"
+#include "../include/SimpleString.h"
 #include <string>
 
 SimpleString::SimpleString(void)

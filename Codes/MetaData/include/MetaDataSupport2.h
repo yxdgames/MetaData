@@ -37,6 +37,13 @@
 #define MD_INNER_TYPE_3_DEF(name1, name2, name3, pfunNewObject, pfunDeleteObject) \
 	VAR_DESCRIPT const CMetaDataInnerType _MD__InnerType##name1##name2##name3(#name1" "#name2" "#name3, &META_DATA_GLOBALSPACE(), sizeof(name1 name2 name3), pfunNewObject, pfunDeleteObject);
 
+#define MD_INNER_TYPE_DEF_NO_VD(name, pfunNewObject, pfunDeleteObject) \
+	const CMetaDataInnerType _MD__InnerType##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name), pfunNewObject, pfunDeleteObject);
+#define MD_INNER_TYPE_2_DEF_NO_VD(name1, name2, pfunNewObject, pfunDeleteObject) \
+	const CMetaDataInnerType _MD__InnerType##name1##name2(#name1" "#name2, &META_DATA_GLOBALSPACE(), sizeof(name1 name2), pfunNewObject, pfunDeleteObject);
+#define MD_INNER_TYPE_3_DEF_NO_VD(name1, name2, name3, pfunNewObject, pfunDeleteObject) \
+	const CMetaDataInnerType _MD__InnerType##name1##name2##name3(#name1" "#name2" "#name3, &META_DATA_GLOBALSPACE(), sizeof(name1 name2 name3), pfunNewObject, pfunDeleteObject);
+
 #include "MetaDataSupportCustomType2.h"
 /**************************/
 /* Meta data of interface */
@@ -158,7 +165,7 @@
 #define MD_GLOBAL_FUNCTION_DEF_END(name) \
 		return ret_val; \
 	} \
-	const CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), _MD__FWRAPPER##name); \
+	const CMetaDataFunction _MD__F##name(#name, &META_DATA_GLOBALSPACE(), reinterpret_cast<void*>(&_MD__FWRAPPER##name)); \
 	_MD__CLS_FOR_GFUN_##name _MD__CLS_FOR_GFUN_##name::m_SingleInstance;
 
 /*********************************************/

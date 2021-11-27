@@ -1,7 +1,6 @@
 #pragma once
-
 #include "ISerialEntity.h"
-#include "..\..\MetaData\include\IInterfaceDefaultImp.h"
+#include "../../MetaData/include/IInterfaceDefaultImp.h"
 #include <vector>
 
 class CLASS_DESCRIPT CSerialEntity : public ISerialEntity

@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\include\ExceptionID.h"
+#include "../../include/ExceptionID.h"
 
 #define D_E_ID_SERIAL_BEGIN								(D_E_ID_SERIALIZATION_BEGIN)
 

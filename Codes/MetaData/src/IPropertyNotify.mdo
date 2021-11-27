@@ -1,4 +1,4 @@
-#include "..\include\IPropertyNotify.h"
+#include "../include/IPropertyNotify.h"
 
 /*Define: MetaData of Interface*/
 MD_INTERFACE_DEF(IPropertyNotify)

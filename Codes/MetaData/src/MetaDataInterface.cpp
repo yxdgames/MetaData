@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\MetaDataInterface.h"
+#include "../include/MetaDataInterface.h"
 
 
 CMetaDataInterface::CMetaDataInterface(const char *pName, const CMetaData *pParent, size_t size)

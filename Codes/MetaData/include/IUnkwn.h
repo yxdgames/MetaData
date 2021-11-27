@@ -14,7 +14,15 @@
 /*                                                                   */
 /*-------------------------------------------------------------------*/
 #include "MetaDataSupport_Unkwn.h"
+#if defined(CO_OS_WIN)
 #include <guiddef.h>
+#elif defined(CO_OS_LINUX)
+#include <uuid/uuid.h>
+typedef uuid_t IID;
+#define REFIID const IID &
+#else
+// Unknown
+#endif
 
 /*---Type Definition---*/
 typedef long			HResult;

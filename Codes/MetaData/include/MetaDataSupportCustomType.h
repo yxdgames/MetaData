@@ -47,8 +47,8 @@
 		public: \
 			C_MD__CTM_DID##name() \
 			{ \
-				char *pClsName(#name); \
-				char *pDsrName("~"#name); \
+				const char *pClsName(#name); \
+				const char *pDsrName("~"#name); \
 				md_custom_type &MDType(*const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
 				name *pTemObj(reinterpret_cast<name*>(sizeof(INT_FOR_MD_SIZEOF))); \
 				name *pTemObj2(reinterpret_cast<name*>(0)); \
@@ -81,7 +81,7 @@
 	private: \
 		static bool _MD__CTMCR##index(SMetaDataCalledFunctionDataPacket &DataPacket);
 #define MD_CUSTOM_TYPE_CONSTRUCTOR_DEF(index) \
-	static CMetaDataFunction _MD__CR##index(pClsName, &MDType, _MD__CTMCR##index); \
+	static CMetaDataFunction _MD__CR##index(pClsName, &MDType, reinterpret_cast<void*>(&_MD__CTMCR##index)); \
 	MDType.AddConstructor(&_MD__CR##index); \
 	pMDFunc = &_MD__CR##index; \
 	pMDFunc->SetReturnInfo(new CMetaDataVarBase("__ret_val", pMDFunc, &MDType, 1));
@@ -95,7 +95,7 @@
 	private: \
 		static bool _MD__CTMDSR(SMetaDataCalledFunctionDataPacket &DataPacket);
 #define MD_CUSTOM_TYPE_DESTRUCTOR_DEF() \
-	static CMetaDataFunction _MD__DSR(pDsrName, &MDType, _MD__CTMDSR); \
+	static CMetaDataFunction _MD__DSR(pDsrName, &MDType, reinterpret_cast<void*>(&_MD__CTMDSR)); \
 	MDType.SetDestructor(&_MD__DSR); \
 	pMDFunc = &_MD__DSR; \
 	pMDFunc->AddParamInfo(new CMetaDataVarBase("this", pMDFunc, &MDType, 1));
@@ -105,7 +105,7 @@
 	private: \
 		static bool _MD__CTMMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_DEF(func_name, index) \
-	static CMetaDataFunction _MD__MF##func_name##index(#func_name, &MDType, _MD__CTMMF##func_name##index); \
+	static CMetaDataFunction _MD__MF##func_name##index(#func_name, &MDType, reinterpret_cast<void*>(&_MD__CTMMF##func_name##index)); \
 	MDType.AddMemberFunc(&_MD__MF##func_name##index); \
 	pMDFunc = &_MD__MF##func_name##index; \
 	pMDFunc->AddParamInfo(new CMetaDataVarBase("this", pMDFunc, &MDType, 1));
@@ -136,7 +136,7 @@
 	private: \
 		static bool _MD__CTMSMF##func_name##index(SMetaDataCalledFunctionDataPacket &DataPacket);
 #define MD_CUSTOM_TYPE_STATIC_MEMBER_FUNC_DEF(func_name, index) \
-	static CMetaDataFunction _MD__SMF##func_name##index(#func_name, &MDType, _MD__CTMSMF##func_name##index); \
+	static CMetaDataFunction _MD__SMF##func_name##index(#func_name, &MDType, reinterpret_cast<void*>(&_MD__CTMSMF##func_name##index)); \
 	MDType.AddStaticMemberFunc(&_MD__SMF##func_name##index); \
 	pMDFunc = &_MD__SMF##func_name##index;
 

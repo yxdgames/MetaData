@@ -1,4 +1,4 @@
-#include "..\include\IClone.h"
+#include "../include/IClone.h"
 
 /*Define: MetaData of Interface*/
 MD_INTERFACE_DEF(IClone)

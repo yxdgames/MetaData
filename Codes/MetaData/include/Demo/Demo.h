@@ -1,9 +1,9 @@
 #pragma once
-#include "..\Property.h"
-#include "..\SimpleString.h"
-#include "..\MetaDataSupport.h"
-#include "..\TUnkwnObject.h"
-#include "..\IInterface.h"
+#include "../Property.h"
+#include "../SimpleString.h"
+#include "../MetaDataSupport.h"
+#include "../TUnkwnObject.h"
+#include "../IInterface.h"
 
 #ifdef __META_DATA_DEMO__
 ////////////////////////////////////////////////
@@ -122,7 +122,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1)
 MD_CLASS_TYPE_DECLARE_END(CClass1)
 };
 
-class CClass1_Derived1 : public CClass1
+class CLASS_DESCRIPT CClass1_Derived1 : public CClass1
 {
 public:
 	CClass1_Derived1(void);
@@ -147,7 +147,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1_Derived1)
 MD_CLASS_TYPE_DECLARE_END(CClass1_Derived1)
 };
 
-class CClass1_Derived2 : public CClass1
+class CLASS_DESCRIPT CClass1_Derived2 : public CClass1
 {
 public:
 	CClass1_Derived2(void);
@@ -160,7 +160,7 @@ MD_CLASS_TYPE_DECLARE_END(CClass1_Derived2)
 };
 
 
-class CClass1_Descendant1 : public CClass1_Derived1
+class CLASS_DESCRIPT CClass1_Descendant1 : public CClass1_Derived1
 {
 public:
 	CClass1_Descendant1(void);
@@ -172,7 +172,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1_Descendant1)
 MD_CLASS_TYPE_DECLARE_END(CClass1_Descendant1)
 };
 
-class CClass1_Descendant2 : public CClass1_Derived2
+class CLASS_DESCRIPT CClass1_Descendant2 : public CClass1_Derived2
 {
 public:
 	CClass1_Descendant2(void);
@@ -184,7 +184,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1_Descendant2)
 MD_CLASS_TYPE_DECLARE_END(CClass1_Descendant2)
 };
 
-class CClass1_Descendant3 : public CClass1_Derived1, public CClass1_Derived2
+class CLASS_DESCRIPT CClass1_Descendant3 : public CClass1_Derived1, public CClass1_Derived2
 {
 public:
 	CClass1_Descendant3(void);
@@ -197,7 +197,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1_Descendant3)
 MD_CLASS_TYPE_DECLARE_END(CClass1_Descendant3)
 };
 
-class CClass1_Descendant4 : public CClass1_Descendant2
+class CLASS_DESCRIPT CClass1_Descendant4 : public CClass1_Descendant2
 {
 public:
 	CClass1_Descendant4(void);
@@ -209,7 +209,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1_Descendant4)
 MD_CLASS_TYPE_DECLARE_END(CClass1_Descendant4)
 };
 
-class CClass1_Descendant5 : public CClass1_Descendant3
+class CLASS_DESCRIPT CClass1_Descendant5 : public CClass1_Descendant3
 {
 public:
 	CClass1_Descendant5(void);
@@ -221,7 +221,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass1_Descendant5)
 MD_CLASS_TYPE_DECLARE_END(CClass1_Descendant5)
 };
 
-class CClass2
+class CLASS_DESCRIPT CClass2
 {
 public:
 	CClass2(void) {}
@@ -237,7 +237,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2)
 MD_CLASS_TYPE_DECLARE_END(CClass2)
 };
 
-class CClass2_Derived1 : public CClass2
+class CLASS_DESCRIPT CClass2_Derived1 : public CClass2
 {
 public:
 	CClass2_Derived1(void);
@@ -249,7 +249,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2_Derived1)
 MD_CLASS_TYPE_DECLARE_END(CClass2_Derived1)
 };
 
-class CClass2_Derived2 : public CClass2
+class CLASS_DESCRIPT CClass2_Derived2 : public CClass2
 {
 public:
 	CClass2_Derived2(void);
@@ -261,7 +261,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2_Derived2)
 MD_CLASS_TYPE_DECLARE_END(CClass2_Derived2)
 };
 
-class CClass2_Descendant1 : public CClass2_Derived1
+class CLASS_DESCRIPT CClass2_Descendant1 : public CClass2_Derived1
 {
 public:
 	CClass2_Descendant1(void);
@@ -273,7 +273,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2_Descendant1)
 MD_CLASS_TYPE_DECLARE_END(CClass2_Descendant1)
 };
 
-class CClass2_Descendant2 : public CClass2_Derived2
+class CLASS_DESCRIPT CClass2_Descendant2 : public CClass2_Derived2
 {
 public:
 	CClass2_Descendant2(void);
@@ -285,7 +285,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2_Descendant2)
 MD_CLASS_TYPE_DECLARE_END(CClass2_Descendant2)
 };
 
-class CClass2_Descendant3 : public CClass2_Derived1, public CClass2_Derived2
+class CLASS_DESCRIPT CClass2_Descendant3 : public CClass2_Derived1, public CClass2_Derived2
 {
 public:
 	CClass2_Descendant3(void);
@@ -298,7 +298,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2_Descendant3)
 MD_CLASS_TYPE_DECLARE_END(CClass2_Descendant3)
 };
 
-class CClass2_Descendant4 : public CClass2_Descendant2
+class CLASS_DESCRIPT CClass2_Descendant4 : public CClass2_Descendant2
 {
 public:
 	CClass2_Descendant4(void);
@@ -310,7 +310,7 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2_Descendant4)
 MD_CLASS_TYPE_DECLARE_END(CClass2_Descendant4)
 };
 
-class CClass2_Descendant5 : public CClass2_Descendant3
+class CLASS_DESCRIPT CClass2_Descendant5 : public CClass2_Descendant3
 {
 public:
 	CClass2_Descendant5(void);
@@ -321,13 +321,13 @@ MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass2_Descendant5)
 MD_CLASS_TYPE_DECLARE_END(CClass2_Descendant5)
 };
 
-class CClass3
+class CLASS_DESCRIPT CClass3
 {
 public:
 	CClass3(void);
 	~CClass3(void);
 public:
-	class CClass3_Inner1
+	class CLASS_DESCRIPT CClass3_Inner1
 	{
 	public:
 		CClass3_Inner1(void) {}
@@ -350,7 +350,7 @@ public:
 		MD_CLASS_TYPE_MEMBER_VAR_DEF(mem_cls2, CClass2, 0)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1)
 	};
-	class CClass3_Inner2
+	class CLASS_DESCRIPT CClass3_Inner2
 	{
 	public:
 		CClass3_Inner2(void);
@@ -360,13 +360,13 @@ public:
 	MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass3_Inner2)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner2)
 	};
-	class CClass3_Inner3
+	class CLASS_DESCRIPT CClass3_Inner3
 	{
 	public:
 		CClass3_Inner3(void);
 		~CClass3_Inner3(void);
 	public:
-		class CClass3_Inner3_Inner1
+		class CLASS_DESCRIPT CClass3_Inner3_Inner1
 		{
 		public:
 			CClass3_Inner3_Inner1(void);
@@ -376,13 +376,13 @@ public:
 		MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass3_Inner3_Inner1)
 		MD_CLASS_TYPE_DECLARE_END(CClass3_Inner3_Inner1)
 		};
-		class CClass3_Inner3_Inner2
+		class CLASS_DESCRIPT CClass3_Inner3_Inner2
 		{
 		public:
 			CClass3_Inner3_Inner2(void);
 			~CClass3_Inner3_Inner2(void);
 		public:
-			class CClass3_Inner3_Inner2_Inner1
+			class CLASS_DESCRIPT CClass3_Inner3_Inner2_Inner1
 			{
 			public:
 				CClass3_Inner3_Inner2_Inner1(void);
@@ -402,7 +402,7 @@ public:
 	MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(CClass3_Inner3)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner3)
 	};
-	class CClass3_Inner1_Derived1 : public CClass3_Inner1
+	class CLASS_DESCRIPT CClass3_Inner1_Derived1 : public CClass3_Inner1
 	{
 	public:
 		CClass3_Inner1_Derived1(void) {}
@@ -463,7 +463,7 @@ public:
 		MD_CLASS_TYPE_STATIC_MEMBER_VAR_DEF(mem_bool, bool, 0)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1_Derived1)
 	};
-	class CClass3_Inner1_Derived2 : public CClass3_Inner1
+	class CLASS_DESCRIPT CClass3_Inner1_Derived2 : public CClass3_Inner1
 	{
 	public:
 		CClass3_Inner1_Derived2(void);
@@ -474,7 +474,7 @@ public:
 		MD_CLASS_TYPE_BASE_CLASS_DEF(CClass3_Inner1)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1_Derived2)
 	};
-	class CClass3_Inner1_Descendant1 : public CClass3_Inner1_Derived1
+	class CLASS_DESCRIPT CClass3_Inner1_Descendant1 : public CClass3_Inner1_Derived1
 	{
 	public:
 		CClass3_Inner1_Descendant1(void);
@@ -485,7 +485,7 @@ public:
 		MD_CLASS_TYPE_BASE_CLASS_DEF(CClass3_Inner1_Derived1)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1_Descendant1)
 	};
-	class CClass3_Inner1_Descendant2 : public CClass3_Inner1_Derived2
+	class CLASS_DESCRIPT CClass3_Inner1_Descendant2 : public CClass3_Inner1_Derived2
 	{
 	public:
 		CClass3_Inner1_Descendant2(void);
@@ -496,7 +496,7 @@ public:
 		MD_CLASS_TYPE_BASE_CLASS_DEF(CClass3_Inner1_Derived2)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1_Descendant2)
 	};
-	class CClass3_Inner1_Descendant3 : public CClass3_Inner1_Derived1, public CClass3_Inner1_Derived2
+	class CLASS_DESCRIPT CClass3_Inner1_Descendant3 : public CClass3_Inner1_Derived1, public CClass3_Inner1_Derived2
 	{
 	public:
 		CClass3_Inner1_Descendant3(void);
@@ -508,7 +508,7 @@ public:
 		MD_CLASS_TYPE_BASE_CLASS_DEF(CClass3_Inner1_Derived2)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1_Descendant3)
 	};
-	class CClass3_Inner1_Descendant4 : public CClass3_Inner1_Descendant2
+	class CLASS_DESCRIPT CClass3_Inner1_Descendant4 : public CClass3_Inner1_Descendant2
 	{
 	public:
 		CClass3_Inner1_Descendant4(void);
@@ -519,7 +519,7 @@ public:
 		MD_CLASS_TYPE_BASE_CLASS_DEF(CClass3_Inner1_Descendant2)
 	MD_CLASS_TYPE_DECLARE_END(CClass3_Inner1_Descendant4)
 	};
-	class CClass3_Inner1_Descendant5 : public CClass3_Inner1_Descendant3
+	class CLASS_DESCRIPT CClass3_Inner1_Descendant5 : public CClass3_Inner1_Descendant3
 	{
 	public:
 		CClass3_Inner1_Descendant5(void);
@@ -540,7 +540,7 @@ namespace NameSpace1{
 	//Declare NameSpace1
 	MD_NAME_SPACE_DECLARE(NameSpace1)
 
-	class NS1_CClass1
+	class CLASS_DESCRIPT NS1_CClass1
 	{
 	public:
 		NS1_CClass1(void);
@@ -551,7 +551,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass1)
 	};
 
-	class NS1_CClass1_Derived1 : public NS1_CClass1
+	class CLASS_DESCRIPT NS1_CClass1_Derived1 : public NS1_CClass1
 	{
 	public:
 		NS1_CClass1_Derived1(void);
@@ -563,7 +563,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass1_Derived1)
 	};
 
-	class NS1_CClass1_Derived2 : public NS1_CClass1
+	class CLASS_DESCRIPT NS1_CClass1_Derived2 : public NS1_CClass1
 	{
 	public:
 		NS1_CClass1_Derived2(void);
@@ -576,7 +576,7 @@ namespace NameSpace1{
 	};
 
 
-	class NS1_CClass1_Descendant1 : public NS1_CClass1_Derived1
+	class CLASS_DESCRIPT NS1_CClass1_Descendant1 : public NS1_CClass1_Derived1
 	{
 	public:
 		NS1_CClass1_Descendant1(void);
@@ -588,7 +588,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass1_Descendant1)
 	};
 
-	class NS1_CClass1_Descendant2 : public NS1_CClass1_Derived2
+	class CLASS_DESCRIPT NS1_CClass1_Descendant2 : public NS1_CClass1_Derived2
 	{
 	public:
 		NS1_CClass1_Descendant2(void);
@@ -600,7 +600,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass1_Descendant2)
 	};
 
-	class NS1_CClass1_Descendant3 : public NS1_CClass1_Derived1, public NS1_CClass1_Derived2
+	class CLASS_DESCRIPT NS1_CClass1_Descendant3 : public NS1_CClass1_Derived1, public NS1_CClass1_Derived2
 	{
 	public:
 		NS1_CClass1_Descendant3(void);
@@ -613,7 +613,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass1_Descendant3)
 	};
 
-	class NS1_CClass1_Descendant4 : public NS1_CClass1_Descendant2
+	class CLASS_DESCRIPT NS1_CClass1_Descendant4 : public NS1_CClass1_Descendant2
 	{
 	public:
 		NS1_CClass1_Descendant4(void);
@@ -625,7 +625,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass1_Descendant4)
 	};
 
-	class NS1_CClass1_Descendant5 : public NS1_CClass1_Descendant3
+	class CLASS_DESCRIPT NS1_CClass1_Descendant5 : public NS1_CClass1_Descendant3
 	{
 	public:
 		NS1_CClass1_Descendant5(void);
@@ -637,7 +637,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass1_Descendant5)
 	};
 
-	class NS1_CClass2
+	class CLASS_DESCRIPT NS1_CClass2
 	{
 	public:
 		NS1_CClass2(void);
@@ -648,7 +648,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2)
 	};
 
-	class NS1_CClass2_Derived1 : public NS1_CClass2
+	class CLASS_DESCRIPT NS1_CClass2_Derived1 : public NS1_CClass2
 	{
 	public:
 		NS1_CClass2_Derived1(void);
@@ -660,7 +660,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2_Derived1)
 	};
 
-	class NS1_CClass2_Derived2 : public NS1_CClass2
+	class CLASS_DESCRIPT NS1_CClass2_Derived2 : public NS1_CClass2
 	{
 	public:
 		NS1_CClass2_Derived2(void);
@@ -672,7 +672,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2_Derived2)
 	};
 
-	class NS1_CClass2_Descendant1 : public NS1_CClass2_Derived1
+	class CLASS_DESCRIPT NS1_CClass2_Descendant1 : public NS1_CClass2_Derived1
 	{
 	public:
 		NS1_CClass2_Descendant1(void);
@@ -684,7 +684,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2_Descendant1)
 	};
 
-	class NS1_CClass2_Descendant2 : public NS1_CClass2_Derived2
+	class CLASS_DESCRIPT NS1_CClass2_Descendant2 : public NS1_CClass2_Derived2
 	{
 	public:
 		NS1_CClass2_Descendant2(void);
@@ -696,7 +696,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2_Descendant2)
 	};
 
-	class NS1_CClass2_Descendant3 : public NS1_CClass2_Derived1, public NS1_CClass2_Derived2
+	class CLASS_DESCRIPT NS1_CClass2_Descendant3 : public NS1_CClass2_Derived1, public NS1_CClass2_Derived2
 	{
 	public:
 		NS1_CClass2_Descendant3(void);
@@ -709,7 +709,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2_Descendant3)
 	};
 
-	class NS1_CClass2_Descendant4 : public NS1_CClass2_Descendant2
+	class CLASS_DESCRIPT NS1_CClass2_Descendant4 : public NS1_CClass2_Descendant2
 	{
 	public:
 		NS1_CClass2_Descendant4(void);
@@ -721,7 +721,7 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2_Descendant4)
 	};
 
-	class NS1_CClass2_Descendant5 : public NS1_CClass2_Descendant3
+	class CLASS_DESCRIPT NS1_CClass2_Descendant5 : public NS1_CClass2_Descendant3
 	{
 	public:
 		NS1_CClass2_Descendant5(void);
@@ -733,13 +733,13 @@ namespace NameSpace1{
 	MD_CLASS_TYPE_DECLARE_END(NS1_CClass2_Descendant5)
 	};
 
-	class NS1_CClass3
+	class CLASS_DESCRIPT NS1_CClass3
 	{
 	public:
 		NS1_CClass3(void);
 		~NS1_CClass3(void);
 	public:
-		class NS1_CClass3_Inner1
+		class CLASS_DESCRIPT NS1_CClass3_Inner1
 		{
 		public:
 			NS1_CClass3_Inner1(void);
@@ -749,7 +749,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_CClass3_Inner1)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner1)
 		};
-		class NS1_CClass3_Inner2
+		class CLASS_DESCRIPT NS1_CClass3_Inner2
 		{
 		public:
 			NS1_CClass3_Inner2(void);
@@ -759,13 +759,13 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_CClass3_Inner2)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner2)
 		};
-		class NS1_CClass3_Inner3
+		class CLASS_DESCRIPT NS1_CClass3_Inner3
 		{
 		public:
 			NS1_CClass3_Inner3(void);
 			~NS1_CClass3_Inner3(void);
 		public:
-			class NS1_CClass3_Inner3_Inner1
+			class CLASS_DESCRIPT NS1_CClass3_Inner3_Inner1
 			{
 			public:
 				NS1_CClass3_Inner3_Inner1(void);
@@ -775,13 +775,13 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_CClass3_Inner3_Inner1)
 			MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner3_Inner1)
 			};
-			class NS1_CClass3_Inner3_Inner2
+			class CLASS_DESCRIPT NS1_CClass3_Inner3_Inner2
 			{
 			public:
 				NS1_CClass3_Inner3_Inner2(void);
 				~NS1_CClass3_Inner3_Inner2(void);
 			public:
-				class NS1_CClass3_Inner3_Inner2_Inner1
+				class CLASS_DESCRIPT NS1_CClass3_Inner3_Inner2_Inner1
 				{
 				public:
 					NS1_CClass3_Inner3_Inner2_Inner1(void);
@@ -800,7 +800,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_CClass3_Inner3)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner3)
 		};
-		class NS1_CClass3_Inner1_Derived1 : public NS1_CClass3_Inner1
+		class CLASS_DESCRIPT NS1_CClass3_Inner1_Derived1 : public NS1_CClass3_Inner1
 		{
 		public:
 			NS1_CClass3_Inner1_Derived1(void);
@@ -811,7 +811,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_CClass3_Inner1)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner1_Derived1)
 		};
-		class NS1_CClass3_Inner1_Derived2 : public NS1_CClass3_Inner1
+		class CLASS_DESCRIPT NS1_CClass3_Inner1_Derived2 : public NS1_CClass3_Inner1
 		{
 		public:
 			NS1_CClass3_Inner1_Derived2(void);
@@ -822,7 +822,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_CClass3_Inner1)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner1_Derived2)
 		};
-		class NS1_CClass3_Inner1_Descendant1 : public NS1_CClass3_Inner1_Derived1
+		class CLASS_DESCRIPT NS1_CClass3_Inner1_Descendant1 : public NS1_CClass3_Inner1_Derived1
 		{
 		public:
 			NS1_CClass3_Inner1_Descendant1(void);
@@ -833,7 +833,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_CClass3_Inner1_Derived1)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner1_Descendant1)
 		};
-		class NS1_CClass3_Inner1_Descendant2 : public NS1_CClass3_Inner1_Derived2
+		class CLASS_DESCRIPT NS1_CClass3_Inner1_Descendant2 : public NS1_CClass3_Inner1_Derived2
 		{
 		public:
 			NS1_CClass3_Inner1_Descendant2(void);
@@ -844,7 +844,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_CClass3_Inner1_Derived2)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner1_Descendant2)
 		};
-		class NS1_CClass3_Inner1_Descendant3 : public NS1_CClass3_Inner1_Derived1, public NS1_CClass3_Inner1_Derived2
+		class CLASS_DESCRIPT NS1_CClass3_Inner1_Descendant3 : public NS1_CClass3_Inner1_Derived1, public NS1_CClass3_Inner1_Derived2
 		{
 		public:
 			NS1_CClass3_Inner1_Descendant3(void);
@@ -856,7 +856,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_CClass3_Inner1_Derived2)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner1_Descendant3)
 		};
-		class NS1_CClass3_Inner1_Descendant4 : public NS1_CClass3_Inner1_Descendant2
+		class CLASS_DESCRIPT NS1_CClass3_Inner1_Descendant4 : public NS1_CClass3_Inner1_Descendant2
 		{
 		public:
 			NS1_CClass3_Inner1_Descendant4(void);
@@ -867,7 +867,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_CClass3_Inner1_Descendant2)
 		MD_CLASS_TYPE_DECLARE_END(NS1_CClass3_Inner1_Descendant4)
 		};
-		class NS1_CClass3_Inner1_Descendant5 : public NS1_CClass3_Inner1_Descendant3
+		class CLASS_DESCRIPT NS1_CClass3_Inner1_Descendant5 : public NS1_CClass3_Inner1_Descendant3
 		{
 		public:
 			NS1_CClass3_Inner1_Descendant5(void);
@@ -888,7 +888,7 @@ namespace NameSpace1{
 		//Declare NameSpace1_Sub1
 		MD_NAME_SPACE_DECLARE(NameSpace1_Sub1)
 
-		class NS1_Sub1_CClass1
+		class CLASS_DESCRIPT NS1_Sub1_CClass1
 		{
 		public:
 			NS1_Sub1_CClass1(void);
@@ -899,7 +899,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass1)
 		};
 
-		class NS1_Sub1_CClass1_Derived1 : public NS1_Sub1_CClass1
+		class CLASS_DESCRIPT NS1_Sub1_CClass1_Derived1 : public NS1_Sub1_CClass1
 		{
 		public:
 			NS1_Sub1_CClass1_Derived1(void);
@@ -911,7 +911,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass1_Derived1)
 		};
 
-		class NS1_Sub1_CClass1_Derived2 : public NS1_Sub1_CClass1
+		class CLASS_DESCRIPT NS1_Sub1_CClass1_Derived2 : public NS1_Sub1_CClass1
 		{
 		public:
 			NS1_Sub1_CClass1_Derived2(void);
@@ -924,7 +924,7 @@ namespace NameSpace1{
 		};
 
 
-		class NS1_Sub1_CClass1_Descendant1 : public NS1_Sub1_CClass1_Derived1
+		class CLASS_DESCRIPT NS1_Sub1_CClass1_Descendant1 : public NS1_Sub1_CClass1_Derived1
 		{
 		public:
 			NS1_Sub1_CClass1_Descendant1(void);
@@ -936,7 +936,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass1_Descendant1)
 		};
 
-		class NS1_Sub1_CClass1_Descendant2 : public NS1_Sub1_CClass1_Derived2
+		class CLASS_DESCRIPT NS1_Sub1_CClass1_Descendant2 : public NS1_Sub1_CClass1_Derived2
 		{
 		public:
 			NS1_Sub1_CClass1_Descendant2(void);
@@ -948,7 +948,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass1_Descendant2)
 		};
 
-		class NS1_Sub1_CClass1_Descendant3 : public NS1_Sub1_CClass1_Derived1, public NS1_Sub1_CClass1_Derived2
+		class CLASS_DESCRIPT NS1_Sub1_CClass1_Descendant3 : public NS1_Sub1_CClass1_Derived1, public NS1_Sub1_CClass1_Derived2
 		{
 		public:
 			NS1_Sub1_CClass1_Descendant3(void);
@@ -961,7 +961,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass1_Descendant3)
 		};
 
-		class NS1_Sub1_CClass1_Descendant4 : public NS1_Sub1_CClass1_Descendant2
+		class CLASS_DESCRIPT NS1_Sub1_CClass1_Descendant4 : public NS1_Sub1_CClass1_Descendant2
 		{
 		public:
 			NS1_Sub1_CClass1_Descendant4(void);
@@ -973,7 +973,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass1_Descendant4)
 		};
 
-		class NS1_Sub1_CClass1_Descendant5 : public NS1_Sub1_CClass1_Descendant3
+		class CLASS_DESCRIPT NS1_Sub1_CClass1_Descendant5 : public NS1_Sub1_CClass1_Descendant3
 		{
 		public:
 			NS1_Sub1_CClass1_Descendant5(void);
@@ -985,7 +985,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass1_Descendant5)
 		};
 
-		class NS1_Sub1_CClass2
+		class CLASS_DESCRIPT NS1_Sub1_CClass2
 		{
 		public:
 			NS1_Sub1_CClass2(void);
@@ -996,7 +996,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2)
 		};
 
-		class NS1_Sub1_CClass2_Derived1 : public NS1_Sub1_CClass2
+		class CLASS_DESCRIPT NS1_Sub1_CClass2_Derived1 : public NS1_Sub1_CClass2
 		{
 		public:
 			NS1_Sub1_CClass2_Derived1(void);
@@ -1008,7 +1008,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2_Derived1)
 		};
 
-		class NS1_Sub1_CClass2_Derived2 : public NS1_Sub1_CClass2
+		class CLASS_DESCRIPT NS1_Sub1_CClass2_Derived2 : public NS1_Sub1_CClass2
 		{
 		public:
 			NS1_Sub1_CClass2_Derived2(void);
@@ -1020,7 +1020,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2_Derived2)
 		};
 
-		class NS1_Sub1_CClass2_Descendant1 : public NS1_Sub1_CClass2_Derived1
+		class CLASS_DESCRIPT NS1_Sub1_CClass2_Descendant1 : public NS1_Sub1_CClass2_Derived1
 		{
 		public:
 			NS1_Sub1_CClass2_Descendant1(void);
@@ -1032,7 +1032,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2_Descendant1)
 		};
 
-		class NS1_Sub1_CClass2_Descendant2 : public NS1_Sub1_CClass2_Derived2
+		class CLASS_DESCRIPT NS1_Sub1_CClass2_Descendant2 : public NS1_Sub1_CClass2_Derived2
 		{
 		public:
 			NS1_Sub1_CClass2_Descendant2(void);
@@ -1044,7 +1044,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2_Descendant2)
 		};
 
-		class NS1_Sub1_CClass2_Descendant3 : public NS1_Sub1_CClass2_Derived1, public NS1_Sub1_CClass2_Derived2
+		class CLASS_DESCRIPT NS1_Sub1_CClass2_Descendant3 : public NS1_Sub1_CClass2_Derived1, public NS1_Sub1_CClass2_Derived2
 		{
 		public:
 			NS1_Sub1_CClass2_Descendant3(void);
@@ -1057,7 +1057,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2_Descendant3)
 		};
 
-		class NS1_Sub1_CClass2_Descendant4 : public NS1_Sub1_CClass2_Descendant2
+		class CLASS_DESCRIPT NS1_Sub1_CClass2_Descendant4 : public NS1_Sub1_CClass2_Descendant2
 		{
 		public:
 			NS1_Sub1_CClass2_Descendant4(void);
@@ -1069,7 +1069,7 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2_Descendant4)
 		};
 
-		class NS1_Sub1_CClass2_Descendant5 : public NS1_Sub1_CClass2_Descendant3
+		class CLASS_DESCRIPT NS1_Sub1_CClass2_Descendant5 : public NS1_Sub1_CClass2_Descendant3
 		{
 		public:
 			NS1_Sub1_CClass2_Descendant5(void);
@@ -1081,13 +1081,13 @@ namespace NameSpace1{
 		MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass2_Descendant5)
 		};
 
-		class NS1_Sub1_CClass3
+		class CLASS_DESCRIPT NS1_Sub1_CClass3
 		{
 		public:
 			NS1_Sub1_CClass3(void);
 			~NS1_Sub1_CClass3(void);
 		public:
-			class NS1_Sub1_CClass3_Inner1
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1(void);
@@ -1097,7 +1097,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_Sub1_CClass3_Inner1)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner1)
 			};
-			class NS1_Sub1_CClass3_Inner2
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner2
 			{
 			public:
 				NS1_Sub1_CClass3_Inner2(void);
@@ -1107,13 +1107,13 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_Sub1_CClass3_Inner2)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner2)
 			};
-			class NS1_Sub1_CClass3_Inner3
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner3
 			{
 			public:
 				NS1_Sub1_CClass3_Inner3(void);
 				~NS1_Sub1_CClass3_Inner3(void);
 			public:
-				class NS1_Sub1_CClass3_Inner3_Inner1
+				class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner3_Inner1
 				{
 				public:
 					NS1_Sub1_CClass3_Inner3_Inner1(void);
@@ -1128,7 +1128,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_Sub1_CClass3_Inner3)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner3)
 			};
-			class NS1_Sub1_CClass3_Inner1_Derived1 : public NS1_Sub1_CClass3_Inner1
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1_Derived1 : public NS1_Sub1_CClass3_Inner1
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1_Derived1(void);
@@ -1139,7 +1139,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_CClass3_Inner1)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner1_Derived1)
 			};
-			class NS1_Sub1_CClass3_Inner1_Derived2 : public NS1_Sub1_CClass3_Inner1
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1_Derived2 : public NS1_Sub1_CClass3_Inner1
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1_Derived2(void);
@@ -1150,7 +1150,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_CClass3_Inner1)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner1_Derived2)
 			};
-			class NS1_Sub1_CClass3_Inner1_Descendant1 : public NS1_Sub1_CClass3_Inner1_Derived1
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1_Descendant1 : public NS1_Sub1_CClass3_Inner1_Derived1
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1_Descendant1(void);
@@ -1161,7 +1161,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_CClass3_Inner1_Derived1)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner1_Descendant1)
 			};
-			class NS1_Sub1_CClass3_Inner1_Descendant2 : public NS1_Sub1_CClass3_Inner1_Derived2
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1_Descendant2 : public NS1_Sub1_CClass3_Inner1_Derived2
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1_Descendant2(void);
@@ -1172,7 +1172,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_CClass3_Inner1_Derived2)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner1_Descendant2)
 			};
-			class NS1_Sub1_CClass3_Inner1_Descendant3 : public NS1_Sub1_CClass3_Inner1_Derived1, public NS1_Sub1_CClass3_Inner1_Derived2
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1_Descendant3 : public NS1_Sub1_CClass3_Inner1_Derived1, public NS1_Sub1_CClass3_Inner1_Derived2
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1_Descendant3(void);
@@ -1184,7 +1184,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_CClass3_Inner1_Derived2)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner1_Descendant3)
 			};
-			class NS1_Sub1_CClass3_Inner1_Descendant4 : public NS1_Sub1_CClass3_Inner1_Descendant2
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1_Descendant4 : public NS1_Sub1_CClass3_Inner1_Descendant2
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1_Descendant4(void);
@@ -1195,7 +1195,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_CClass3_Inner1_Descendant2)
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_CClass3_Inner1_Descendant4)
 			};
-			class NS1_Sub1_CClass3_Inner1_Descendant5 : public NS1_Sub1_CClass3_Inner1_Descendant3
+			class CLASS_DESCRIPT NS1_Sub1_CClass3_Inner1_Descendant5 : public NS1_Sub1_CClass3_Inner1_Descendant3
 			{
 			public:
 				NS1_Sub1_CClass3_Inner1_Descendant5(void);
@@ -1217,7 +1217,7 @@ namespace NameSpace1{
 			//Declare NameSpasce1_Sub1_Sub1
 			MD_NAME_SPACE_DECLARE(NameSpasce1_Sub1_Sub1)
 
-			class NS1_Sub1_Sub1_CClass1
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1(void) {}
@@ -1265,7 +1265,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1)
 			};
 
-			class NS1_Sub1_Sub1_CClass1_Derived1 : public NS1_Sub1_Sub1_CClass1
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1_Derived1 : public NS1_Sub1_Sub1_CClass1
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1_Derived1(void);
@@ -1277,7 +1277,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1_Derived1)
 			};
 
-			class NS1_Sub1_Sub1_CClass1_Derived2 : public NS1_Sub1_Sub1_CClass1
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1_Derived2 : public NS1_Sub1_Sub1_CClass1
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1_Derived2(void);
@@ -1290,7 +1290,7 @@ namespace NameSpace1{
 			};
 
 
-			class NS1_Sub1_Sub1_CClass1_Descendant1 : public NS1_Sub1_Sub1_CClass1_Derived1
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1_Descendant1 : public NS1_Sub1_Sub1_CClass1_Derived1
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1_Descendant1(void);
@@ -1302,7 +1302,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1_Descendant1)
 			};
 
-			class NS1_Sub1_Sub1_CClass1_Descendant2 : public NS1_Sub1_Sub1_CClass1_Derived2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1_Descendant2 : public NS1_Sub1_Sub1_CClass1_Derived2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1_Descendant2(void);
@@ -1314,7 +1314,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1_Descendant2)
 			};
 
-			class NS1_Sub1_Sub1_CClass1_Descendant3 : public NS1_Sub1_Sub1_CClass1_Derived1, public NS1_Sub1_Sub1_CClass1_Derived2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1_Descendant3 : public NS1_Sub1_Sub1_CClass1_Derived1, public NS1_Sub1_Sub1_CClass1_Derived2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1_Descendant3(void);
@@ -1327,7 +1327,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1_Descendant3)
 			};
 
-			class NS1_Sub1_Sub1_CClass1_Descendant4 : public NS1_Sub1_Sub1_CClass1_Descendant2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1_Descendant4 : public NS1_Sub1_Sub1_CClass1_Descendant2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1_Descendant4(void);
@@ -1339,7 +1339,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1_Descendant4)
 			};
 
-			class NS1_Sub1_Sub1_CClass1_Descendant5 : public NS1_Sub1_Sub1_CClass1_Descendant3
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass1_Descendant5 : public NS1_Sub1_Sub1_CClass1_Descendant3
 			{
 			public:
 				NS1_Sub1_Sub1_CClass1_Descendant5(void);
@@ -1351,7 +1351,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass1_Descendant5)
 			};
 
-			class NS1_Sub1_Sub1_CClass2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2(void);
@@ -1362,7 +1362,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2)
 			};
 
-			class NS1_Sub1_Sub1_CClass2_Derived1 : public NS1_Sub1_Sub1_CClass2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2_Derived1 : public NS1_Sub1_Sub1_CClass2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2_Derived1(void);
@@ -1374,7 +1374,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2_Derived1)
 			};
 
-			class NS1_Sub1_Sub1_CClass2_Derived2 : public NS1_Sub1_Sub1_CClass2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2_Derived2 : public NS1_Sub1_Sub1_CClass2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2_Derived2(void);
@@ -1386,7 +1386,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2_Derived2)
 			};
 
-			class NS1_Sub1_Sub1_CClass2_Descendant1 : public NS1_Sub1_Sub1_CClass2_Derived1
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2_Descendant1 : public NS1_Sub1_Sub1_CClass2_Derived1
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2_Descendant1(void);
@@ -1398,7 +1398,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2_Descendant1)
 			};
 
-			class NS1_Sub1_Sub1_CClass2_Descendant2 : public NS1_Sub1_Sub1_CClass2_Derived2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2_Descendant2 : public NS1_Sub1_Sub1_CClass2_Derived2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2_Descendant2(void);
@@ -1410,7 +1410,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2_Descendant2)
 			};
 
-			class NS1_Sub1_Sub1_CClass2_Descendant3 : public NS1_Sub1_Sub1_CClass2_Derived1, public NS1_Sub1_Sub1_CClass2_Derived2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2_Descendant3 : public NS1_Sub1_Sub1_CClass2_Derived1, public NS1_Sub1_Sub1_CClass2_Derived2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2_Descendant3(void);
@@ -1423,7 +1423,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2_Descendant3)
 			};
 
-			class NS1_Sub1_Sub1_CClass2_Descendant4 : public NS1_Sub1_Sub1_CClass2_Descendant2
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2_Descendant4 : public NS1_Sub1_Sub1_CClass2_Descendant2
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2_Descendant4(void);
@@ -1435,7 +1435,7 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2_Descendant4)
 			};
 
-			class NS1_Sub1_Sub1_CClass2_Descendant5 : public NS1_Sub1_Sub1_CClass2_Descendant3
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass2_Descendant5 : public NS1_Sub1_Sub1_CClass2_Descendant3
 			{
 			public:
 				NS1_Sub1_Sub1_CClass2_Descendant5(void);
@@ -1447,13 +1447,13 @@ namespace NameSpace1{
 			MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass2_Descendant5)
 			};
 
-			class NS1_Sub1_Sub1_CClass3
+			class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3
 			{
 			public:
 				NS1_Sub1_Sub1_CClass3(void);
 				~NS1_Sub1_Sub1_CClass3(void);
 			public:
-				class NS1_Sub1_Sub1_CClass3_Inner1
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1(void);
@@ -1463,7 +1463,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_Sub1_Sub1_CClass3_Inner1)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner1)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner2
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner2
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner2(void);
@@ -1473,13 +1473,13 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_Sub1_Sub1_CClass3_Inner2)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner2)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner3
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner3
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner3(void);
 					~NS1_Sub1_Sub1_CClass3_Inner3(void);
 				public:
-					class NS1_Sub1_Sub1_CClass3_Inner3_Inner1
+					class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner3_Inner1
 					{
 					public:
 						NS1_Sub1_Sub1_CClass3_Inner3_Inner1(void);
@@ -1494,7 +1494,7 @@ namespace NameSpace1{
 				MD_CLASS_TYPE_DECLARE_DETAIL_KERNEL(NS1_Sub1_Sub1_CClass3_Inner3)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner3)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner1_Derived1 : public NS1_Sub1_Sub1_CClass3_Inner1
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1_Derived1 : public NS1_Sub1_Sub1_CClass3_Inner1
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1_Derived1(void);
@@ -1505,7 +1505,7 @@ namespace NameSpace1{
 					MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_Sub1_CClass3_Inner1)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner1_Derived1)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner1_Derived2 : public NS1_Sub1_Sub1_CClass3_Inner1
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1_Derived2 : public NS1_Sub1_Sub1_CClass3_Inner1
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1_Derived2(void);
@@ -1516,7 +1516,7 @@ namespace NameSpace1{
 					MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_Sub1_CClass3_Inner1)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner1_Derived2)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant1 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived1
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1_Descendant1 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived1
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1_Descendant1(void);
@@ -1527,7 +1527,7 @@ namespace NameSpace1{
 					MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Derived1)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner1_Descendant1)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant2 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived2
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1_Descendant2 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived2
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1_Descendant2(void);
@@ -1538,7 +1538,7 @@ namespace NameSpace1{
 					MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Derived2)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner1_Descendant2)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant3 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived1, public NS1_Sub1_Sub1_CClass3_Inner1_Derived2
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1_Descendant3 : public NS1_Sub1_Sub1_CClass3_Inner1_Derived1, public NS1_Sub1_Sub1_CClass3_Inner1_Derived2
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1_Descendant3(void);
@@ -1550,7 +1550,7 @@ namespace NameSpace1{
 					MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Derived2)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner1_Descendant3)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant4 : public NS1_Sub1_Sub1_CClass3_Inner1_Descendant2
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1_Descendant4 : public NS1_Sub1_Sub1_CClass3_Inner1_Descendant2
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1_Descendant4(void);
@@ -1561,7 +1561,7 @@ namespace NameSpace1{
 					MD_CLASS_TYPE_BASE_CLASS_DEF(NS1_Sub1_Sub1_CClass3_Inner1_Descendant2)
 				MD_CLASS_TYPE_DECLARE_END(NS1_Sub1_Sub1_CClass3_Inner1_Descendant4)
 				};
-				class NS1_Sub1_Sub1_CClass3_Inner1_Descendant5 : public NS1_Sub1_Sub1_CClass3_Inner1_Descendant3
+				class CLASS_DESCRIPT NS1_Sub1_Sub1_CClass3_Inner1_Descendant5 : public NS1_Sub1_Sub1_CClass3_Inner1_Descendant3
 				{
 				public:
 					NS1_Sub1_Sub1_CClass3_Inner1_Descendant5(void);
@@ -1604,7 +1604,7 @@ public:
 	{
 	public:
 		IIntf1InIntf1(void) {}
-		virtual ~IIntf1InIntf1(void) = 0 {}
+		virtual ~IIntf1InIntf1(void) {}
 
 	MD_INTERFACE_DECLARE_BEGIN(IIntf1InIntf1)
 	MD_INTERFACE_DECLARE_DETAIL_KERNEL(IIntf1InIntf1)
@@ -1612,7 +1612,7 @@ public:
 	};
 public:
 	IIntf1(void) {}
-	virtual ~IIntf1(void) = 0 {}
+	virtual ~IIntf1(void) {}
 
 MD_INTERFACE_DECLARE_BEGIN(IIntf1)
 MD_INTERFACE_DECLARE_DETAIL_KERNEL(IIntf1)

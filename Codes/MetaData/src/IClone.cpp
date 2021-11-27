@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\IClone.h"
+#include "../include/IClone.h"
 
 IClone::~IClone(void)
 {

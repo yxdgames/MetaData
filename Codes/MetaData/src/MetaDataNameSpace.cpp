@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\MetaDataNameSpace.h"
+#include "../include/MetaDataNameSpace.h"
 
 
 CMetaDataNameSpace::CMetaDataNameSpace(const char *pName, const CMetaData *pParent)

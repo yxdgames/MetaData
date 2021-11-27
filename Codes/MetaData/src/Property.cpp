@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "..\include\Property.h"
-#include "..\include\IPropertyNotify.h"
+#include "../include/Property.h"
+#include "../include/IPropertyNotify.h"
 
 void CPropertyBase::AddPropertyNotification(IPropertyNotify *pNotify)
 {

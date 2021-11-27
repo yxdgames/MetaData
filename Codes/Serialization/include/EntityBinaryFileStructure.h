@@ -1,6 +1,6 @@
 #pragma once
-#include "..\..\include\Typedef.h"
-#include "..\..\include\CommonDefine.h"
+#include "../../include/Typedef.h"
+#include "../../include/CommonDefine.h"
 
 //definition of atom type
 #define D_ENT_BIN_FILE_STRUCT_ATOM_TYPE_NONE		(0x00000000)

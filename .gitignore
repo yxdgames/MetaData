@@ -43,3 +43,7 @@
 /MetaDataView/licenses.licx
 /MetaDataView/x64/Debug
 /MetaDataView/x64/Release
+/_build
+/.vscode/launch.json
+/.vscode/settings.json
+/bin

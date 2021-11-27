@@ -1,4 +1,4 @@
-#include "..\..\include\Demo\Demo.h"
+#include "../../include/Demo/Demo.h"
 
 #ifdef __META_DATA_DEMO__
 
@@ -302,11 +302,10 @@ MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_BEGIN(NameSpace1::NameSpace1_Sub1::
 	);
 MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_END()
 
+//metadata of namespace
+MD_NAME_SPACE_DEF(NameSpace1)
 namespace NameSpace1
 {
-	//metadata of namespace
-	MD_NAME_SPACE_DEF(NameSpace1)
-
 	//NS1_CClass1
 	MD_CLASS_TYPE_IN_NS_DEF(NS1_CClass1, NameSpace1)
 
@@ -397,11 +396,10 @@ namespace NameSpace1
 	//NS1_CClass3_Inner1_Descendant5
 	MD_CLASS_TYPE_IN_CLS_DEF(NS1_CClass3_Inner1_Descendant5, NameSpace1::NS1_CClass3)
 
+//metadata of namespace
+MD_NAME_SPACE_INNER_DEF(NameSpace1_Sub1, NameSpace1)
 namespace NameSpace1_Sub1
 {
-	//metadata of namespace
-	MD_NAME_SPACE_INNER_DEF(NameSpace1_Sub1, NameSpace1)
-
 	//NS1_Sub1_CClass1
 	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_CClass1, NameSpace1_Sub1)
 
@@ -486,11 +484,10 @@ namespace NameSpace1_Sub1
 	//NS1_Sub1_CClass3_Inner1_Descendant5
 	MD_CLASS_TYPE_IN_CLS_DEF(NS1_Sub1_CClass3_Inner1_Descendant5, NameSpace1::NameSpace1_Sub1::NS1_Sub1_CClass3)
 
+//metadata of namespace
+MD_NAME_SPACE_INNER_DEF(NameSpasce1_Sub1_Sub1, NameSpace1_Sub1)
 namespace NameSpasce1_Sub1_Sub1
 {
-	//metadata of namespace
-	MD_NAME_SPACE_INNER_DEF(NameSpasce1_Sub1_Sub1, NameSpace1_Sub1)
-
 	//NS1_Sub1_Sub1_CClass1
 	MD_CLASS_TYPE_IN_NS_DEF(NS1_Sub1_Sub1_CClass1, NameSpasce1_Sub1_Sub1)
 
@@ -579,12 +576,13 @@ namespace NameSpasce1_Sub1_Sub1
 } //NameSpace1_Sub1
 } //NameSpace1
 
+
+MD_NAME_SPACE_DEF(NS1)
 namespace NS1
 {
-	MD_NAME_SPACE_DEF(NS1)
+	MD_NAME_SPACE_INNER_DEF(NS1_Sub1, NS1)
 	namespace NS1_Sub1
 	{
-		MD_NAME_SPACE_INNER_DEF(NS1_Sub1, NS1)
 		namespace NS1_Sub1_Sub1
 		{
 			

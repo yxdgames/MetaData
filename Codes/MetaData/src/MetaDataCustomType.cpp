@@ -1,8 +1,8 @@
 #include "stdafx.h"
-#include "..\include\MetaDataCustomType.h"
-#include "..\include\MetaDataInterface.h"
-#include "..\include\ExceptionMetaData.h"
-#include "..\include\ExceptionIDMetaData.h"
+#include "../include/MetaDataCustomType.h"
+#include "../include/MetaDataInterface.h"
+#include "../include/ExceptionMetaData.h"
+#include "../include/ExceptionIDMetaData.h"
 
 /*----------------------------------------*/
 /*                                        */
@@ -415,7 +415,7 @@ bool CMetaDataCustomType::QueryUnknownInterface(void * pObj, const TDGUID & Unkw
 	return *outUnkwnIntf != nullptr;
 }
 
-bool CMetaDataCustomType::CallMemberFuction(char * pFunName, CFuncParamMDVector *pParamMDVector, ...) const
+bool CMetaDataCustomType::CallMemberFuction(const char * pFunName, CFuncParamMDVector *pParamMDVector, ...) const
 {
 	if (!m_pMemberFuncList) return false;
 
@@ -448,7 +448,7 @@ bool CMetaDataCustomType::CallMemberFuction(char * pFunName, CFuncParamMDVector 
 	return ret;
 }
 
-bool CMetaDataCustomType::CallStaticMemberFuction(char * pFunName, CFuncParamMDVector *pParamMDVector, ...) const
+bool CMetaDataCustomType::CallStaticMemberFuction(const char * pFunName, CFuncParamMDVector *pParamMDVector, ...) const
 {
 	if (!m_pStaticMemberFuncList) return false;
 

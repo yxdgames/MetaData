@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\include\ExceptionID.h"
+#include "../../include/ExceptionID.h"
 
 #define D_E_ID_MD_BEGIN								(D_E_ID_METADATA_BEGIN)
 

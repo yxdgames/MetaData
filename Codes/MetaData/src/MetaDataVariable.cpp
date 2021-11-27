@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\MetaDataVariable.h"
+#include "../include/MetaDataVariable.h"
 
 
 CMetaDataVariable::CMetaDataVariable(const char *pName, const CMetaData *pParent, const CMetaDataType *pType, int PtrLevel, void *pVar)

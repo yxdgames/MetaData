@@ -1,8 +1,8 @@
 #pragma once
-
-#include "..\..\include\CommonDefine.h"
-#include "..\..\include\Typedef.h"
+#include "../../include/CommonDefine.h"
+#include "../../include/Typedef.h"
 #include <string>
+#include <string.h>
 
 #define MD_GUID_DATA_MAX			(16)
 

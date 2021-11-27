@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\SVariant.h"
+#include "../include/SVariant.h"
 
 SVariant::SVariant(void)
 	: type(vtNone), release_flag(false)

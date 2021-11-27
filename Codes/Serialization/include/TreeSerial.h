@@ -2,7 +2,7 @@
 
 #include "ITreeSerial.h"
 #include "ISetBlobCreater.h"
-#include "..\..\MetaData\include\IInterfaceDefaultImp.h"
+#include "../../MetaData/include/IInterfaceDefaultImp.h"
 
 class CLASS_DESCRIPT CTreeSerial : public ITreeSerial, public ISetBlobCreater
 {

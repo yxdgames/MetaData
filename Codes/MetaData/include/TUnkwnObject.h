@@ -1,7 +1,17 @@
 #pragma once
 #include "IUnkwn.h"
 
-class CLASS_DESCRIPT CUnkwnObjRefCountLock;
+class CLASS_DESCRIPT CUnkwnObjRefCountLock
+{
+public:
+	CUnkwnObjRefCountLock(void);
+	~CUnkwnObjRefCountLock(void);
+public:
+	ULong IncreaseRefCount(volatile ULong &refCount);
+	ULong DecreaseRefCount(volatile ULong &refCount);
+private:
+	void *m_pLockObject;
+};
 
 template <typename _Base>
 class TEMPLATE_CLASS_DESCRIPT TUnkwnObject : public _Base
@@ -49,15 +59,3 @@ ULong TUnkwnObject<_Base>::Release(void)
 	if (refCount == 0) delete this;
 	return refCount;
 }
-
-class CLASS_DESCRIPT CUnkwnObjRefCountLock
-{
-public:
-	CUnkwnObjRefCountLock(void);
-	~CUnkwnObjRefCountLock(void);
-public:
-	ULong IncreaseRefCount(volatile ULong &refCount);
-	ULong DecreaseRefCount(volatile ULong &refCount);
-private:
-	void *m_pLockObject;
-};

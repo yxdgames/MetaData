@@ -1,8 +1,7 @@
 #pragma once
-
 #include "ISerializer.h"
 #include "ITreeSerial.h"
-#include "..\..\MetaData\include\IInterfaceDefaultImp.h"
+#include "../../MetaData/include/IInterfaceDefaultImp.h"
 
 #define D_SERIALIZER_H_STRING_BUFFER_SIZE_MAX			(256)
 

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\ITreeSerial.h"
+#include "../include/ITreeSerial.h"
 
 
 ITreeSerial::ITreeSerial(void)

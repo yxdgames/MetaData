@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\MetaData\include\IBlob.h"
+#include "../../MetaData/include/IBlob.h"
 
 class CLASS_DESCRIPT IBlobCreater : public IInterface
 {

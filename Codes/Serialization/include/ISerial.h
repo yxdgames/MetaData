@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\MetaData\include\IInterface.h"
+#include "../../MetaData/include/IInterface.h"
 #include <iostream>
 
 enum EStructureInStream

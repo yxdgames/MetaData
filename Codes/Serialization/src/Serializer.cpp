@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "..\include\Serializer.h"
-#include "..\..\MetaData\include\IContainer.h"
-#include "..\..\MetaData\include\SimpleString.h"
-#include "..\..\include\TArray.h"
-#include "..\include\ExceptionSerialization.h"
-#include "..\include\ExceptionIDSerialization.h"
+#include "../include/Serializer.h"
+#include "../../MetaData/include/IContainer.h"
+#include "../../MetaData/include/SimpleString.h"
+#include "../../include/TArray.h"
+#include "../include/ExceptionSerialization.h"
+#include "../include/ExceptionIDSerialization.h"
 
 #define D_SERIALIZER_ENTITY_TAG_BASE_TYPE							(0x00000001)
 #define D_SERIALIZER_ENTITY_TAG_MEMBER_VARIABLE						(0x00000002)
@@ -404,7 +404,7 @@ bool CSerializer::SerializeInnerType(const CMetaDataInnerType *pType, void *pObj
 	}
 	else if (pType == TypeTraits<long>::GetMetaDataType())
 	{
-		pSEntity->SetValue(*reinterpret_cast<long*>(pObj));
+		pSEntity->SetValue((long long)*reinterpret_cast<long*>(pObj));
 	}
 	else if (pType == TypeTraits<long long>::GetMetaDataType())
 	{
@@ -424,7 +424,7 @@ bool CSerializer::SerializeInnerType(const CMetaDataInnerType *pType, void *pObj
 	}
 	else if (pType == TypeTraits<unsigned long>::GetMetaDataType())
 	{
-		pSEntity->SetValue((long)*reinterpret_cast<unsigned long*>(pObj));
+		pSEntity->SetValue((long long)*reinterpret_cast<unsigned long*>(pObj));
 	}
 	else if (pType == TypeTraits<unsigned long long>::GetMetaDataType())
 	{

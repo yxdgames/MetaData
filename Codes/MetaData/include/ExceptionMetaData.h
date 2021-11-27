@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\include\ExceptionBase.h"
+#include "../../include/ExceptionBase.h"
 
 class CLASS_DESCRIPT ExceptionMetaData : public ExceptionBase
 {

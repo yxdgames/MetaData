@@ -1,7 +1,6 @@
 #include "stdafx.h"
-#include "..\include\ISerialEntity.h"
-
-#include "..\include\SerialEntity.h"
+#include "../include/ISerialEntity.h"
+#include "../include/SerialEntity.h"
 
 ISerialEntity *ISerialEntity::CreateSerialEntityIntf(void)
 {

@@ -1,9 +1,7 @@
 #pragma once
-
-#include "..\..\include\Typedef.h"
-#include "..\..\include\CommonDefine.h"
+#include "../../include/Typedef.h"
+#include "../../include/CommonDefine.h"
 #include "GuidOfMetaData.h"
-
 #include <vector>
 
 /* 元数据类型ID，标识是哪种元数据。 */
@@ -63,7 +61,7 @@ extern FUNC_DESCRIPT const CMetaData *AssertMetaData(const CMetaData *pMetaData,
 /*--------------------------------*/
 /*   Inline Function Definition   */
 /*--------------------------------*/
-#include "..\..\include\TArray.h"
+#include "../../include/TArray.h"
 
 inline bool CMetaData::Compare(const CMetaData * pMetaData) const
 {

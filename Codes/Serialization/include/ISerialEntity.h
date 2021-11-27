@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\MetaData\include\IInterface.h"
+#include "../../MetaData/include/IInterface.h"
 #include "SVariant.h"
 
 class CLASS_DESCRIPT ISerialEntity : public IInterface

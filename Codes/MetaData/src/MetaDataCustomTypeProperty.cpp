@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\MetaDataCustomTypeProperty.h"
+#include "../include/MetaDataCustomTypeProperty.h"
 
 
 CMetaDataCustomTypeProperty::CMetaDataCustomTypeProperty(const char *pName, const CMetaData *pParent, const CMetaDataType *pType, int PtrLevel, TDUIntPtr Offset)

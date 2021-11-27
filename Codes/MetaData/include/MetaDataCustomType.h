@@ -25,6 +25,7 @@
 #include "MetaDataCustomTypeMemberVar.h"
 #include "MetaDataCustomTypeProperty.h"
 #include "MetaDataVariable.h"
+#include "TypeTraits.h"
 
 class CLASS_DESCRIPT CMetaDataCustomType;
 
@@ -87,8 +88,8 @@ public:
 	bool QueryBaseType(void *pObj, const TDGUID &BaseTypeGuid, void **outObj) const;
 	bool QueryUnknownInterface(void *pObj, const char *pUnkwnIntfName, void **outUnkwnIntf) const;
 	bool QueryUnknownInterface(void *pObj, const TDGUID &UnkwnIntfGuid, void **outUnkwnIntf) const;
-	bool __cdecl CallMemberFuction(char *pFunName, CFuncParamMDVector *pParamMDVector, ...) const;
-	bool __cdecl CallStaticMemberFuction(char *pFunName, CFuncParamMDVector *pParamMDVector, ...) const;
+	bool __cdecl CallMemberFuction(const char *pFunName, CFuncParamMDVector *pParamMDVector, ...) const;
+	bool __cdecl CallStaticMemberFuction(const char *pFunName, CFuncParamMDVector *pParamMDVector, ...) const;
 public:
 	//method - override
 	virtual bool IsTypeOf(const CMetaDataType *pType) const;

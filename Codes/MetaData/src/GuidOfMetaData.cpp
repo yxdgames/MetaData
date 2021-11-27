@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\GuidOfMetaData.h"
+#include "../include/GuidOfMetaData.h"
 
 static const TDByte gGuidInvalidData[MD_GUID_DATA_MAX] = { 0x00 };
 

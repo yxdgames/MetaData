@@ -1,6 +1,5 @@
 #pragma once
-
-#include "..\..\MetaData\include\IInterface.h"
+#include "../../MetaData/include/IInterface.h"
 #include "ISerial.h"
 
 class CLASS_DESCRIPT ISerializer : public IInterface

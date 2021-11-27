@@ -1,6 +1,6 @@
 #pragma once
-#include "..\..\include\CommonDefine.h"
-#include "..\..\include\Typedef.h"
+#include "../../include/CommonDefine.h"
+#include "../../include/Typedef.h"
 #include <vector>
 
 class CLASS_DESCRIPT IPropertyNotify;
@@ -115,7 +115,7 @@ template <typename CLASS, typename T>
 class TEMPLATE_CLASS_DESCRIPT Property : public TPropertyBase<CLASS, T>
 {
 public:
-	Property(CLASS *pObj, Tpfun_set set, Tpfun_get get)
+	Property(CLASS *pObj, typename TPropertyBase<CLASS, T>::Tpfun_set set, typename TPropertyBase<CLASS, T>::Tpfun_get get)
 		: TPropertyBase<CLASS, T>(set, get), m_pObj(pObj) {}
 	virtual ~Property(void) {}
 public:

@@ -1,21 +1,32 @@
 #include "stdafx.h"
-#include "..\include\MetaDataFunction.h"
-
-#include "..\include\TypeTraits.h"
-#include "..\include\ExceptionMetaData.h"
-#include "..\include\ExceptionIDMetaData.h"
+#include "../include/MetaDataFunction.h"
+#include "../include/TypeTraits.h"
+#include "../include/ExceptionMetaData.h"
+#include "../include/ExceptionIDMetaData.h"
 #include <stdarg.h>
 
-#ifdef CO_PLATFORM_WIN_X64
+#if defined(CO_OS_WIN)
+#ifdef CO_MACHINE_X64
 typedef __int64			TD_INT_TYPE;
 typedef double			TD_FLOAT_TYPE;
 
 #define MD_FUNC_VAR_PARAM_ELE_STANDARD_SIZE		sizeof(__int64)
-#else
+#else // CO_MACHINE_X86
 typedef int				TD_INT_TYPE;
 typedef double			TD_FLOAT_TYPE;
 
 #define MD_FUNC_VAR_PARAM_SIZEOF(n)   ( ((n) + sizeof(int) - 1) & ~(sizeof(int) - 1) )
+#endif
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+typedef long			TD_INT_TYPE;
+typedef double			TD_FLOAT_TYPE;
+#else // CO_MACHINE_X86
+typedef int				TD_INT_TYPE;
+typedef double			TD_FLOAT_TYPE;
+#endif
+#else
+// Unknown
 #endif
 
 //提取变参函数里的参数数据值及其Size.
@@ -65,7 +76,8 @@ static inline size_t ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *p
 		*pParamPtrBuffer = pF;
 		return sizeof(TD_FLOAT_TYPE);
 	}
-#ifdef CO_PLATFORM_WIN_X64
+#ifdef CO_OS_WIN
+#ifdef CO_MACHINE_X64
 	else if (TypeTraits<int>::GetMetaDataType() == pMDType)
 	{
 		int *pI(new int);
@@ -95,9 +107,11 @@ static inline size_t ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *p
 		return sizeof(TD_INT_TYPE);
 	}
 #endif
+#endif
 	else
 	{
-#ifdef CO_PLATFORM_WIN_X64
+#ifdef CO_OS_WIN
+#ifdef CO_MACHINE_X64
 		if (pMDType->GetSize() > MD_FUNC_VAR_PARAM_ELE_STANDARD_SIZE
 			|| (pMDType->GetSize() & (pMDType->GetSize() - 1)) != 0)
 		{
@@ -111,6 +125,9 @@ static inline size_t ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *p
 #else
 		*pParamPtrBuffer = pData;
 		return MD_FUNC_VAR_PARAM_SIZEOF(pMDType->GetSize());
+#endif
+#else
+		throw new ExceptionMetaData(D_E_ID_MD_ERROR, "未知平台");
 #endif
 	}
 }
@@ -143,7 +160,8 @@ static inline void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType
 	{
 		delete reinterpret_cast<float*>(*pParamPtrBuffer);
 	}
-#ifdef CO_PLATFORM_WIN_X64
+#ifdef CO_OS_WIN
+#ifdef CO_MACHINE_X64
 	else if (TypeTraits<int>::GetMetaDataType() == pMDType)
 	{
 		delete reinterpret_cast<int*>(*pParamPtrBuffer);
@@ -160,6 +178,7 @@ static inline void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType
 	{
 		delete reinterpret_cast<unsigned long*>(*pParamPtrBuffer);
 	}
+#endif
 #endif
 	else
 	{

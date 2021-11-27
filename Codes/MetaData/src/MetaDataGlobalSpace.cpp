@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\MetaDataGlobalSpace.h"
+#include "../include/MetaDataGlobalSpace.h"
 
 
 CMetaDataGlobalSpace::CMetaDataGlobalSpace(void)

@@ -1,7 +1,6 @@
 #include "stdafx.h"
-#include "..\include\ISerializer.h"
-
-#include "..\include\Serializer.h"
+#include "../include/ISerializer.h"
+#include "../include/Serializer.h"
 
 ISerializer *ISerializer::CreateSerializerIntf(void)
 {

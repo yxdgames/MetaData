@@ -1,5 +1,4 @@
 #pragma once
-
 #include "MetaData.h"
 #include "MetaDataVarBase.h"
 

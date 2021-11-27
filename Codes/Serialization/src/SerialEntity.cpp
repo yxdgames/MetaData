@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\include\SerialEntity.h"
+#include "../include/SerialEntity.h"
 
 CSerialEntity::CSerialEntity(CSerialEntity *pParent)
 	:m_pName(new std::string), m_pTypeName(new std::string),

@@ -1,4 +1,4 @@
-#include "..\include\SimpleString.h"
+#include "../include/SimpleString.h"
 
 /*Define: MetaData of Class Type*/
 MD_CLASS_TYPE_DEF(SimpleString)
