@@ -37,73 +37,63 @@ static inline size_t ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *p
 
 	if (TypeTraits<char>::GetMetaDataType() == pMDType)
 	{
-		char *pC(new char);
-		*pC = static_cast<char>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pC;
+		*reinterpret_cast<char*>(pData) = static_cast<char>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<wchar_t>::GetMetaDataType() == pMDType)
 	{
-		wchar_t *pWCT(new wchar_t);
-		*pWCT = static_cast<wchar_t>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pWCT;
+		*reinterpret_cast<wchar_t*>(pData) = static_cast<wchar_t>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<short>::GetMetaDataType() == pMDType)
 	{
-		short *pS(new short);
-		*pS = static_cast<short>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pS;
+		*reinterpret_cast<short*>(pData) = static_cast<short>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<unsigned char>::GetMetaDataType() == pMDType)
 	{
-		unsigned char *pUC(new unsigned char);
-		*pUC = static_cast<unsigned char>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pUC;
+		*reinterpret_cast<unsigned char*>(pData) = static_cast<unsigned char>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<unsigned short>::GetMetaDataType() == pMDType)
 	{
-		unsigned short *pUS(new unsigned short);
-		*pUS = static_cast<unsigned short>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pUS;
+		*reinterpret_cast<unsigned short*>(pData) = static_cast<unsigned short>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<float>::GetMetaDataType() == pMDType)
 	{
-		float *pF(new float);
-		*pF = static_cast<float>(*reinterpret_cast<TD_FLOAT_TYPE*>(pData));
-		*pParamPtrBuffer = pF;
+		*reinterpret_cast<float*>(pData) = static_cast<float>(*reinterpret_cast<TD_FLOAT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_FLOAT_TYPE);
 	}
 #ifdef CO_MACHINE_X64
 	else if (TypeTraits<int>::GetMetaDataType() == pMDType)
 	{
-		int *pI(new int);
-		*pI = static_cast<int>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pI;
+		*reinterpret_cast<int*>(pData) = static_cast<int>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<unsigned int>::GetMetaDataType() == pMDType)
 	{
-		unsigned int *pUI(new unsigned int);
-		*pUI = static_cast<unsigned int>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pUI;
+		*reinterpret_cast<unsigned int*>(pData) = static_cast<unsigned int>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<long>::GetMetaDataType() == pMDType)
 	{
-		long *pL(new long);
-		*pL = static_cast<long>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pL;
+		*reinterpret_cast<long*>(pData) = static_cast<long>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 	else if (TypeTraits<unsigned long>::GetMetaDataType() == pMDType)
 	{
-		unsigned long *pUL(new unsigned long);
-		*pUL = static_cast<unsigned long>(*reinterpret_cast<TD_INT_TYPE*>(pData));
-		*pParamPtrBuffer = pUL;
+		*reinterpret_cast<unsigned long*>(pData) = static_cast<unsigned long>(*reinterpret_cast<TD_INT_TYPE*>(pData));
+		*pParamPtrBuffer = pData;
 		return sizeof(TD_INT_TYPE);
 	}
 #endif
@@ -124,58 +114,6 @@ static inline size_t ExtractDataAndDataSizeInVarParamFunc(const CMetaDataType *p
 		*pParamPtrBuffer = pData;
 		return MD_FUNC_VAR_PARAM_SIZEOF(pMDType->GetSize());
 #endif
-	}
-}
-
-static inline void FreeMemAllocatedByExtractingData(const CMetaDataType *pMDType, void **pParamPtrBuffer)
-{
-	if (!pMDType || !pParamPtrBuffer) return;
-
-	if (TypeTraits<char>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<char*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<wchar_t>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<wchar_t*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<short>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<short*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<unsigned char>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<unsigned char*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<unsigned short>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<unsigned short*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<float>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<float*>(*pParamPtrBuffer);
-	}
-#ifdef CO_MACHINE_X64
-	else if (TypeTraits<int>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<int*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<unsigned int>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<unsigned int*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<long>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<long*>(*pParamPtrBuffer);
-	}
-	else if (TypeTraits<unsigned long>::GetMetaDataType() == pMDType)
-	{
-		delete reinterpret_cast<unsigned long*>(*pParamPtrBuffer);
-	}
-#endif
-	else
-	{
-		//do nothing.
 	}
 }
 #elif defined(CO_OS_LINUX)
@@ -552,44 +490,27 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 			param_addr += data_size_in_container;
 		}
 
-		try
+		if (bParamsOK)
 		{
-			if (bParamsOK)
+			Packet.ParamCount = static_cast<int>(param_count);
+			Packet.pParam = pParamPtrBuffer;
+			if (m_pReturnInfo)
 			{
-				Packet.ParamCount = static_cast<int>(param_count);
-				Packet.pParam = pParamPtrBuffer;
-				if (m_pReturnInfo)
+				if (pReturn)
 				{
-					if (pReturn)
-					{
-						Packet.pReturn = pReturn;
-					}
-					else
-					{
-						if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：参数表缺失！");
-						Packet.pReturn = *reinterpret_cast<void**>(param_addr);
-					}
+					Packet.pReturn = pReturn;
 				}
-				else Packet.pReturn = nullptr;
+				else
+				{
+					if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：参数表缺失！");
+					Packet.pReturn = *reinterpret_cast<void**>(param_addr);
+				}
+			}
+			else Packet.pReturn = nullptr;
 
-				ret = pFunc(Packet);
-			}
-			else ret = false;
+			ret = pFunc(Packet);
 		}
-		catch (...)
-		{
-			for (index = 0; index < param_count; ++index)
-			{
-				if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
-					FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
-			}
-			throw;
-		}
-		for (index = 0; index < param_count; ++index)
-		{
-			if (m_pParamTable->at(index)->GetPtrLevel() <= 0)
-				FreeMemAllocatedByExtractingData(m_pParamTable->at(index)->GetMDType(), pParamPtrBuffer + index);
-		}
+		else ret = false;
 	}
 	catch(...)
 	{
