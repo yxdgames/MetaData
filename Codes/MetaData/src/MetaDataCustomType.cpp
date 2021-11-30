@@ -417,11 +417,39 @@ bool CMetaDataCustomType::QueryUnknownInterface(void * pObj, const TDGUID & Unkw
 
 bool CMetaDataCustomType::CallMemberFuction(const char * pFunName, CFuncParamMDVector *pParamMDVector, ...) const
 {
+#ifdef CO_OS_LINUX
+#ifdef CO_MACHINE_X64
+	register uint64_t reg_rbp asm("rbp");
+	// register uint64_t reg_rdi asm("rdi");
+	// register uint64_t reg_rsi asm("rsi");
+	// register uint64_t reg_rdx asm("rdx");
+	register uint64_t reg_rcx asm("rcx");
+	register uint64_t reg_r8 asm("r8");
+	register uint64_t reg_r9 asm("r9");
+	uint64_t reg_params[3] = {
+		// reg_rdi, reg_rsi, reg_rdx,
+		reg_rcx, reg_r8, reg_r9,
+	};
+	register __uint128_t reg_xmm0 asm("xmm0");
+    register __uint128_t reg_xmm1 asm("xmm1");
+    register __uint128_t reg_xmm2 asm("xmm2");
+    register __uint128_t reg_xmm3 asm("xmm3");
+    register __uint128_t reg_xmm4 asm("xmm4");
+    register __uint128_t reg_xmm5 asm("xmm5");
+    register __uint128_t reg_xmm6 asm("xmm6");
+    register __uint128_t reg_xmm7 asm("xmm7");
+	__uint128_t xmm_params[8] = {
+		reg_xmm0, reg_xmm1, reg_xmm2, reg_xmm3, reg_xmm4, reg_xmm5, reg_xmm6, reg_xmm7,
+	};
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#endif
+
 	if (!m_pMemberFuncList) return false;
 
 	bool ret;
 	const CMetaDataFunction *pFunc(nullptr);
-	va_list pList;
 	
 	for (size_t i = 0; i < m_pMemberFuncList->size(); ++i)
 	{
@@ -434,6 +462,8 @@ bool CMetaDataCustomType::CallMemberFuction(const char * pFunName, CFuncParamMDV
 	}
 	if (!pFunc) return false;
 
+#if defined(CO_OS_WIN)
+	va_list pList;
 	va_start(pList, pParamMDVector);
 	try
 	{
@@ -445,16 +475,55 @@ bool CMetaDataCustomType::CallMemberFuction(const char * pFunName, CFuncParamMDV
 		throw;
 	}
 	va_end(pList);
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+	ret = pFunc->CallFunction(pParamMDVector, reg_params, sizeof(reg_params) /sizeof(uint64_t),
+		xmm_params, sizeof(xmm_params) / sizeof(__uint128_t),
+		reinterpret_cast<uint8_t*>(reg_rbp + sizeof(uintptr_t) * 2), nullptr);
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
 	return ret;
 }
 
 bool CMetaDataCustomType::CallStaticMemberFuction(const char * pFunName, CFuncParamMDVector *pParamMDVector, ...) const
 {
+#if defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+	register uint64_t reg_rbp asm("rbp");
+	// register uint64_t reg_rdi asm("rdi");
+	// register uint64_t reg_rsi asm("rsi");
+	// register uint64_t reg_rdx asm("rdx");
+	register uint64_t reg_rcx asm("rcx");
+	register uint64_t reg_r8 asm("r8");
+	register uint64_t reg_r9 asm("r9");
+	uint64_t reg_params[3] = {
+		// reg_rdi, reg_rsi, reg_rdx,
+		reg_rcx, reg_r8, reg_r9,
+	};
+	register __uint128_t reg_xmm0 asm("xmm0");
+    register __uint128_t reg_xmm1 asm("xmm1");
+    register __uint128_t reg_xmm2 asm("xmm2");
+    register __uint128_t reg_xmm3 asm("xmm3");
+    register __uint128_t reg_xmm4 asm("xmm4");
+    register __uint128_t reg_xmm5 asm("xmm5");
+    register __uint128_t reg_xmm6 asm("xmm6");
+    register __uint128_t reg_xmm7 asm("xmm7");
+	__uint128_t xmm_params[8] = {
+		reg_xmm0, reg_xmm1, reg_xmm2, reg_xmm3, reg_xmm4, reg_xmm5, reg_xmm6, reg_xmm7,
+	};
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#endif
+
 	if (!m_pStaticMemberFuncList) return false;
 
 	bool ret;
 	const CMetaDataFunction *pFunc(nullptr);
-	va_list pList;
 
 	for (size_t i = 0; i < m_pStaticMemberFuncList->size(); ++i)
 	{
@@ -467,6 +536,8 @@ bool CMetaDataCustomType::CallStaticMemberFuction(const char * pFunName, CFuncPa
 	}
 	if (!pFunc) return false;
 
+#if defined(CO_OS_WIN)
+	va_list pList;
 	va_start(pList, pParamMDVector);
 	try
 	{
@@ -478,6 +549,17 @@ bool CMetaDataCustomType::CallStaticMemberFuction(const char * pFunName, CFuncPa
 		throw;
 	}
 	va_end(pList);
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+	ret = pFunc->CallFunction(pParamMDVector, reg_params, sizeof(reg_params) / sizeof(uint64_t),
+		xmm_params, sizeof(xmm_params) / sizeof(__uint128_t),
+		reinterpret_cast<uint8_t*>(reg_rbp + sizeof(uintptr_t) * 2), nullptr);
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
 	return ret;
 }
 
@@ -567,7 +649,17 @@ bool CMetaDataCustomType::QueryInterface(void * pObj, const TDGUID & IntfGuid, I
 
 void *CMetaDataCustomType::NewObject(void) const
 {
+#if defined(CO_OS_WIN)
 	return DoCreateObject(nullptr, nullptr);
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+	return DoCreateObject(nullptr, nullptr, 0, nullptr, 0, nullptr);
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
 }
 
 void CMetaDataCustomType::DeleteObject(void *pObj) const
@@ -580,7 +672,18 @@ void CMetaDataCustomType::DeleteObject(void *pObj) const
 	}
 }
 
+#if defined(CO_OS_WIN)
 void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, va_list pParamList) const
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[6], const int reg_param_num,
+	__uint128_t xmm_params[8], const int xmm_param_num, uint8_t stack_params[]) const
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
 {
 	void *pReturn(nullptr);
 
@@ -595,7 +698,17 @@ void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, va
 		{
 			if (!(*itr)->ReturnIsVoid())
 			{
+#if defined(CO_OS_WIN)
 				if (!(*itr)->CallFunction(pParamMDVector, pParamList, &pReturn))
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+				if (!(*itr)->CallFunction(pParamMDVector, reg_params, reg_param_num, xmm_params, xmm_param_num, stack_params, &pReturn))
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
 				{
 					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数调用失败！");
 				}

@@ -13,10 +13,22 @@
 //compile option.
 #define CO_MD_CUSTOM_TYPE_EXTRA
 
+#if defined(CO_OS_WIN)
 #define INT_FOR_MD_SIZEOF		int
 
 #define TYPE_BYTE4_FOR_MD		unsigned long
 #define TYPE_BYTE2_FOR_MD		unsigned short
+#elif defined(CO_OS_LINUX)
+#define INT_FOR_MD_SIZEOF		intptr_t
+
+#define TYPE_BYTE4_FOR_MD		uint32_t
+#define TYPE_BYTE2_FOR_MD		uint16_t
+#else
+#define INT_FOR_MD_SIZEOF		int
+
+#define TYPE_BYTE4_FOR_MD		unsigned long
+#define TYPE_BYTE2_FOR_MD		unsigned short
+#endif
 
 /****************************/
 /* Meta data of custom type */

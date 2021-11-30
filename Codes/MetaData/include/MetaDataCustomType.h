@@ -146,7 +146,18 @@ protected:
 	inline std::vector<const CMetaDataFunction*> *GetStaticMemberFuncList(void);
 	inline std::vector<const CMetaDataVariable*> *GetStaticMemberVarList(void);
 private:
+#if defined(CO_OS_WIN)
 	void *DoCreateObject(CFuncParamMDVector *pParamMDVector, va_list pParamList) const;
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+	void *DoCreateObject(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[6], const int reg_param_num,
+		__uint128_t xmm_params[8], const int xmm_param_num, uint8_t stack_params[]) const;
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
 private:
 	template<typename _CompareType>
 	bool FindBaseType(_CompareType ct_var, std::vector<SMDCustomTypeOffsetDescriptInCustomType*> &BaseList) const;
@@ -303,20 +314,12 @@ T *CMetaDataCustomType::CreateObject(CFuncParamMDVector *pParamMDVector, ...) co
 {
 	void *pReturn;
 	void *pObj;
+#if defined(CO_OS_WIN)
 	va_list pList;
 	va_start(pList, pParamMDVector);
 	try
 	{
 		pObj = DoCreateObject(pParamMDVector, pList);
-		if (pObj)
-		{
-			pReturn = this->AsType(pObj, TypeTraits<T>::GetMetaDataType());
-			if (!pReturn)
-			{
-				this->DeleteObject(pObj);
-			}
-		}
-		else pReturn = nullptr;
 	}
 	catch(...)
 	{
@@ -324,7 +327,48 @@ T *CMetaDataCustomType::CreateObject(CFuncParamMDVector *pParamMDVector, ...) co
 		throw;
 	}
 	va_end(pList);
-
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+	register uint64_t reg_rbp asm("rbp");
+	// register uint64_t reg_rdi asm("rdi");
+	// register uint64_t reg_rsi asm("rsi");
+	register uint64_t reg_rdx asm("rdx");
+	register uint64_t reg_rcx asm("rcx");
+	register uint64_t reg_r8 asm("r8");
+	register uint64_t reg_r9 asm("r9");
+	uint64_t reg_params[4] = {
+		// reg_rdi, reg_rsi,
+		reg_rdx, reg_rcx, reg_r8, reg_r9,
+	};
+	register __uint128_t reg_xmm0 asm("xmm0");
+    register __uint128_t reg_xmm1 asm("xmm1");
+    register __uint128_t reg_xmm2 asm("xmm2");
+    register __uint128_t reg_xmm3 asm("xmm3");
+    register __uint128_t reg_xmm4 asm("xmm4");
+    register __uint128_t reg_xmm5 asm("xmm5");
+    register __uint128_t reg_xmm6 asm("xmm6");
+    register __uint128_t reg_xmm7 asm("xmm7");
+	__uint128_t xmm_params[8] = {
+		reg_xmm0, reg_xmm1, reg_xmm2, reg_xmm3, reg_xmm4, reg_xmm5, reg_xmm6, reg_xmm7,
+	};
+	pObj = DoCreateObject(pParamMDVector, reg_params, sizeof(reg_params) / sizeof(uint64_t),
+		xmm_params, sizeof(xmm_params) / sizeof(__uint128_t),
+		reinterpret_cast<uint8_t*>(reg_rbp + sizeof(uintptr_t) * 2));
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
+	if (pObj)
+	{
+		pReturn = this->AsType(pObj, TypeTraits<T>::GetMetaDataType());
+		if (!pReturn)
+		{
+			this->DeleteObject(pObj);
+		}
+	}
+	else pReturn = nullptr;
 	return reinterpret_cast<T*>(pReturn);
 }
 
@@ -332,7 +376,19 @@ template<typename T>
 inline T *CMetaDataCustomType::CreateObject(void) const
 {
 	void *pReturn;
-	void *pObj(DoCreateObject(nullptr, nullptr));
+	void *pObj(
+#if defined(CO_OS_WIN)
+		DoCreateObject(nullptr, nullptr)
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+		DoCreateObject(nullptr, nullptr, 0, nullptr, 0, nullptr)
+#else //CO_MACHINE_X86
+	// Unknown
+#endif
+#else
+	// Unknown
+#endif
+	);
 	if (pObj)
 	{
 		pReturn = this->AsType(pObj, TypeTraits<T>::GetMetaDataType());
