@@ -150,8 +150,8 @@ private:
 	void *DoCreateObject(CFuncParamMDVector *pParamMDVector, va_list pParamList) const;
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
-	void *DoCreateObject(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[6], const int reg_param_num,
-		__uint128_t xmm_params[8], const int xmm_param_num, uint8_t stack_params[]) const;
+	void *DoCreateObject(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[], const int reg_param_num,
+		__uint128_t xmm_params[], const int xmm_param_num, uint8_t stack_params[]) const;
 #else //CO_MACHINE_X86
 	// Unknown
 #endif

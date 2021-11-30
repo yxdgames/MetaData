@@ -50,8 +50,8 @@ public:
 	bool CallFunction(const size_t param_count, va_list pParamList, void *pReturn) const;
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
-	bool CallFunction(const size_t param_count, uint64_t reg_params[6], const int reg_param_num,
-		__uint128_t xmm_params[8], const int xmm_param_num,
+	bool CallFunction(const size_t param_count, uint64_t reg_params[], const int reg_param_num,
+		__uint128_t xmm_params[], const int xmm_param_num,
 		uint8_t stack_params[], void *pReturn) const;
 #else //CO_MACHINE_X86
 	// Unknown
@@ -64,8 +64,8 @@ public:
 	bool CallFunction(CFuncParamMDVector *pParamMDVector, va_list pParamList, void *pReturn) const;
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
-	bool CallFunction(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[6], const int reg_param_num,
-		__uint128_t xmm_params[8], const int xmm_param_num,
+	bool CallFunction(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[], const int reg_param_num,
+		__uint128_t xmm_params[], const int xmm_param_num,
 		uint8_t stack_params[], void *pReturn) const;
 #else //CO_MACHINE_X86
 	// Unknown
@@ -86,8 +86,8 @@ private:
 	bool CallFunction(const size_t param_count, CFuncParamMDVector *pParamMDVector, va_list pParamList, void *pReturn) const;
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
-	bool CallFunction(const size_t param_count, CFuncParamMDVector *pParamMDVector, uint64_t reg_params[6], const int reg_param_num,
-		__uint128_t xmm_params[8], const int xmm_param_num,
+	bool CallFunction(const size_t param_count, CFuncParamMDVector *pParamMDVector, uint64_t reg_params[], const int reg_param_num,
+		__uint128_t xmm_params[], const int xmm_param_num,
 		uint8_t stack_params[], void *pReturn) const;
 #else //CO_MACHINE_X86
 	// Unknown

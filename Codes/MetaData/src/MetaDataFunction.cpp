@@ -345,8 +345,8 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, va_list pParamLis
 }
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
-bool CMetaDataFunction::CallFunction(const size_t param_count, uint64_t reg_params[6], const int reg_param_num,
-	__uint128_t xmm_params[8], const int xmm_param_num,
+bool CMetaDataFunction::CallFunction(const size_t param_count, uint64_t reg_params[], const int reg_param_num,
+	__uint128_t xmm_params[], const int xmm_param_num,
 	uint8_t stack_params[], void *pReturn) const
 {
 	return CallFunction(param_count, static_cast<CFuncParamMDVector*>(nullptr),
@@ -422,8 +422,8 @@ bool CMetaDataFunction::CallFunction(CFuncParamMDVector *pParamMDVector, va_list
 }
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
-bool CMetaDataFunction::CallFunction(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[6], const int reg_param_num,
-	__uint128_t xmm_params[8], const int xmm_param_num,
+bool CMetaDataFunction::CallFunction(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[], const int reg_param_num,
+	__uint128_t xmm_params[], const int xmm_param_num,
 	uint8_t stack_params[], void *pReturn) const
 {
 	if (pParamMDVector)
@@ -603,8 +603,8 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
 bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVector *pParamMDVector,
-									uint64_t reg_params[6], const int reg_param_num,
-									__uint128_t xmm_params[8], const int xmm_param_num,
+									uint64_t reg_params[], const int reg_param_num,
+									__uint128_t xmm_params[], const int xmm_param_num,
 									uint8_t stack_params[], void *pReturn) const
 {
 	if (!m_pFunction
@@ -614,7 +614,6 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 
 	bool ret;
 	bool bParamsOK(true);
-	char sel_param_segment; // 1:reg_params 2:stack_params 3:xmm_params 4:*reg_params 5:*stack_params
 	size_t data_size_in_container;
 	uint16_t reg_param_index(0);
 	uint16_t xmm_param_index(0);
@@ -645,20 +644,20 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 				{
 					data_size_in_container = sizeof(void*);
 					if (reg_param_index < reg_param_num)
-						sel_param_segment = 4;
-					else sel_param_segment = 5;
+						goto segment_reg_params_ptr;
+					else goto segment_stack_params_ptr;
 				}
 				else if (m_pParamTable->at(index)->GetSize() > sizeof(uint64_t) * 2)
 				{
 					data_size_in_container = (m_pParamTable->at(index)->GetSize() + 7) & (~static_cast<uint64_t>(0x07));
-					sel_param_segment = 2;
+					goto segment_stack_params;
 				}
 				else if (m_pParamTable->at(index)->GetSize() > sizeof(uint64_t))
 				{
 					data_size_in_container = sizeof(uint64_t) * 2;
 					if (reg_param_index + 1 < reg_param_num)
-						sel_param_segment = 1;
-					else sel_param_segment = 2;
+						goto segment_reg_params;
+					else goto segment_stack_params;
 				}
 				else
 				{
@@ -672,13 +671,13 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 							*reinterpret_cast<uint64_t*>(data) = static_cast<uint64_t>(*reinterpret_cast<__uint128_t*>(data));
 							if (TypeTraits<float>::GetMetaDataType() == m_pParamTable->at(index)->GetMDType())
 								*reinterpret_cast<float*>(data) = static_cast<float>(*reinterpret_cast<double*>(data));
-							sel_param_segment = 3;
+							goto segment_xmm_params;
 						}
 						else
 						{
 							if (TypeTraits<float>::GetMetaDataType() == m_pParamTable->at(index)->GetMDType())
 								*reinterpret_cast<float*>(stack_params) = static_cast<float>(*reinterpret_cast<double*>(stack_params));
-							sel_param_segment = 2;
+							goto segment_stack_params;
 						}
 					}
 					else
@@ -686,12 +685,12 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 						if (reg_param_index < reg_param_num)
 						{
 							::AdjustFuncVarParam(m_pParamTable->at(index)->GetMDType(), reg_params + reg_param_index);
-							sel_param_segment = 1;
+							goto segment_reg_params;
 						}
 						else
 						{
 							::AdjustFuncVarParam(m_pParamTable->at(index)->GetMDType(), stack_params);
-							sel_param_segment = 2;
+							goto segment_stack_params;
 						}
 					}
 				}
@@ -700,34 +699,29 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 			{
 				data_size_in_container = sizeof(void*);
 				if (reg_param_index < reg_param_num)
-					sel_param_segment = 1;
-				else sel_param_segment = 2;
+					goto segment_reg_params;
+				else goto segment_stack_params;
 			}
-			if (1 == sel_param_segment) // reg_params
-			{
+			segment_reg_params:
 				pParamPtrBuffer[index] = reinterpret_cast<void*>(reg_params + reg_param_index);
-				++reg_param_index;
-			}
-			else if (2 == sel_param_segment) // stack_params
-			{
-				pParamPtrBuffer[index] = reinterpret_cast<void*>(stack_params);
-				stack_params += data_size_in_container;
-			}
-			else if (3 == sel_param_segment) // xmm_params
-			{
-				pParamPtrBuffer[index] = reinterpret_cast<void*>(xmm_params + xmm_param_index);
-				++xmm_param_index;
-			}
-			else if (4 == sel_param_segment) // reg_params
-			{
+				reg_param_index += (data_size_in_container >> 3); // sizeof(uint64_t)
+				continue;
+			segment_reg_params_ptr:
 				pParamPtrBuffer[index] = *reinterpret_cast<void**>(reg_params + reg_param_index);
 				++reg_param_index;
-			}
-			else // if (5 == sel_param_segment) // stack_params
-			{
+				continue;
+			segment_stack_params:
+				pParamPtrBuffer[index] = reinterpret_cast<void*>(stack_params);
+				stack_params += data_size_in_container;
+				continue;
+			segment_stack_params_ptr:
 				pParamPtrBuffer[index] = *reinterpret_cast<void**>(stack_params);
 				stack_params += data_size_in_container;
-			}
+				continue;
+			segment_xmm_params:
+				pParamPtrBuffer[index] = reinterpret_cast<void*>(xmm_params + xmm_param_index);
+				++xmm_param_index;
+				continue;
 		}
 
 		if (bParamsOK)
