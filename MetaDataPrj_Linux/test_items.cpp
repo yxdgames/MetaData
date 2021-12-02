@@ -3,7 +3,9 @@
 #include "../Codes/Serialization/include/ISerializer.h"
 #include "../Codes/MetaData/include/MetaDataSupport.h"
 
+#ifdef __META_DATA_DEMO__
 static CClass3::CClass3_Inner1_Derived1 g_test_items_derived1;
+#endif //__META_DATA_DEMO__
 
 static void do_print_metadata_tree(const CMetaData *pMD, int space_num)
 {
@@ -47,6 +49,7 @@ void test_item_print_metadata_tree(void)
 
 void test_item_serial_bin(char *pFileName, char flag)
 {
+#ifdef __META_DATA_DEMO__
 	if (flag)
 	{
 		g_test_items_derived1.mem_s = 105;
@@ -104,10 +107,12 @@ void test_item_serial_bin(char *pFileName, char flag)
 	}
 	delete Ser;
 	delete pSerial;
+#endif //__META_DATA_DEMO__
 }
 
 void test_item_unserial_bin(char *pFileName)
 {
+#ifdef __META_DATA_DEMO__
 	ISerializer *Ser(ISerializer::CreateSerializerIntf());
 	ISerial *pSerial(ISerial::CreateSerialIntf());
 	pSerial->SetStructInStream(sisBin);
@@ -135,10 +140,12 @@ void test_item_unserial_bin(char *pFileName)
 	}
 	delete Ser;
 	delete pSerial;
+#endif //__META_DATA_DEMO__
 }
 
 void test_item_serial_xml(char *pFileName, char flag)
 {
+#ifdef __META_DATA_DEMO__
 	if (flag)
 	{
 		g_test_items_derived1.mem_s = 105;
@@ -194,10 +201,12 @@ void test_item_serial_xml(char *pFileName, char flag)
 	{
 		printf(" save failure.\n");
 	}
+#endif //__META_DATA_DEMO__
 }
 
 void test_item_unserial_xml(char *pFileName)
 {
+#ifdef __META_DATA_DEMO__
 	ISerializer *Ser(ISerializer::CreateSerializerIntf());
 	ISerial *pSerial(ISerial::CreateSerialIntf());
 	pSerial->SetStructInStream(sisXml);
@@ -225,10 +234,12 @@ void test_item_unserial_xml(char *pFileName)
 	}
 	delete Ser;
 	delete pSerial;
+#endif //__META_DATA_DEMO__
 }
 
 void test_item_metadata_function_call(void)
 {
+#ifdef __META_DATA_DEMO__
 	const CMetaData *pMD;
 	const CMetaDataClassType *pClsType;
 	const CMetaDataFunction *pTmpFunc;
@@ -332,15 +343,18 @@ void test_item_metadata_function_call(void)
 	}
 
 	pClsType->DeleteObject(pObj);
+#endif //__META_DATA_DEMO__
 }
 
 void test_item_metadata_property(void)
 {
+#ifdef __META_DATA_DEMO__
 	CClass1 cls1;
 	printf("cls1.MemI value:%d\n", static_cast<int>(cls1.MemI));
 	cls1.MemI = 107;
 	int i = cls1.MemI;
 	printf("cls1.MemI value:%d %d\n", static_cast<int>(cls1.MemI), i);
+#endif //__META_DATA_DEMO__
 }
 
 void test_item_metadata_other(void)
@@ -379,6 +393,7 @@ void test_item_metadata_other(void)
 
 void test_item_iunkwn_obj_template(void)
 {
+#ifdef __META_DATA_DEMO__
 	IUnkwn *pUnkwn(new TUnkwnObject<CUnkwn>);
 	printf("Unkwn Object AddRef:%d\n", pUnkwn->AddRef());
 	printf("Unkwn Object AddRef:%d\n", pUnkwn->AddRef());
@@ -404,4 +419,5 @@ void test_item_iunkwn_obj_template(void)
 	}
 	else printf("QueryInterface failure:%p - %p\n", pUnkwn, outUnkwn);
 	printf("Unkwn Object Release:%d\n", pUnkwn->Release());
+#endif //__META_DATA_DEMO__
 }
