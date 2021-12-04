@@ -62,7 +62,7 @@ void test_item_serial_bin(char *pFileName, char flag)
 		g_test_items_derived1.mem_cls1.mem_long = 9023;
 		g_test_items_derived1.mem_cls1.p_mem_long = new long;
 		*g_test_items_derived1.mem_cls1.p_mem_long = 9284;
-		g_test_items_derived1.mem_string.SetValue("abdlewovÖĞÎÄ²âÊÔ¡£ÖĞÓ¢ÎÄ×Ö·û´®!£¡");
+		g_test_items_derived1.mem_string.SetValue("abdlewovä¸­æ–‡æµ‹è¯•ã€‚ä¸­è‹±æ–‡å­—ç¬¦ä¸²!ï¼");
 		g_test_items_derived1.mem_char = 22;
 		g_test_items_derived1.mem_float = -10908.20011f;
 		g_test_items_derived1.CClass3_Inner1::mem_bool = true;
@@ -81,7 +81,7 @@ void test_item_serial_bin(char *pFileName, char flag)
 		g_test_items_derived1.mem_cls1.mem_long = 902633;
 		g_test_items_derived1.mem_cls1.p_mem_long = new long;
 		*g_test_items_derived1.mem_cls1.p_mem_long = 923384;
-		g_test_items_derived1.mem_string.SetValue("ÖĞÎÄ²âÊÔ¡£ÖĞÓ¢ÎÄ×Ö·û´®!£¡abdlewov~");
+		g_test_items_derived1.mem_string.SetValue("ä¸­æ–‡æµ‹è¯•ã€‚ä¸­è‹±æ–‡å­—ç¬¦ä¸²!ï¼abdlewov~");
 		g_test_items_derived1.mem_char = 89;
 		g_test_items_derived1.mem_float = -8331.84032f;
 		g_test_items_derived1.CClass3_Inner1::mem_bool = false;
@@ -371,14 +371,14 @@ void test_item_metadata_other(void)
 	}
 	D_FUNC_PARAM_MD_VECTOR_ADD_ELE(PVector, char, 1);
 	pStr = reinterpret_cast<SimpleString*>(
-		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>(&PVector, "×Ö·û´®Ö¸Õë\n")
+		reinterpret_cast<const CMetaDataClassType*>(TypeTraits<SimpleString>::GetMetaDataType())->CreateObject<SimpleString>(&PVector, "å­—ç¬¦ä¸²æŒ‡é’ˆ\n")
 	);
 	if (pStr)
 	{
 		std::cout << pStr->GetValue();
 		delete pStr;
 	}
-	SimpleString str("SimpleString¶ÔÏó\n");
+	SimpleString str("SimpleStringå¯¹è±¡\n");
 	PVector.clear();
 	D_FUNC_PARAM_MD_VECTOR_ADD_ELE(PVector, SimpleString, 1);
 	pStr = reinterpret_cast<SimpleString*>(

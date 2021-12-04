@@ -13,7 +13,7 @@ fi
 mkdir -p _build
 cd _build
 
-echo "build by ${CMK_BUILD_TYPE}"
+echo "-- Build by ${CMK_BUILD_TYPE}"
 
 cmake .. \
     -DCMAKE_BUILD_TYPE=${CMK_BUILD_TYPE}

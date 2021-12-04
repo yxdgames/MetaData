@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.12)
 
 project(MetaData)
 
-# gcc/g++编译选项设置
+# gcc/g++缂栬瘧閫夐」璁剧疆
 add_compile_options(-fPIC)
 add_compile_options(-fvisibility=hidden)
 # add_definitions("-fvisibility=hidden")
 
-# 预编译宏定义
+# 棰勭紪璇戝畯瀹氫箟
 add_compile_definitions(CO_METADATA_KERNEL_DLL_EXPORTS)
 add_compile_definitions(CO_SERIALIZATION_MODULE)
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
