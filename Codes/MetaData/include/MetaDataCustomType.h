@@ -104,9 +104,9 @@ public:
 	virtual void DeleteObject(void *pObj) const;
 public:
 	template<typename T, typename... Params>
-	T *CreateObject(CFuncParamMDVector *pParamMDVector, Params... params) const;
+	inline T *CreateObject(CFuncParamMDVector *pParamMDVector, Params... params) const;
 	template<typename T>
-	T *CreateObject(void) const;
+	inline T *CreateObject(void) const;
 public:
 	//attribute
 	virtual unsigned char GetTypeID(void) const									{ return D_META_DATA_TYPE_ID_CUSTOM_TYPE; }
@@ -311,7 +311,7 @@ inline std::vector<const CMetaDataVariable*> *CMetaDataCustomType::GetStaticMemb
 #include <stdarg.h>
 
 template<typename T, typename... Params>
-T *CMetaDataCustomType::CreateObject(CFuncParamMDVector *pParamMDVector, Params... params) const
+inline T *CMetaDataCustomType::CreateObject(CFuncParamMDVector *pParamMDVector, Params... params) const
 {
 	void *pReturn;
 	void *pObj(DoCreateObject(pParamMDVector, params...));
@@ -341,6 +341,5 @@ inline T *CMetaDataCustomType::CreateObject(void) const
 		}
 	}
 	else pReturn = nullptr;
-
 	return reinterpret_cast<T*>(pReturn);
 }
