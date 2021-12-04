@@ -443,19 +443,10 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 	if (pParamMDVector && param_count != pParamMDVector->size()) return false;
 
 	bool ret;
-
-	TDUIntPtr param_addr;
-
-	void **pParamPtrBuffer = nullptr;
-
-	size_t index;
-	size_t data_size_in_container;
 	bool bParamsOK(true);
-
-	SMetaDataCalledFunctionDataPacket Packet;
-	TpMDCalledFunction pFunc(reinterpret_cast<TpMDCalledFunction>(m_pFunction));
-
-	param_addr = reinterpret_cast<TDUIntPtr>(pParamList);
+	size_t data_size_in_container;
+	void **pParamPtrBuffer = nullptr;
+	TDUIntPtr param_addr = reinterpret_cast<TDUIntPtr>(pParamList);
 	if (param_count)
 	{
 		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
@@ -464,7 +455,7 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 	}
 	try
 	{
-		for (index = 0; index < param_count; ++index)
+		for (size_t index = 0; index < param_count; ++index)
 		{
 			if (pParamMDVector)
 			{
@@ -492,6 +483,7 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 
 		if (bParamsOK)
 		{
+			SMetaDataCalledFunctionDataPacket Packet;
 			Packet.ParamCount = static_cast<int>(param_count);
 			Packet.pParam = pParamPtrBuffer;
 			if (m_pReturnInfo)
@@ -508,7 +500,7 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 			}
 			else Packet.pReturn = nullptr;
 
-			ret = pFunc(Packet);
+			ret = reinterpret_cast<TpMDCalledFunction>(m_pFunction)(Packet);
 		}
 		else ret = false;
 	}

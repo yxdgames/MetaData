@@ -672,11 +672,63 @@ void CMetaDataCustomType::DeleteObject(void *pObj) const
 	}
 }
 
+void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, ...) const
+{
 #if defined(CO_OS_WIN)
-void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, va_list pParamList) const
+	void *pObj;
+	va_list pList;
+	va_start(pList, pParamMDVector);
+	try
+	{
+		pObj = DoCreateObject(pParamMDVector, pList);
+	}
+	catch(...)
+	{
+		va_end(pList);
+		throw;
+	}
+	va_end(pList);
+	return pObj;
 #elif defined(CO_OS_LINUX)
 #ifdef CO_MACHINE_X64
-void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[], const int reg_param_num,
+	register uint64_t reg_rbp asm("rbp");
+	// register uint64_t reg_rdi asm("rdi");
+	// register uint64_t reg_rsi asm("rsi");
+	register uint64_t reg_rdx asm("rdx");
+	register uint64_t reg_rcx asm("rcx");
+	register uint64_t reg_r8 asm("r8");
+	register uint64_t reg_r9 asm("r9");
+	uint64_t reg_params[4] = {
+		// reg_rdi, reg_rsi,
+		reg_rdx, reg_rcx, reg_r8, reg_r9,
+	};
+	register __uint128_t reg_xmm0 asm("xmm0");
+    register __uint128_t reg_xmm1 asm("xmm1");
+    register __uint128_t reg_xmm2 asm("xmm2");
+    register __uint128_t reg_xmm3 asm("xmm3");
+    register __uint128_t reg_xmm4 asm("xmm4");
+    register __uint128_t reg_xmm5 asm("xmm5");
+    register __uint128_t reg_xmm6 asm("xmm6");
+    register __uint128_t reg_xmm7 asm("xmm7");
+	__uint128_t xmm_params[8] = {
+		reg_xmm0, reg_xmm1, reg_xmm2, reg_xmm3, reg_xmm4, reg_xmm5, reg_xmm6, reg_xmm7,
+	};
+	return DoCreateObject(pParamMDVector, reg_params, sizeof(reg_params) / sizeof(uint64_t),
+		xmm_params, sizeof(xmm_params) / sizeof(__uint128_t),
+		reinterpret_cast<uint8_t*>(reg_rbp + sizeof(uintptr_t) * 2));
+#else //CO_MACHINE_X86
+	return nullptr;
+#endif
+#else
+	return nullptr;
+#endif
+}
+
+#if defined(CO_OS_WIN)
+inline void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, va_list pParamList) const
+#elif defined(CO_OS_LINUX)
+#ifdef CO_MACHINE_X64
+inline void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVector, uint64_t reg_params[], const int reg_param_num,
 	__uint128_t xmm_params[], const int xmm_param_num, uint8_t stack_params[]) const
 #else //CO_MACHINE_X86
 	// Unknown
