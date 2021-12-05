@@ -1,23 +1,23 @@
 cmake_minimum_required(VERSION 3.12)
 project(SLN_MetaData)
 
-# gcc/g++±àÒëÑ¡ÏîÉèÖÃ
+# gcc/g++ç¼–è¯‘é€‰é¡¹è®¾ç½®
 add_compile_options(-std=c++11)
 # add_definitions("-std=c++11")
 
-# È«¾Ö±àÒëºê¶¨Òå
-# add_definitions(-DCO_MACHINE_X64) # v3.12ºó£¬¶ÔÓÚ±àÒëºêµÄ¶¨Òå£¬½¨ÒéÊ¹ÓÃadd_compile_definitionsÈ¡´úadd_definitions
+# å…¨å±€ç¼–è¯‘å®å®šä¹‰
+# add_definitions(-DCO_MACHINE_X64) # v3.12åï¼Œå¯¹äºç¼–è¯‘å®çš„å®šä¹‰ï¼Œå»ºè®®ä½¿ç”¨add_compile_definitionså–ä»£add_definitions
 # add_definitions(-DCO_OS_LINUX)
 add_compile_definitions(CO_MACHINE_X64)
 add_compile_definitions(CO_OS_LINUX)
 
-# ¹Ø¼ü×Ö¶¨Òå
-add_compile_definitions(__cdecl=)    #gcc x64µ÷ÓÃ¹ßÀıÓĞ×Ô¼ºµÄÒ»Ì×¹æ¶¨£¬Õë¶Ô__cdecl¡¢__stdcallÊôĞÔ¶¼ºöÂÔÁË
+# å…³é”®å­—å®šä¹‰
+add_compile_definitions(__cdecl=)    #gcc x64è°ƒç”¨æƒ¯ä¾‹æœ‰è‡ªå·±çš„ä¸€å¥—è§„å®šï¼Œé’ˆå¯¹__cdeclã€__stdcallå±æ€§éƒ½å¿½ç•¥äº†
 add_compile_definitions(__stdcall=)
 # add_compile_definitions(__cdecl=__attribute__\(\(cdecl\)\) __stdcall=__attribute__\(\(stdcall\)\))
 
 # set(CMAKE_BUILD_TYPE "Debug")
 
-# ÏîÄ¿
+# é¡¹ç›®
 add_subdirectory(MetaData_Linux)
 add_subdirectory(MetaDataPrj_Linux)
