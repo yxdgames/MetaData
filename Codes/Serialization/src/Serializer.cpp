@@ -238,7 +238,7 @@ bool CSerializer::SerializeCustomTypeProperty(const CMetaDataCustomType *pType, 
 		if (pProp->GetPtrLevel() == 0)
 		{
 			pO = tmpType->NewObject();
-			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（串化过程）！");
+			if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（串化过程）！", true);
 			pProperty->CallGet(pObj, pO);
 			pParent = pSEntity;
 		}
@@ -553,9 +553,9 @@ bool CSerializer::UnserializeCustomTypeMemVar(ISerialEntity *pSEntity, const CMe
 						tmpType = tmpType2;
 						pO = pInterface->AsType(tmpType);
 					}
-					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！", true);
 				}
-				else if (tmpType2) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：串化数据异常（反串化过程）！");
+				else if (tmpType2) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：串化数据异常（反串化过程）！", true);
 			}
 			else
 			{
@@ -563,7 +563,7 @@ bool CSerializer::UnserializeCustomTypeMemVar(ISerialEntity *pSEntity, const CMe
 				{
 					if (tmpType2->IsTypeOf(tmpType))
 						pO = tmpType2->NewObject();
-					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！", true);
 					tmpO = tmpType2->AsType(pO, tmpType);
 					tmpType = tmpType2;
 				}
@@ -572,7 +572,7 @@ bool CSerializer::UnserializeCustomTypeMemVar(ISerialEntity *pSEntity, const CMe
 					pO = tmpType->NewObject();
 					tmpO = pO;
 				}
-				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
+				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！", true);
 				*reinterpret_cast<void**>(reinterpret_cast<TDUIntPtr>(pObj) + pMemVar->GetOffset()) = tmpO;
 			}
 		}
@@ -656,9 +656,9 @@ bool CSerializer::UnserializeCustomTypeProperty(ISerialEntity *pSEntity, const C
 						tmpType = tmpType2;
 						pO = pInterface->AsType(tmpType);
 					}
-					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！", true);
 				}
-				else if (tmpType2) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：串化数据异常（反串化过程）！");
+				else if (tmpType2) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：串化数据异常（反串化过程）！", true);
 				set_pO = false;
 			}
 			else
@@ -667,7 +667,7 @@ bool CSerializer::UnserializeCustomTypeProperty(ISerialEntity *pSEntity, const C
 				{
 					if (tmpType2->IsTypeOf(tmpType))
 						pO = tmpType2->NewObject();
-					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					else throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！", true);
 					tmpO = tmpType2->AsType(pO, tmpType);
 					tmpType = tmpType2;
 				}
@@ -680,7 +680,7 @@ bool CSerializer::UnserializeCustomTypeProperty(ISerialEntity *pSEntity, const C
 			}
 		}
 		else continue;
-		if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
+		if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！", true);
 		try
 		{
 			while (true)
@@ -760,13 +760,13 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 			if (!pO)
 			{
 				if (!tmpType2->IsTypeOf(tmpType))
-					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！", true);
 				pO = tmpType2->NewObject();
-				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！");
+				if (!pO) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：创建对象失败（反串化过程）！", true);
 				if (!pContainter->AddItem(type_index, tmpType2->AsType(pO, tmpType)))
 				{
 					tmpType2->DeleteObject(pO);
-					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：IContainer::AddItem失败（反串化过程）！");
+					throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：IContainer::AddItem失败（反串化过程）！", true);
 				}
 			}
 			else
@@ -774,12 +774,12 @@ bool CSerializer::UnserializeCustomTypeContainer(ISerialEntity *pSEntity, IConta
 				pInterface = reinterpret_cast<IInterface*>(tmpType->AsType(pO, TypeTraits<IInterface>::GetMetaDataType()));
 				if (pInterface)
 				{
-					if (!tmpType2->Compare(pInterface->GetType())) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					if (!tmpType2->Compare(pInterface->GetType())) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！", true);
 					pO = pInterface->AsType(tmpType2);
 				}
 				else
 				{
-					if (!tmpType2->Compare(tmpType)) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！");
+					if (!tmpType2->Compare(tmpType)) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：异常类型（反串化过程）！", true);
 				}
 			}
 				
@@ -887,6 +887,6 @@ inline const CMetaDataType *CSerializer::FindMetaDataType(const char *pTypeName,
 	pType = META_DATA_GLOBALSPACE().FindChildMetaData(D_META_DATA_TYPE_ID_INNER_TYPE, pTypeName);
 	if (pType) return reinterpret_cast<const CMetaDataType*>(pType);
 	if (throwException)
-		throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：未找到类型！");
+		throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：未找到类型！", true);
 	else return nullptr;
 }

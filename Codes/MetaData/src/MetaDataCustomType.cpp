@@ -668,7 +668,7 @@ void CMetaDataCustomType::DeleteObject(void *pObj) const
 	{
 		if (m_pDestructor)
 			m_pDestructor->CallFunction(1, pObj);
-		else throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "析构函数元数据不存在！");
+		else throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "析构函数元数据不存在！", true);
 	}
 }
 
@@ -740,7 +740,7 @@ inline void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVec
 	void *pReturn(nullptr);
 
 	if (!m_pConstructorList || m_pConstructorList->size() == 0)
-		throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：未定义构造函数元数据！");
+		throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：未定义构造函数元数据！", true);
 	
 	std::vector<const CMetaDataFunction*>::iterator itr;
 	
@@ -762,16 +762,16 @@ inline void *CMetaDataCustomType::DoCreateObject(CFuncParamMDVector *pParamMDVec
 	// Unknown
 #endif
 				{
-					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数调用失败！");
+					throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数调用失败！", true);
 				}
 			}
 			else
 			{
-				throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数无返回值！");
+				throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：构造函数无返回值！", true);
 			}
 			break;
 		}
 	}
-	if (!pReturn) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：无匹配的构造函数！");
+	if (!pReturn) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "错误：无匹配的构造函数！", true);
 	return pReturn;
 }

@@ -94,7 +94,7 @@ bool CMetaData::GetFullName(char *pFullNameBuffer, size_t BufferSize) const
 
 	pName = this->GetName();
 	
-	if (!pName) throw new ExceptionMetaData(D_E_ID_MD_ERROR, "元数据未命名！");
+	if (!pName) throw new ExceptionMetaData(D_E_ID_MD_ERROR, "元数据未命名！", true);
 
 	cur_len = strlen(pName);
 	total_size = cur_len * sizeof(char);
@@ -181,5 +181,5 @@ const CMetaData *AssertMetaData(const CMetaData *pMetaData, unsigned char TypeID
 {
 	if (pMetaData && pMetaData->GetTypeID() == TypeID)
 		return pMetaData;
-	else throw ExceptionMetaData(D_E_ID_MD_ERROR, "元数据的TypeID与指定的TypeID不符！");
+	else throw ExceptionMetaData(D_E_ID_MD_ERROR, "元数据的TypeID与指定的TypeID不符！", true);
 }

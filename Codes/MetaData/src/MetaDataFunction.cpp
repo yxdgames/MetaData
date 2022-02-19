@@ -449,7 +449,7 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 	TDUIntPtr param_addr = reinterpret_cast<TDUIntPtr>(pParamList);
 	if (param_count)
 	{
-		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
+		if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡", true);
 		pParamPtrBuffer = new void*[param_count];
 		memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
 	}
@@ -494,7 +494,7 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 				}
 				else
 				{
-					if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
+					if (0 == param_addr) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡", true);
 					Packet.pReturn = *reinterpret_cast<void**>(param_addr);
 				}
 			}
@@ -533,7 +533,7 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 	void **pParamPtrBuffer = nullptr;
 	if (param_count)
 	{
-		if (!reg_params) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
+		if (!reg_params) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡", true);
 		pParamPtrBuffer = new void*[param_count];
 		memset(pParamPtrBuffer, 0x00, sizeof(void*) * param_count);
 	}
@@ -652,12 +652,12 @@ bool CMetaDataFunction::CallFunction(const size_t param_count, CFuncParamMDVecto
 				{
 					if (reg_param_index < reg_param_num)
 					{
-						if (!reg_params) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
+						if (!reg_params) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡", true);
 						Packet.pReturn = *reinterpret_cast<void**>(reg_params + reg_param_index);
 					}
 					else
 					{
-						if (!stack_params) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡");
+						if (!stack_params) throw new ExceptionMetaData(D_E_ID_MD_META_DATA_OF_FUNC_CALL, "´íÎó£º²ÎÊý±íÈ±Ê§£¡", true);
 						Packet.pReturn = *reinterpret_cast<void**>(stack_params);
 					}
 				}

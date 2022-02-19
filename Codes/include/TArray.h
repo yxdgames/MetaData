@@ -72,7 +72,7 @@ void TArray<T>::Reset(const size_t size, bool allow_greater)
 template <typename T>
 inline T &TArray<T>::operator[](size_t index)
 {
-	if (index >= m_Size) throw new ExceptionBase(D_E_ID_ERROR, "Array overflow!");
+	if (index >= m_Size) throw new ExceptionBase(D_E_ID_ERROR, "Array overflow!", true);
 	return m_pArray[index];
 }
 

@@ -397,7 +397,7 @@ size_t CSerialStreamBinary::UnserializeEntity(ISerialEntity *pEnt, ISerial *pSer
 				size_t read_size;
 				TDByteArray Buffer(D_BLOB_BUFFER_SIZE_MAX);
 				pBlob = pBlobCreater->CreateBlob();
-				if (!pBlob) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：IBlob接口创建失败！");
+				if (!pBlob) throw ExceptionSerialization(D_E_ID_SERIAL_ERROR, "错误：IBlob接口创建失败！", true);
 				m_pStream->seekg(*reinterpret_cast<TDBinBaseUnit*>(ent_item.value));
 				m_pStream->read((char*)&atom, sizeof(atom));
 				atom.size -= sizeof(atom);
