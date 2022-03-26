@@ -4,7 +4,7 @@
 class CLASS_DESCRIPT ExceptionCommon : public ExceptionBase
 {
 public:
-	ExceptionCommon(const char *pDescription, bool InConstantStringTable);
+	ExceptionCommon(const char *pDescription, bool bDirectRefDesc);
 	virtual ~ExceptionCommon(void);
 };
 
