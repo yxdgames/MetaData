@@ -219,6 +219,9 @@
     <ClInclude Include="..\Codes\include\ExceptionCommon.h">
       <Filter>Codes\include</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\include\MDAssert.h">
+      <Filter>Codes\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

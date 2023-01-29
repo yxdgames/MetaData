@@ -62,10 +62,12 @@ extern FUNC_DESCRIPT const CMetaData *AssertMetaData(const CMetaData *pMetaData,
 /*   Inline Function Definition   */
 /*--------------------------------*/
 #include "../../include/TArray.h"
+#include "../../include/MDAssert.h"
 
 inline bool CMetaData::Compare(const CMetaData * pMetaData) const
 {
-	return pMetaData && ((this == pMetaData) || (pMetaData->m_GUID.IsValid() && this->m_GUID == pMetaData->m_GUID));
+	_MD_ASSERT_(nullptr != pMetaData);
+	return (this == pMetaData) || (pMetaData->m_GUID.IsValid() && this->m_GUID == pMetaData->m_GUID);
 }
 
 inline bool CMetaData::Compare(const TDGUID &guid) const

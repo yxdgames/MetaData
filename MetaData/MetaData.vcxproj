@@ -159,6 +159,7 @@
     <ClInclude Include="..\Codes\include\ExceptionBase.h" />
     <ClInclude Include="..\Codes\include\ExceptionCommon.h" />
     <ClInclude Include="..\Codes\include\ExceptionID.h" />
+    <ClInclude Include="..\Codes\include\MDAssert.h" />
     <ClInclude Include="..\Codes\include\TArray.h" />
     <ClInclude Include="..\Codes\include\Typedef.h" />
     <ClInclude Include="..\Codes\MetaData\include\ExceptionIDMetaData.h" />
