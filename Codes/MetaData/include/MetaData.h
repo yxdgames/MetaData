@@ -34,6 +34,7 @@ public:
 	bool FindChildMetaData(unsigned char MetaDataTypeID, const char *pFullName, std::vector<const CMetaData*> &Children) const;
 public:
 	//attribute
+	void SetName(const char *pName)							{ m_pName = pName; }
 	const char *GetName(void) const							{ return m_pName; }
 	bool GetFullName(char *pFullNameBuffer, size_t BufferSize) const;
 	virtual unsigned char GetTypeID(void) const				{ return D_META_DATA_TYPE_ID_META_DATA; }
