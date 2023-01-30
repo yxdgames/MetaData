@@ -52,3 +52,25 @@
 #define MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END() \
 		return ret_val; \
 	}
+
+/** 模板相关 **/
+//无嵌套
+#define MD_TEMPLATE_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, ...) \
+	template<__VA_ARGS__> \
+	const md_custom_type name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name<__VA_ARGS__>)); \
+	template<__VA_ARGS__> \
+	typename name<__VA_ARGS__>::C_MD__CTM_DID##name name<__VA_ARGS__>::_MD__CTM_DIDO##name;
+
+//嵌套用(自定义类型内部)
+#define MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, outer_name, meta_data_ctm_type_outer_name, ...) \
+	template<__VA_ARGS__> \
+	const md_custom_type outer_name::name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &meta_data_ctm_type_outer_name, sizeof(name<__VA_ARGS__>)); \
+	template<__VA_ARGS__> \
+	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name;
+
+//嵌套用(命名空间内部)
+#define MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name, ...) \
+	template<__VA_ARGS__> \
+	const md_custom_type outer_name::name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name<__VA_ARGS__>)); \
+	template<__VA_ARGS__> \
+	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name;

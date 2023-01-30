@@ -53,6 +53,13 @@
 		static const md_custom_type _MD__##md_obj_pre_name##name;
 
 #define MD_CUSTOM_TYPE_DECLARE_DETAIL(name, md_custom_type, md_custom_type_id, cls_descript) \
+	public: \
+		static void InitMetaDataManually(void(*initor)(md_custom_type*)) \
+		{ \
+			_MD__CTM_DIDO##name; \
+			if (initor) \
+				initor(const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
+		} \
 	private: \
 		static class cls_descript C_MD__CTM_DID##name \
 		{ \

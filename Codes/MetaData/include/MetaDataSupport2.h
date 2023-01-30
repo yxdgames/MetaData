@@ -74,6 +74,19 @@
 
 #define MD_INTERFACE_MEMBER_FUNC_WRAPPER_DEF_END()									MD_CUSTOM_TYPE_MEMBER_FUNC_WRAPPER_DEF_END()
 
+/** 模板相关 **/
+//无嵌套
+#define MD_TEMPLATE_INTERFACE_DEF(name, ...)						MD_TEMPLATE_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, __VA_ARGS__)
+
+//嵌套用(接口内部)
+#define MD_TEMPLATE_INTERFACE_IN_INTF_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_INTERFACE(outer_name), __VA_ARGS__)
+
+//嵌套用(类内部)
+#define MD_TEMPLATE_INTERFACE_IN_CLS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_CLASS_TYPE(outer_name), __VA_ARGS__)
+
+//嵌套用(命名空间内部)
+#define MD_TEMPLATE_INTERFACE_IN_NS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, outer_name, __VA_ARGS__)
+
 /***************************/
 /* Meta data of class type */
 /***************************/
@@ -131,6 +144,19 @@
 #define MD_CLASS_TYPE_STATIC_MEMBER_FUNC_WRAPPER_DEF_END() \
 		return ret_val; \
 	}
+
+/** 模板相关 **/
+//无嵌套
+#define MD_TEMPLATE_CLASS_TYPE_DEF(name, ...)						MD_TEMPLATE_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, __VA_ARGS__)
+
+//嵌套用(接口内部)
+#define MD_TEMPLATE_CLASS_TYPE_IN_INTF_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_INTERFACE(outer_name), __VA_ARGS__)
+
+//嵌套用(类内部)
+#define MD_TEMPLATE_CLASS_TYPE_IN_CLS_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_CLASS_TYPE(outer_name), __VA_ARGS__)
+
+//嵌套用(命名空间内部)
+#define MD_TEMPLATE_CLASS_TYPE_IN_NS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, CT, CMetaDataClassType, outer_name, __VA_ARGS__)
 
 /*************************/
 /* Meta data of variable */
