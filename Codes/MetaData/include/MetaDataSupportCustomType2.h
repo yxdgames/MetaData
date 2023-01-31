@@ -54,23 +54,75 @@
 	}
 
 /** 模板相关 **/
+#include "../../include/MacroTool.h"
+
+//辅助工具
+#define MD_TEMPLATE_PARAM_MACRO_NAME(prefix, ...)		MACRO_TOOL_CAT(prefix, MACRO_TOOL_ARG_NUM(__VA_ARGS__))
+
+#define MD_TEMPLATE_PARAM_0()
+#define MD_TEMPLATE_PARAM_1(tp1)						typename tp1
+#define MD_TEMPLATE_PARAM_2(tp1, tp2)					typename tp1, typename tp2
+#ifdef _MSC_VER //msvc
+#define MD_TEMPLATE_PARAM_3(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_2(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_4(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_3(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_5(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_4(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_6(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_5(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_7(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_6(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_8(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_7(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_9(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_8(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_10(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_9(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_11(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_10(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_12(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_11(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_13(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_12(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_14(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_13(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_15(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_14(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_16(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_15(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_17(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_16(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_18(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_17(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_19(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_18(__VA_ARGS__))
+#define MD_TEMPLATE_PARAM_20(tp1, ...)					typename tp1, MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_19(__VA_ARGS__))
+
+#define MD_TEMPLATE_PARAM(...)							MACRO_TOOL_EXPAND(MD_TEMPLATE_PARAM_MACRO_NAME(MD_TEMPLATE_PARAM_, __VA_ARGS__)(__VA_ARGS__))
+#else //_MSC_VER
+#define MD_TEMPLATE_PARAM_3(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_2(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_4(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_3(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_5(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_4(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_6(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_5(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_7(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_6(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_8(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_7(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_9(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_8(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_10(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_9(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_11(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_10(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_12(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_11(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_13(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_12(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_14(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_13(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_15(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_14(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_16(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_15(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_17(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_16(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_18(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_17(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_19(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_18(__VA_ARGS__)
+#define MD_TEMPLATE_PARAM_20(tp1, ...)					typename tp1, MD_TEMPLATE_PARAM_19(__VA_ARGS__)
+
+#define MD_TEMPLATE_PARAM(...)							MD_TEMPLATE_PARAM_MACRO_NAME(MD_TEMPLATE_PARAM_, __VA_ARGS__)(__VA_ARGS__)
+#endif //_MSC_VER
+
 //无嵌套
 #define MD_TEMPLATE_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, ...) \
-	template<__VA_ARGS__> \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	const md_custom_type name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name<__VA_ARGS__>)); \
-	template<__VA_ARGS__> \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	typename name<__VA_ARGS__>::C_MD__CTM_DID##name name<__VA_ARGS__>::_MD__CTM_DIDO##name;
 
 //嵌套用(自定义类型内部)
 #define MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, outer_name, meta_data_ctm_type_outer_name, ...) \
-	template<__VA_ARGS__> \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	const md_custom_type outer_name::name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &meta_data_ctm_type_outer_name, sizeof(name<__VA_ARGS__>)); \
-	template<__VA_ARGS__> \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name;
 
 //嵌套用(命名空间内部)
 #define MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name, ...) \
-	template<__VA_ARGS__> \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	const md_custom_type outer_name::name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name<__VA_ARGS__>)); \
-	template<__VA_ARGS__> \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name;
