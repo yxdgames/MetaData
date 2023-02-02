@@ -12,10 +12,10 @@
 /* Meta data of unknown interface */
 /**********************************/
 //无嵌套
-#define MD_UNKWN_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Iukn, CMetaDataInterface)
+#define MD_UNKWN_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Iukn, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE)
 
 //嵌套用(命名空间内部)
-#define MD_UNKWN_INTERFACE_IN_NS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_NS_DEF(name, Iukn, CMetaDataInterface, outer_name)
+#define MD_UNKWN_INTERFACE_IN_NS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_NS_DEF(name, Iukn, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, outer_name)
 
 //析构函数封装
 #define MD_UNKWN_INTERFACE_DESTRUCTOR_WRAPPER_DEF(intf_name)							MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(intf_name)

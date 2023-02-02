@@ -49,16 +49,16 @@
 /* Meta data of interface */
 /**************************/
 //无嵌套
-#define MD_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface)
+#define MD_INTERFACE_DEF(name)						MD_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE)
 
 //嵌套用(接口内部)
-#define MD_INTERFACE_IN_INTF_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_INTERFACE(outer_name))
+#define MD_INTERFACE_IN_INTF_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, outer_name, META_DATA_INTERFACE(outer_name))
 
 //嵌套用(类内部)
-#define MD_INTERFACE_IN_CLS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_CLASS_TYPE(outer_name))
+#define MD_INTERFACE_IN_CLS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, outer_name, META_DATA_CLASS_TYPE(outer_name))
 
 //嵌套用(命名空间内部)
-#define MD_INTERFACE_IN_NS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, outer_name)
+#define MD_INTERFACE_IN_NS_DEF(name, outer_name)	MD_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, outer_name)
 
 //析构函数封装
 #define MD_INTERFACE_DESTRUCTOR_WRAPPER_DEF(intf_name)								MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(intf_name)
@@ -76,31 +76,31 @@
 
 /** 模板相关 **/
 //无嵌套
-#define MD_TEMPLATE_INTERFACE_DEF(name, ...)						MD_TEMPLATE_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, __VA_ARGS__)
+#define MD_TEMPLATE_INTERFACE_DEF(name, ...)						MD_TEMPLATE_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, __VA_ARGS__)
 
 //嵌套用(接口内部)
-#define MD_TEMPLATE_INTERFACE_IN_INTF_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_INTERFACE(outer_name), __VA_ARGS__)
+#define MD_TEMPLATE_INTERFACE_IN_INTF_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, outer_name, META_DATA_INTERFACE(outer_name), __VA_ARGS__)
 
 //嵌套用(类内部)
-#define MD_TEMPLATE_INTERFACE_IN_CLS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, outer_name, META_DATA_CLASS_TYPE(outer_name), __VA_ARGS__)
+#define MD_TEMPLATE_INTERFACE_IN_CLS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, outer_name, META_DATA_CLASS_TYPE(outer_name), __VA_ARGS__)
 
 //嵌套用(命名空间内部)
-#define MD_TEMPLATE_INTERFACE_IN_NS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, outer_name, __VA_ARGS__)
+#define MD_TEMPLATE_INTERFACE_IN_NS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, Itf, CMetaDataInterface, D_META_DATA_TYPE_ID_INTERFACE, outer_name, __VA_ARGS__)
 
 /***************************/
 /* Meta data of class type */
 /***************************/
 //无嵌套
-#define MD_CLASS_TYPE_DEF(name)		MD_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType)
+#define MD_CLASS_TYPE_DEF(name)		MD_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE)
 
 //嵌套用(接口内部)
-#define MD_CLASS_TYPE_IN_INTF_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_INTERFACE(outer_name))
+#define MD_CLASS_TYPE_IN_INTF_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, outer_name, META_DATA_INTERFACE(outer_name))
 
 //嵌套用(类内部)
-#define MD_CLASS_TYPE_IN_CLS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_CLASS_TYPE(outer_name))
+#define MD_CLASS_TYPE_IN_CLS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, outer_name, META_DATA_CLASS_TYPE(outer_name))
 
 //嵌套用(命名空间内部)
-#define MD_CLASS_TYPE_IN_NS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_NS_DEF(name, CT, CMetaDataClassType, outer_name)
+#define MD_CLASS_TYPE_IN_NS_DEF(name, outer_name)		MD_CUSTOM_TYPE_IN_NS_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, outer_name)
 
 //构造函数封装
 #define MD_CLASS_TYPE_CONSTRUCTOR_WRAPPER_DEF_BEGIN(cls_name, index) \
@@ -147,16 +147,16 @@
 
 /** 模板相关 **/
 //无嵌套
-#define MD_TEMPLATE_CLASS_TYPE_DEF(name, ...)						MD_TEMPLATE_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, __VA_ARGS__)
+#define MD_TEMPLATE_CLASS_TYPE_DEF(name, ...)						MD_TEMPLATE_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, __VA_ARGS__)
 
 //嵌套用(接口内部)
-#define MD_TEMPLATE_CLASS_TYPE_IN_INTF_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_INTERFACE(outer_name), __VA_ARGS__)
+#define MD_TEMPLATE_CLASS_TYPE_IN_INTF_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, outer_name, META_DATA_INTERFACE(outer_name), __VA_ARGS__)
 
 //嵌套用(类内部)
-#define MD_TEMPLATE_CLASS_TYPE_IN_CLS_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, outer_name, META_DATA_CLASS_TYPE(outer_name), __VA_ARGS__)
+#define MD_TEMPLATE_CLASS_TYPE_IN_CLS_DEF(name, outer_name, ...)	MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, outer_name, META_DATA_CLASS_TYPE(outer_name), __VA_ARGS__)
 
 //嵌套用(命名空间内部)
-#define MD_TEMPLATE_CLASS_TYPE_IN_NS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, CT, CMetaDataClassType, outer_name, __VA_ARGS__)
+#define MD_TEMPLATE_CLASS_TYPE_IN_NS_DEF(name, outer_name, ...)		MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, CT, CMetaDataClassType, D_META_DATA_TYPE_ID_CLASS_TYPE, outer_name, __VA_ARGS__)
 
 /*************************/
 /* Meta data of variable */

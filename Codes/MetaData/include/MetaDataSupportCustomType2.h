@@ -14,19 +14,40 @@
 /* Meta data of custom type */
 /****************************/
 //无嵌套
-#define MD_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type) \
+#define MD_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, md_custom_type_id) \
 	const md_custom_type name::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name)); \
-	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name;
+	name::C_MD__CTM_DID##name name::_MD__CTM_DIDO##name; \
+	void name::InitMetaDataManually(void(*initor)(md_custom_type*)) \
+	{ \
+		_MD__##md_obj_pre_name##name; \
+		_MD__CTM_DIDO##name; \
+		if (initor) \
+			initor(const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
+	}
 
 //嵌套用(自定义类型内部)
-#define MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, outer_name, meta_data_ctm_type_outer_name) \
+#define MD_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, md_custom_type_id, outer_name, meta_data_ctm_type_outer_name) \
 	const md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &meta_data_ctm_type_outer_name, sizeof(name)); \
-	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
+	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name; \
+	void outer_name::name::InitMetaDataManually(void(*initor)(md_custom_type*)) \
+	{ \
+		_MD__##md_obj_pre_name##name; \
+		_MD__CTM_DIDO##name; \
+		if (initor) \
+			initor(const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
+	}
 
 //嵌套用(命名空间内部)
-#define MD_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name) \
+#define MD_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, md_custom_type_id, outer_name) \
 	const md_custom_type outer_name::name::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name)); \
-	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name;
+	outer_name::name::C_MD__CTM_DID##name outer_name::name::_MD__CTM_DIDO##name; \
+	void outer_name::name::InitMetaDataManually(void(*initor)(md_custom_type*)) \
+	{ \
+		_MD__##md_obj_pre_name##name; \
+		_MD__CTM_DIDO##name; \
+		if (initor) \
+			initor(const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
+	}
 
 //析构函数封装
 #define MD_CUSTOM_TYPE_DESTRUCTOR_WRAPPER_DEF(cls_name) \
@@ -107,22 +128,46 @@
 #endif //_MSC_VER
 
 //无嵌套
-#define MD_TEMPLATE_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, ...) \
+#define MD_TEMPLATE_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, md_custom_type_id, ...) \
 	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	const md_custom_type name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &META_DATA_GLOBALSPACE(), sizeof(name<__VA_ARGS__>)); \
 	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
-	typename name<__VA_ARGS__>::C_MD__CTM_DID##name name<__VA_ARGS__>::_MD__CTM_DIDO##name;
+	typename name<__VA_ARGS__>::C_MD__CTM_DID##name name<__VA_ARGS__>::_MD__CTM_DIDO##name; \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
+	void name<__VA_ARGS__>::InitMetaDataManually(void(*initor)(md_custom_type*)) \
+	{ \
+		_MD__##md_obj_pre_name##name; \
+		_MD__CTM_DIDO##name; \
+		if (initor) \
+			initor(const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
+	}
 
 //嵌套用(自定义类型内部)
-#define MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, outer_name, meta_data_ctm_type_outer_name, ...) \
+#define MD_TEMPLATE_CUSTOM_TYPE_IN_CUSTOM_TYPE_DEF(name, md_obj_pre_name, md_custom_type, md_custom_type_id, outer_name, meta_data_ctm_type_outer_name, ...) \
 	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	const md_custom_type outer_name::name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &meta_data_ctm_type_outer_name, sizeof(name<__VA_ARGS__>)); \
 	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
-	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name;
+	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name; \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
+	void outer_name::name<__VA_ARGS__>::InitMetaDataManually(void(*initor)(md_custom_type*)) \
+	{ \
+		_MD__##md_obj_pre_name##name; \
+		_MD__CTM_DIDO##name; \
+		if (initor) \
+			initor(const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
+	}
 
 //嵌套用(命名空间内部)
-#define MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, outer_name, ...) \
+#define MD_TEMPLATE_CUSTOM_TYPE_IN_NS_DEF(name, md_obj_pre_name, md_custom_type, md_custom_type_id, outer_name, ...) \
 	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
 	const md_custom_type outer_name::name<__VA_ARGS__>::_MD__##md_obj_pre_name##name(#name, &META_DATA_NAME_SPACE(outer_name), sizeof(name<__VA_ARGS__>)); \
 	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
-	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name;
+	typename outer_name::name<__VA_ARGS__>::C_MD__CTM_DID##name outer_name::name<__VA_ARGS__>::_MD__CTM_DIDO##name; \
+	template<MD_TEMPLATE_PARAM(__VA_ARGS__)> \
+	void outer_name::name<__VA_ARGS__>::InitMetaDataManually(void(*initor)(md_custom_type*)) \
+	{ \
+		_MD__##md_obj_pre_name##name; \
+		_MD__CTM_DIDO##name; \
+		if (initor) \
+			initor(const_cast<md_custom_type*>(&META_DATA_CUSTOM_TYPE(name, md_custom_type, md_custom_type_id))); \
+	}
